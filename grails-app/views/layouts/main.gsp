@@ -14,14 +14,18 @@
 </head>
 <body>
     <nav>
-
+        <ul>
+            <g:each in="${(0..10)}">
+                <li>${it}</li>
+            </g:each>
+        </ul>
     </nav>
 
     <g:layoutBody/>
 
-    <footer>
+    %{--<footer>--}%
 
-    </footer>
+    %{--</footer>--}%
 
     <asset:javascript src="application.js"/>
 
