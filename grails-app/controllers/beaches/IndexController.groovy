@@ -3,7 +3,7 @@ package beaches
 class IndexController {
 
     def index() {
-        def beachSelection = [
+        def demoPage = [
                 pageName: 'Beach Selection',
                 questions: [
                         new TextQuestion(columnId: 'Q1', prompt: 'Prompt 1'),
@@ -25,7 +25,64 @@ class IndexController {
                         ])
                 ]
         ]
-        [survey: [beachSelection]]
+
+        def beachSelection = [
+                pageName: 'Beach Selection',
+                questions: [
+                        new SelectQuestion(columnId: '__favorites', options: []),
+                        new TextQuestion(columnId: '__county', prompt: 'County'),
+                        new TextQuestion(columnId: '__lake', prompt: 'Lake'),
+                        new TextQuestion(columnId: 'BEACH_SEQ', prompt: 'Beach'),
+                        new TextQuestion(columnId: 'MONITOR_SITE_SEQ', prompt: 'Monitoring Site'),
+                        new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
+                                new Tuple2('Composite sample', false)
+                        ])
+                ]
+        ]
+
+        def wildlifeBathers = [
+                pageName: 'Wildlife & Bathers',
+                questions: [
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls'),
+                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese'),
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife'),
+                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water'),
+                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water')
+                ]
+        ]
+
+        def algae = [
+                pageName: 'Algae',
+                questions: [
+                        new CheckQuestion(columnId: '__a', prompts: [
+                                new Tuple2('No nearshore algae', true),
+                                new Tuple2('1-20% nearshore algae', false),
+                                new Tuple2('21-50% nearshore algae', false),
+                                new Tuple2('>50% nearshore algae', false)
+                        ], radio: true),
+                        new CheckQuestion(columnId: '__b', prompts: [
+                                new Tuple2('No beach algae', true),
+                                new Tuple2('1-20% beach algae', false),
+                                new Tuple2('21-50% beach algae', false),
+                                new Tuple2('>50% beach algae', false)
+                        ], radio: true)
+                ]
+        ]
+
+        def tempTurbidity = [
+                pageName: 'Temperature & Turbidity',
+                questions: [
+                        new TextQuestion(columnId: '__c', prompt: 'Water temperature'),
+                        new CheckQuestion(columnId: '__d', prompts: [
+                                new Tuple2('Clear', true),
+                                new Tuple2('Slightly turbid', false),
+                                new Tuple2('Turbid', false),
+                                new Tuple2('Opaque', false)
+                        ], radio: true)
+                ]
+        ]
+
+        [survey: [beachSelection, wildlifeBathers, algae, tempTurbidity]]
     }
 }
 
