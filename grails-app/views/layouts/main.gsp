@@ -8,16 +8,18 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+
     <asset:stylesheet src="application.css"/>
 
     <g:layoutHead/>
 </head>
 <body>
-    <nav>
-        <ul>
-            <g:each in="${(0..10)}">
-                <li>${it}</li>
-            </g:each>
+    <nav class="split-container">
+        <p id="page-title">Wisconsin Beach Health</p>
+        <i id="btn-menu" class="icon-menu btn"></i>
+        <ul id="nav-list">
+            <li></li>
         </ul>
     </nav>
 

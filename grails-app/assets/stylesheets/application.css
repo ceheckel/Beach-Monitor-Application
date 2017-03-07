@@ -8,6 +8,102 @@
 * compiled file, but it's generally better to create a new file per style scope.
 *
 *--= require main
+*= require reset
 *= require mobile
+*= require fontello
 *= require_self
 */
+
+html {
+    font-size: 20px;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+body {
+    padding: 3rem 1rem 4rem;
+}
+
+nav {
+    padding: 1rem;
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    color: #fff;
+    font-weight: 300;
+}
+
+#nav-list {
+    position: fixed;
+}
+
+h1, h2 {
+    font-weight: 300;
+}
+
+h1.mega {
+    font-size: 1.5rem;
+    margin: 2rem auto 3rem;
+    text-align: center;
+}
+
+section {
+    padding-top: 1rem;
+}
+
+section h1 {
+    margin-bottom: 1rem;
+}
+
+.split-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-list {
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+button {
+    background: #ddd;
+    color: #000;
+    border: none;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button, .btn-page-fake {
+    width: 5rem;
+    height: 2rem;
+    padding: 0;
+}
+
+.btn-primary {
+    background: #44aadd;
+    color: white;
+}
+
+.btn-page-fake {
+    opacity: 0;
+}
+
+.page-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem;
+    background: #fff;
+}

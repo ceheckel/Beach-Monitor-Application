@@ -6,7 +6,6 @@
 // to create separate JavaScript files as needed.
 //
 //= require jquery-2.2.0.min
-//= require bootstrap
 //= require_tree .
 //= require_self
 
@@ -18,4 +17,29 @@ if (typeof jQuery !== 'undefined') {
             $('#spinner').fadeOut();
         });
     })(jQuery);
+
+    $(document).ready(function() {
+        $('section[id*=page-survey-]').hide();
+
+        $('#btn-menu').click(function() {
+            console.log('menu button clicked');
+        });
+
+        $('#btn-new').click(function() {
+            toPage('#page-survey-0');
+        });
+
+        $('#btn-past-reps').click(function() {
+            console.log('past reports');
+        });
+    });
+
+    function toPage(page) {
+        $('section[id*=page-]').hide();
+        $(page).show();
+    }
+
+    function toPageNum(num) {
+        toPage('#page-survey-' + num);
+    }
 }
