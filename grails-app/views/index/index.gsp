@@ -8,65 +8,141 @@
     %{--<asset:link rel="icon" href="favicon.ico" type="image/x-ico" />--}%
 </head>
 <body>
-<section id="page-home">
-    <h1 class="mega">Wisconsin Beaches</h1>
-    <div class="split-container report-list">
-        <h2>Unsubmitted Reports</h2>
-        <div class="btns">
-            <i id="btn-new" class="icon-plus btn"></i>
-        </div>
-    </div>
+%{--<section id="page-home">--}%
+    %{--<h1 class="mega">Wisconsin Beaches</h1>--}%
+    %{--<div class="split-container report-list">--}%
+        %{--<h2>Unsubmitted Reports</h2>--}%
+        %{--<div class="btns">--}%
+            %{--<i id="btn-new" class="icon-plus btn"></i>--}%
+        %{--</div>--}%
+    %{--</div>--}%
 
-    <div class="split-container report-list">
-        <h2>Past Reports</h2>
-        <div class="btns">
-            <i id="btn-past-reps" class="icon-right-open btn"></i>
-        </div>
-    </div>
-</section>
+    %{--<div class="split-container report-list">--}%
+        %{--<h2>Past Reports</h2>--}%
+        %{--<div class="btns">--}%
+            %{--<i id="btn-past-reps" class="icon-right-open btn"></i>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+%{--</section>--}%
+
+<div class="page-content" data-page="home" data-page-title="WI Beaches">
+    <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
+        <i class="material-icons">add</i>
+    </button>
+    <ul class="mdl-list">
+        <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                <span class="mdl-typography--font-bold">Unsubmitted Reports</span>
+            </span>
+        </li>
+        <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+                <span>Green Lake</span>
+                <span class="mdl-list__item-sub-title">Mar. 4 &ndash; Site 1</span>
+            </span>
+            <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">edit</i></a>
+            </span>
+        </li>
+        <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+                <span>Green Lake</span>
+                <span class="mdl-list__item-sub-title">Mar. 4 &ndash; Site 2</span>
+            </span>
+            <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">edit</i></a>
+            </span>
+        </li>
+        <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+                <span>Castle Rock Lake</span>
+                <span class="mdl-list__item-sub-title">Mar. 2 &ndash; Site 1</span>
+            </span>
+            <span class="mdl-list__item-secondary-content">
+                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">edit</i></a>
+            </span>
+        </li>
+    </ul>
+    <ul class="mdl-list">
+        <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                <span class="mdl-typography--font-bold">Past Reports</span>
+            </span>
+        </li>
+        <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+                <span>Wellington Lake</span>
+                <span class="mdl-list__item-sub-title">Jan. 27 &ndash; Site 1</span>
+            </span>
+        </li>
+        <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+                <span>New Richmond Flowage</span>
+                <span class="mdl-list__item-sub-title">Jan. 27 &ndash; Site 1</span>
+            </span>
+        </li>
+    </ul>
+</div>
 
 <g:each status="i" var="p" in="${survey}">
-    <section id="page-survey-${i}">
-        <h1>${p.pageName}</h1>
+    <div class="page-content" data-page-title="${p.pageName}" data-page="${i}">
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
-                <g:textField name="${q.columnId}" placeholder="${q.prompt}"/>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" name="${q.columnId}" id="${q.columnId}">
+                    <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
+                </div>
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
                 <g:if test="${q.radio}">
-                    <g:radioGroup name="${q.columnId}" values="${(1..q.prompts.size())}" labels="${q.prompts.collect {e -> e.first}}" value="${q.prompts.findIndexOf({e -> e.second})+1}">
-                        <p>${it.radio} ${it.label}</p>
-                    </g:radioGroup>
+                    <g:each status="n" var="c" in="${q.prompts}">
+                        <div>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="${q.columnId + '-' + n}">
+                                <input type="radio" id="${q.columnId + '-' + n}" class="mdl-radio__button" name="${q.columnId}" value="n"${c.second ? ' checked' : ''}>
+                                <span class="mdl-radio__label">${c.first}</span>
+                            </label>
+                        </div>
+                    </g:each>
                 </g:if>
                 <g:else>
                     <g:each var="c" in="${q.prompts}">
-                        <g:checkBox name="${q.columnId}" checked="${c.second}" id="${q.columnId + '-' + c.first}"/>
-                        <label for="${q.columnId + '-' + c.first}">${c.first}</label>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${q.columnId}">
+                            <input type="checkbox" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
+                            <span class="mdl-checkbox__label">${c.first}</span>
+                        </label>
                         <br>
                     </g:each>
                 </g:else>
             </g:if>
             <g:if test="${q instanceof SelectQuestion}">
-                <g:select name="${q.columnId}" from="${q.options}" id="${q.columnId}"/>
+                %{-- not using g:select because it's easier to create mdl components by hand --}%
+                <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                    <select name="${q.columnId}" id="${q.columnId}" class="mdl-selectfield__select">
+                        <g:each var="o" in="${q.options}">
+                            <option value="${o}">${o}</option>
+                        </g:each>
+                    </select>
+                    <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
+                    <label class="mdl-selectfield__label" for="${q.columnId}">Favorites</label>
+                </div>
             </g:if>
             <br>
         </g:each>
-        <div class="page-nav split-container">
+        <div class="bottom-nav">
             <g:if test="${i>0}">
-                <button id="btn-prev-${i}" onclick="toPageNum(${i-1})">Previous</button>
+                <button class="mdl-button mdl-js-button msl-js-ripple-effect mdl-button--raised" id="btn-prev-${i}" onclick="toPage(${i-1})">Previous</button>
             </g:if>
             <g:else>
-                <div class="btn-page-fake"></div>
+                <div></div>
             </g:else>
-            <span class="progress-text">${i+1}/${survey.size()}</span>
             <g:if test="${i<survey.size()-1}">
-                <button class="btn-primary" id="btn-next-${i}" onclick="toPageNum(${i+1})">Next</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-next-${i}" onclick="toPage(${i+1})">Next</button>
             </g:if>
             <g:else>
-                <div class="btn-page-fake"></div>
+                <div></div>
             </g:else>
         </div>
-    </section>
+    </div>
 </g:each>
 </body>
 </html>
