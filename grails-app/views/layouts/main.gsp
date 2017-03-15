@@ -8,42 +8,38 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <asset:stylesheet src="application.css"/>
 
     <g:layoutHead/>
 </head>
 <body>
-
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/#">
-                    <i class="fa grails-icon">
-                        <asset:image src="grails-cupsonly-logo-white.svg"/>
-                    </i> Grails
-                </a>
-            </div>
-            <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-                <ul class="nav navbar-nav navbar-right">
-                    <g:pageProperty name="page.nav" />
-                </ul>
-            </div>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title" id="page-title">Wisconsin Beach Health</span>
         </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title" id="page-title-drawer">Home</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="#">Link</a>
+            <a class="mdl-navigation__link" href="#">Link</a>
+            <a class="mdl-navigation__link" href="#">Link</a>
+            <a class="mdl-navigation__link" href="#">Link</a>
+        </nav>
     </div>
+    <main class="mdl-layout__content">
+        <g:layoutBody/>
+    </main>
+</div>
 
-    <g:layoutBody/>
+    %{--<footer>--}%
 
-    <div class="footer" role="contentinfo"></div>
-
-    <div id="spinner" class="spinner" style="display:none;">
-        <g:message code="spinner.alt" default="Loading&hellip;"/>
-    </div>
+    %{--</footer>--}%
 
     <asset:javascript src="application.js"/>
 
