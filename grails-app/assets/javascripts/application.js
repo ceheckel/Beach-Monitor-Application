@@ -33,6 +33,8 @@ if (typeof jQuery !== 'undefined') {
             toPage('0');
         });
 
+
+
         $('#btn-past-reps').click(function() {
             console.log('past reports');
         });
