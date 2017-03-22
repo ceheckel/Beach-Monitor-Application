@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion" %>
+<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion" %>
 <!doctype html>
 <html>
 <head>
@@ -89,11 +89,14 @@
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" name="${q.columnId}" id="${q.columnId}">
+                    <input class="mdl-textfield__input" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}">
                     <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                 </div>
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
+                <g:if test="${q.hasTitle}">
+                    <p>${q.title}</p>
+                </g:if>
                 <g:if test="${q.radio}">
                     <g:each status="n" var="c" in="${q.prompts}">
                         <div>
@@ -126,7 +129,10 @@
                     <label class="mdl-selectfield__label" for="${q.columnId}">Favorites</label>
                 </div>
             </g:if>
-            <br>
+            <g:if test ="${q instanceof HiddenQuestion}">
+                <input class="mdl-textfield__input" type="hidden" value="${q.value}" name="${q.columnId}" id="${q.columnId}">
+            </g:if>
+            <g:else><br></g:else>
         </g:each>
         <div class="bottom-nav">
             <g:if test="${i>0}">
