@@ -29,6 +29,8 @@ if (typeof jQuery !== 'undefined') {
         });
 
         $('#btn-new-survey').click(function() {
+            currentId = guid();
+            console.log("Created new survey with id: " + currentId);
             toPage('0');
         });
 
@@ -43,5 +45,20 @@ if (typeof jQuery !== 'undefined') {
         p.show();
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
+    }
+
+    function saveSurvey(id) {
+        data = getAllFields();
+    }
+
+    function getAllFields() {
+        data = {
+
+        }
+        $('[name]').each( function () {
+            if (this.value)
+                data[this.name] = this.value;
+        });
+        return data;
     }
 }
