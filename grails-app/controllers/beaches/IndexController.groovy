@@ -43,11 +43,11 @@ class IndexController {
         def wildlifeBathers = [
                 pageName: 'Wildlife & Bathers',
                 questions: [
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls'),
-                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese'),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife'),
-                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water'),
-                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water')
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls', type: 'number', step:'1'),
+                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese', type: 'number', step:'1'),
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife', type: 'number', step:'1'),
+                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water', type: 'number', step:'1'),
+                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water', type: 'number', step:'1')
                 ]
         ]
 
@@ -72,13 +72,15 @@ class IndexController {
         def tempTurbidity = [
                 pageName: 'Temperature & Turbidity',
                 questions: [
-                        new TextQuestion(columnId: '__c', prompt: 'Water temperature'),
+                        new TextQuestion(columnId: '__c', prompt: 'Water temperature',type: 'number', step: '0.001'),
                         new CheckQuestion(columnId: '__d', prompts: [
                                 new Tuple2('Clear', true),
                                 new Tuple2('Slightly turbid', false),
                                 new Tuple2('Turbid', false),
                                 new Tuple2('Opaque', false)
-                        ], radio: true)
+                        ], radio: true, hasTitle: true, title: "Turbidity"),
+                        //Sample Hidden Question
+                        new HiddenQuestion(columnId: '__Units', value: 'm')
                 ]
         ]
 
@@ -96,13 +98,22 @@ abstract class Question {
 
 class TextQuestion extends Question {
     String prompt
+    String type = "text"
+    String pattern = ".*"
+    String step
 }
 
 class CheckQuestion extends Question {
     List<Tuple2<String, Boolean>> prompts
     boolean radio = false
+    boolean hasTitle = false
+    String title
 }
 
 class SelectQuestion extends Question {
     List<String> options
+}
+
+class HiddenQuestion extends Question {
+    String value
 }

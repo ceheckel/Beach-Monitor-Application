@@ -11,6 +11,8 @@
 //= require_tree .
 //= require_self
 
+var curPage = 0;
+
 if (typeof jQuery !== 'undefined') {
     (function($) {
         $(document).ajaxStart(function() {
@@ -30,10 +32,10 @@ if (typeof jQuery !== 'undefined') {
 
         $('#btn-new-survey').click(function() {
             surveyId = guid();
-            toPage('0');
+            toPage(0);
+            $('#page-questions').css('display', 'block');
+
         });
-
-
 
         $('#btn-past-reps').click(function() {
             console.log('past reports');
@@ -46,8 +48,37 @@ if (typeof jQuery !== 'undefined') {
         p.show();
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
+        curPage = page;
+        if (curPage > 0)
+            $('#btn-prev').css('display', 'block');
+        if (curPage == totalQuestionPages - 1)
+            $('#btn-next').html('Review');
+        else
+            $('#btn-next').html('Next');
         if (typeof(surveyId) != "undefined")
             saveSurvey();
+    }
+
+    function btnPrev() {
+        toPage(curPage - 1);
+    }
+
+    function btnNext() {
+        if (curPage == totalQuestionPages - 1)
+            toReview();
+        else if (curPage == totalQuestionPages)
+            submit();
+        else
+            toPage(curPage + 1);
+    }
+
+    function toReview() {
+        $('div[data-page]').show();
+        $('div[data-page=home]').hide();
+        $('#page-title').html('Review');
+        $('#page-title-drawer').html('Review');
+        curPage = totalQuestionPages;
+        $('#btn-next').html('Submit');
     }
 
     function saveSurvey() {
@@ -57,9 +88,7 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function getAllFields() {
-        data = {
-
-        };
+        data = {};
         $('[name]').each( function () {
             if (this.value)
                 data[this.name] = this.value;
