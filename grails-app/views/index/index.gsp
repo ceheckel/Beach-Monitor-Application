@@ -84,7 +84,7 @@
     </ul>
 </div>
 
-<div class="page-content">
+<div class="page-content" id="page-questions" style="display: none">
 <g:each status="i" var="p" in="${survey}">
     <div data-page-title="${p.pageName}" data-page="${i}">
         <g:each var="q" in="${p.questions}">
