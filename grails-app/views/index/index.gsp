@@ -33,6 +33,7 @@
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Unsubmitted Reports</span>
+                <button id="createnew">Create Test Data</button>
             </span>
         </li>
         <li class="mdl-list__item mdl-list__item--two-line">
