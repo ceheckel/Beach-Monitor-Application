@@ -89,7 +89,7 @@
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" name="${q.columnId}" id="${q.columnId}">
+                    <input class="mdl-textfield__input" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}">
                     <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                 </div>
             </g:if>
