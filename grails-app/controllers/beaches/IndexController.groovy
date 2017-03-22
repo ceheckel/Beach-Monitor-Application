@@ -78,7 +78,7 @@ class IndexController {
                                 new Tuple2('Slightly turbid', false),
                                 new Tuple2('Turbid', false),
                                 new Tuple2('Opaque', false)
-                        ], radio: true),
+                        ], radio: true, hasTitle: true, title: "Turbidity"),
                         //Sample Hidden Question
                         new HiddenQuestion(columnId: '__Units', value: 'm')
                 ]
@@ -102,6 +102,8 @@ class TextQuestion extends Question {
 class CheckQuestion extends Question {
     List<Tuple2<String, Boolean>> prompts
     boolean radio = false
+    boolean hasTitle = false
+    String title
 }
 
 class SelectQuestion extends Question {

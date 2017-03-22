@@ -94,6 +94,9 @@
                 </div>
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
+                <g:if test="${q.hasTitle}">
+                    <p>${q.title}</p>
+                </g:if>
                 <g:if test="${q.radio}">
                     <g:each status="n" var="c" in="${q.prompts}">
                         <div>
