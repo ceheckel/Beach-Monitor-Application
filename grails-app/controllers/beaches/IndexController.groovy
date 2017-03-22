@@ -78,7 +78,9 @@ class IndexController {
                                 new Tuple2('Slightly turbid', false),
                                 new Tuple2('Turbid', false),
                                 new Tuple2('Opaque', false)
-                        ], radio: true)
+                        ], radio: true),
+                        //Sample Hidden Question
+                        new HiddenQuestion(columnId: '__Units', value: 'm')
                 ]
         ]
 
@@ -104,4 +106,8 @@ class CheckQuestion extends Question {
 
 class SelectQuestion extends Question {
     List<String> options
+}
+
+class HiddenQuestion extends Question {
+    String value
 }

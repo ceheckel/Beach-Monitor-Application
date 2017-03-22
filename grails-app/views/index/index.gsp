@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion" %>
+<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion" %>
 <!doctype html>
 <html>
 <head>
@@ -126,7 +126,10 @@
                     <label class="mdl-selectfield__label" for="${q.columnId}">Favorites</label>
                 </div>
             </g:if>
-            <br>
+            <g:if test ="${q instanceof HiddenQuestion}">
+                <input class="mdl-textfield__input" type="hidden" value="${q.value}" name="${q.columnId}" id="${q.columnId}">
+            </g:if>
+            <g:else><br></g:else>
         </g:each>
         <div class="bottom-nav">
             <g:if test="${i>0}">
