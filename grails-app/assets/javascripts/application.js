@@ -29,8 +29,7 @@ if (typeof jQuery !== 'undefined') {
         });
 
         $('#btn-new-survey').click(function() {
-            currentId = guid();
-            console.log("Created new survey with id: " + currentId);
+            surveyId = guid();
             toPage('0');
         });
 
@@ -45,16 +44,20 @@ if (typeof jQuery !== 'undefined') {
         p.show();
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
+        if (typeof(surveyId) != "undefined")
+            saveSurvey();
     }
 
-    function saveSurvey(id) {
+    function saveSurvey() {
         data = getAllFields();
+        survey = new Survey(surveyId, data);
+        survey.save();
     }
 
     function getAllFields() {
         data = {
 
-        }
+        };
         $('[name]').each( function () {
             if (this.value)
                 data[this.name] = this.value;

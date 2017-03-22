@@ -1,27 +1,7 @@
-/**
- * Created by miles on 3/19/17.
- */
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-}
+Survey = function(id, data) {
+    this.data = data;
 
-Survey = function() {
-    this.data = {
-        beach_seq : 1234,
-        monitor_site_seq : 5678,
-        sample_date_time : Date.now(),
-        sampler_seq : 1111,
-    };
-
-    // TODO: Finish the rest of the fields and allow the user to edit surveys / take data from current surveys
-
-    this.key = guid();
+    this.key = id;
 
     this.save = function(callback) {
         localforage.setItem(this.key, this.data, callback);
@@ -57,7 +37,8 @@ Surveys.add = function(survey, callback) {
         if (result == null)
             surveys = [];
 
-        surveys.push(survey.key);
+        if (surveys.indexOf(survey.key) < 0)
+            surveys.push(survey.key);
 
         localforage.setItem("surveys", surveys, function(settingError, newSurvey) {
             if (callback && !settingError)
