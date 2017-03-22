@@ -43,7 +43,7 @@ class IndexController {
         def wildlifeBathers = [
                 pageName: 'Wildlife & Bathers',
                 questions: [
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls'),
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls', inputType: 'number', pattern: '[1-9][0-9]*'),
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese'),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife'),
                         new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water'),
@@ -92,6 +92,8 @@ abstract class Question {
 
 class TextQuestion extends Question {
     String prompt
+    String inputType="text"
+    String pattern=".*"
 }
 
 class CheckQuestion extends Question {
