@@ -72,7 +72,7 @@ class IndexController {
 
         def wildlifeBathers = [
                 pageName: 'Animal Bathers',
-                questions: [
+                questions:
                         new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls'),
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese'),
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of dogs'),
@@ -253,6 +253,7 @@ class IndexController {
                 pageName: 'Part 2 comments',
                 questions: [
                         new TextQuestion(columnId: 'PART_2_COMMENTS', prompt: 'Part 2 comments (Color and odor)')
+
                 ]
         ]
 
@@ -324,6 +325,7 @@ class IndexController {
                         new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature'),
                         //@TODO HIDDEN UNIT
                         new CheckQuestion(columnId: 'CLARITY_DESC', prompts: [
+
                                 new Tuple2('Clear', true),
                                 new Tuple2('Slightly turbid', false),
                                 new Tuple2('Turbid', false),
@@ -331,6 +333,7 @@ class IndexController {
                         ], radio: true),
                         new TextQuestion(columnId: 'NTU', prompt: 'OR NTU'),
                         new TextQuestion(columnId: 'SEECHI_TUBE_CM', prompt: 'Seechi tube (CM)'),
+
                 ]
         ]
 
@@ -353,13 +356,22 @@ abstract class Question {
 
 class TextQuestion extends Question {
     String prompt
+    String type = "text"
+    String pattern = ".*"
+    String step
 }
 
 class CheckQuestion extends Question {
     List<Tuple2<String, Boolean>> prompts
     boolean radio = false
+    boolean hasTitle = false
+    String title
 }
 
 class SelectQuestion extends Question {
     List<String> options
+}
+
+class HiddenQuestion extends Question {
+    String value
 }

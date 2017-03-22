@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion" %>
+<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion" %>
 <!doctype html>
 <html>
 <head>
@@ -84,16 +84,20 @@
     </ul>
 </div>
 
+<div class="page-content">
 <g:each status="i" var="p" in="${survey}">
-    <div class="page-content" data-page-title="${p.pageName}" data-page="${i}">
+    <div data-page-title="${p.pageName}" data-page="${i}">
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" name="${q.columnId}" id="${q.columnId}">
+                    <input class="mdl-textfield__input" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}">
                     <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                 </div>
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
+                <g:if test="${q.hasTitle}">
+                    <p>${q.title}</p>
+                </g:if>
                 <g:if test="${q.radio}">
                     <g:each status="n" var="c" in="${q.prompts}">
                         <div>
@@ -126,7 +130,10 @@
                     <label class="mdl-selectfield__label" for="${q.columnId}">Favorites</label>
                 </div>
             </g:if>
-            <br>
+            <g:if test ="${q instanceof HiddenQuestion}">
+                <input class="mdl-textfield__input" type="hidden" value="${q.value}" name="${q.columnId}" id="${q.columnId}">
+            </g:if>
+            <g:else><br></g:else>
         </g:each>
         <div class="bottom-nav">
             <g:if test="${i>0}">
@@ -144,5 +151,14 @@
         </div>
     </div>
 </g:each>
+<div class="bottom-nav" id="bottom-nav">
+  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
+  <div style="flex-grow: 1"></div>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
+</div>
+</div>
+<script type="text/javascript">
+  var totalQuestionPages = ${survey.size()};
+</script>
 </body>
 </html>
