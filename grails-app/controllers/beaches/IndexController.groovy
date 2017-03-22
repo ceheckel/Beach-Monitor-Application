@@ -72,7 +72,7 @@ class IndexController {
 
         def wildlifeBathers = [
                 pageName: 'Animal Bathers',
-                questions:
+                questions: [
                         new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls'),
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese'),
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of dogs'),
