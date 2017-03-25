@@ -366,6 +366,7 @@ class CheckQuestion extends Question {
     boolean radio = false
     boolean hasTitle = false
     String title
+    boolean inline = false
 }
 
 class SelectQuestion extends Question {
