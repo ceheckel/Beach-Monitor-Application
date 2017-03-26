@@ -30,16 +30,15 @@ if (typeof jQuery !== 'undefined') {
             console.log('menu button clicked');
         });
 
-        $('#btn-new-survey').click(function() {
-            toPage(0);
-            $('#page-questions').css('display', 'block');
-
-        });
-
         $('#btn-past-reps').click(function() {
             console.log('past reports');
         });
     });
+
+    function newSurvey(){
+        toPage(0);
+        $('#page-questions').css('display', 'block');
+    }
 
     function toPage(page) {
         completePage(curPage, page);
@@ -64,10 +63,15 @@ if (typeof jQuery !== 'undefined') {
         }
         else
             $('#bottom-nav').css('display', 'none');
-        if (curPage == 'home')
-            document.getElementById("drawerStyle").innerHTML='.mdl-layout .mdl-layout__drawer-button {display: none;}';
-        else
-            document.getElementById("drawerStyle").innerHTML='.mdl-layout .mdl-layout__drawer-button {display: block;}';
+        if (curPage == 'home') {
+            document.getElementById("surveySectionsDrawer").style.display = 'none';
+            document.getElementById("homeSectionDrawer").style.display = 'block';
+            $('#page-questions').css('display', 'none');
+        }
+        else {
+            document.getElementById("surveySectionsDrawer").style.display = 'block';
+            document.getElementById("homeSectionDrawer").style.display = 'none';
+        }
     }
 
     function btnPrev() {
