@@ -30,6 +30,11 @@ if (typeof jQuery !== 'undefined') {
             console.log('menu button clicked');
         });
 
+        $('#btn-new-survey').click(function() {
+            surveyId = guid();
+            toPage('0');
+        });
+
         $('#btn-past-reps').click(function() {
             console.log('past reports');
         });
@@ -47,6 +52,26 @@ if (typeof jQuery !== 'undefined') {
         p.show();
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
+
+        if (typeof(surveyId) != "undefined")
+            saveSurvey();
+    }
+
+    function saveSurvey() {
+        data = getAllFields();
+        survey = new Survey(surveyId, data);
+        survey.save();
+    }
+
+    function getAllFields() {
+        data = {
+
+        };
+        $('[name]').each( function () {
+            if (this.value)
+                data[this.name] = this.value;
+        });
+        return data;
         curPage = page;
         if (curPage > 0)
             $('#btn-prev').css('display', 'block');

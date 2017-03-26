@@ -335,6 +335,10 @@ class IndexController {
 
         [survey: [beachSelection, wildlifeBathers, deadWildlife, floaters, debris, bathers, weather, waves, water, algae, comments]]
     }
+
+    def addSurvey() {
+
+    }
 }
 
 abstract class Question {
