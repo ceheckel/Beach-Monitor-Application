@@ -53,14 +53,17 @@ if (typeof jQuery !== 'undefined') {
             $('#btn-prev').css('display', 'block');
         else
             $('#btn-prev').css('display', 'none');
-        if (curPage == totalQuestionPages - 1)
+        if (curPage == totalQuestionPages - 1) {
             $('#btn-next').html('Review');
+            $('#bottom-nav').css('display', 'flex');
+        }
         else if (curPage >= 0) {
             $('#btn-next').css('display', 'block');
             $('#btn-next').html('Next');
+            $('#bottom-nav').css('display', 'flex');
         }
         else
-            $('#btn-next').css('display', 'none');
+            $('#bottom-nav').css('display', 'none');
         if (curPage == 'home')
             document.getElementById("drawerStyle").innerHTML='.mdl-layout .mdl-layout__drawer-button {display: none;}';
         else
