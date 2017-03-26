@@ -141,26 +141,12 @@
             </g:if>
             <g:else><br></g:else>
         </g:each>
-        <div class="bottom-nav">
-            <g:if test="${i>0}">
-                <button class="mdl-button mdl-js-button msl-js-ripple-effect mdl-button--raised" id="btn-prev-${i}" onclick="toPage(${i-1})">Previous</button>
-            </g:if>
-            <g:else>
-                <div></div>
-            </g:else>
-            <g:if test="${i<survey.size()-1}">
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-next-${i}" onclick="toPage(${i+1})">Next</button>
-            </g:if>
-            <g:else>
-                <div></div>
-            </g:else>
-        </div>
     </div>
 </g:each>
 <div class="bottom-nav" id="bottom-nav">
   <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
   <div style="flex-grow: 1"></div>
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
+  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
 </div>
 </div>
 <script type="text/javascript">
