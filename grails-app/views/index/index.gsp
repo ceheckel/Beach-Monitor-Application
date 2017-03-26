@@ -24,7 +24,7 @@
         %{--</div>--}%
     %{--</div>--}%
 %{--</section>--}%
-
+<style id="drawerStyle"></style>
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
     <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
         <i class="material-icons">add</i>

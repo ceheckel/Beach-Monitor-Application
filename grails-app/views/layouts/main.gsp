@@ -26,10 +26,16 @@
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title" id="page-title-drawer">Home</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="#">Link</a>
-            <a class="mdl-navigation__link" href="#">Link</a>
-            <a class="mdl-navigation__link" href="#">Link</a>
-            <a class="mdl-navigation__link" href="#">Link</a>
+            <a class="mdl-navigation__link" href="javascript:toPage('home');closeDrawer();">Home</a>
+            <g:set var="pageNum" value="${0}"/>
+            <g:each status="i" var="p" in="${survey}">
+                <a class="mdl-navigation__link" href="javascript:toPage(${pageNum});closeDrawer();">
+                    ${p.pageName}
+                    <i class="tiny material-icons" id="Complete_${pageNum}" style="display: none">done</i>
+                </a>
+                <g:set var="pageNum" value="${pageNum+1}"/>
+            </g:each>
+            <a class="mdl-navigation__link" href="javascript:toReview();closeDrawer();">Review</a>
         </nav>
     </div>
     <main class="mdl-layout__content">
