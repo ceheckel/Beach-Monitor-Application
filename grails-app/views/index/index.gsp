@@ -99,6 +99,9 @@
                     <p>${q.title}</p>
                 </g:if>
                 <g:if test="${q.radio}">
+                    <g:if test="${q.inline}">
+                        <div>
+                    </g:if>
                     <g:each status="n" var="c" in="${q.prompts}">
                         <g:if test="${!q.inline}">
                             <div>
@@ -111,6 +114,9 @@
                             </div>
                         </g:if>
                     </g:each>
+                    <g:if test="${q.inline}">
+                        </div>
+                    </g:if>
                 </g:if>
                 <g:else>
                     <g:each var="c" in="${q.prompts}">
