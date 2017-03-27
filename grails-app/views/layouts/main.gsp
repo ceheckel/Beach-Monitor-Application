@@ -20,22 +20,27 @@
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title" id="page-title">Wisconsin Beach Health</span>
+            <span class="mdl-layout-title" id="page-title" style="white-space: pre">WI Beaches</span>
         </div>
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title" id="page-title-drawer">Home</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="javascript:toPage('home');closeDrawer();">Home</a>
-            <g:set var="pageNum" value="${0}"/>
-            <g:each status="i" var="p" in="${survey}">
-                <a class="mdl-navigation__link" href="javascript:toPage(${pageNum});closeDrawer();">
-                    ${p.pageName}
-                    <i class="tiny material-icons" id="Complete_${pageNum}" style="display: none">done</i>
-                </a>
-                <g:set var="pageNum" value="${pageNum+1}"/>
-            </g:each>
-            <a class="mdl-navigation__link" href="javascript:toReview();closeDrawer();">Review</a>
+            <div id="surveySectionsDrawer" style="display: none">
+                <g:set var="pageNum" value="${0}"/>
+                <g:each status="i" var="p" in="${survey}">
+                    <a class="mdl-navigation__link" href="javascript:toPage(${pageNum});closeDrawer();">
+                        ${p.pageName}
+                        <i class="tiny material-icons" id="Complete_${pageNum}" style="display: none">done</i>
+                    </a>
+                    <g:set var="pageNum" value="${pageNum+1}"/>
+                </g:each>
+                <a class="mdl-navigation__link" href="javascript:toReview();closeDrawer();">Review</a>
+            </div>
+            <div id="homeSectionDrawer">
+                <a class="mdl-navigation__link" href="javascript:newSurvey();closeDrawer();">New Survey</a>
+            </div>
         </nav>
     </div>
     <main class="mdl-layout__content">
