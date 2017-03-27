@@ -26,7 +26,6 @@ if (typeof jQuery !== 'undefined') {
         $('div[data-page]').hide();
         toPage('home');
         getSurveys();
-        loadSurvey("70965f3f-7bc7-ce07-1cae-dd4d0d08e3fd");
 
         $('#btn-menu').click(function() {
             console.log('menu button clicked');
@@ -35,9 +34,7 @@ if (typeof jQuery !== 'undefined') {
         $('#btn-new-survey').click(function() {
             clearAllFields();
             surveyId = guid();
-            toPage('0');
-            $('#page-questions').css('display', 'block');
-
+            toPage(0);
         });
 
         $('#btn-past-reps').click(function() {
@@ -117,7 +114,6 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function loadSurvey(id) {
-        console.log("loading survey");
         surveyId = id;
         Surveys.getById(id, function(survey) {
             $('[name]').each(function () {
@@ -349,8 +345,11 @@ if (typeof jQuery !== 'undefined') {
             }
         }
         else if (page >= 0 && page < totalQuestionPages) {
-            if (complete)
+            if (complete) {
+                console.log("CURRENT PAGE: " + page);
                 document.getElementById('Complete_' + page).style.display = 'inline';
+                console.log("SUCCESS");
+            }
             else
                 document.getElementById('Complete_' + page).style.display = 'none';
         }
