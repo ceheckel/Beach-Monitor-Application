@@ -24,9 +24,8 @@
         %{--</div>--}%
     %{--</div>--}%
 %{--</section>--}%
-<style id="drawerStyle"></style>
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
-    <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
+    <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()">
         <i class="material-icons">add</i>
     </button>
     <ul class="mdl-list" id="unsubmitted-reports">
@@ -60,6 +59,9 @@
                     <p>${q.title}</p>
                 </g:if>
                 <g:if test="${q.radio}">
+                    <g:if test="${q.inline}">
+                        <div>
+                    </g:if>
                     <g:each status="n" var="c" in="${q.prompts}">
                         <g:if test="${!q.inline}">
                             <div>
@@ -72,6 +74,9 @@
                             </div>
                         </g:if>
                     </g:each>
+                    <g:if test="${q.inline}">
+                        </div>
+                    </g:if>
                 </g:if>
                 <g:else>
                     <g:each var="c" in="${q.prompts}">
@@ -102,26 +107,12 @@
             </g:if>
             <g:else><br></g:else>
         </g:each>
-        <div class="bottom-nav">
-            <g:if test="${i>0}">
-                <button class="mdl-button mdl-js-button msl-js-ripple-effect mdl-button--raised" id="btn-prev-${i}" onclick="toPage(${i-1})">Previous</button>
-            </g:if>
-            <g:else>
-                <div></div>
-            </g:else>
-            <g:if test="${i<survey.size()-1}">
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-next-${i}" onclick="toPage(${i+1})">Next</button>
-            </g:if>
-            <g:else>
-                <div></div>
-            </g:else>
-        </div>
     </div>
 </g:each>
 <div class="bottom-nav" id="bottom-nav">
   <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
   <div style="flex-grow: 1"></div>
-  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
+  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
 </div>
 </div>
 <script type="text/javascript">

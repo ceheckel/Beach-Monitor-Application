@@ -33,10 +33,9 @@ if (typeof jQuery !== 'undefined') {
         });
 
         $('#btn-new-survey').click(function() {
-            console.log("new survey pressed");
             clearAllFields();
             surveyId = guid();
-            toPage(0);
+            toPage('0');
             $('#page-questions').css('display', 'block');
 
         });
@@ -46,6 +45,11 @@ if (typeof jQuery !== 'undefined') {
         });
     });
 
+    function newSurvey(){
+        toPage(0);
+        $('#page-questions').css('display', 'block');
+    }
+
     function toPage(page) {
         completePage(curPage, page);
         $('div[data-page]').hide();
@@ -53,23 +57,32 @@ if (typeof jQuery !== 'undefined') {
         p.show();
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
+
         curPage = page;
         if (curPage > 0)
             $('#btn-prev').css('display', 'block');
         else
             $('#btn-prev').css('display', 'none');
-        if (curPage == totalQuestionPages - 1)
+        if (curPage == totalQuestionPages - 1) {
             $('#btn-next').html('Review');
+            $('#bottom-nav').css('display', 'flex');
+        }
         else if (curPage >= 0) {
             $('#btn-next').css('display', 'block');
             $('#btn-next').html('Next');
+            $('#bottom-nav').css('display', 'flex');
         }
         else
-            $('#btn-next').css('display', 'none');
-        if (curPage == 'home')
-            document.getElementById("drawerStyle").innerHTML='.mdl-layout .mdl-layout__drawer-button {display: none;}';
-        else
-            document.getElementById("drawerStyle").innerHTML='.mdl-layout .mdl-layout__drawer-button {display: block;}';
+            $('#bottom-nav').css('display', 'none');
+        if (curPage == 'home') {
+            document.getElementById("surveySectionsDrawer").style.display = 'none';
+            document.getElementById("homeSectionDrawer").style.display = 'block';
+            $('#page-questions').css('display', 'none');
+        }
+        else {
+            document.getElementById("surveySectionsDrawer").style.display = 'block';
+            document.getElementById("homeSectionDrawer").style.display = 'none';
+        }
     }
 
     function btnPrev() {
@@ -176,8 +189,10 @@ if (typeof jQuery !== 'undefined') {
 
     function clearAllFields() {
         $('[name]').each(function () {
-            if (this.value)
+            if (this.value) {
+                this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
                 this.value = '';
+            }
         });
     }
 
