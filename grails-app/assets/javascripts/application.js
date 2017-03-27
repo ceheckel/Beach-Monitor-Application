@@ -202,9 +202,10 @@ if (typeof jQuery !== 'undefined') {
         var complete = true;
         var other = false;
         p.each(function () {
-            //var text = $(this).find(".mdl-textfield mdl-js-textfield mdl-textfield--floating-label input");
-            // var radio = $(this).find(".mdl-radio mdl-js-radio mdl-js-ripple-effect input");
-            // var checkbox = $(this).find(".mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect input");
+            if ($(this).attr("id") == '__county' && $(this).val() == "")
+                complete = false;
+            if ($(this).attr("id") == '__lake' && $(this).val() == "")
+                complete = false;
             if ($(this).attr("id") == 'BEACH_SEQ' && $(this).val() == "")
                 complete = false;
             if ($(this).attr("id") == 'MONITOR_SITE_SEQ' && $(this).val() == "")
@@ -274,15 +275,23 @@ if (typeof jQuery !== 'undefined') {
             if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
                 complete = false;
 
+            if($(this).attr("id") == 'FLOAT_OTHER' && $(this).attr("checked"))
+                other = true;
+            if (other && $(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "")
+                complete = false;
+
+            if($(this).attr("id") == 'DEBRIS_OTHER' && $(this).attr("checked"))
+                other = true;
+            if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "")
+                complete = false;
+
             if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
                 complete = false;
             if ($(this).attr("id") == 'WIND_SPEED' && $(this).val() == "")
                 complete = false;
             if ($(this).attr("id") == 'WIND_DIR_DEGREES' && $(this).val() == "")
                 complete = false;
-            if ($(this).attr("id") == 'WIND_DIR_ DESC' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'WEATHER_DESC' && $(this).val() == "")
+            if ($(this).attr("id") == 'WIND_DIR_DESC' && $(this).val() == "")
                 complete = false;
 
             if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
@@ -290,35 +299,36 @@ if (typeof jQuery !== 'undefined') {
 
             if ($(this).attr("id") == 'WAVE_HEIGHT' && $(this).val() == "")
                 complete = false;
-            if ($(this).attr("id") == 'WAVE_DIRECTION' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'WAVE_CONDITIONS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'EST_ACT_FLAG' && $(this).val() == "")
-                complete = false;
+
             if ($(this).attr("id") == 'CURRENT_SPEED' && $(this).val() == "")
                 complete = false;
-            if ($(this).attr("id") == 'SHORELINE_CURRENT_DIR' && $(this).val() == "")
-                complete = false;
+
             if ($(this).attr("id") == 'PART_1_COMMENTS' && $(this).val() == "")
                 complete = false;
             if ($(this).attr("id") == 'PH' && $(this).val() == "")
                 complete = false;
-            if ($(this).attr("id") == 'COLOR_CHANGE' && $(this).val() == "")
+
+            if($(this).attr("id") == 'COLOR_CHANGE-1' && $(this).attr("checked"))
+                other = true;
+            if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                 complete = false;
-            if ($(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
+
+            if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $(this).attr("checked"))
+                other = true;
+            if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                 complete = false;
-            if ($(this).attr("id") == 'ODOR_DESCRIPTION' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
-                complete = false;
+
             if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
                 complete = false;
 
-            if ($(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
+            if($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $(this).attr("checked"))
+                other = true;
+            if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
                 complete = false;
 
-            if ($(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
+            if($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $(this).attr("checked"))
+                other = true;
+            if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
                 complete = false;
 
             if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
@@ -326,17 +336,12 @@ if (typeof jQuery !== 'undefined') {
 
             if ($(this).attr("id") == 'NTU' && $(this).val() == "")
                 complete = false;
-            if ($(this).attr("id") == 'SEECHI_TUBE_CM' && $(this).val() == "")
+            if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
                 complete = false;
             if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
                 complete = false;
 
-
-
             console.log($(this).attr("id"));
-            //if (!radio.is(':checked')) {
-            //    complete = false;
-            //  }
         });
         console.log(complete);
         if(nextPage == 'home'){
@@ -345,11 +350,8 @@ if (typeof jQuery !== 'undefined') {
             }
         }
         else if (page >= 0 && page < totalQuestionPages) {
-            if (complete) {
-                console.log("CURRENT PAGE: " + page);
+            if (complete)
                 document.getElementById('Complete_' + page).style.display = 'inline';
-                console.log("SUCCESS");
-            }
             else
                 document.getElementById('Complete_' + page).style.display = 'none';
         }
