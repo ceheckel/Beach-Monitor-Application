@@ -12,6 +12,7 @@
 //= require_self
 
 var curPage = -1;
+var completedSurvey;
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -48,7 +49,7 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function toPage(page) {
-        completePage(curPage, page);
+        completePage(page);
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
@@ -97,7 +98,7 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function toReview() {
-        completePage(curPage,totalQuestionPages);
+        completePage(totalQuestionPages);
         $('div[data-page]').show();
         $('div[data-page=home]').hide();
         $('#page-title').html('Review');
@@ -124,6 +125,7 @@ if (typeof jQuery !== 'undefined') {
                     this.parentElement.className += " is-dirty";
                 }
             });
+            toPage(0);
         });
     }
 
@@ -150,7 +152,7 @@ if (typeof jQuery !== 'undefined') {
                     return function() {
                         clearAllFields();
                         loadSurvey(id);
-                        toPage(0);
+                        //toPage(0);
                         $('#page-questions').css('display', 'block');
                     }
                 })();
@@ -197,163 +199,169 @@ if (typeof jQuery !== 'undefined') {
         d.MaterialLayout.toggleDrawer();
     }
 
-    function completePage(page, nextPage) {
-        var p = $('div[data-page=' + page + '] > div > input');
-        var complete = true;
-        var other = false;
-        p.each(function () {
-            if ($(this).attr("id") == '__county' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == '__lake' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'BEACH_SEQ' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'MONITOR_SITE_SEQ' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_IN_WATER' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_OUT_OF_WATER' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_PEOPLE_BOATING' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_PEOPLE_FISHING' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_PEOPLE_SURFING' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_PEOPLE_WINDSURFING' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_PEOPLE_DIVING' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_PEOPLE_CLAMMING' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_PEOPLE_OTHER') {
-                if ($(this).val() == "")
+    function completePage(nextPage) {
+        completedSurvey = true;
+        for(var page = 0; page < totalQuestionPages; page++) {
+            var p = $('div[data-page=' + page + '] > div > input');
+            var complete = true;
+            var other = false;
+            p.each(function () {
+                if ($(this).attr("id") == '__county' && $(this).val() == "")
                     complete = false;
-                else if (parseInt($(this).val()) > 0)
-                    other = true;
-            }
-            if (other && $(this).attr("id") == 'NO_PEOPLE_OTHER_DESC' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'PART_3_COMMENTS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_GULLS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_GEESE' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_DOGS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NO_ANIMALS_OTHER'){
+                if ($(this).attr("id") == '__lake' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'BEACH_SEQ' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'MONITOR_SITE_SEQ' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_IN_WATER' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_OUT_OF_WATER' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_BOATING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_FISHING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_SURFING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_WINDSURFING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_PEOPLE_DIVING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_CLAMMING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_OTHER') {
                     if ($(this).val() == "")
                         complete = false;
                     else if (parseInt($(this).val()) > 0)
                         other = true;
-            }
-            if (other && $(this).attr("id") == 'NO_ANIMALS_OTHER_DESC' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_LOONS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_HERR_GULLS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_RING_GULLS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_CORMORANTS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_LONGTAIL_DUCKS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_SCOTER' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_HORN_GREBE' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_REDNECKED_GREBE' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'NUM_OTHER'){
-                if ($(this).val() == "")
+                }
+                if (other && $(this).attr("id") == 'NO_PEOPLE_OTHER_DESC' && $(this).val() == "")
                     complete = false;
-                else if (parseInt($(this).val()) > 0)
+                if ($(this).attr("id") == 'PART_3_COMMENTS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_GULLS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_GEESE' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_DOGS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_ANIMALS_OTHER') {
+                    if ($(this).val() == "")
+                        complete = false;
+                    else if (parseInt($(this).val()) > 0)
+                        other = true;
+                }
+                if (other && $(this).attr("id") == 'NO_ANIMALS_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_LOONS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_HERR_GULLS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_RING_GULLS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_CORMORANTS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_LONGTAIL_DUCKS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_SCOTER' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_HORN_GREBE' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_REDNECKED_GREBE' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_OTHER') {
+                    if ($(this).val() == "")
+                        complete = false;
+                    else if (parseInt($(this).val()) > 0)
+                        other = true;
+                }
+                if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+
+                if ($(this).attr("id") == 'FLOAT_OTHER' && $(this).attr("checked"))
                     other = true;
-            }
-            if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
-                complete = false;
+                if (other && $(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
 
-            if($(this).attr("id") == 'FLOAT_OTHER' && $(this).attr("checked"))
-                other = true;
-            if (other && $(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'DEBRIS_OTHER' && $(this).attr("checked"))
+                    other = true;
+                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
 
-            if($(this).attr("id") == 'DEBRIS_OTHER' && $(this).attr("checked"))
-                other = true;
-            if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'WIND_SPEED' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'WIND_DIR_DEGREES' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'WIND_DIR_DESC' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'WIND_SPEED' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'WIND_DIR_DEGREES' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'WIND_DIR_DESC' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'WAVE_HEIGHT' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'WAVE_HEIGHT' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'CURRENT_SPEED' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'CURRENT_SPEED' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'PART_1_COMMENTS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'PH' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'PART_1_COMMENTS' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'PH' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'COLOR_CHANGE-1' && $(this).attr("checked"))
+                    other = true;
+                if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
+                    complete = false;
 
-            if($(this).attr("id") == 'COLOR_CHANGE-1' && $(this).attr("checked"))
-                other = true;
-            if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $(this).attr("checked"))
+                    other = true;
+                if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $(this).attr("checked"))
-                other = true;
-            if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $(this).attr("checked"))
+                    other = true;
+                if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
 
-            if($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $(this).attr("checked"))
-                other = true;
-            if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $(this).attr("checked"))
+                    other = true;
+                if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
 
-            if($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $(this).attr("checked"))
-                other = true;
-            if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
-                complete = false;
+                if ($(this).attr("id") == 'NTU' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
+                    complete = false;
 
-            if ($(this).attr("id") == 'NTU' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
-                complete = false;
-            if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
-                complete = false;
+                console.log($(this).attr("id"));
+            });
+            console.log(complete);
 
-            console.log($(this).attr("id"));
-        });
-        console.log(complete);
-        if(nextPage == 'home'){
-            for(var i = 0; i < totalQuestionPages; i++){
-                document.getElementById('Complete_' + i).style.display = 'none';
+            if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
+                if (complete)
+                    document.getElementById('Complete_' + page).style.display = 'inline';
+                else {
+                    document.getElementById('Complete_' + page).style.display = 'none';
+                    completedSurvey = false;
+                }
             }
         }
-        else if (page >= 0 && page < totalQuestionPages) {
-            if (complete)
-                document.getElementById('Complete_' + page).style.display = 'inline';
-            else
-                document.getElementById('Complete_' + page).style.display = 'none';
+        if (nextPage == 'home') {
+            for (var i = 0; i < totalQuestionPages; i++) {
+                document.getElementById('Complete_' + i).style.display = 'none';
+            }
         }
         //console.log(complete);
     }

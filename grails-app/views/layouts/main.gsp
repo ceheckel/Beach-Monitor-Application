@@ -20,7 +20,7 @@
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title" id="page-title">Wisconsin Beach Health</span>
+            <span class="mdl-layout-title" id="page-title" style="white-space: pre">WI Beaches</span>
         </div>
     </header>
     <div class="mdl-layout__drawer">
