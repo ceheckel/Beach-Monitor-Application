@@ -31,10 +31,10 @@ class IndexController {
                 pageName: 'Beach Selection',
                 questions: [
                         new SelectQuestion(columnId: '__favorites', options: []),
-                        new TextQuestion(columnId: '__county', prompt: 'County'),
-                        new TextQuestion(columnId: '__lake', prompt: 'Lake'),
-                        new TextQuestion(columnId: 'BEACH_SEQ', prompt: 'Beach'),
-                        new TextQuestion(columnId: 'MONITOR_SITE_SEQ', prompt: 'Monitoring Site'),
+                        new TextQuestion(columnId: '__county', prompt: 'County', list: 'countyList'),
+                        new TextQuestion(columnId: '__lake', prompt: 'Lake', list: 'lakeList'),
+                        new TextQuestion(columnId: 'BEACH_SEQ', prompt: 'Beach', list: 'beachList'),
+                        new TextQuestion(columnId: 'MONITOR_SITE_SEQ', prompt: 'Monitoring Site', list: 'monitorList'),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
@@ -348,6 +348,8 @@ class TextQuestion extends Question {
     String type = "text"
     String pattern = ".*"
     String step
+    String extraClasses = ""
+    String list = ""
 }
 
 class CheckQuestion extends Question {
@@ -364,4 +366,9 @@ class SelectQuestion extends Question {
 
 class HiddenQuestion extends Question {
     String value
+}
+
+class ButtonElement extends Question {
+    String value
+    String onclick
 }

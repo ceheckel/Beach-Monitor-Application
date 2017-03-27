@@ -50,9 +50,12 @@
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}">
+                    <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}">
                     <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                 </div>
+                <g:if test="${q.list != ''}">
+                    <datalist id="${q.list}"></datalist>
+                </g:if>
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
                 <g:if test="${q.hasTitle}">
@@ -66,7 +69,7 @@
                         <g:if test="${!q.inline}">
                             <div>
                         </g:if>
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="${q.columnId + '-' + n}">
+                            <label ${q.inline ? 'style="padding-left:8px;"' : ''} class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="${q.columnId + '-' + n}">
                                 <input type="radio" id="${q.columnId + '-' + n}" class="mdl-radio__button" name="${q.columnId}" value="n"${c.second ? ' checked' : ''}>
                                 <span class="mdl-radio__label">${c.first}</span>
                             </label>
@@ -110,9 +113,9 @@
     </div>
 </g:each>
 <div class="bottom-nav" id="bottom-nav">
-  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
+  <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
   <div style="flex-grow: 1"></div>
-  <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
+  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
 </div>
 </div>
 <script type="text/javascript">
