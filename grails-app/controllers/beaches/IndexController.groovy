@@ -154,10 +154,10 @@ class IndexController {
                         new CheckQuestion(columnId: 'DEBRIS_OIL', prompts: [
                                 new Tuple2('Oil debris present', false),
                         ]),
-                        new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
+                        new CheckQuestion(columnId: 'DEBRIS_OTHER', prompts: [
                                 new Tuple2('Other debris present', false),
                         ]),
-                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'desciption of other debris present'),
+                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'desciption of other debris present'),
                         new CheckQuestion(columnId: 'DEBRIS_AMOUNT', prompts: [
                                 new Tuple2('0%', true),
                                 new Tuple2('1-20%', false),
@@ -175,7 +175,7 @@ class IndexController {
                         new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed', type:"number", step:1 ),
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH'), //@TODO find value of wind speed units
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
-                        new TextQuestion(columnId: 'WIND_DIR_ DESC', prompt: 'Wind direction description'),
+                        new TextQuestion(columnId: 'WIND_DIR_DESC', prompt: 'Wind direction description'),
                         new CheckQuestion(columnId: 'WEATHER_DESC', prompts: [
                                 new Tuple2('Clear', true),
                                 new Tuple2('Mostly sunny', false),
@@ -189,7 +189,7 @@ class IndexController {
                                 new Tuple2('<72', false),
                                 new Tuple2('>72', false)
                         ], radio: true, hasTitle: true, title: "Hours since last rain event", inline: true),
-                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall ammount', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount', type:"number", step:0.01 ),
                         new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN'), //@TODO value of rainfall units
                         new CheckQuestion(columnId: 'RAINFALL_STD_DESC', prompts: [
                                 new Tuple2('Misting', true),
@@ -311,7 +311,7 @@ class IndexController {
                                 new Tuple2('Opaque', false)
                         ], radio: true, hasTitle: true, title: "Turbidity", inline: true),
                         new TextQuestion(columnId: 'NTU', prompt: 'OR NTU'),
-                        new TextQuestion(columnId: 'SEECHI_TUBE_CM', prompt: 'Seechi tube (CM)', type:"number", step:0.01 )
+                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube (CM)', type:"number", step:0.01 )
                 ]
         ]
 
