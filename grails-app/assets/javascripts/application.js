@@ -24,7 +24,9 @@ if (typeof jQuery !== 'undefined') {
 
     $(document).ready(function() {
         $('div[data-page]').hide();
-        toPage('home')
+        toPage('home');
+        getSurveys();
+        loadSurvey("70965f3f-7bc7-ce07-1cae-dd4d0d08e3fd");
 
         $('#btn-menu').click(function() {
             console.log('menu button clicked');
@@ -32,8 +34,8 @@ if (typeof jQuery !== 'undefined') {
 
         $('#btn-new-survey').click(function() {
             console.log("new survey pressed");
+            clearAllFields();
             surveyId = guid();
-            console.log("guid assigned");
             toPage(0);
             $('#page-questions').css('display', 'block');
 
@@ -68,8 +70,6 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("drawerStyle").innerHTML='.mdl-layout .mdl-layout__drawer-button {display: none;}';
         else
             document.getElementById("drawerStyle").innerHTML='.mdl-layout .mdl-layout__drawer-button {display: block;}';
-        if (typeof(surveyId) != "undefined")
-            saveSurvey();
     }
 
     function btnPrev() {
@@ -83,6 +83,7 @@ if (typeof jQuery !== 'undefined') {
             submit();
         else
             toPage(curPage + 1);
+        saveSurvey();
     }
 
     function toReview() {
@@ -97,8 +98,71 @@ if (typeof jQuery !== 'undefined') {
 
     function saveSurvey() {
         data = getAllFields();
+        data.id = surveyId;
         survey = new Survey(surveyId, data);
         survey.save();
+    }
+
+    function loadSurvey(id) {
+        console.log("loading survey");
+        surveyId = id;
+        Surveys.getById(id, function(survey) {
+            $('[name]').each(function () {
+                var nameToString = this.name.toString();
+                if (this.name in survey)
+                {
+                    this.value = survey[nameToString];
+                    this.parentElement.className += " is-dirty";
+                }
+            });
+        });
+    }
+
+    function getSurveys() {
+        var unsubmittedList = document.getElementById("unsubmitted-reports");
+        Surveys.getAll(function(surveys) {
+            for (var i = 0; i < surveys.length; i++)
+            {
+                var li = document.createElement("li");
+                li.className = "mdl-list__item mdl-list__item--two-line";
+                var dataSpan = document.createElement("span");
+                dataSpan.className = "mdl-list__item-primary-content";
+                var nameSpan = document.createElement("span");
+                var infoSpan = document.createElement("span");
+                infoSpan.className = "mdl-list__item-sub-title";
+                var actionSpan = document.createElement("span");
+                actionSpan.className = "mdl-list__item-secondary-content";
+                var action = document.createElement("a");
+                action.id = surveys[i].id;
+                action.className = "mdl-list__item-secondary-action";
+                action.href = "#";
+                action.onclick = (function() {
+                    var id = surveys[i].id;
+                    return function() {
+                        clearAllFields();
+                        loadSurvey(id);
+                        toPage(0);
+                        $('#page-questions').css('display', 'block');
+                    }
+                })();
+                var icon = document.createElement("i");
+                icon.className="material-icons";
+
+
+                nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
+                infoSpan.appendChild(document.createTextNode(surveys[i].DATE + " - Site " + surveys[i].MONITOR_SITE_SEQ));
+                icon.appendChild(document.createTextNode("edit"));
+
+                dataSpan.appendChild(nameSpan);
+                dataSpan.appendChild(infoSpan);
+                action.appendChild(icon);
+                actionSpan.appendChild(action);
+                li.appendChild(dataSpan);
+                li.appendChild(actionSpan);
+
+                unsubmittedList.appendChild(li);
+            }
+        });
     }
 
     function getAllFields() {
@@ -108,6 +172,13 @@ if (typeof jQuery !== 'undefined') {
                 data[this.name] = this.value;
         });
         return data;
+    }
+
+    function clearAllFields() {
+        $('[name]').each(function () {
+            if (this.value)
+                this.value = '';
+        });
     }
 
     function closeDrawer() {
