@@ -362,9 +362,9 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                console.log($(this).attr("id"));
+                //console.log($(this).attr("id"));
             });
-            console.log(complete);
+            //console.log(complete);
 
             if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
                 if (complete)
@@ -379,6 +379,7 @@ if (typeof jQuery !== 'undefined') {
             for (var i = 0; i < totalQuestionPages; i++) {
                 document.getElementById('Complete_' + i).style.display = 'none';
             }
+            getSurveys();
         }
         //console.log(complete);
     }
@@ -689,14 +690,13 @@ if (typeof jQuery !== 'undefined') {
                 if (cval != '_site') list.append('<option value="' + cval + '"/>');
             });
         }
+
+        fillCounties();
+
+        document.getElementById('__county').oninput = fillLakes;
+        document.getElementById('BEACH_SEQ').oninput = fillBeaches;
+        document.getElementById('MONITOR_SITE_SEQ').oninput = fillSites;
     }
-
-    fillCounties();
-
-    document.getElementById('__county').oninput = fillLakes;
-    document.getElementById('BEACH_SEQ').oninput = fillBeaches;
-    document.getElementById('MONITOR_SITE_SEQ').oninput = fillSites;
-}
 
     function getDateFormatted() {
         date = new Date();
