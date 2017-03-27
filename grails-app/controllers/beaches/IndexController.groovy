@@ -48,16 +48,16 @@ class IndexController {
                 pageName: "Bathers",
                 questions: [
                         //@TODO all numeric
-                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water'),
-                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people wind surfing'),
-                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people Clamming'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'Describe previous "other" activities')
+                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people wind surfing', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people Clamming', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'Describe previous "other" activities', type:"number", step:1 )
                 ]
         ]
 
@@ -65,11 +65,11 @@ class IndexController {
                 pageName: 'Animal Bathers',
                 questions: [
                         //@TODO all numeric
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls'),
-                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese'),
-                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of dogs'),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife'),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'Description of "other" wildlife')
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of dogs', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'Description of "other" wildlife', type:"number", step:1 )
                 ]
         ]
 
@@ -77,17 +77,17 @@ class IndexController {
                 pageName :'Deceased Animals',
                 questions: [
                         //@TODO all numeric
-                        new TextQuestion(columnId: 'NUM_LOONS', prompt: 'Number of dead loons'),
-                        new TextQuestion(columnId: 'NUM_HERR_GULLS', prompt: 'Number of dead Herr Gulls'),
-                        new TextQuestion(columnId: 'NUM_RING_GULLS', prompt: 'Number of dead Ring Gulls'),
-                        new TextQuestion(columnId: 'NUM_CORMORANTS', prompt: 'Number of dead Cormorants'),
-                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', prompt: 'Number of dead Longtail Ducks'),
-                        new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter'),
-                        new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horn Grebe'),
-                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead rednecked Grebe '),
-                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead fish '),
-                        new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of dead other birds'),
-                        new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'desciption of other dead birds')
+                        new TextQuestion(columnId: 'NUM_LOONS', prompt: 'Number of dead loons', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_HERR_GULLS', prompt: 'Number of dead Herr Gulls', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_RING_GULLS', prompt: 'Number of dead Ring Gulls', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_CORMORANTS', prompt: 'Number of dead Cormorants', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', prompt: 'Number of dead Longtail Ducks', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horn Grebe', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead rednecked Grebe ', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead fish ', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of dead other birds', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'desciption of other dead birds', type:"number", step:1 )
                 ]
         ]
 
@@ -154,10 +154,10 @@ class IndexController {
                         new CheckQuestion(columnId: 'DEBRIS_OIL', prompts: [
                                 new Tuple2('Oil debris present', false),
                         ]),
-                        new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
+                        new CheckQuestion(columnId: 'DEBRIS_OTHER', prompts: [
                                 new Tuple2('Other debris present', false),
                         ]),
-                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'desciption of other debris present'),
+                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'desciption of other debris present'),
                         new CheckQuestion(columnId: 'DEBRIS_AMOUNT', prompts: [
                                 new Tuple2('0%', true),
                                 new Tuple2('1-20%', false),
@@ -170,12 +170,12 @@ class IndexController {
         def weather = [
                 pageName: "Weather",
                 questions: [
-                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature'),
+                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature', type:"number", step:0.01 ),
                         new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F'), //@TODO find value of air units
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed'),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed', type:"number", step:1 ),
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH'), //@TODO find value of wind speed units
-                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees'),
-                        new TextQuestion(columnId: 'WIND_DIR_ DESC', prompt: 'Wind direction description'),
+                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'WIND_DIR_DESC', prompt: 'Wind direction description'),
                         new CheckQuestion(columnId: 'WEATHER_DESC', prompts: [
                                 new Tuple2('Clear', true),
                                 new Tuple2('Mostly sunny', false),
@@ -189,7 +189,7 @@ class IndexController {
                                 new Tuple2('<72', false),
                                 new Tuple2('>72', false)
                         ], radio: true, hasTitle: true, title: "Hours since last rain event", inline: true),
-                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall ammount'),
+                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount', type:"number", step:0.01 ),
                         new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN'), //@TODO value of rainfall units
                         new CheckQuestion(columnId: 'RAINFALL_STD_DESC', prompts: [
                                 new Tuple2('Misting', true),
@@ -206,7 +206,7 @@ class IndexController {
         def waves = [
                 pageName: 'Waves',
                 questions: [
-                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height'),
+                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height', type:"number", step:0.01 ),
                         new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT'),  //@TODO value of wave height units
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
                                 new Tuple2('Estimated/actual', false)
@@ -222,7 +222,7 @@ class IndexController {
                                 new Tuple2('Normal', false),
                                 new Tuple2('Rough', false)
                         ], radio: true, hasTitle: true, title: "Wave condition", inline: true),
-                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed'),
+                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed', type:"number", step:0.01 ),
                         new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'MPH'), //@TODO value of longshore current units
                         new CheckQuestion(columnId: 'SHORELINE_CURRENT_DIR', prompts: [
                                 new Tuple2('N', true), new Tuple2('NE', false),
@@ -288,13 +288,12 @@ class IndexController {
         def water = [
                 pageName: 'Water conditions',
                 questions: [
-                        new TextQuestion(columnId: 'PH', prompt: 'pH level'),
+                        new TextQuestion(columnId: 'PH', prompt: 'pH level', type:"number", step:0.01 ),
                         new CheckQuestion(columnId: 'COLOR_CHANGE', prompts: [
                                 new Tuple2('Yes', true),
                                 new Tuple2('No', false)
                         ], radio: true, hasTitle: true, title: "Has the color changed?", inline: true),
                         new TextQuestion(columnId: 'COLOR_DESCRIPTION', prompt: 'If yes describe'),
-                        new TextQuestion(columnId: 'PH', prompt: 'pH level'),
                         new CheckQuestion(columnId: 'ODOR_DESCRIPTION', prompts: [
                                 new Tuple2('None', true),
                                 new Tuple2('Septic', false),
@@ -303,17 +302,16 @@ class IndexController {
                                 new Tuple2('Other', false)
                         ], radio: true, hasTitle: true, title: "Odor description", inline: true),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
-                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature'),
+                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature', type:"number", step:0.01 ),
                         new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F'), //@TODO value of avg water temp units
                         new CheckQuestion(columnId: 'CLARITY_DESC', prompts: [
-
                                 new Tuple2('Clear', true),
                                 new Tuple2('Slightly turbid', false),
                                 new Tuple2('Turbid', false),
                                 new Tuple2('Opaque', false)
                         ], radio: true, hasTitle: true, title: "Turbidity", inline: true),
                         new TextQuestion(columnId: 'NTU', prompt: 'OR NTU'),
-                        new TextQuestion(columnId: 'SEECHI_TUBE_CM', prompt: 'Seechi tube (CM)')
+                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube (CM)', type:"number", step:0.01 )
                 ]
         ]
 
@@ -329,7 +327,7 @@ class IndexController {
                         new HiddenQuestion(columnId: 'DATA_SAMPLE_SEQ', value: 'FETCH USER'),
                         new HiddenQuestion(columnId: 'DATE_UPDATED', value: 'FETCH DATE AND TIME'),
                         new HiddenQuestion(columnId: 'UPDATE_ENTRY_SEQ', value: 'FETCH USER'),
-                        new HiddenQuestion(columnId: 'MISSING)REQUIRED_FLAG', value: 'FETCH VALUE')
+                        new HiddenQuestion(columnId: 'MISSING_REQUIRED_FLAG', value: 'FETCH VALUE')
                 ]
         ]
 

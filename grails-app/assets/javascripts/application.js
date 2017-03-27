@@ -24,15 +24,17 @@ if (typeof jQuery !== 'undefined') {
 
     $(document).ready(function() {
         $('div[data-page]').hide();
-        toPage('home')
+        toPage('home');
+        getSurveys();
 
         $('#btn-menu').click(function() {
             console.log('menu button clicked');
         });
 
         $('#btn-new-survey').click(function() {
+            clearAllFields();
             surveyId = guid();
-            toPage('0');
+            toPage(0);
         });
 
         $('#btn-past-reps').click(function() {
@@ -78,26 +80,6 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
         }
-
-        if (typeof(surveyId) != "undefined")
-            saveSurvey();
-    }
-
-    function saveSurvey() {
-        data = getAllFields();
-        survey = new Survey(surveyId, data);
-        survey.save();
-    }
-
-    function getAllFields() {
-        data = {
-
-        };
-        $('[name]').each( function () {
-            if (this.value)
-                data[this.name] = this.value;
-        });
-        return data;
     }
 
     function btnPrev() {
@@ -111,6 +93,7 @@ if (typeof jQuery !== 'undefined') {
             submit();
         else
             toPage(curPage + 1);
+        saveSurvey();
     }
 
     function toReview() {
@@ -121,6 +104,92 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
         $('#btn-next').html('Submit');
+    }
+
+    function saveSurvey() {
+        data = getAllFields();
+        data.id = surveyId;
+        survey = new Survey(surveyId, data);
+        survey.save();
+    }
+
+    function loadSurvey(id) {
+        surveyId = id;
+        Surveys.getById(id, function(survey) {
+            $('[name]').each(function () {
+                var nameToString = this.name.toString();
+                if (this.name in survey)
+                {
+                    this.value = survey[nameToString];
+                    this.parentElement.className += " is-dirty";
+                }
+            });
+        });
+    }
+
+    function getSurveys() {
+        var unsubmittedList = document.getElementById("unsubmitted-reports");
+        Surveys.getAll(function(surveys) {
+            for (var i = 0; i < surveys.length; i++)
+            {
+                var li = document.createElement("li");
+                li.className = "mdl-list__item mdl-list__item--two-line";
+                var dataSpan = document.createElement("span");
+                dataSpan.className = "mdl-list__item-primary-content";
+                var nameSpan = document.createElement("span");
+                var infoSpan = document.createElement("span");
+                infoSpan.className = "mdl-list__item-sub-title";
+                var actionSpan = document.createElement("span");
+                actionSpan.className = "mdl-list__item-secondary-content";
+                var action = document.createElement("a");
+                action.id = surveys[i].id;
+                action.className = "mdl-list__item-secondary-action";
+                action.href = "#";
+                action.onclick = (function() {
+                    var id = surveys[i].id;
+                    return function() {
+                        clearAllFields();
+                        loadSurvey(id);
+                        toPage(0);
+                        $('#page-questions').css('display', 'block');
+                    }
+                })();
+                var icon = document.createElement("i");
+                icon.className="material-icons";
+
+
+                nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
+                infoSpan.appendChild(document.createTextNode(surveys[i].DATE + " - Site " + surveys[i].MONITOR_SITE_SEQ));
+                icon.appendChild(document.createTextNode("edit"));
+
+                dataSpan.appendChild(nameSpan);
+                dataSpan.appendChild(infoSpan);
+                action.appendChild(icon);
+                actionSpan.appendChild(action);
+                li.appendChild(dataSpan);
+                li.appendChild(actionSpan);
+
+                unsubmittedList.appendChild(li);
+            }
+        });
+    }
+
+    function getAllFields() {
+        data = {};
+        $('[name]').each(function () {
+            if (this.value)
+                data[this.name] = this.value;
+        });
+        return data;
+    }
+
+    function clearAllFields() {
+        $('[name]').each(function () {
+            if (this.value) {
+                this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
+                this.value = '';
+            }
+        });
     }
 
     function closeDrawer() {
@@ -287,5 +356,15 @@ if (typeof jQuery !== 'undefined') {
                 document.getElementById('Complete_' + page).style.display = 'none';
         }
         //console.log(complete);
+    }
+
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
     }
 }
