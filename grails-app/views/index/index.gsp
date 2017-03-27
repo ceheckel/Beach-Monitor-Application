@@ -28,37 +28,10 @@
     <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()">
         <i class="material-icons">add</i>
     </button>
-    <ul class="mdl-list">
+    <ul class="mdl-list" id="unsubmitted-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Unsubmitted Reports</span>
-            </span>
-        </li>
-        <li class="mdl-list__item mdl-list__item--two-line">
-            <span class="mdl-list__item-primary-content">
-                <span>Green Lake</span>
-                <span class="mdl-list__item-sub-title">Mar. 4 &ndash; Site 1</span>
-            </span>
-            <span class="mdl-list__item-secondary-content">
-                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">edit</i></a>
-            </span>
-        </li>
-        <li class="mdl-list__item mdl-list__item--two-line">
-            <span class="mdl-list__item-primary-content">
-                <span>Green Lake</span>
-                <span class="mdl-list__item-sub-title">Mar. 4 &ndash; Site 2</span>
-            </span>
-            <span class="mdl-list__item-secondary-content">
-                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">edit</i></a>
-            </span>
-        </li>
-        <li class="mdl-list__item mdl-list__item--two-line">
-            <span class="mdl-list__item-primary-content">
-                <span>Castle Rock Lake</span>
-                <span class="mdl-list__item-sub-title">Mar. 2 &ndash; Site 1</span>
-            </span>
-            <span class="mdl-list__item-secondary-content">
-                <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">edit</i></a>
             </span>
         </li>
     </ul>
@@ -66,18 +39,6 @@
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Past Reports</span>
-            </span>
-        </li>
-        <li class="mdl-list__item mdl-list__item--two-line">
-            <span class="mdl-list__item-primary-content">
-                <span>Wellington Lake</span>
-                <span class="mdl-list__item-sub-title">Jan. 27 &ndash; Site 1</span>
-            </span>
-        </li>
-        <li class="mdl-list__item mdl-list__item--two-line">
-            <span class="mdl-list__item-primary-content">
-                <span>New Richmond Flowage</span>
-                <span class="mdl-list__item-sub-title">Jan. 27 &ndash; Site 1</span>
             </span>
         </li>
     </ul>
