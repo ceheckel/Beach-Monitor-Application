@@ -34,6 +34,7 @@ if (typeof jQuery !== 'undefined') {
         $('#btn-new-survey').click(function() {
             clearAllFields();
             surveyId = guid();
+            surveyDate = getDateFormatted();
             toPage(0);
         });
 
@@ -106,9 +107,10 @@ if (typeof jQuery !== 'undefined') {
         $('#btn-next').html('Submit');
     }
 
-    function saveSurvey() {
+    function saveSurvey(date) {
         data = getAllFields();
         data.id = surveyId;
+        data.date = surveyDate;
         survey = new Survey(surveyId, data);
         survey.save();
     }
@@ -124,6 +126,7 @@ if (typeof jQuery !== 'undefined') {
                     this.parentElement.className += " is-dirty";
                 }
             });
+            surveyDate = survey['date'];
         });
     }
 
@@ -159,7 +162,7 @@ if (typeof jQuery !== 'undefined') {
 
 
                 nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
-                infoSpan.appendChild(document.createTextNode(surveys[i].DATE + " - Site " + surveys[i].MONITOR_SITE_SEQ));
+                infoSpan.appendChild(document.createTextNode(surveys[i].date + " - Site " + surveys[i].MONITOR_SITE_SEQ));
                 icon.appendChild(document.createTextNode("edit"));
 
                 dataSpan.appendChild(nameSpan);
@@ -364,5 +367,50 @@ if (typeof jQuery !== 'undefined') {
         }
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
+    }
+
+    function getDateFormatted() {
+        date = new Date();
+        formattedString = "";
+        switch (date.getMonth()) {
+            case 0:
+                formattedString += "Jan. "
+                break;
+            case 1:
+                formattedString += "Feb. "
+                break;
+            case 2:
+                formattedString += "Mar. "
+                break;
+            case 3:
+                formattedString += "Apr. "
+                break;
+            case 4:
+                formattedString += "May. "
+                break;
+            case 5:
+                formattedString += "Jun. "
+                break;
+            case 6:
+                formattedString += "Jul. "
+                break;
+            case 7:
+                formattedString += "Aug. "
+                break;
+            case 8:
+                formattedString += "Sep. "
+                break;
+            case 9:
+                formattedString += "Oct. "
+                break;
+            case 10:
+                formattedString += "Nov. "
+                break;
+            case 11:
+                formattedString += "Dec. "
+                break;
+        }
+        formattedString += date.getDate();
+        return formattedString;
     }
 }
