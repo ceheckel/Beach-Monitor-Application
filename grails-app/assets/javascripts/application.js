@@ -25,7 +25,6 @@ if (typeof jQuery !== 'undefined') {
     $(document).ready(function() {
         $('div[data-page]').hide();
         toPage('home');
-        getSurveys();
 
         $('#btn-menu').click(function() {
             console.log('menu button clicked');
@@ -132,6 +131,21 @@ if (typeof jQuery !== 'undefined') {
 
     function getSurveys() {
         var unsubmittedList = document.getElementById("unsubmitted-reports");
+        // Remove all elements
+        while (unsubmittedList.firstChild)
+            unsubmittedList.removeChild(unsubmittedList.firstChild);
+        // Create header
+        var header = document.createElement("li");
+        var span1 = document.createElement("span");
+        var span2 = document.createElement("span");
+        header.className = "mdl-list__item";
+        span1.className = "mdl-list__item-primary-content";
+        span2.className = "mdl-typography--font-bold";
+        span2.appendChild(document.createTextNode("Unsubmitted Reports"));
+        header.appendChild(span1);
+        span1.appendChild(span2);
+        unsubmittedList.appendChild(header);
+        // Populate list
         Surveys.getAll(function(surveys) {
             for (var i = 0; i < surveys.length; i++)
             {
@@ -346,6 +360,7 @@ if (typeof jQuery !== 'undefined') {
             for(var i = 0; i < totalQuestionPages; i++){
                 document.getElementById('Complete_' + i).style.display = 'none';
             }
+            getSurveys();
         }
         else if (page >= 0 && page < totalQuestionPages) {
             if (complete) {
