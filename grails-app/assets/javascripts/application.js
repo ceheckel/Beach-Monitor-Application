@@ -362,9 +362,9 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                console.log($(this).attr("id"));
+                //console.log($(this).attr("id"));
             });
-            console.log(complete);
+            //console.log(complete);
 
             if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
                 if (complete)
@@ -379,6 +379,7 @@ if (typeof jQuery !== 'undefined') {
             for (var i = 0; i < totalQuestionPages; i++) {
                 document.getElementById('Complete_' + i).style.display = 'none';
             }
+            getSurveys();
         }
         //console.log(complete);
     }
