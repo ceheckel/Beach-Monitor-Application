@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion" %>
+<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement" %>
 <!doctype html>
 <html>
 <head>
@@ -107,6 +107,9 @@
             </g:if>
             <g:if test ="${q instanceof HiddenQuestion}">
                 <input class="mdl-textfield__input" type="hidden" value="${q.value}" name="${q.columnId}" id="${q.columnId}">
+            </g:if>
+            <g:if test="${q instanceof ButtonElement}">
+                <button class="mdl-button mdl-js-button mdl-button--raised ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}">${q.value}</button><br>
             </g:if>
             <g:else><br></g:else>
         </g:each>
