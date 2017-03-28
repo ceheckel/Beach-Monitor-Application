@@ -45,8 +45,8 @@ function addFavorite() {
 
     var f2 = document.getElementById('__favorites');
     f2.selectedIndex = f2.options.length - 1;
-
-    saveFavorites()
+    $('#__addFavorite').prop('disabled',true);
+    saveFavorites();
 }
 
 function fillFavorite() {

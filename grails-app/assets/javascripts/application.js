@@ -697,7 +697,16 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function saveFavoriteEnabled() {
+        var unique = true;
+        if(typeof(favorites) !== 'undefined') {
+            favorites.forEach(function (f, i) {
+                if (f.county == $('#__county').val() && f.lake == $('#__lake').val() && f.beach == $('#BEACH_SEQ').val() && f.site == $('#MONITOR_SITE_SEQ').val()) {
+                    unique = false;
+                }
+            });
+        }
         $('#__addFavorite').prop('disabled',
+            !unique ||
             $('#__county').val() == '' ||
                 $('#__lake').val() == '' ||
                 $('#BEACH_SEQ').val() == '' ||
@@ -715,11 +724,6 @@ if (typeof jQuery !== 'undefined') {
 
     var favorites;
     loadFavorites();
-    /*console.log(favorites);
-    if (typeof(favorites) === 'undefined') {
-        console.log("favorites should be fixed");
-        favorites = [];
-    }*/
 
     saveFavoriteEnabled();
 }
