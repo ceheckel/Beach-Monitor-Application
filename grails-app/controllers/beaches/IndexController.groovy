@@ -58,7 +58,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', type:"number", step:1 ),
                         new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people Clamming', type:"number", step:1 ),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'Describe previous "other" activities', type:"number", step:1 )
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'Describe previous "other" activities')
                 ]
         ]
 
@@ -70,7 +70,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese', type:"number", step:1 ),
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of dogs', type:"number", step:1 ),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'Description of "other" wildlife', type:"number", step:1 )
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'Description of "other" wildlife')
                 ]
         ]
 
@@ -88,7 +88,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead rednecked Grebe ', type:"number", step:1 ),
                         new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead fish ', type:"number", step:1 ),
                         new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of dead other birds', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'desciption of other dead birds', type:"number", step:1 )
+                        new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'Description of other dead birds')
                 ]
         ]
 
@@ -117,7 +117,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
                                 new Tuple2('Other material floatables present', false),
                         ]),
-                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'desciption of other floatables present')
+                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'Description of other floatables present')
                 ]
         ]
 
@@ -158,7 +158,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'DEBRIS_OTHER', prompts: [
                                 new Tuple2('Other debris present', false),
                         ]),
-                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'desciption of other debris present'),
+                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'Description of other debris present'),
                         new CheckQuestion(columnId: 'DEBRIS_AMOUNT', prompts: [
                                 new Tuple2('0%', true),
                                 new Tuple2('1-20%', false),
@@ -171,9 +171,9 @@ class IndexController {
         def weather = [
                 pageName: "Weather",
                 questions: [
-                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature', type:"number", step:0.0001 ),
                         new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F'), //@TODO find value of air units
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed', type:"number", step:0.0001 ),
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH'), //@TODO find value of wind speed units
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
                         new TextQuestion(columnId: 'WIND_DIR_DESC', prompt: 'Wind direction description'),
@@ -190,7 +190,7 @@ class IndexController {
                                 new Tuple2('<72', false),
                                 new Tuple2('>72', false)
                         ], radio: true, hasTitle: true, title: "Hours since last rain event", inline: true),
-                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount', type:"number", step:0.0001 ),
                         new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN'), //@TODO value of rainfall units
                         new CheckQuestion(columnId: 'RAINFALL_STD_DESC', prompts: [
                                 new Tuple2('Misting', true),
@@ -207,7 +207,7 @@ class IndexController {
         def waves = [
                 pageName: 'Waves',
                 questions: [
-                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height', type:"number", step:0.0001 ),
                         new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT'),  //@TODO value of wave height units
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
                                 new Tuple2('Estimated/actual', false)
@@ -311,7 +311,7 @@ class IndexController {
                                 new Tuple2('Turbid', false),
                                 new Tuple2('Opaque', false)
                         ], radio: true, hasTitle: true, title: "Turbidity", inline: true),
-                        new TextQuestion(columnId: 'NTU', prompt: 'OR NTU'),
+                        new TextQuestion(columnId: 'NTU', prompt: 'OR NTU', type:"number", step:0.01),
                         new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube (CM)', type:"number", step:0.01 )
                 ]
         ]
