@@ -81,6 +81,9 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
         }
+
+        if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
+        else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
         saveSurvey();
     }
 
@@ -108,6 +111,7 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function saveSurvey() {
+        if (typeof(surveyId) === 'undefined') return;
         data = getAllFields();
         data.id = surveyId;
         data.date = surveyDate;
