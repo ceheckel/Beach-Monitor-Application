@@ -50,6 +50,8 @@ if (typeof jQuery !== 'undefined') {
 
     function toPage(page) {
         completePage(page);
+        if(curPage > 0)
+            saveSurvey();
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
@@ -94,7 +96,6 @@ if (typeof jQuery !== 'undefined') {
             submit();
         else
             toPage(curPage + 1);
-        saveSurvey();
     }
 
     function toReview() {
@@ -219,7 +220,7 @@ if (typeof jQuery !== 'undefined') {
     function completePage(nextPage) {
         completedSurvey = true;
         for(var page = 0; page < totalQuestionPages; page++) {
-            var p = $('div[data-page=' + page + '] > div > input');
+            var p = $('div[data-page=' + page + '] :input');
             var complete = true;
             var other = false;
             p.each(function () {
@@ -296,14 +297,10 @@ if (typeof jQuery !== 'undefined') {
                 if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'FLOAT_OTHER' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "")
+                if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
                     complete = false;
 
-                if ($(this).attr("id") == 'DEBRIS_OTHER' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "")
+                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
                     complete = false;
 
                 if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
@@ -329,12 +326,12 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PH' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'COLOR_CHANGE-1' && $(this).attr("checked"))
+                if ($(this).attr("id") == 'COLOR_CHANGE-0' && $('#COLOR_CHANGE-0Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
                     other = true;
                 if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $(this).attr("checked"))
+                if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $('#ODOR_DESCRIPTION-4Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
                     other = true;
                 if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                     complete = false;
@@ -342,12 +339,12 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $(this).attr("checked"))
+                if ($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $('#ALGAE_TYPE_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
                     other = true;
                 if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $(this).attr("checked"))
+                if ($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $('#ALGAE_COLOR_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
                     other = true;
                 if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
                     complete = false;
@@ -362,7 +359,7 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                //console.log($(this).attr("id"));
+                console.log($(this).attr("id"));
             });
             //console.log(complete);
 
