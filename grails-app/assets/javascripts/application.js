@@ -81,6 +81,7 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
         }
+        saveSurvey();
     }
 
     function btnPrev() {
@@ -94,7 +95,6 @@ if (typeof jQuery !== 'undefined') {
             submit();
         else
             toPage(curPage + 1);
-        saveSurvey();
     }
 
     function toReview() {
@@ -665,6 +665,7 @@ if (typeof jQuery !== 'undefined') {
                 list.append('<option value="' + cval + '"/>');
             });
         }
+        saveFavoriteEnabled();
     }
 
     function fillBeaches() {
@@ -677,6 +678,7 @@ if (typeof jQuery !== 'undefined') {
                 list.append('<option value="' + cval + '"/>');
             });
         }
+        saveFavoriteEnabled();
     }
 
     function fillSites() {
@@ -690,6 +692,16 @@ if (typeof jQuery !== 'undefined') {
                 if (cval != '_site') list.append('<option value="' + cval + '"/>');
             });
         }
+        saveFavoriteEnabled();
+    }
+
+    function saveFavoriteEnabled() {
+        $('#__addFavorite').prop('disabled',
+            $('#__county').val() == '' ||
+                $('#__lake').val() == '' ||
+                $('#BEACH_SEQ').val() == '' ||
+                $('#MONITOR_SITE_SEQ').val() == ''
+        )
     }
 
     fillCounties();
@@ -697,10 +709,14 @@ if (typeof jQuery !== 'undefined') {
     document.getElementById('__county').oninput = fillLakes;
     document.getElementById('__lake').oninput = fillBeaches;
     document.getElementById('BEACH_SEQ').oninput = fillSites;
+    document.getElementById('MONITOR_SITE_SEQ').oninput = saveFavoriteEnabled;
+    document.getElementById('__favorites').onchange = fillFavorite;
 
-    var favorites = loadFavorites();
+    var favorites;
+    loadFavorites();
     if (typeof(favorites) === 'undefined') favorites = [];
-    applyFavorites();
+
+    saveFavoriteEnabled();
 }
 
 function getDateFormatted() {

@@ -1,11 +1,10 @@
 function loadFavorites() {
-    var ret = [];
     localforage.getItem('favorites').then(function(v) {
-        ret = v;
+        favorites = v;
+        applyFavorites();
     }).catch(function(e) {
         console.log(e);
     });
-    return ret;
 }
 
 function saveFavorites() {
@@ -18,6 +17,8 @@ function saveFavorites() {
 
 function applyFavorites() {
     var f = $('#__favorites');
+    f.empty();
+    f.append('<option value=""></option>');
     favorites.forEach(function (cval, i) {
         f.append('<option value="' + i + '">' + cval.county + ' &raquo; ' + cval.lake + ' &raquo; ' + cval.beach + ' &raquo; ' + cval.site + '</option>')
     });
@@ -35,10 +36,26 @@ function addFavorite() {
         site: s
     });
     var f = $('#__favorites');
-    f.append('<option value="' + c + '::' + l + '::' + b + '::' + s + '">' + c + ' &raquo; ' + l + ' &raquo; ' + b + ' &raquo; ' + s + '</option>')
-    f.selectedIndex = f.children.length - 1;
+    console.log(f.children().length - 1);
+    f.append('<option value="' + (f.children().length - 1) + '">' + c + ' &raquo; ' + l + ' &raquo; ' + b + ' &raquo; ' + s + '</option>')
     f.parent().addClass('is-dirty');
 
+    var f2 = document.getElementById('__favorites');
+    f2.selectedIndex = f2.options.length - 1;
+
     saveFavorites()
+}
+
+function fillFavorite() {
+    var c = $('#__county');
+    var l = $('#__lake');
+    var b = $('#BEACH_SEQ');
+    var s = $('#MONITOR_SITE_SEQ');
+    var f = $('#__favorites');
+
+    c.val(favorites[f.val()].county).parent().addClass('is-dirty');
+    l.val(favorites[f.val()].lake).parent().addClass('is-dirty');
+    b.val(favorites[f.val()].beach).parent().addClass('is-dirty');
+    s.val(favorites[f.val()].site).parent().addClass('is-dirty');
 }
 
