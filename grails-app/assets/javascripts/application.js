@@ -56,6 +56,8 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
 
+        if(curPage != 'home' && curPage >= 0)
+            saveSurvey();
         curPage = page;
         if (curPage > 0)
             $('#btn-prev').css('display', 'block');
@@ -84,7 +86,6 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
-        saveSurvey();
     }
 
     function btnPrev() {
@@ -362,7 +363,7 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                console.log($(this).attr("id"));
+                //console.log($(this).attr("id"));
             });
             //console.log(complete);
 
@@ -660,7 +661,7 @@ if (typeof jQuery !== 'undefined') {
         var list = $('#lakeList');
         var county = $('#__county');
         list.empty();
-        if (Object.keys(beaches).indexOf(county.val()) >= 0) {
+        if (typeof(beaches[county.val()]) !== 'undefined' && Object.keys(beaches).indexOf(county.val()) >= 0) {
             Object.keys(beaches[county.val()]).forEach(function (cval) {
                 list.append('<option value="' + cval + '"/>');
             });
@@ -673,7 +674,7 @@ if (typeof jQuery !== 'undefined') {
         var lake = $('#__lake');
         var county = $('#__county');
         list.empty();
-        if (Object.keys(beaches[county.val()]).indexOf(lake.val()) >= 0) {
+        if (typeof(beaches[county.val()]) !== 'undefined' && typeof(beaches[county.val()][lake.val()]) !== 'undefined' && Object.keys(beaches[county.val()]).indexOf(lake.val()) >= 0) {
             Object.keys(beaches[county.val()][lake.val()]).forEach(function (cval) {
                 list.append('<option value="' + cval + '"/>');
             });
@@ -687,7 +688,7 @@ if (typeof jQuery !== 'undefined') {
         var lake = $('#__lake');
         var county = $('#__county');
         list.empty();
-        if (Object.keys(beaches[county.val()][lake.val()]).indexOf(beach.val()) >= 0) {
+        if (typeof(beaches[county.val()]) !== 'undefined' && typeof(beaches[county.val()][lake.val()]) !== 'undefined' &&  typeof(beaches[county.val()][lake.val()][beach.val()]) !== 'undefined' && Object.keys(beaches[county.val()][lake.val()]).indexOf(beach.val()) >= 0) {
             Object.keys(beaches[county.val()][lake.val()][beach.val()]).forEach(function (cval) {
                 if (cval != '_site') list.append('<option value="' + cval + '"/>');
             });
@@ -714,7 +715,11 @@ if (typeof jQuery !== 'undefined') {
 
     var favorites;
     loadFavorites();
-    if (typeof(favorites) === 'undefined') favorites = [];
+    /*console.log(favorites);
+    if (typeof(favorites) === 'undefined') {
+        console.log("favorites should be fixed");
+        favorites = [];
+    }*/
 
     saveFavoriteEnabled();
 }
