@@ -658,8 +658,8 @@ if (typeof jQuery !== 'undefined') {
     function fillLakes() {
         var list = $('#lakeList');
         var county = $('#__county');
+        list.empty();
         if (Object.keys(beaches).indexOf(county.val()) >= 0) {
-            list.empty();
             Object.keys(beaches[county.val()]).forEach(function (cval) {
                 list.append('<option value="' + cval + '"/>');
             });
@@ -670,8 +670,8 @@ if (typeof jQuery !== 'undefined') {
         var list = $('#beachList');
         var lake = $('#__lake');
         var county = $('#__county');
+        list.empty();
         if (Object.keys(beaches[county.val()]).indexOf(lake.val()) >= 0) {
-            list.empty();
             Object.keys(beaches[county.val()][lake.val()]).forEach(function (cval) {
                 list.append('<option value="' + cval + '"/>');
             });
@@ -683,8 +683,8 @@ if (typeof jQuery !== 'undefined') {
         var beach = $('#BEACH_SEQ');
         var lake = $('#__lake');
         var county = $('#__county');
+        list.empty();
         if (Object.keys(beaches[county.val()][lake.val()]).indexOf(beach.val()) >= 0) {
-            list.empty()
             Object.keys(beaches[county.val()][lake.val()][beach.val()]).forEach(function (cval) {
                 if (cval != '_site') list.append('<option value="' + cval + '"/>');
             });
@@ -694,52 +694,55 @@ if (typeof jQuery !== 'undefined') {
     fillCounties();
 
     document.getElementById('__county').oninput = fillLakes;
-    document.getElementById('BEACH_SEQ').oninput = fillBeaches;
-    document.getElementById('MONITOR_SITE_SEQ').oninput = fillSites;
+    document.getElementById('__lake').oninput = fillBeaches;
+    document.getElementById('BEACH_SEQ').oninput = fillSites;
+
+    var favorites = loadFavorites();
+    if (typeof(favorites) === 'undefined') favorites = [];
+    applyFavorites();
 }
 
-    function getDateFormatted() {
-        date = new Date();
-        formattedString = "";
-        switch (date.getMonth()) {
-            case 0:
-                formattedString += "Jan. "
-                break;
-            case 1:
-                formattedString += "Feb. "
-                break;
-            case 2:
-                formattedString += "Mar. "
-                break;
-            case 3:
-                formattedString += "Apr. "
-                break;
-            case 4:
-                formattedString += "May. "
-                break;
-            case 5:
-                formattedString += "Jun. "
-                break;
-            case 6:
-                formattedString += "Jul. "
-                break;
-            case 7:
-                formattedString += "Aug. "
-                break;
-            case 8:
-                formattedString += "Sep. "
-                break;
-            case 9:
-                formattedString += "Oct. "
-                break;
-            case 10:
-                formattedString += "Nov. "
-                break;
-            case 11:
-                formattedString += "Dec. "
-                break;
-        }
-        formattedString += date.getDate();
-        return formattedString;
+function getDateFormatted() {
+    date = new Date();
+    formattedString = "";
+    switch (date.getMonth()) {
+        case 0:
+            formattedString += "Jan. ";
+            break;
+        case 1:
+            formattedString += "Feb. ";
+            break;
+        case 2:
+            formattedString += "Mar. ";
+            break;
+        case 3:
+            formattedString += "Apr. ";
+            break;
+        case 4:
+            formattedString += "May. ";
+            break;
+        case 5:
+            formattedString += "Jun. ";
+            break;
+        case 6:
+            formattedString += "Jul. ";
+            break;
+        case 7:
+            formattedString += "Aug. ";
+            break;
+        case 8:
+            formattedString += "Sep. ";
+            break;
+        case 9:
+            formattedString += "Oct. ";
+            break;
+        case 10:
+            formattedString += "Nov. ";
+            break;
+        case 11:
+            formattedString += "Dec. ";
+            break;
     }
+    formattedString += date.getDate();
+    return formattedString;
 }
