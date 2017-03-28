@@ -50,8 +50,6 @@ if (typeof jQuery !== 'undefined') {
 
     function toPage(page) {
         completePage(page);
-        if(curPage > 0)
-            saveSurvey();
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
@@ -83,6 +81,10 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
         }
+
+        if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
+        else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
+        saveSurvey();
     }
 
     function btnPrev() {
@@ -109,6 +111,7 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function saveSurvey() {
+        if (typeof(surveyId) === 'undefined') return;
         data = getAllFields();
         data.id = surveyId;
         data.date = surveyDate;
@@ -662,6 +665,7 @@ if (typeof jQuery !== 'undefined') {
                 list.append('<option value="' + cval + '"/>');
             });
         }
+        saveFavoriteEnabled();
     }
 
     function fillBeaches() {
@@ -674,6 +678,7 @@ if (typeof jQuery !== 'undefined') {
                 list.append('<option value="' + cval + '"/>');
             });
         }
+        saveFavoriteEnabled();
     }
 
     function fillSites() {
@@ -687,6 +692,16 @@ if (typeof jQuery !== 'undefined') {
                 if (cval != '_site') list.append('<option value="' + cval + '"/>');
             });
         }
+        saveFavoriteEnabled();
+    }
+
+    function saveFavoriteEnabled() {
+        $('#__addFavorite').prop('disabled',
+            $('#__county').val() == '' ||
+                $('#__lake').val() == '' ||
+                $('#BEACH_SEQ').val() == '' ||
+                $('#MONITOR_SITE_SEQ').val() == ''
+        )
     }
 
     fillCounties();
@@ -694,10 +709,14 @@ if (typeof jQuery !== 'undefined') {
     document.getElementById('__county').oninput = fillLakes;
     document.getElementById('__lake').oninput = fillBeaches;
     document.getElementById('BEACH_SEQ').oninput = fillSites;
+    document.getElementById('MONITOR_SITE_SEQ').oninput = saveFavoriteEnabled;
+    document.getElementById('__favorites').onchange = fillFavorite;
 
-    var favorites = loadFavorites();
+    var favorites;
+    loadFavorites();
     if (typeof(favorites) === 'undefined') favorites = [];
-    applyFavorites();
+
+    saveFavoriteEnabled();
 }
 
 function getDateFormatted() {
