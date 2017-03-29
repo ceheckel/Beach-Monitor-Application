@@ -102,7 +102,7 @@
                         </g:each>
                     </select>
                     <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                    <label class="mdl-selectfield__label" for="${q.columnId}">Favorites</label>
+                    <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
                 </div>
             </g:if>
             <g:if test ="${q instanceof HiddenQuestion}">
