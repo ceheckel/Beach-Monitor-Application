@@ -59,7 +59,7 @@
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
                 <g:if test="${q.hasTitle}">
-                    <p>${q.title}</p>
+                    <h6>${q.title}</h6>
                 </g:if>
                 <g:if test="${q.radio}">
                     <g:if test="${q.inline}">
