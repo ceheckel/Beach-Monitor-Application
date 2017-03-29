@@ -86,6 +86,7 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
+        $(".mdl-layout__content").scrollTop(0);
     }
 
     function btnPrev() {
@@ -301,10 +302,11 @@ if (typeof jQuery !== 'undefined') {
                 if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
+
+                if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHER').get()[0].checked)
                     complete = false;
 
-                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
+                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
                     complete = false;
 
                 if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
@@ -330,27 +332,19 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PH' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'COLOR_CHANGE-0' && $('#COLOR_CHANGE-0Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
+                if ($('#COLOR_CHANGE-0').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $('#ODOR_DESCRIPTION-4Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
+                if ($('#ODOR_DESCRIPTION-4').get()[0].checked && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                     complete = false;
 
                 if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $('#ALGAE_TYPE_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
+                if ($('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $('#ALGAE_COLOR_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
+                if ($('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
                 if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
