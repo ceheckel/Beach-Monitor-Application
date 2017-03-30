@@ -31,19 +31,15 @@ if (typeof jQuery !== 'undefined') {
             console.log('menu button clicked');
         });
 
-        $('#btn-new-survey').click(function() {
-            clearAllFields();
-            surveyId = guid();
-            surveyDate = getDateFormatted();
-            toPage(0);
-        });
-
         $('#btn-past-reps').click(function() {
             console.log('past reports');
         });
     });
 
     function newSurvey(){
+        clearAllFields();
+        surveyId = guid();
+        surveyDate = getDateFormatted();
         toPage(0);
         $('#page-questions').css('display', 'block');
     }
