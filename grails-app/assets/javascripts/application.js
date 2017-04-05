@@ -13,6 +13,7 @@
 
 var curPage = -1;
 var completedSurvey;
+var surveyDate;
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -44,6 +45,9 @@ if (typeof jQuery !== 'undefined') {
     });
 
     function newSurvey(){
+        clearAllFields();
+        surveyId = guid();
+        surveyDate = getDateFormatted();
         toPage(0);
         $('#page-questions').css('display', 'block');
     }
@@ -86,6 +90,9 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
+        $('#btn-delete').css('display', 'none');
+        $('.mdl-layout__content').scrollTop(0);
+        saveSurvey();
     }
 
     function btnPrev() {
@@ -109,6 +116,7 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
         $('#btn-next').html('Submit');
+        $('#btn-delete').css('display', 'block');
     }
 
     function saveSurvey() {
@@ -194,7 +202,6 @@ if (typeof jQuery !== 'undefined') {
                 var icon = document.createElement("i");
                 icon.className="material-icons";
 
-
                 nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
                 infoSpan.appendChild(document.createTextNode(surveys[i].date + " - Site " + surveys[i].MONITOR_SITE_SEQ));
                 icon.appendChild(document.createTextNode("edit"));
@@ -229,7 +236,6 @@ if (typeof jQuery !== 'undefined') {
                 data[this.name] = this.value;
             }
         });
-        console.log(data);
         return data;
     }
 
@@ -338,7 +344,7 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
                     complete = false;
 
-                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
+                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
                     complete = false;
 
                 if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
@@ -363,28 +369,19 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'PH' && $(this).val() == "")
                     complete = false;
-
-                if ($(this).attr("id") == 'COLOR_CHANGE-0' && $('#COLOR_CHANGE-0Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
+                if (!$('#COLOR_CHANGE-0').get()[0] || $('#COLOR_CHANGE-0').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $('#ODOR_DESCRIPTION-4Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
+                if (!$('#ODOR_DESCRIPTION-4').get()[0] || $('#ODOR_DESCRIPTION-4').get()[0].checked && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                     complete = false;
 
                 if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $('#ALGAE_TYPE_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
+                if (!$('#ALGAE_TYPE_OTHER').get()[0] || $('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $('#ALGAE_COLOR_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
+                if (!$('#ALGAE_COLOR_OTHER').get()[0] || $('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
                 if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
@@ -806,3 +803,32 @@ function getDateFormatted() {
     formattedString += date.getDate();
     return formattedString;
 }
+
+function deleteSurvey() {
+    if (deleteTimer == 0) {
+        var btn = $('#btn-delete');
+        btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
+        deleteTimer = 5;
+        btn.html('Really Delete? (' + deleteTimer + ')');
+        setTimeout(deleteCountdown, 1000);
+    } else {
+        // TODO: DELETE SURVEY HERE
+        console.log('DELETE SURVEY NOW');
+        btn.html('Delete');
+        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+    }
+}
+
+function deleteCountdown() {
+    var btn = $('#btn-delete');
+    deleteTimer--;
+    if (deleteTimer > 0) {
+        btn.html('Really Delete? (' + deleteTimer + ')');
+        setTimeout(deleteCountdown, 1000);
+    } else {
+        btn.html('Delete');
+        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+    }
+}
+
+var deleteTimer = 0;
