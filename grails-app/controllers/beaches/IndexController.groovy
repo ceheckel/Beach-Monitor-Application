@@ -362,6 +362,7 @@ class CheckQuestion extends Question {
 }
 
 class SelectQuestion extends Question {
+    String prompt = "Favorites"
     List<String> options
 }
 

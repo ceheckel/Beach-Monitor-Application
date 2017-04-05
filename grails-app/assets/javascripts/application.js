@@ -84,6 +84,8 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
+
+        $('#btn-delete').css('display', 'none');
         saveSurvey();
     }
 
@@ -108,6 +110,7 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
         $('#btn-next').html('Submit');
+        $('#btn-delete').css('display', 'block');
     }
 
     function saveSurvey() {
@@ -179,7 +182,6 @@ if (typeof jQuery !== 'undefined') {
                 })();
                 var icon = document.createElement("i");
                 icon.className="material-icons";
-
 
                 nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
                 infoSpan.appendChild(document.createTextNode(surveys[i].date + " - Site " + surveys[i].MONITOR_SITE_SEQ));
@@ -767,3 +769,32 @@ function getDateFormatted() {
     formattedString += date.getDate();
     return formattedString;
 }
+
+function deleteSurvey() {
+    if (deleteTimer == 0) {
+        var btn = $('#btn-delete');
+        btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
+        deleteTimer = 5;
+        btn.html('Really Delete? (' + deleteTimer + ')');
+        setTimeout(deleteCountdown, 1000);
+    } else {
+        // TODO: DELETE SURVEY HERE
+        console.log('DELETE SURVEY NOW');
+        btn.html('Delete');
+        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+    }
+}
+
+function deleteCountdown() {
+    var btn = $('#btn-delete');
+    deleteTimer--;
+    if (deleteTimer > 0) {
+        btn.html('Really Delete? (' + deleteTimer + ')');
+        setTimeout(deleteCountdown, 1000);
+    } else {
+        btn.html('Delete');
+        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+    }
+}
+
+var deleteTimer = 0;

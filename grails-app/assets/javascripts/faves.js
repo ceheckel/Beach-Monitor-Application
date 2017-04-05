@@ -20,7 +20,7 @@ function applyFavorites() {
     f.empty();
     f.append('<option value=""></option>');
     favorites.forEach(function (cval, i) {
-        f.append('<option value="' + i + '">' + cval.county + ' &raquo; ' + cval.lake + ' &raquo; ' + cval.beach + ' &raquo; ' + cval.site + '</option>')
+        f.append('<option value="' + i + '">' + cval.beach + ' &raquo; ' + cval.site + '</option>')
     });
 }
 

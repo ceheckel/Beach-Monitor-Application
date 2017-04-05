@@ -46,7 +46,7 @@
 
 <div class="page-content" id="page-questions" style="display: none">
 <g:each status="i" var="p" in="${survey}">
-    <div data-page-title="${p.pageName}" data-page="${i}">
+    <div data-page-title="${p.pageName}" data-page="${i}" class="page">
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -102,7 +102,7 @@
                         </g:each>
                     </select>
                     <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                    <label class="mdl-selectfield__label" for="${q.columnId}">Favorites</label>
+                    <label class="mdl-selectfield__label" for="${q.columnId}">${q.prompt}</label>
                 </div>
             </g:if>
             <g:if test ="${q instanceof HiddenQuestion}">
@@ -115,9 +115,14 @@
         </g:each>
     </div>
 </g:each>
+    %{--<div id="btn-delete" style="display:none" style="padding-bottom: 16px">--}%
+%{--<button class="mdl-color--red-A700 mdl-color-text--white mdl-button mdl-js-button mdl-button--raised" onclick="Surveys.remove(Survey.getById(surveyId))">Delete</button>--}%
+    %{--</div>--}%
 <div class="bottom-nav" id="bottom-nav">
   <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
   <div style="flex-grow: 1"></div>
+    <button id="btn-delete" class="mdl-button mdl-js-button mdl-button--raised" onclick="deleteSurvey()">Delete</button>
+    <div style="flex-grow:1"></div>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
 </div>
 </div>
