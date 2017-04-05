@@ -7,8 +7,14 @@ Survey = function(id, data) {
         localforage.setItem(this.key, this.data, callback);
 
         Surveys.add(this, callback);
-    }
-}
+    };
+
+    this.delete = function(callback) {
+        localforage.removeItem(this.key, callback);
+
+        Surveys.remove(this);
+    };
+};
 
 Surveys = {};
 Surveys.getAll = function(callback) {
@@ -51,5 +57,18 @@ Surveys.getById = function(id, callback) {
     localforage.getItem(id, function(error, item) {
         if (!error)
             callback(item);
+    });
+};
+
+Surveys.remove = function(id, callback) {
+    localforage.getItem("surveys", function(error, result) {
+        var index = surveys.indexOf(survey.key);
+        if (index >= 0) {
+            result.splice(index, 1);
+            localforage.setItem("surveys", result, function(settingError) {
+                if (callback && !settingError)
+                    callback();
+            });
+        }
     });
 };

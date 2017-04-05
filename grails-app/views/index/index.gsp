@@ -70,8 +70,9 @@
                             <div>
                         </g:if>
                             <label id="${q.columnId + '-' + n}Label" ${q.inline ? 'style="padding-left:8px;"' : ''} class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="${q.columnId + '-' + n}">
-                                <input type="radio" id="${q.columnId + '-' + n}" class="mdl-radio__button" name="${q.columnId}" value="n"${c.second ? ' checked' : ''}>
+                                <input type="radio" id="${q.columnId + '-' + n}" class="mdl-radio__button" name="${q.columnId}" value="n" ${c.second ? ' checked' : ''}>
                                 <span class="mdl-radio__label">${c.first}</span>
+
                             </label>
                         <g:if test="${!q.inline}">
                             </div>
@@ -84,7 +85,7 @@
                 <g:else>
                     <g:each var="c" in="${q.prompts}">
                         <label id="${q.columnId}Label" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${q.columnId}">
-                            <input type="checkbox" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
+                            <input type="checkbox" name="${q.columnId}" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
                             <span class="mdl-checkbox__label">${c.first}</span>
                         </label>
                         <g:if test="${!q.inline}">

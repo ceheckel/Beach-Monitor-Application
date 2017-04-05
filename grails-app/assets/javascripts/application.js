@@ -125,7 +125,20 @@ if (typeof jQuery !== 'undefined') {
         Surveys.getById(id, function(survey) {
             $('[name]').each(function () {
                 var nameToString = this.name.toString();
-                if (this.name in survey)
+                if ($(this).attr('class') == "mdl-radio__button") {
+                    $(this.parentElement.parentElement).children().each(function () {
+                        forProp = $(this).prop("for");
+                        if (forProp === survey[nameToString]) {
+                            this.className += " is-checked";
+                        }
+                    });
+                }
+                else if ($(this).attr('class') == "mdl-checkbox__input") {
+                    if (survey[nameToString]) {
+                        this.parentElement.className += " is-checked";
+                    }
+                }
+                else if (this.name in survey)
                 {
                     this.value = survey[nameToString];
                     this.parentElement.className += " is-dirty";
@@ -201,9 +214,22 @@ if (typeof jQuery !== 'undefined') {
     function getAllFields() {
         data = {};
         $('[name]').each(function () {
-            if (this.value)
+            if ($(this).attr('class') == "mdl-radio__button") {
+                if (this.parentElement.className.includes('is-checked')) {
+                    data[this.name] = $(this).attr("id");
+                }
+            }
+            else if ($(this).attr('class') == "mdl-checkbox__input") {
+                if (this.parentElement.className.includes('is-checked'))
+                    data[this.name] = true;
+                else
+                    data[this.name] = false;
+            }
+            else if (this.value) {
                 data[this.name] = this.value;
+            }
         });
+        console.log(data);
         return data;
     }
 
@@ -212,6 +238,14 @@ if (typeof jQuery !== 'undefined') {
             if (this.value) {
                 this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
                 this.value = '';
+            }
+            if ($(this).attr('class') == "mdl-radio__button") {
+                $(this.parentElement.parentElement).children().each(function () {
+                    this.className = this.className.replace("is-checked", "");
+                });
+            }
+            if ($(this).attr('class') == "mdl-checkbox__input") {
+                this.parentElement.className = this.parentElement.className.replace("is-checked", "");
             }
         });
     }
