@@ -1,3 +1,4 @@
+
 package beaches
 
 class IndexController {

@@ -46,7 +46,7 @@
 
 <div class="page-content" id="page-questions" style="display: none">
 <g:each status="i" var="p" in="${survey}">
-    <div data-page-title="${p.pageName}" data-page="${i}">
+    <div data-page-title="${p.pageName}" data-page="${i}" class="page">
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -118,6 +118,8 @@
 <div class="bottom-nav" id="bottom-nav">
   <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
   <div style="flex-grow: 1"></div>
+    <button id="btn-delete" class="mdl-button mdl-js-button mdl-button--raised" onclick="deleteSurvey()">Delete</button>
+    <div style="flex-grow:1"></div>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
 </div>
 </div>
