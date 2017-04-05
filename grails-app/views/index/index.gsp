@@ -59,7 +59,7 @@
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
                 <g:if test="${q.hasTitle}">
-                    <p>${q.title}</p>
+                    <h6>${q.title}</h6>
                 </g:if>
                 <g:if test="${q.radio}">
                     <g:if test="${q.inline}">
@@ -102,7 +102,7 @@
                         </g:each>
                     </select>
                     <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                    <label class="mdl-selectfield__label" for="${q.columnId}">${q.prompt}</label>
+                    <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
                 </div>
             </g:if>
             <g:if test ="${q instanceof HiddenQuestion}">
@@ -115,9 +115,6 @@
         </g:each>
     </div>
 </g:each>
-    %{--<div id="btn-delete" style="display:none" style="padding-bottom: 16px">--}%
-%{--<button class="mdl-color--red-A700 mdl-color-text--white mdl-button mdl-js-button mdl-button--raised" onclick="Surveys.remove(Survey.getById(surveyId))">Delete</button>--}%
-    %{--</div>--}%
 <div class="bottom-nav" id="bottom-nav">
   <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
   <div style="flex-grow: 1"></div>

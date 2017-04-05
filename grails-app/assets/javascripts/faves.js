@@ -1,8 +1,11 @@
 function loadFavorites() {
     localforage.getItem('favorites').then(function(v) {
         favorites = v;
+        if(typeof(favorites) === 'undefined')
+            favorites = [];
         applyFavorites();
     }).catch(function(e) {
+        favorites = [];
         console.log(e);
     });
 }
@@ -42,8 +45,8 @@ function addFavorite() {
 
     var f2 = document.getElementById('__favorites');
     f2.selectedIndex = f2.options.length - 1;
-
-    saveFavorites()
+    $('#__addFavorite').prop('disabled',true);
+    saveFavorites();
 }
 
 function fillFavorite() {
@@ -52,6 +55,9 @@ function fillFavorite() {
     var b = $('#BEACH_SEQ');
     var s = $('#MONITOR_SITE_SEQ');
     var f = $('#__favorites');
+
+    if(typeof(favorites[f.val()]) === 'undefined')
+        return;
 
     c.val(favorites[f.val()].county).parent().addClass('is-dirty');
     l.val(favorites[f.val()].lake).parent().addClass('is-dirty');

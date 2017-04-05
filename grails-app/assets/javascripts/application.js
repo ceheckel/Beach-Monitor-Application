@@ -44,6 +44,9 @@ if (typeof jQuery !== 'undefined') {
     });
 
     function newSurvey(){
+        clearAllFields();
+        surveyId = guid();
+        surveyDate = getDateFormatted();
         toPage(0);
         $('#page-questions').css('display', 'block');
     }
@@ -56,6 +59,8 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
 
+        if(curPage != 'home' && curPage >= 0)
+            saveSurvey();
         curPage = page;
         if (curPage > 0)
             $('#btn-prev').css('display', 'block');
@@ -84,8 +89,8 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
-
         $('#btn-delete').css('display', 'none');
+        $('.mdl-layout__content').scrollTop(0);
         saveSurvey();
     }
 
@@ -225,7 +230,7 @@ if (typeof jQuery !== 'undefined') {
     function completePage(nextPage) {
         completedSurvey = true;
         for(var page = 0; page < totalQuestionPages; page++) {
-            var p = $('div[data-page=' + page + '] > div > input');
+            var p = $('div[data-page=' + page + '] :input');
             var complete = true;
             var other = false;
             p.each(function () {
@@ -302,14 +307,11 @@ if (typeof jQuery !== 'undefined') {
                 if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'FLOAT_OTHER' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "")
+
+                if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHER').get()[0].checked)
                     complete = false;
 
-                if ($(this).attr("id") == 'DEBRIS_OTHER' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "")
+                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
                     complete = false;
 
                 if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
@@ -335,27 +337,19 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == 'PH' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'COLOR_CHANGE-1' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
+                if ($('#COLOR_CHANGE-0').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
+                if ($('#ODOR_DESCRIPTION-4').get()[0].checked && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                     complete = false;
 
                 if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
+                if ($('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $(this).attr("checked"))
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
+                if ($('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
                 if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
@@ -666,7 +660,7 @@ if (typeof jQuery !== 'undefined') {
         var list = $('#lakeList');
         var county = $('#__county');
         list.empty();
-        if (Object.keys(beaches).indexOf(county.val()) >= 0) {
+        if (typeof(beaches[county.val()]) !== 'undefined' && Object.keys(beaches).indexOf(county.val()) >= 0) {
             Object.keys(beaches[county.val()]).forEach(function (cval) {
                 list.append('<option value="' + cval + '"/>');
             });
@@ -679,7 +673,7 @@ if (typeof jQuery !== 'undefined') {
         var lake = $('#__lake');
         var county = $('#__county');
         list.empty();
-        if (Object.keys(beaches[county.val()]).indexOf(lake.val()) >= 0) {
+        if (typeof(beaches[county.val()]) !== 'undefined' && typeof(beaches[county.val()][lake.val()]) !== 'undefined' && Object.keys(beaches[county.val()]).indexOf(lake.val()) >= 0) {
             Object.keys(beaches[county.val()][lake.val()]).forEach(function (cval) {
                 list.append('<option value="' + cval + '"/>');
             });
@@ -693,7 +687,7 @@ if (typeof jQuery !== 'undefined') {
         var lake = $('#__lake');
         var county = $('#__county');
         list.empty();
-        if (Object.keys(beaches[county.val()][lake.val()]).indexOf(beach.val()) >= 0) {
+        if (typeof(beaches[county.val()]) !== 'undefined' && typeof(beaches[county.val()][lake.val()]) !== 'undefined' &&  typeof(beaches[county.val()][lake.val()][beach.val()]) !== 'undefined' && Object.keys(beaches[county.val()][lake.val()]).indexOf(beach.val()) >= 0) {
             Object.keys(beaches[county.val()][lake.val()][beach.val()]).forEach(function (cval) {
                 if (cval != '_site') list.append('<option value="' + cval + '"/>');
             });
@@ -702,7 +696,16 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function saveFavoriteEnabled() {
+        var unique = true;
+        if(typeof(favorites) !== 'undefined') {
+            favorites.forEach(function (f, i) {
+                if (f.county == $('#__county').val() && f.lake == $('#__lake').val() && f.beach == $('#BEACH_SEQ').val() && f.site == $('#MONITOR_SITE_SEQ').val()) {
+                    unique = false;
+                }
+            });
+        }
         $('#__addFavorite').prop('disabled',
+            !unique ||
             $('#__county').val() == '' ||
                 $('#__lake').val() == '' ||
                 $('#BEACH_SEQ').val() == '' ||
@@ -720,7 +723,6 @@ if (typeof jQuery !== 'undefined') {
 
     var favorites;
     loadFavorites();
-    if (typeof(favorites) === 'undefined') favorites = [];
 
     saveFavoriteEnabled();
 }
