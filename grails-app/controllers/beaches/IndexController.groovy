@@ -41,7 +41,9 @@ class IndexController {
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true),
                         //@TODO decide on how to handle date, time and user
                         new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
-                        new HiddenQuestion(columnId: 'SAMPLE_SEQ', value: 'FETCH USER')
+                        new HiddenQuestion(columnId: 'SAMPLE_SEQ', value: 'FETCH USER'),
+                        new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
+                        new TextQuestion(columnId: 'user_id', prompt: 'User ID')
                 ]
         ]
 
@@ -93,7 +95,7 @@ class IndexController {
         ]
 
         def floaters = [
-                pageName :'Floatables',
+                pageName :'Debris in Water',
                 questions: [
                         //@TODO can clean up with each tuple2 having a columnId
                         new CheckQuestion(columnId: 'FLOAT_STREET_LITTER', prompts: [
@@ -122,7 +124,7 @@ class IndexController {
         ]
 
         def debris = [
-                pageName :'Beach Debris',
+                pageName :'Debris on Beach',
                 questions: [
                         //@TODO can clean up with each tuple2 having a columnId
                         new CheckQuestion(columnId: 'DEBRIS_STREET_ LITTER', prompts: [
