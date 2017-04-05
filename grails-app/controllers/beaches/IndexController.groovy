@@ -140,9 +140,6 @@ class IndexController {
                         new CheckQuestion(columnId: 'DEBRIS_BLDG_MATERIALS', prompts: [
                                 new Tuple2('Building material', false)
                         ]),
-                        new CheckQuestion(columnId: 'DEBRIS_BLDG_MATERIALS', prompts: [
-                                new Tuple2('Building material', false)
-                        ]),
                         new CheckQuestion(columnId: 'DEBRIS_FISHING', prompts: [
                                 new Tuple2('Fishing', false)
                         ]),
