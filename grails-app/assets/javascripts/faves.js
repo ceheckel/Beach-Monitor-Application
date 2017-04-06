@@ -40,7 +40,7 @@ function addFavorite() {
     });
     var f = $('#__favorites');
     console.log(f.children().length - 1);
-    f.append('<option value="' + (f.children().length - 1) + '">' + c + ' &raquo; ' + l + ' &raquo; ' + b + ' &raquo; ' + s + '</option>')
+    f.append('<option value="' + (f.children().length - 1) + '">' + b + ' &raquo; ' + s + '</option>')
     f.parent().addClass('is-dirty');
 
     var f2 = document.getElementById('__favorites');
