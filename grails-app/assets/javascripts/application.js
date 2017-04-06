@@ -13,6 +13,7 @@
 
 var curPage = -1;
 var completedSurvey;
+var visitedPages = [];
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -53,6 +54,8 @@ if (typeof jQuery !== 'undefined') {
 
     function toPage(page) {
         completePage(page);
+        if(visitedPages.indexOf(page) < 0)
+            visitedPages.push(page);
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
@@ -81,6 +84,7 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'none';
             document.getElementById("homeSectionDrawer").style.display = 'block';
             $('#page-questions').css('display', 'none');
+            visitedPages = [];
         }
         else {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
@@ -91,7 +95,6 @@ if (typeof jQuery !== 'undefined') {
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
         $('#btn-delete').css('display', 'none');
         $('.mdl-layout__content').scrollTop(0);
-        saveSurvey();
     }
 
     function btnPrev() {
@@ -108,6 +111,8 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function toReview() {
+        if(visitedPages.indexOf(totalQuestionPages) < 0)
+            visitedPages.push(totalQuestionPages);
         completePage(totalQuestionPages);
         $('div[data-page]').show();
         $('div[data-page=home]').hide();
@@ -139,6 +144,7 @@ if (typeof jQuery !== 'undefined') {
                 }
             });
             surveyDate = survey['date'];
+            visitedPages = survey['vPages'];
             toPage(0);
         });
     }
@@ -210,6 +216,7 @@ if (typeof jQuery !== 'undefined') {
             if (this.value)
                 data[this.name] = this.value;
         });
+        data['vPages'] = visitedPages;
         return data;
     }
 
@@ -232,8 +239,8 @@ if (typeof jQuery !== 'undefined') {
         for(var page = 0; page < totalQuestionPages; page++) {
             var p = $('div[data-page=' + page + '] :input');
             var complete = true;
-            var other = false;
             p.each(function () {
+                //Beach Selection
                 if ($(this).attr("id") == '__county' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == '__lake' && $(this).val() == "")
@@ -242,46 +249,20 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'MONITOR_SITE_SEQ' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NO_IN_WATER' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_OUT_OF_WATER' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_BOATING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_FISHING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_SURFING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_WINDSURFING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_PEOPLE_DIVING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_CLAMMING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_OTHER') {
-                    if ($(this).val() == "")
-                        complete = false;
-                    else if (parseInt($(this).val()) > 0)
-                        other = true;
-                }
-                if (other && $(this).attr("id") == 'NO_PEOPLE_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'PART_3_COMMENTS' && $(this).val() == "")
-                    complete = false;
+
+                //Animals
                 if ($(this).attr("id") == 'NO_GULLS' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'NO_GEESE' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'NO_DOGS' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NO_ANIMALS_OTHER') {
-                    if ($(this).val() == "")
-                        complete = false;
-                    else if (parseInt($(this).val()) > 0)
-                        other = true;
-                }
-                if (other && $(this).attr("id") == 'NO_ANIMALS_OTHER_DESC' && $(this).val() == "")
+                if ($(this).attr("id") == 'NO_ANIMALS_OTHER' && $(this).val() == "")
                     complete = false;
+                if (parseInt($('#NO_ANIMALS_OTHER').val()) > 0 && $(this).attr("id") == 'NO_ANIMALS_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+
+                //Deceased Animals
                 if ($(this).attr("id") == 'NUM_LOONS' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'NUM_HERR_GULLS' && $(this).val() == "")
@@ -298,22 +279,46 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'NUM_REDNECKED_GREBE' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NUM_OTHER') {
-                    if ($(this).val() == "")
-                        complete = false;
-                    else if (parseInt($(this).val()) > 0)
-                        other = true;
-                }
-                if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
+                if ($(this).attr("id") == 'NUM_FISH' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_OTHER' && $(this).val() == "")
+                    complete = false;
+                if (parseInt($('#NUM_OTHER').val()) > 0 && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-
+                //Floatables
                 if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHER').get()[0].checked)
                     complete = false;
 
-                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
+                //Beach Debris
+                if ($(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
+                    complete = false;
+                if ($(this).attr("id") == 'DEBRIS_AMOUNT' && $("#DEBRIS_AMOUNT option:selected").index() < 0)
                     complete = false;
 
+                //Bathers
+                if ($(this).attr("id") == 'NO_IN_WATER' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_OUT_OF_WATER' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_BOATING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_FISHING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_SURFING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_WINDSURFING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_PEOPLE_DIVING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_CLAMMING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_OTHER' && $(this).val() == "")
+                    complete = false;
+                if (parseInt($('#NO_PEOPLE_OTHER').val()) > 0 && $(this).attr("id") == 'NO_PEOPLE_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+
+                //Weather
                 if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'WIND_SPEED' && $(this).val() == "")
@@ -322,42 +327,61 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'WIND_DIR_DESC' && $(this).val() == "")
                     complete = false;
-
+                if ($(this).attr("id") == 'WEATHER_DES' && $("#WEATHER_DES option:selected").index() < 0)
+                    complete = false;
+                if ($(this).attr("id") == 'RAINFALL_LAST_EVENT' && $("#RAINFALL_LAST_EVENT option:selected").index() < 0)
+                    complete = false;
                 if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
                     complete = false;
+                if ($(this).attr("id") == 'RAINFALL_STD_DESC' && $("#RAINFALL_STD_DESC option:selected").index() < 0)
+                    complete = false;
 
+                //Waves
                 if ($(this).attr("id") == 'WAVE_HEIGHT' && $(this).val() == "")
                     complete = false;
-
+                if ($(this).attr("id") == 'WAVE_DIRECTION' && $("#WAVE_DIRECTION option:selected").index() < 0)
+                    complete = false;
+                if ($(this).attr("id") == 'WAVE_CONDITIONS' && $("#WAVE_CONDITIONS option:selected").index() < 0)
+                    complete = false;
                 if ($(this).attr("id") == 'CURRENT_SPEED' && $(this).val() == "")
                     complete = false;
-
-                if ($(this).attr("id") == 'PART_1_COMMENTS' && $(this).val() == "")
+                if ($(this).attr("id") == 'SHORELINE_CURRENT_DIR' && $("#SHORELINE_CURRENT_DIR option:selected").index() < 0)
                     complete = false;
+
+                //Water Conditions
                 if ($(this).attr("id") == 'PH' && $(this).val() == "")
                     complete = false;
-
-                if ($('#COLOR_CHANGE-0').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
+                if ($('#COLOR_CHANGE').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                     complete = false;
-
-                if ($('#ODOR_DESCRIPTION-4').get()[0].checked && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
+                if ($(this).attr("id") == 'ODOR_DESCRIPTION' && $("#ODOR_DESCRIPTION option:selected").index() < 0)
                     complete = false;
-
-                if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
+                if ($('#ODOR_DESCRIPTION').val() == 'Other' && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                     complete = false;
-
-                if ($('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
-                if ($('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
                 if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
                     complete = false;
-
+                if ($(this).attr("id") == 'CLARITY_DESC' && $("#CLARITY_DESC option:selected").index() < 0)
+                    complete = false;
                 if ($(this).attr("id") == 'NTU' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
+                    complete = false;
+
+                //Algae
+                if ($(this).attr("id") == 'ALGAE_NEARSHORE' && $("#ALGAE_NEARSHORE option:selected").index() < 0)
+                    complete = false;
+                if ($(this).attr("id") == 'ALGAE_ON_BEACH' && $("#ALGAE_ON_BEACH option:selected").index() < 0)
+                    complete = false;
+                if ($('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+                if ($('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+
+                //Comments
+                if ($(this).attr("id") == 'PART_1_COMMENTS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'PART_3_COMMENTS' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
                     complete = false;
@@ -365,6 +389,9 @@ if (typeof jQuery !== 'undefined') {
                 //console.log($(this).attr("id"));
             });
             //console.log(complete);
+
+            if(visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
+                complete = false;
 
             if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
                 if (complete)
