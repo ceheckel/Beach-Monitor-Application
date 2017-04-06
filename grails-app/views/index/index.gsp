@@ -84,7 +84,7 @@
                 <g:else>
                     <g:each var="c" in="${q.prompts}">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${q.columnId}">
-                            <input type="checkbox" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
+                            <input type="checkbox" name="${q.columnId}" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
                             <span class="mdl-checkbox__label">${c.first}</span>
                         </label>
                         <g:if test="${!q.inline}">
