@@ -37,6 +37,7 @@ grails:
                         - Trident
         types:
             all: '*/*'
+            appcache:  text/cache-manifest
             atom: application/atom+xml
             css: text/css
             csv: text/csv
