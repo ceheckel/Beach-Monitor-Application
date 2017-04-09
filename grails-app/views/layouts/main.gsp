@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://rawgit.com/GoogleChrome/dialog-polyfill/0.4.5/dialog-polyfill.css">
 
     <asset:stylesheet src="application.css"/>
 
@@ -47,6 +48,27 @@
         <g:layoutBody/>
     </main>
 </div>
+
+    <dialog class="mdl-dialog" id="dialog">
+        <h4 class="mdl-dialog__title">Incomplete Survey</h4>
+        <div class="mdl-dialog__content">
+            <p>
+                You may still submit the data that you have, but once a survey is submitted, it may not be edited through this application.
+            </p>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-dialogSub">Submit</button>
+            <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btn-dialogCan">Not Now</button>
+        </div>
+    </dialog>
+    <script src="https://rawgit.com/GoogleChrome/dialog-polyfill/0.4.5/dialog-polyfill.js"></script>
+    <script>
+        var dialog = document.querySelector('#dialog');
+        if(!dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        // Now dialog acts like a native <dialog>.
+    </script>
 
     %{--<footer>--}%
 

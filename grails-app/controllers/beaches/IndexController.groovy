@@ -309,10 +309,10 @@ class IndexController {
         def comments = [
                 pageName: 'Comments',
                 questions: [
-                        new TextQuestion(columnId: 'PART_1_COMMENTS', prompt: 'Waves and weater'),
+                        new TextQuestion(columnId: 'PART_1_COMMENTS', prompt: 'Waves and weather'),
                         new TextQuestion(columnId: 'PART_2_COMMENTS', prompt: 'Color and odor of water'),
                         new TextQuestion(columnId: 'PART_3_COMMENTS', prompt: 'Human bathers'),
-                        new TextQuestion(columnId: 'PART_4_COMMENTS', prompt: 'Floatables, debris, algae, and wildlife'),
+                        new TextQuestion(columnId: 'PART_4_COMMENTS', prompt: 'Debris, algae, and wildlife'),
                         //@TODO must assign theses later
                         new HiddenQuestion(columnId: 'DATA_ENTERED', value: 'FETCH DATE'),
                         new HiddenQuestion(columnId: 'DATA_SAMPLE_SEQ', value: 'FETCH USER'),
