@@ -15,6 +15,7 @@ var curPage = -1;
 var completedSurvey;
 var visitedPages = [];
 var surveyDate;
+var submitted = false;
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -33,15 +34,19 @@ if (typeof jQuery !== 'undefined') {
             console.log('menu button clicked');
         });
 
-        $('#btn-new-survey').click(function() {
-            clearAllFields();
-            surveyId = guid();
-            surveyDate = getDateFormatted();
-            toPage(0);
-        });
-
         $('#btn-past-reps').click(function() {
             console.log('past reports');
+        });
+
+        $('#btn-dialogSub').click(function() {
+            var dialog = document.querySelector('#dialog');
+            dialog.close();
+            submit();
+        });
+
+        $('#btn-dialogCan').click(function() {
+            var dialog = document.querySelector('#dialog');
+            dialog.close();
         });
     });
 
@@ -49,6 +54,7 @@ if (typeof jQuery !== 'undefined') {
         clearAllFields();
         surveyId = guid();
         surveyDate = getDateFormatted();
+        submitted = false;
         toPage(0);
         $('#page-questions').css('display', 'block');
     }
@@ -96,7 +102,6 @@ if (typeof jQuery !== 'undefined') {
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
         $('#btn-delete').css('display', 'none');
         $('.mdl-layout__content').scrollTop(0);
-        saveSurvey();
     }
 
     function btnPrev() {
@@ -107,9 +112,29 @@ if (typeof jQuery !== 'undefined') {
         if (curPage == totalQuestionPages - 1)
             toReview();
         else if (curPage == totalQuestionPages)
-            submit();
+            completionCheck();
         else
             toPage(curPage + 1);
+    }
+
+    function completionCheck() {
+        completePage(curPage);
+        if(completedSurvey){
+            submit();
+        }
+        else {
+            var dialog = document.querySelector('dialog');
+            /*if (!dialog.showModal) {
+                dialogPolyfill.registerDialog(dialog);
+            }*/
+            dialog.showModal();
+        }
+    }
+
+    function submit(){
+        console.log("Survey submitted!");//  <-- DOWNLOAD CSV HERE
+        submitted = true;
+        toPage('home');
     }
 
     function toReview() {
@@ -122,7 +147,9 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
         $('#btn-next').html('Submit');
+        $('#btn-prev').css('display', 'block');
         $('#btn-delete').css('display', 'block');
+        $('.mdl-layout__content').scrollTop(0);
     }
 
     function saveSurvey() {
@@ -137,7 +164,9 @@ if (typeof jQuery !== 'undefined') {
     function loadSurvey(id) {
         surveyId = id;
         Surveys.getById(id, function(survey) {
+            submitted = survey['submitted'];
             $('[name]').each(function () {
+                $(this).prop('disabled', submitted);
                 var nameToString = this.name.toString();
                 if ($(this).attr('class') == "mdl-radio__button") {
                     $(this.parentElement.parentElement).children().each(function () {
@@ -166,6 +195,7 @@ if (typeof jQuery !== 'undefined') {
 
     function getSurveys() {
         var unsubmittedList = document.getElementById("unsubmitted-reports");
+        var submittedList = document.getElementById("submitted-reports");
         // Remove all elements
         while (unsubmittedList.firstChild)
             unsubmittedList.removeChild(unsubmittedList.firstChild);
@@ -180,6 +210,20 @@ if (typeof jQuery !== 'undefined') {
         header.appendChild(span1);
         span1.appendChild(span2);
         unsubmittedList.appendChild(header);
+        //Submitted Reports
+        while (submittedList.firstChild)
+            submittedList.removeChild(submittedList.firstChild);
+        // Create header
+        header = document.createElement("li");
+        span1 = document.createElement("span");
+        span2 = document.createElement("span");
+        header.className = "mdl-list__item";
+        span1.className = "mdl-list__item-primary-content";
+        span2.className = "mdl-typography--font-bold";
+        span2.appendChild(document.createTextNode("Past Reports"));
+        header.appendChild(span1);
+        span1.appendChild(span2);
+        submittedList.appendChild(header);
         // Populate list
         Surveys.getAll(function(surveys) {
             for (var i = 0; i < surveys.length; i++)
@@ -211,7 +255,10 @@ if (typeof jQuery !== 'undefined') {
 
                 nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
                 infoSpan.appendChild(document.createTextNode(surveys[i].date + " - Site " + surveys[i].MONITOR_SITE_SEQ));
-                icon.appendChild(document.createTextNode("edit"));
+                if(!surveys[i].submitted)
+                    icon.appendChild(document.createTextNode("edit"));
+                else
+                    icon.appendChild(document.createTextNode("visibility"));
 
                 dataSpan.appendChild(nameSpan);
                 dataSpan.appendChild(infoSpan);
@@ -219,8 +266,10 @@ if (typeof jQuery !== 'undefined') {
                 actionSpan.appendChild(action);
                 li.appendChild(dataSpan);
                 li.appendChild(actionSpan);
-
-                unsubmittedList.appendChild(li);
+                if(!surveys[i].submitted)
+                    unsubmittedList.appendChild(li);
+                else
+                    submittedList.appendChild(li);
             }
         });
     }
@@ -244,11 +293,13 @@ if (typeof jQuery !== 'undefined') {
             }
         });
         data['vPages'] = visitedPages;
+        data['submitted'] = submitted;
         return data;
     }
 
     function clearAllFields() {
         $('[name]').each(function () {
+            $(this).prop('disabled', false);
             if (this.value) {
                 this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
                 this.value = '';
@@ -321,7 +372,7 @@ if (typeof jQuery !== 'undefined') {
                 if (parseInt($('#NUM_OTHER').val()) > 0 && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                //Floatables
+                //Debris In water
                 if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHER').get()[0].checked)
                     complete = false;
 

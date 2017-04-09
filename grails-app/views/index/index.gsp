@@ -35,7 +35,7 @@
             </span>
         </li>
     </ul>
-    <ul class="mdl-list">
+    <ul class="mdl-list" id="submitted-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Past Reports</span>
