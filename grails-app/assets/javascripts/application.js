@@ -53,14 +53,14 @@ if (typeof jQuery !== 'undefined') {
     function newSurvey(){
         clearAllFields();
         surveyId = guid();
-        surveyDate = getDateFormatted();
+        surveyDate = new Date();
         submitted = false;
         toPage(0);
         $('#page-questions').css('display', 'block');
     }
 
     function toPage(page) {
-        completePage(page);
+        saveSurvey(page);
         if(visitedPages.indexOf(page) < 0)
             visitedPages.push(page);
         $('div[data-page]').hide();
@@ -69,8 +69,6 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
 
-        if(curPage != 'home' && curPage >= 0)
-            saveSurvey();
         curPage = page;
         if (curPage > 0)
             $('#btn-prev').css('display', 'block');
@@ -124,9 +122,6 @@ if (typeof jQuery !== 'undefined') {
         }
         else {
             var dialog = document.querySelector('dialog');
-            /*if (!dialog.showModal) {
-                dialogPolyfill.registerDialog(dialog);
-            }*/
             dialog.showModal();
         }
     }
@@ -140,7 +135,7 @@ if (typeof jQuery !== 'undefined') {
     function toReview() {
         if(visitedPages.indexOf(totalQuestionPages) < 0)
             visitedPages.push(totalQuestionPages);
-        completePage(totalQuestionPages);
+        saveSurvey(totalQuestionPages);
         $('div[data-page]').show();
         $('div[data-page=home]').hide();
         $('#page-title').html('Review');
@@ -152,13 +147,18 @@ if (typeof jQuery !== 'undefined') {
         $('.mdl-layout__content').scrollTop(0);
     }
 
-    function saveSurvey() {
-        if (typeof(surveyId) === 'undefined') return;
+    function saveSurvey(page) {
+        if (typeof(surveyId) === 'undefined' || curPage == 'home') {
+            completePage(page);
+            return;
+        }
         data = getAllFields();
         data.id = surveyId;
         data.date = surveyDate;
         survey = new Survey(surveyId, data);
-        survey.save();
+        survey.save(function(){
+            completePage(page);
+        });
     }
 
     function loadSurvey(id) {
@@ -226,6 +226,7 @@ if (typeof jQuery !== 'undefined') {
         submittedList.appendChild(header);
         // Populate list
         Surveys.getAll(function(surveys) {
+            surveys.sort(function(a, b){return b.date - a.date})
             for (var i = 0; i < surveys.length; i++)
             {
                 var li = document.createElement("li");
@@ -254,7 +255,7 @@ if (typeof jQuery !== 'undefined') {
                 icon.className="material-icons";
 
                 nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
-                infoSpan.appendChild(document.createTextNode(surveys[i].date + " - Site " + surveys[i].MONITOR_SITE_SEQ));
+                infoSpan.appendChild(document.createTextNode(getDateFormatted(surveys[i].date) + " - Site " + surveys[i].MONITOR_SITE_SEQ));
                 if(!surveys[i].submitted)
                     icon.appendChild(document.createTextNode("edit"));
                 else
@@ -419,7 +420,7 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'RAINFALL_STD_DESC' && $("#RAINFALL_STD_DESC option:selected").index() < 0)
+                if ($(this).attr("id") == 'RAINFALL_STD_DESC' && $("#RAINFALL_STD_DESC option:selected").index() < 0 && parseInt($('#RAINFALL').val()) > 0)
                     complete = false;
 
                 //Waves
@@ -445,9 +446,9 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'CLARITY_DESC' && $("#CLARITY_DESC option:selected").index() < 0)
+                if ($(this).attr("id") == 'CLARITY_DESC' && $("#CLARITY_DESC option:selected").index() < 0 && $('#NTU').val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NTU' && $(this).val() == "")
+                if ($(this).attr("id") == 'NTU' && $(this).val() == "" && $("#CLARITY_DESC option:selected").index() < 0)
                     complete = false;
                 if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
                     complete = false;
@@ -462,19 +463,8 @@ if (typeof jQuery !== 'undefined') {
                 if ($('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                //Comments
-                if ($(this).attr("id") == 'PART_1_COMMENTS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'PART_3_COMMENTS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
-                    complete = false;
-
-                //console.log($(this).attr("id"));
+                //Comments - Not Required for completion
             });
-            //console.log(complete);
             if (!visitedPages)
                 visitedPages = [];
             if(visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
@@ -495,7 +485,6 @@ if (typeof jQuery !== 'undefined') {
             }
             getSurveys();
         }
-        //console.log(complete);
     }
 
     function guid() {
@@ -841,8 +830,7 @@ if (typeof jQuery !== 'undefined') {
     saveFavoriteEnabled();
 }
 
-function getDateFormatted() {
-    date = new Date();
+function getDateFormatted(date) {
     formattedString = "";
     switch (date.getMonth()) {
         case 0:
