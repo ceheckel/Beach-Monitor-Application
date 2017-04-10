@@ -894,8 +894,9 @@ function deleteSurvey() {
         btn.html('Really Delete? (' + deleteTimer + ')');
         setTimeout(deleteCountdown, 1000);
     } else {
-        // TODO: DELETE SURVEY HERE
-        Surveys.remove(surveyId, toPage('home'));
+        sId = surveyId;
+        surveyId = undefined;
+        Surveys.remove(surveyId, function() {toPage('home');});
         btn.html('Delete');
         btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
     }
