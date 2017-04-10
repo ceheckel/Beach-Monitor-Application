@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" manifest="static/manifest.appcache">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -8,11 +8,10 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=false"/>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://rawgit.com/GoogleChrome/dialog-polyfill/0.4.5/dialog-polyfill.css">
-
     <asset:stylesheet src="application.css"/>
+    <asset:stylesheet src="dialog-polyfill.css"/>
+    <asset:stylesheet src="icon.css"/>
+    <asset:stylesheet src="roboto.css"/>
 
     <g:layoutHead/>
 </head>
@@ -61,7 +60,7 @@
             <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btn-dialogCan">Not Now</button>
         </div>
     </dialog>
-    <script src="https://rawgit.com/GoogleChrome/dialog-polyfill/0.4.5/dialog-polyfill.js"></script>
+    <asset:javascript src="dialog-polyfill.js"/>
     <script>
         var dialog = document.querySelector('#dialog');
         if(!dialog.showModal) {

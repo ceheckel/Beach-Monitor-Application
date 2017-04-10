@@ -4,7 +4,7 @@ Survey = function(id, data) {
     this.key = id;
 
     this.save = function(callback) {
-        localforage.setItem(this.key, this.data, callback);
+        localforage.setItem(this.key, this.data, function(){});
 
         Surveys.add(this, callback);
     };

@@ -1,6 +1,6 @@
 <%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement" %>
 <!doctype html>
-<html>
+<html manifest="manifest.appcache">
 <head>
     <meta name="layout" content="main"/>
     <title>WI Beach Health</title>
