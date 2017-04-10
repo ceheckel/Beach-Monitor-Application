@@ -43,6 +43,42 @@ if (typeof jQuery !== 'undefined') {
         });
     });
 
+    function downloadCSV(){
+        var myData = getAllFields();
+        console.log(myData);
+
+        var stuff = myData.toString();
+        console.log(stuff.toString());
+
+        //delimeters for csv format
+        var colDelim = '","';
+        var rowDelim = '"\r\n"';
+
+        var csv = '"';
+        for(var key in myData){
+         if(myData.hasOwnProperty(key)){
+             csv+=key;
+             csv+=colDelim;
+         }
+        }
+        csv+=rowDelim;
+
+        for(var key in myData){
+            if(myData.hasOwnProperty(key)){
+                csv+=myData[key];
+                csv+=colDelim;
+            }
+        }
+
+        var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
+        nameOfFile = myData["BEACH_SEQ"] + "," + myData["MONITOR_SITE_SEQ"];
+        var link = document.createElement("a");
+        link.setAttribute("href",csvData);
+        link.setAttribute("download",nameOfFile);
+        document.body.appendChild(link);
+        link.click();
+    }
+
     function newSurvey(){
         toPage(0);
         $('#page-questions').css('display', 'block');
@@ -95,8 +131,10 @@ if (typeof jQuery !== 'undefined') {
     function btnNext() {
         if (curPage == totalQuestionPages - 1)
             toReview();
-        else if (curPage == totalQuestionPages)
-            submit();
+        else if (curPage == totalQuestionPages) {
+            downloadCSV();
+            Submit();
+        }
         else
             toPage(curPage + 1);
     }
