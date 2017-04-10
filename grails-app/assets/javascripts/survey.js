@@ -12,7 +12,7 @@ Survey = function(id, data) {
     this.delete = function(callback) {
         localforage.removeItem(this.key, callback);
 
-        Surveys.remove(this);
+        Surveys.remove(this.key);
     };
 };
 
@@ -62,12 +62,11 @@ Surveys.getById = function(id, callback) {
 
 Surveys.remove = function(id, callback) {
     localforage.getItem("surveys", function(error, result) {
-        var index = surveys.indexOf(survey.key);
+        var index = result.indexOf(survey.key);
         if (index >= 0) {
             result.splice(index, 1);
-            localforage.setItem("surveys", result, function(settingError) {
-                if (callback && !settingError)
-                    callback();
+            localforage.setItem("surveys", result, function () {
+                localforage.removeItem(id, callback);
             });
         }
     });
