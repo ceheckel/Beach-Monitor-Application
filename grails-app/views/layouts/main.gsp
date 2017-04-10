@@ -10,7 +10,7 @@
 
     <asset:stylesheet src="application.css"/>
     <asset:stylesheet src="dialog-polyfill.css"/>
-    <asset:stylesheet src="icon.css"/>
+    <asset:stylesheet src="material-icons.css"/>
     <asset:stylesheet src="roboto.css"/>
 
     <g:layoutHead/>

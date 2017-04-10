@@ -187,7 +187,7 @@ if (typeof jQuery !== 'undefined') {
                     this.parentElement.className += " is-dirty";
                 }
             });
-            surveyDate = survey['date'];
+            surveyDate = new Date(survey['date']);
             visitedPages = survey['vPages'];
             toPage(0);
         });
@@ -226,7 +226,7 @@ if (typeof jQuery !== 'undefined') {
         submittedList.appendChild(header);
         // Populate list
         Surveys.getAll(function(surveys) {
-            surveys.sort(function(a, b){return b.date - a.date})
+            surveys.sort(function(a, b){return new Date(b.date) - new Date(a.date)});
             for (var i = 0; i < surveys.length; i++)
             {
                 var li = document.createElement("li");
@@ -255,7 +255,7 @@ if (typeof jQuery !== 'undefined') {
                 icon.className="material-icons";
 
                 nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
-                infoSpan.appendChild(document.createTextNode(getDateFormatted(surveys[i].date) + " - Site " + surveys[i].MONITOR_SITE_SEQ));
+                infoSpan.appendChild(document.createTextNode(getDateFormatted(new Date(surveys[i].date)) + " - Site " + surveys[i].MONITOR_SITE_SEQ));
                 if(!surveys[i].submitted)
                     icon.appendChild(document.createTextNode("edit"));
                 else
@@ -810,9 +810,9 @@ if (typeof jQuery !== 'undefined') {
         $('#__addFavorite').prop('disabled',
             !unique ||
             $('#__county').val() == '' ||
-                $('#__lake').val() == '' ||
-                $('#BEACH_SEQ').val() == '' ||
-                $('#MONITOR_SITE_SEQ').val() == ''
+            $('#__lake').val() == '' ||
+            $('#BEACH_SEQ').val() == '' ||
+            $('#MONITOR_SITE_SEQ').val() == ''
         )
     }
 
