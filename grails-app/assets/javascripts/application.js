@@ -887,15 +887,15 @@ function getDateFormatted() {
 }
 
 function deleteSurvey() {
+    var btn = $('#btn-delete');
     if (deleteTimer == 0) {
-        var btn = $('#btn-delete');
         btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
         deleteTimer = 5;
         btn.html('Really Delete? (' + deleteTimer + ')');
         setTimeout(deleteCountdown, 1000);
     } else {
         // TODO: DELETE SURVEY HERE
-        console.log('DELETE SURVEY NOW');
+        Surveys.remove(surveyId, toPage('home'));
         btn.html('Delete');
         btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
     }
@@ -908,6 +908,7 @@ function deleteCountdown() {
         btn.html('Really Delete? (' + deleteTimer + ')');
         setTimeout(deleteCountdown, 1000);
     } else {
+        deleteTimer = 0;
         btn.html('Delete');
         btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
     }
