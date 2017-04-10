@@ -21,12 +21,17 @@ CACHE:
 /assets/mobile.css?compile=false
 
 /assets/dialog-polyfill.css?compile=false
-/assets/icon.css?compile=false
 /assets/roboto.css?compile=false
-/assets/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2
-/assets/CWB0XYA8bzo0kSThX0UTuA.woff2
-/assets/RxZJdnzeo3R5zSexge8UUVtXRa8TVwTICgirnJhmVJw.woff2
-/assets/d-6IYplOFocCacKzxwXSOFtXRa8TVwTICgirnJhmVJw.woff2
+#Material-Icons
+/assets/material-icons.css?compile=false
+/assets/MaterialIcons-Regular.eot?compile=false
+/assets/MaterialIcons-Regular.ttf?compile=false
+/assets/MaterialIcons-Regular.woff?compile=false
+/assets/MaterialIcons-Regular.woff2?compile=false
+#Roboto Font
+/assets/Roboto-Regular.ttf?compile=false
+/assets/Roboto-Medium.ttf?compile=false
+/assets/Roboto-Bold.ttf?compile=false
 
 # Resources that require the user to be online.
 NETWORK:
