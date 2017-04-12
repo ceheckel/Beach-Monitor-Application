@@ -1,0 +1,40 @@
+CACHE MANIFEST
+# 04/09/2017 v0.0.01
+
+# Explicitly cached 'master entries'.
+CACHE:
+/index.html
+/assets/application.js?compile=false
+/assets/faves.js?compile=false
+/assets/jquery-2.2.0.min.js?compile=false
+/assets/localforage.js?compile=false
+/assets/material.min.js?compile=false
+/assets/mdl-selectfield.min.js?compile=false
+/assets/survey.js?compile=false
+
+/assets/dialog-polyfill.js?compile=false
+
+/assets/application.css?compile=false
+/assets/errors.css?compile=false
+/assets/material.min.css?compile=false
+/assets/mdl-selectfield.min.css?compile=false
+/assets/mobile.css?compile=false
+
+/assets/dialog-polyfill.css?compile=false
+/assets/roboto.css?compile=false
+#Material-Icons
+/assets/material-icons.css?compile=false
+/assets/MaterialIcons-Regular.eot?compile=false
+/assets/MaterialIcons-Regular.ttf?compile=false
+/assets/MaterialIcons-Regular.woff?compile=false
+/assets/MaterialIcons-Regular.woff2?compile=false
+#Roboto Font
+/assets/Roboto-Regular.ttf?compile=false
+/assets/Roboto-Medium.ttf?compile=false
+/assets/Roboto-Bold.ttf?compile=false
+
+# Resources that require the user to be online.
+NETWORK:
+*
+
+FALLBACK:

@@ -1,3 +1,8 @@
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
+
 #btn-new-survey {
     position: fixed;
     right: 16px;
@@ -19,7 +24,7 @@
 #page-questions {
     min-height: 100%;
     box-sizing: border-box;
-    padding-bottom: 52px;
+    padding-bottom: 68px;
 }
 
 .bottom-nav {

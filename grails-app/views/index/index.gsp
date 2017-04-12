@@ -1,6 +1,6 @@
 <%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement" %>
 <!doctype html>
-<html>
+<html manifest="manifest.appcache">
 <head>
     <meta name="layout" content="main"/>
     <title>WI Beach Health</title>
@@ -35,7 +35,7 @@
             </span>
         </li>
     </ul>
-    <ul class="mdl-list">
+    <ul class="mdl-list" id="submitted-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Past Reports</span>
@@ -46,7 +46,7 @@
 
 <div class="page-content" id="page-questions" style="display: none">
 <g:each status="i" var="p" in="${survey}">
-    <div data-page-title="${p.pageName}" data-page="${i}">
+    <div data-page-title="${p.pageName}" data-page="${i}" class="page">
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -59,7 +59,7 @@
             </g:if>
             <g:if test="${q instanceof CheckQuestion}">
                 <g:if test="${q.hasTitle}">
-                    <p>${q.title}</p>
+                    <h6>${q.title}</h6>
                 </g:if>
                 <g:if test="${q.radio}">
                     <g:if test="${q.inline}">
@@ -69,7 +69,7 @@
                         <g:if test="${!q.inline}">
                             <div>
                         </g:if>
-                            <label id="${q.columnId + '-' + n}Label" ${q.inline ? 'style="padding-left:8px;"' : ''} class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="${q.columnId + '-' + n}">
+                            <label ${q.inline ? 'style="padding-left:8px;"' : ''} class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="${q.columnId + '-' + n}">
                                 <input type="radio" id="${q.columnId + '-' + n}" class="mdl-radio__button" name="${q.columnId}" value="n"${c.second ? ' checked' : ''}>
                                 <span class="mdl-radio__label">${c.first}</span>
                             </label>
@@ -83,8 +83,8 @@
                 </g:if>
                 <g:else>
                     <g:each var="c" in="${q.prompts}">
-                        <label id="${q.columnId}Label" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${q.columnId}">
-                            <input type="checkbox" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${q.columnId}">
+                            <input type="checkbox" name="${q.columnId}" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
                             <span class="mdl-checkbox__label">${c.first}</span>
                         </label>
                         <g:if test="${!q.inline}">
@@ -102,7 +102,7 @@
                         </g:each>
                     </select>
                     <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                    <label class="mdl-selectfield__label" for="${q.columnId}">Favorites</label>
+                    <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
                 </div>
             </g:if>
             <g:if test ="${q instanceof HiddenQuestion}">
@@ -118,6 +118,8 @@
 <div class="bottom-nav" id="bottom-nav">
   <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
   <div style="flex-grow: 1"></div>
+    <button id="btn-delete" class="mdl-button mdl-js-button mdl-button--raised" onclick="deleteSurvey()">Delete</button>
+    <div style="flex-grow:1"></div>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
 </div>
 </div>

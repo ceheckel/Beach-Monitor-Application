@@ -23,7 +23,7 @@ function applyFavorites() {
     f.empty();
     f.append('<option value=""></option>');
     favorites.forEach(function (cval, i) {
-        f.append('<option value="' + i + '">' + cval.county + ' &raquo; ' + cval.lake + ' &raquo; ' + cval.beach + ' &raquo; ' + cval.site + '</option>')
+        f.append('<option value="' + i + '">' + cval.beach + ' &raquo; ' + cval.site + '</option>')
     });
 }
 
@@ -40,7 +40,7 @@ function addFavorite() {
     });
     var f = $('#__favorites');
     console.log(f.children().length - 1);
-    f.append('<option value="' + (f.children().length - 1) + '">' + c + ' &raquo; ' + l + ' &raquo; ' + b + ' &raquo; ' + s + '</option>')
+    f.append('<option value="' + (f.children().length - 1) + '">' + b + ' &raquo; ' + s + '</option>')
     f.parent().addClass('is-dirty');
 
     var f2 = document.getElementById('__favorites');

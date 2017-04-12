@@ -13,6 +13,9 @@
 
 var curPage = -1;
 var completedSurvey;
+var visitedPages = [];
+var surveyDate;
+var submitted = false;
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -31,15 +34,19 @@ if (typeof jQuery !== 'undefined') {
             console.log('menu button clicked');
         });
 
-        $('#btn-new-survey').click(function() {
-            clearAllFields();
-            surveyId = guid();
-            surveyDate = getDateFormatted();
-            toPage(0);
-        });
-
         $('#btn-past-reps').click(function() {
             console.log('past reports');
+        });
+
+        $('#btn-dialogSub').click(function() {
+            var dialog = document.querySelector('#dialog');
+            dialog.close();
+            submit();
+        });
+
+        $('#btn-dialogCan').click(function() {
+            var dialog = document.querySelector('#dialog');
+            dialog.close();
         });
     });
 
@@ -81,20 +88,24 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function newSurvey(){
+        clearAllFields();
+        surveyId = guid();
+        surveyDate = new Date();
+        submitted = false;
         toPage(0);
         $('#page-questions').css('display', 'block');
     }
 
     function toPage(page) {
-        completePage(page);
+        saveSurvey(page);
+        if(visitedPages.indexOf(page) < 0)
+            visitedPages.push(page);
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
         $('#page-title').html(p.data('page-title'));
         $('#page-title-drawer').html(p.data('page-title'));
 
-        if(curPage != 'home' && curPage >= 0)
-            saveSurvey();
         curPage = page;
         if (curPage > 0)
             $('#btn-prev').css('display', 'block');
@@ -115,6 +126,7 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'none';
             document.getElementById("homeSectionDrawer").style.display = 'block';
             $('#page-questions').css('display', 'none');
+            visitedPages = [];
         }
         else {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
@@ -123,6 +135,8 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
+        $('#btn-delete').css('display', 'none');
+        $('.mdl-layout__content').scrollTop(0);
     }
 
     function btnPrev() {
@@ -132,51 +146,94 @@ if (typeof jQuery !== 'undefined') {
     function btnNext() {
         if (curPage == totalQuestionPages - 1)
             toReview();
-        else if (curPage == totalQuestionPages) {
-            downloadCSV();
-            Submit();
-        }
+        else if (curPage == totalQuestionPages)
+            completionCheck();
         else
             toPage(curPage + 1);
     }
 
+    function completionCheck() {
+        completePage(curPage);
+        if(completedSurvey){
+            submit();
+        }
+        else {
+            var dialog = document.querySelector('dialog');
+            dialog.showModal();
+        }
+    }
+
+    function submit(){
+        console.log("Survey submitted!");//  <-- DOWNLOAD CSV HERE
+        downloadCSV();
+        submitted = true;
+        toPage('home');
+    }
+
     function toReview() {
-        completePage(totalQuestionPages);
+        if(visitedPages.indexOf(totalQuestionPages) < 0)
+            visitedPages.push(totalQuestionPages);
+        saveSurvey(totalQuestionPages);
         $('div[data-page]').show();
         $('div[data-page=home]').hide();
         $('#page-title').html('Review');
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
         $('#btn-next').html('Submit');
+        $('#btn-prev').css('display', 'block');
+        $('#btn-delete').css('display', 'block');
+        $('.mdl-layout__content').scrollTop(0);
     }
 
-    function saveSurvey() {
-        if (typeof(surveyId) === 'undefined') return;
+    function saveSurvey(page) {
+        if (typeof(surveyId) === 'undefined' || curPage == 'home') {
+            completePage(page);
+            return;
+        }
         data = getAllFields();
         data.id = surveyId;
         data.date = surveyDate;
         survey = new Survey(surveyId, data);
-        survey.save();
+        survey.save(function(){
+            completePage(page);
+        });
     }
 
     function loadSurvey(id) {
         surveyId = id;
         Surveys.getById(id, function(survey) {
+            submitted = survey['submitted'];
             $('[name]').each(function () {
+                $(this).prop('disabled', submitted);
                 var nameToString = this.name.toString();
-                if (this.name in survey)
+                if ($(this).attr('class') == "mdl-radio__button") {
+                    $(this.parentElement.parentElement).children().each(function () {
+                        forProp = $(this).prop("for");
+                        if (forProp === survey[nameToString]) {
+                            this.className += " is-checked";
+                        }
+                    });
+                }
+                else if ($(this).attr('class') == "mdl-checkbox__input") {
+                    if (survey[nameToString]) {
+                        this.parentElement.className += " is-checked";
+                    }
+                }
+                else if (this.name in survey)
                 {
                     this.value = survey[nameToString];
                     this.parentElement.className += " is-dirty";
                 }
             });
-            surveyDate = survey['date'];
+            surveyDate = new Date(survey['date']);
+            visitedPages = survey['vPages'];
             toPage(0);
         });
     }
 
     function getSurveys() {
         var unsubmittedList = document.getElementById("unsubmitted-reports");
+        var submittedList = document.getElementById("submitted-reports");
         // Remove all elements
         while (unsubmittedList.firstChild)
             unsubmittedList.removeChild(unsubmittedList.firstChild);
@@ -191,8 +248,23 @@ if (typeof jQuery !== 'undefined') {
         header.appendChild(span1);
         span1.appendChild(span2);
         unsubmittedList.appendChild(header);
+        //Submitted Reports
+        while (submittedList.firstChild)
+            submittedList.removeChild(submittedList.firstChild);
+        // Create header
+        header = document.createElement("li");
+        span1 = document.createElement("span");
+        span2 = document.createElement("span");
+        header.className = "mdl-list__item";
+        span1.className = "mdl-list__item-primary-content";
+        span2.className = "mdl-typography--font-bold";
+        span2.appendChild(document.createTextNode("Past Reports"));
+        header.appendChild(span1);
+        span1.appendChild(span2);
+        submittedList.appendChild(header);
         // Populate list
         Surveys.getAll(function(surveys) {
+            surveys.sort(function(a, b){return new Date(b.date) - new Date(a.date)});
             for (var i = 0; i < surveys.length; i++)
             {
                 var li = document.createElement("li");
@@ -220,10 +292,12 @@ if (typeof jQuery !== 'undefined') {
                 var icon = document.createElement("i");
                 icon.className="material-icons";
 
-
                 nameSpan.appendChild(document.createTextNode(surveys[i].BEACH_SEQ));
-                infoSpan.appendChild(document.createTextNode(surveys[i].date + " - Site " + surveys[i].MONITOR_SITE_SEQ));
-                icon.appendChild(document.createTextNode("edit"));
+                infoSpan.appendChild(document.createTextNode(getDateFormatted(new Date(surveys[i].date)) + " - Site " + surveys[i].MONITOR_SITE_SEQ));
+                if(!surveys[i].submitted)
+                    icon.appendChild(document.createTextNode("edit"));
+                else
+                    icon.appendChild(document.createTextNode("visibility"));
 
                 dataSpan.appendChild(nameSpan);
                 dataSpan.appendChild(infoSpan);
@@ -231,8 +305,10 @@ if (typeof jQuery !== 'undefined') {
                 actionSpan.appendChild(action);
                 li.appendChild(dataSpan);
                 li.appendChild(actionSpan);
-
-                unsubmittedList.appendChild(li);
+                if(!surveys[i].submitted)
+                    unsubmittedList.appendChild(li);
+                else
+                    submittedList.appendChild(li);
             }
         });
     }
@@ -240,17 +316,40 @@ if (typeof jQuery !== 'undefined') {
     function getAllFields() {
         data = {};
         $('[name]').each(function () {
-            if (this.value)
+            if ($(this).attr('class') == "mdl-radio__button") {
+                if (this.parentElement.className.includes('is-checked')) {
+                    data[this.name] = $(this).attr("id");
+                }
+            }
+            else if ($(this).attr('class') == "mdl-checkbox__input") {
+                if (this.parentElement.className.includes('is-checked'))
+                    data[this.name] = true;
+                else
+                    data[this.name] = false;
+            }
+            else if (this.value) {
                 data[this.name] = this.value;
+            }
         });
+        data['vPages'] = visitedPages;
+        data['submitted'] = submitted;
         return data;
     }
 
     function clearAllFields() {
         $('[name]').each(function () {
+            $(this).prop('disabled', false);
             if (this.value) {
                 this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
                 this.value = '';
+            }
+            if ($(this).attr('class') == "mdl-radio__button") {
+                $(this.parentElement.parentElement).children().each(function () {
+                    this.className = this.className.replace("is-checked", "");
+                });
+            }
+            if ($(this).attr('class') == "mdl-checkbox__input") {
+                this.parentElement.className = this.parentElement.className.replace("is-checked", "");
             }
         });
     }
@@ -265,8 +364,8 @@ if (typeof jQuery !== 'undefined') {
         for(var page = 0; page < totalQuestionPages; page++) {
             var p = $('div[data-page=' + page + '] :input');
             var complete = true;
-            var other = false;
             p.each(function () {
+                //Beach Selection
                 if ($(this).attr("id") == '__county' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == '__lake' && $(this).val() == "")
@@ -275,46 +374,20 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'MONITOR_SITE_SEQ' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NO_IN_WATER' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_OUT_OF_WATER' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_BOATING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_FISHING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_SURFING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_WINDSURFING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_PEOPLE_DIVING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_CLAMMING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_OTHER') {
-                    if ($(this).val() == "")
-                        complete = false;
-                    else if (parseInt($(this).val()) > 0)
-                        other = true;
-                }
-                if (other && $(this).attr("id") == 'NO_PEOPLE_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'PART_3_COMMENTS' && $(this).val() == "")
-                    complete = false;
+
+                //Animals
                 if ($(this).attr("id") == 'NO_GULLS' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'NO_GEESE' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'NO_DOGS' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NO_ANIMALS_OTHER') {
-                    if ($(this).val() == "")
-                        complete = false;
-                    else if (parseInt($(this).val()) > 0)
-                        other = true;
-                }
-                if (other && $(this).attr("id") == 'NO_ANIMALS_OTHER_DESC' && $(this).val() == "")
+                if ($(this).attr("id") == 'NO_ANIMALS_OTHER' && $(this).val() == "")
                     complete = false;
+                if (parseInt($('#NO_ANIMALS_OTHER').val()) > 0 && $(this).attr("id") == 'NO_ANIMALS_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+
+                //Deceased Animals
                 if ($(this).attr("id") == 'NUM_LOONS' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'NUM_HERR_GULLS' && $(this).val() == "")
@@ -331,21 +404,46 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'NUM_REDNECKED_GREBE' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NUM_OTHER') {
-                    if ($(this).val() == "")
-                        complete = false;
-                    else if (parseInt($(this).val()) > 0)
-                        other = true;
-                }
-                if (other && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
+                if ($(this).attr("id") == 'NUM_FISH' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_OTHER' && $(this).val() == "")
+                    complete = false;
+                if (parseInt($('#NUM_OTHER').val()) > 0 && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
+                //Debris In water
+                if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHER').get()[0].checked)
                     complete = false;
 
-                if (other && $(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
+                //Beach Debris
+                if ($(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
+                    complete = false;
+                if ($(this).attr("id") == 'DEBRIS_AMOUNT' && $("#DEBRIS_AMOUNT option:selected").index() < 0)
                     complete = false;
 
+                //Bathers
+                if ($(this).attr("id") == 'NO_IN_WATER' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_OUT_OF_WATER' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_BOATING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_FISHING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_SURFING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_WINDSURFING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NUM_PEOPLE_DIVING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_CLAMMING' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NO_PEOPLE_OTHER' && $(this).val() == "")
+                    complete = false;
+                if (parseInt($('#NO_PEOPLE_OTHER').val()) > 0 && $(this).attr("id") == 'NO_PEOPLE_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+
+                //Weather
                 if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'WIND_SPEED' && $(this).val() == "")
@@ -354,57 +452,61 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'WIND_DIR_DESC' && $(this).val() == "")
                     complete = false;
-
+                if ($(this).attr("id") == 'WEATHER_DES' && $("#WEATHER_DES option:selected").index() < 0)
+                    complete = false;
+                if ($(this).attr("id") == 'RAINFALL_LAST_EVENT' && $("#RAINFALL_LAST_EVENT option:selected").index() < 0)
+                    complete = false;
                 if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
                     complete = false;
+                if ($(this).attr("id") == 'RAINFALL_STD_DESC' && $("#RAINFALL_STD_DESC option:selected").index() < 0 && parseInt($('#RAINFALL').val()) > 0)
+                    complete = false;
 
+                //Waves
                 if ($(this).attr("id") == 'WAVE_HEIGHT' && $(this).val() == "")
                     complete = false;
-
+                if ($(this).attr("id") == 'WAVE_DIRECTION' && $("#WAVE_DIRECTION option:selected").index() < 0)
+                    complete = false;
+                if ($(this).attr("id") == 'WAVE_CONDITIONS' && $("#WAVE_CONDITIONS option:selected").index() < 0)
+                    complete = false;
                 if ($(this).attr("id") == 'CURRENT_SPEED' && $(this).val() == "")
                     complete = false;
-
-                if ($(this).attr("id") == 'PART_1_COMMENTS' && $(this).val() == "")
+                if ($(this).attr("id") == 'SHORELINE_CURRENT_DIR' && $("#SHORELINE_CURRENT_DIR option:selected").index() < 0)
                     complete = false;
+
+                //Water Conditions
                 if ($(this).attr("id") == 'PH' && $(this).val() == "")
                     complete = false;
-
-                if ($(this).attr("id") == 'COLOR_CHANGE-0' && $('#COLOR_CHANGE-0Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
+                if ($('#COLOR_CHANGE').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                     complete = false;
-
-                if ($(this).attr("id") == 'ODOR_DESCRIPTION-4' && $('#ODOR_DESCRIPTION-4Label').attr('class') == 'mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
+                if ($(this).attr("id") == 'ODOR_DESCRIPTION' && $("#ODOR_DESCRIPTION option:selected").index() < 0)
                     complete = false;
-
-                if ($(this).attr("id") == 'PART_2_COMMENTS' && $(this).val() == "")
+                if ($('#ODOR_DESCRIPTION').val() == 'Other' && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                     complete = false;
-
-                if ($(this).attr("id") == 'ALGAE_TYPE_OTHER' && $('#ALGAE_TYPE_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
-                if ($(this).attr("id") == 'ALGAE_COLOR_OTHER' && $('#ALGAE_COLOR_OTHERLabel').attr('class') == 'mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded is-checked')
-                    other = true;
-                if (other && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
                 if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
                     complete = false;
-
-                if ($(this).attr("id") == 'NTU' && $(this).val() == "")
+                if ($(this).attr("id") == 'CLARITY_DESC' && $("#CLARITY_DESC option:selected").index() < 0 && $('#NTU').val() == "")
+                    complete = false;
+                if ($(this).attr("id") == 'NTU' && $(this).val() == "" && $("#CLARITY_DESC option:selected").index() < 0)
                     complete = false;
                 if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'PART_4_COMMENTS' && $(this).val() == "")
+
+                //Algae
+                if ($(this).attr("id") == 'ALGAE_NEARSHORE' && $("#ALGAE_NEARSHORE option:selected").index() < 0)
+                    complete = false;
+                if ($(this).attr("id") == 'ALGAE_ON_BEACH' && $("#ALGAE_ON_BEACH option:selected").index() < 0)
+                    complete = false;
+                if ($('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
+                    complete = false;
+                if ($('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
                     complete = false;
 
-                //console.log($(this).attr("id"));
+                //Comments - Not Required for completion
             });
-            //console.log(complete);
+            if (!visitedPages)
+                visitedPages = [];
+            if(visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
+                complete = false;
 
             if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
                 if (complete)
@@ -421,7 +523,6 @@ if (typeof jQuery !== 'undefined') {
             }
             getSurveys();
         }
-        //console.log(complete);
     }
 
     function guid() {
@@ -747,9 +848,9 @@ if (typeof jQuery !== 'undefined') {
         $('#__addFavorite').prop('disabled',
             !unique ||
             $('#__county').val() == '' ||
-                $('#__lake').val() == '' ||
-                $('#BEACH_SEQ').val() == '' ||
-                $('#MONITOR_SITE_SEQ').val() == ''
+            $('#__lake').val() == '' ||
+            $('#BEACH_SEQ').val() == '' ||
+            $('#MONITOR_SITE_SEQ').val() == ''
         )
     }
 
@@ -767,8 +868,7 @@ if (typeof jQuery !== 'undefined') {
     saveFavoriteEnabled();
 }
 
-function getDateFormatted() {
-    date = new Date();
+function getDateFormatted(date) {
     formattedString = "";
     switch (date.getMonth()) {
         case 0:
@@ -811,3 +911,34 @@ function getDateFormatted() {
     formattedString += date.getDate();
     return formattedString;
 }
+
+function deleteSurvey() {
+    var btn = $('#btn-delete');
+    if (deleteTimer == 0) {
+        btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
+        deleteTimer = 5;
+        btn.html('Really Delete? (' + deleteTimer + ')');
+        setTimeout(deleteCountdown, 1000);
+    } else {
+        sId = surveyId;
+        surveyId = undefined;
+        Surveys.remove(surveyId, function() {toPage('home');});
+        btn.html('Delete');
+        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+    }
+}
+
+function deleteCountdown() {
+    var btn = $('#btn-delete');
+    deleteTimer--;
+    if (deleteTimer > 0) {
+        btn.html('Really Delete? (' + deleteTimer + ')');
+        setTimeout(deleteCountdown, 1000);
+    } else {
+        deleteTimer = 0;
+        btn.html('Delete');
+        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+    }
+}
+
+var deleteTimer = 0;
