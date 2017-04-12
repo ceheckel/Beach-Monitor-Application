@@ -69,9 +69,10 @@ if (typeof jQuery !== 'undefined') {
                 csv+=colDelim;
             }
         }
+        csv += '"';
 
         var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
-        nameOfFile = myData["BEACH_SEQ"] + "," + myData["MONITOR_SITE_SEQ"];
+        nameOfFile = myData["BEACH_SEQ"] + "," + myData["MONITOR_SITE_SEQ"] + '.csv';
         var link = document.createElement("a");
         link.setAttribute("href",csvData);
         link.setAttribute("download",nameOfFile);
