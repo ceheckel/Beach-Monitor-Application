@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 04/09/2017 v0.0.01
+# 04/09/2017 v0.0.02
 
 # Explicitly cached 'master entries'.
 CACHE:
@@ -24,14 +24,14 @@ CACHE:
 /assets/roboto.css?compile=false
 #Material-Icons
 /assets/material-icons.css?compile=false
-/assets/MaterialIcons-Regular.eot?compile=false
-/assets/MaterialIcons-Regular.ttf?compile=false
-/assets/MaterialIcons-Regular.woff?compile=false
-/assets/MaterialIcons-Regular.woff2?compile=false
+/assets/MaterialIcons-Regular.eot
+/assets/MaterialIcons-Regular.ttf
+/assets/MaterialIcons-Regular.woff
+/assets/MaterialIcons-Regular.woff2
 #Roboto Font
-/assets/Roboto-Regular.ttf?compile=false
-/assets/Roboto-Medium.ttf?compile=false
-/assets/Roboto-Bold.ttf?compile=false
+/assets/Roboto-Regular.ttf
+/assets/Roboto-Medium.ttf
+/assets/Roboto-Bold.ttf
 
 # Resources that require the user to be online.
 NETWORK:

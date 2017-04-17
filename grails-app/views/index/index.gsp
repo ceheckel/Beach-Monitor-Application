@@ -1,6 +1,6 @@
 <%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement" %>
 <!doctype html>
-<html manifest="manifest.appcache">
+<html manifest="appcache.manifest">
 <head>
     <meta name="layout" content="main"/>
     <title>WI Beach Health</title>
@@ -111,7 +111,7 @@
             <g:if test="${q instanceof ButtonElement}">
                 <button class="mdl-button mdl-js-button mdl-button--raised ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}">${q.value}</button><br>
             </g:if>
-            <g:else><br></g:else>
+            <g:elseif test ="${!(q instanceof HiddenQuestion)}"><br></g:elseif>
         </g:each>
     </div>
 </g:each>
