@@ -94,6 +94,9 @@ if (typeof jQuery !== 'undefined') {
         submitted = false;
         toPage(0);
         $('#page-questions').css('display', 'block');
+        window.onbeforeunload = function() {
+            return "Are you sure you want to refresh?";
+        };
     }
 
     function toPage(page) {
@@ -126,11 +129,15 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'none';
             document.getElementById("homeSectionDrawer").style.display = 'block';
             $('#page-questions').css('display', 'none');
+            $('#page-beach-drawer').css('display', 'none');
             visitedPages = [];
+            window.onbeforeunload = null;
         }
         else {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
+            $('#page-beach-drawer').css('display', 'inline');
+            $('#page-beach-drawer').html($('#BEACH_SEQ').val().length > 0 ? $('#BEACH_SEQ').val() : 'Undefined Beach');
         }
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
@@ -227,6 +234,12 @@ if (typeof jQuery !== 'undefined') {
             });
             surveyDate = new Date(survey['date']);
             visitedPages = survey['vPages'];
+            if(submitted)
+                window.onbeforeunload = null;
+            else
+                window.onbeforeunload = function() {
+                    return "Are you sure you want to refresh?";
+                };
             toPage(0);
         });
     }
@@ -281,6 +294,15 @@ if (typeof jQuery !== 'undefined') {
                 action.className = "mdl-list__item-secondary-action";
                 action.href = "#";
                 action.onclick = (function() {
+                    var id = surveys[i].id;
+                    return function() {
+                        clearAllFields();
+                        loadSurvey(id);
+                        toPage(0);
+                        $('#page-questions').css('display', 'block');
+                    }
+                })();
+                nameSpan.onclick = (function() {
                     var id = surveys[i].id;
                     return function() {
                         clearAllFields();
@@ -942,7 +964,3 @@ function deleteCountdown() {
 }
 
 var deleteTimer = 0;
-
-window.onbeforeunload = function() {
-    return "Are you sure you want to refresh?";
-}

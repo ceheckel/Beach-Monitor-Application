@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js" manifest="static/manifest.appcache">
+<html lang="en" class="no-js" manifest="static/appcache.manifest">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -25,6 +25,7 @@
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title" id="page-title-drawer">Home</span>
+        <span class="mdl-layout-title" id="page-beach-drawer" style="font-size: small; font-weight: lighter; line-height: 1.2">Undefined Beach</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="javascript:toPage('home');closeDrawer();">Home</a>
             <div id="surveySectionsDrawer" style="display: none">
