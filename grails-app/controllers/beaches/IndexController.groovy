@@ -37,7 +37,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
-                        new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true),
+                        new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
                         //@TODO decide on how to handle date, time and user
                         new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
                         new HiddenQuestion(columnId: 'SAMPLE_SEQ', value: 'FETCH USER'),
@@ -370,4 +370,5 @@ class ButtonElement extends Question {
     String value
     String onclick
     boolean accent = false
+    boolean disabled = false
 }

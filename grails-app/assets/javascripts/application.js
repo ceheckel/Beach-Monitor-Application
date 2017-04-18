@@ -876,7 +876,7 @@ if (typeof jQuery !== 'undefined') {
 
     function saveFavoriteEnabled() {
         var unique = true;
-        if(typeof(favorites) !== 'undefined') {
+        if(favorites) {
             favorites.forEach(function (f, i) {
                 if (f.county == $('#__county').val() && f.lake == $('#__lake').val() && f.beach == $('#BEACH_SEQ').val() && f.site == $('#MONITOR_SITE_SEQ').val()) {
                     unique = false;

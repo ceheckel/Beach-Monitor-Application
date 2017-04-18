@@ -1,11 +1,11 @@
 function loadFavorites() {
     localforage.getItem('favorites').then(function(v) {
-        favorites = v;
-        if(typeof(favorites) === 'undefined')
-            favorites = [];
+        window.favorites = v === null ? [] : v;
+        if(typeof(window.favorites) === 'undefined')
+            window.favorites = [];
         applyFavorites();
     }).catch(function(e) {
-        favorites = [];
+        window.favorites = [];
         console.log(e);
     });
 }

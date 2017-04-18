@@ -91,7 +91,7 @@
                 <input class="mdl-textfield__input" type="hidden" value="${q.value}" name="${q.columnId}" id="${q.columnId}">
             </g:if>
             <g:if test="${q instanceof ButtonElement}">
-                <button class="mdl-button mdl-js-button mdl-button--raised ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}">${q.value}</button><br>
+                <button class="mdl-button mdl-js-button mdl-button--raised ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}" ${q.disabled ? 'disabled=""' : ''}>${q.value}</button><br>
             </g:if>
             <g:elseif test ="${!(q instanceof HiddenQuestion)}"><br></g:elseif>
         </g:each>
