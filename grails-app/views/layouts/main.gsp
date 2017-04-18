@@ -27,7 +27,7 @@
         <span class="mdl-layout-title" id="page-title-drawer">Home</span>
         <span class="mdl-layout-title" id="page-beach-drawer" style="font-size: small; font-weight: lighter; line-height: 1.2">Undefined Beach</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="javascript:toPage('home');closeDrawer();">Home</a>
+            <a class="mdl-navigation__link" href="javascript:toPage('home');closeDrawer();">Home <span class="mdl-color-text--grey">(saves survey)</span></a>
             <div id="surveySectionsDrawer" style="display: none">
                 <g:set var="pageNum" value="${0}"/>
                 <g:each status="i" var="p" in="${survey}">
