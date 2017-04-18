@@ -296,6 +296,7 @@ class IndexController {
                         //@TODO value of avg water temp units
                         new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F'),
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
+                                '',
                                 'Clear',
                                 'Slightly turbid',
                                 'Turbid',
