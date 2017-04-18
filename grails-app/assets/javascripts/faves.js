@@ -22,9 +22,11 @@ function applyFavorites() {
     var f = $('#__favorites');
     f.empty();
     f.append('<option value=""></option>');
-    favorites.forEach(function (cval, i) {
-        f.append('<option value="' + i + '">' + cval.beach + ' &raquo; ' + cval.site + '</option>')
-    });
+    if (favorites) {
+        favorites.forEach(function (cval, i) {
+            f.append('<option value="' + i + '">' + cval.beach + ' &raquo; ' + cval.site + '</option>')
+        });
+    }
 }
 
 function addFavorite() {
