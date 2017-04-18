@@ -956,11 +956,25 @@ function deleteSurvey() {
         btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
         deleteTimer = 5;
         btn.html('Really Delete? (' + deleteTimer + ')');
+        window.cancelDelete = false;
         setTimeout(deleteCountdown, 1000);
     } else {
-        sId = surveyId;
-        surveyId = undefined;
-        Surveys.remove(surveyId, function() {toPage('home');});
+        var snackbarContainer = document.querySelector('#toast-container');
+        var data = {
+            message: 'Deleting survey...',
+            actionHandler: function() { window.cancelDelete = true; },
+            actionText: 'Undo'
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        setTimeout(function() {
+            if (!window.cancelDelete) {
+                sId = surveyId;
+                surveyId = undefined;
+                Surveys.remove(surveyId, function () {
+                    toPage('home');
+                });
+            }
+        }, 3000);
         btn.html('Delete');
         btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
     }
