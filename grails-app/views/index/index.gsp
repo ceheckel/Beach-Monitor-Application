@@ -105,6 +105,10 @@
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
 </div>
 </div>
+<div id="toast-container" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+</div>
 <script type="text/javascript">
   var totalQuestionPages = ${survey.size()};
 </script>

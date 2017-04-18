@@ -213,6 +213,13 @@ if (typeof jQuery !== 'undefined') {
         survey.save(function(){
             completePage(page);
         });
+        showSaveToast();
+    }
+
+    function showSaveToast() {
+        'use strict';
+        var snackbarContainer = document.querySelector('#toast-container');
+        snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!'});
     }
 
     function loadSurvey(id) {
