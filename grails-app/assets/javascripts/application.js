@@ -240,6 +240,10 @@ if (typeof jQuery !== 'undefined') {
                 else if ($(this).attr('class') == "mdl-checkbox__input") {
                     if (survey[nameToString]) {
                         this.parentElement.className += " is-checked";
+                        $(this).prop("checked", true);
+                    }
+                    else {
+                        $(this).prop("checked", false);
                     }
                 }
                 else if (this.name in survey)
