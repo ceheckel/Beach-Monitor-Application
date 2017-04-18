@@ -973,6 +973,9 @@ function deleteSurvey() {
                 Surveys.remove(surveyId, function () {
                     toPage('home');
                 });
+                btn.html('Delete');
+                btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+                deleteTimer = 0;
             }
         }, 3000);
         btn.html('Delete');
