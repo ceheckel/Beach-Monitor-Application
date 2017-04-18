@@ -4,26 +4,8 @@
 <head>
     <meta name="layout" content="main"/>
     <title>WI Beach Health</title>
-
-    %{--<asset:link rel="icon" href="favicon.ico" type="image/x-ico" />--}%
 </head>
 <body>
-%{--<section id="page-home">--}%
-    %{--<h1 class="mega">Wisconsin Beaches</h1>--}%
-    %{--<div class="split-container report-list">--}%
-        %{--<h2>Unsubmitted Reports</h2>--}%
-        %{--<div class="btns">--}%
-            %{--<i id="btn-new" class="icon-plus btn"></i>--}%
-        %{--</div>--}%
-    %{--</div>--}%
-
-    %{--<div class="split-container report-list">--}%
-        %{--<h2>Past Reports</h2>--}%
-        %{--<div class="btns">--}%
-            %{--<i id="btn-past-reps" class="icon-right-open btn"></i>--}%
-        %{--</div>--}%
-    %{--</div>--}%
-%{--</section>--}%
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
     <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()">
         <i class="material-icons">add</i>
