@@ -274,7 +274,12 @@ class IndexController {
                 ]
         ]
 
-
+        def sampleTime = [
+                pageName: 'Sample Collection',
+                questions: [
+                        new ButtonElement(value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true)
+                ]
+        ]
 
         def water = [
                 pageName: 'Water conditions',
@@ -323,7 +328,7 @@ class IndexController {
                 ]
         ]
 
-        [survey: [beachSelection, wildlifeBathers, deadWildlife, floaters, debris, bathers, weather, waves, water, algae, comments]]
+        [survey: [beachSelection, wildlifeBathers, deadWildlife, floaters, debris, bathers, weather, waves, sampleTime, water, algae, comments]]
     }
 
     def addSurvey() {
