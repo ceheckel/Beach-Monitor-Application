@@ -191,7 +191,7 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title').html('Review');
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
-        $('#btn-next').html('Submit');
+        $('#btn-next').html('Download');
         $('#btn-prev').css('display', 'block');
         $('#btn-delete').css('display', 'block');
         $('.mdl-layout__content').scrollTop(0);
