@@ -144,6 +144,11 @@ if (typeof jQuery !== 'undefined') {
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
         $('#btn-delete').css('display', 'none');
         $('.mdl-layout__content').scrollTop(0);
+
+        $('#surveySectionsDrawer a').each(function(i,e) {
+            if (i === curPage) $(e).css('font-weight', 'bold').addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
+            else $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
+        });
     }
 
     function btnPrev() {
@@ -190,6 +195,10 @@ if (typeof jQuery !== 'undefined') {
         $('#btn-prev').css('display', 'block');
         $('#btn-delete').css('display', 'block');
         $('.mdl-layout__content').scrollTop(0);
+        $('#surveySectionsDrawer a').each(function(i,e) {
+            $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
+        });
+        $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
     }
 
     function saveSurvey(page) {
