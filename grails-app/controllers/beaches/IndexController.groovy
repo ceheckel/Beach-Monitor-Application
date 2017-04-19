@@ -95,7 +95,7 @@ class IndexController {
                 questions: [
                         new CheckQuestion(columnId: 'FLOAT_STREET_LITTER', prompts: [
                                 new Tuple2('Street litter', false)
-                        ],hasTitle:true, title: "Floatables present:"),
+                        ],hasTitle:true, title: "Debris in water present:"),
                         new CheckQuestion(columnId: 'FLOAT_FOOD', prompts: [
                                 new Tuple2('Food', false)
                         ]),
@@ -123,7 +123,7 @@ class IndexController {
                 questions: [
                         new CheckQuestion(columnId: 'DEBRIS_STREET_ LITTER', prompts: [
                                 new Tuple2('Street litter', false)
-                        ], hasTitle:true, title: "Debris present:"),
+                        ], hasTitle:true, title: "Beach debris present:"),
                         new CheckQuestion(columnId: 'DEBRIS_FOOD', prompts: [
                                 new Tuple2('Food', false)
                         ]),
@@ -164,10 +164,10 @@ class IndexController {
         def weather = [
                 pageName: "Weather",
                 questions: [
-                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature (F)', type:"number", step:0.0001 ),
                         //@TODO find value of air units
                         new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F'),
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', type:"number", step:0.0001 ),
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH'),
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
@@ -185,7 +185,7 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount (IN)', type:"number", step:0.0001 ),
                         //@TODO value of rainfall units
                         new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN'),
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
@@ -201,7 +201,7 @@ class IndexController {
         def waves = [
                 pageName: 'Waves',
                 questions: [
-                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT)', type:"number", step:0.0001 ),
                         //@TODO value of wave height units
                         new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT'),
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
@@ -215,7 +215,7 @@ class IndexController {
                                 'Normal',
                                 'Rough'
                         ], title:"Wave conditions"),
-                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (MPH)', type:"number", step:0.01 ),
                         //@TODO value of longshore current units
                         new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'MPH'),
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
@@ -298,7 +298,7 @@ class IndexController {
                                 'Other'
                         ],title: "Odor description"),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
-                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature (F)', type:"number", step:0.01 ),
                         //@TODO value of avg water temp units
                         new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F'),
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
