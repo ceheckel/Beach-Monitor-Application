@@ -95,6 +95,7 @@ if (typeof jQuery !== 'undefined') {
         toPage(0);
         $('#page-questions').css('display', 'block');
         window.onbeforeunload = function() {
+            saveSurvey(curPage);
             return "Are you sure you want to refresh?";
         };
     }
@@ -219,7 +220,7 @@ if (typeof jQuery !== 'undefined') {
     function showSaveToast() {
         'use strict';
         var snackbarContainer = document.querySelector('#toast-container');
-        snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!'});
+        snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!', timeout: 1000});
     }
 
     function loadSurvey(id) {
@@ -258,6 +259,7 @@ if (typeof jQuery !== 'undefined') {
                 window.onbeforeunload = null;
             else
                 window.onbeforeunload = function() {
+                    saveSurvey(curPage);
                     return "Are you sure you want to refresh?";
                 };
             toPage(0);
