@@ -1003,3 +1003,14 @@ function deleteCountdown() {
 }
 
 var deleteTimer = 0;
+
+function collectSampleNow() {
+    var d = new Date();
+    $('#SAMPLE_DATE_TIME').val(
+        ('000'+d.getFullYear()).slice(-4) + '-' +
+        ('0'+d.getMonth()).slice(-2) + '-' +
+        ('0'+d.getDate()).slice(-2) + 'T' +
+        ('0'+d.getHours()).slice(-2) + ':' +
+        ('0'+d.getMinutes()).slice(-2)
+    );
+}

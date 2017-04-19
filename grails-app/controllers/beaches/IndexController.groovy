@@ -39,7 +39,7 @@ class IndexController {
                         ]),
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
                         //@TODO decide on how to handle date, time and user
-                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
+//                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
                         new HiddenQuestion(columnId: 'SAMPLE_SEQ', value: 'FETCH USER'),
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
                         new TextQuestion(columnId: 'user_id', prompt: 'User ID')
@@ -277,7 +277,8 @@ class IndexController {
         def sampleTime = [
                 pageName: 'Sample Collection',
                 questions: [
-                        new ButtonElement(value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true)
+                        new ButtonElement(columnId: '__collectSampleNow', value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true),
+                        new TimeQuestion(columnId: 'SAMPLE_DATE_TIME')
                 ]
         ]
 
@@ -371,4 +372,8 @@ class ButtonElement extends Question {
     String onclick
     boolean accent = false
     boolean disabled = false
+}
+
+class TimeQuestion extends Question {
+
 }
