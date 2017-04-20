@@ -16,6 +16,7 @@ var completedSurvey;
 var visitedPages = [];
 var surveyDate;
 var submitted = false;
+var incompletePages = new Set([]);
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -173,6 +174,14 @@ if (typeof jQuery !== 'undefined') {
         else {
             var dialog = document.querySelector('dialog');
             dialog.showModal();
+
+            // load and display incomplete pages
+            var list = $('#incomplete-page-list');
+            list.empty();
+            incompletePages.forEach(function(page) {
+                var pageName = $('div[data-page=' + page + ']').data('page-title');
+                list.append('<li><p>' + pageName + '</p></li>');
+            });
         }
     }
 
@@ -553,11 +562,14 @@ if (typeof jQuery !== 'undefined') {
                 complete = false;
 
             if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
-                if (complete)
+                if (complete) {
                     document.getElementById('Complete_' + page).style.display = 'inline';
+                    incompletePages.delete(page);
+                }
                 else {
                     document.getElementById('Complete_' + page).style.display = 'none';
                     completedSurvey = false;
+                    incompletePages.add(page);
                 }
             }
         }
