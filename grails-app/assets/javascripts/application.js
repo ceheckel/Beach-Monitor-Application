@@ -261,7 +261,7 @@ if (typeof jQuery !== 'undefined') {
                         $(this).prop("checked", false);
                     }
                 }
-                else if (this.name in survey)
+                else if (this.name in survey && survey[nameToString])
                 {
                     this.value = survey[nameToString];
                     this.parentElement.className += " is-dirty";
