@@ -168,10 +168,10 @@ class IndexController {
                 questions: [
                         new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature (F)', type:"number", step:0.0001 ),
                         //@TODO find value of air units
-                        new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F'),
+                        new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F', keep: true),
                         new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', type:"number", step:0.0001 ),
                         //@TODO find value of wind speed units
-                        new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH'),
+                        new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
                         new TextQuestion(columnId: 'WIND_DIR_DESC', prompt: 'Wind direction description'),
                         new SelectQuestion(columnId: 'WEATHER_DES', options: [
@@ -189,7 +189,7 @@ class IndexController {
                         ], title: "Hours since last rain event"),
                         new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount (IN)', type:"number", step:0.0001 ),
                         //@TODO value of rainfall units
-                        new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN'),
+                        new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN', keep: true),
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
                                 'Misting',
                                 'Light',
@@ -205,7 +205,7 @@ class IndexController {
                 questions: [
                         new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT)', type:"number", step:0.0001 ),
                         //@TODO value of wave height units
-                        new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT'),
+                        new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT', keep: true),
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
                                 new Tuple2('Estimated?', false)
                         ]),
@@ -219,7 +219,7 @@ class IndexController {
                         ], title:"Wave conditions"),
                         new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (MPH)', type:"number", step:0.01 ),
                         //@TODO value of longshore current units
-                        new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'MPH'),
+                        new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'MPH', keep: true),
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
                                 'N','NE','E','SE','S','SW','W','NW'
                         ], title: "Longshore current direction")
@@ -302,7 +302,7 @@ class IndexController {
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
                         new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature (F)', type:"number", step:0.01 ),
                         //@TODO value of avg water temp units
-                        new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F'),
+                        new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F', keep: true),
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
                                 '',
                                 'Clear',
@@ -367,6 +367,7 @@ class SelectQuestion extends Question {
 
 class HiddenQuestion extends Question {
     String value
+    boolean keep = false
 }
 
 class ButtonElement extends Question {

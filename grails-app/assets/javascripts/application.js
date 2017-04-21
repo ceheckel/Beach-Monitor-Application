@@ -403,7 +403,7 @@ if (typeof jQuery !== 'undefined') {
     function clearAllFields() {
         $('[name]').each(function () {
             $(this).prop('disabled', false);
-            if (this.value) {
+            if (this.value && !this.dataset.keep) {
                 this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
                 this.value = '';
             }
