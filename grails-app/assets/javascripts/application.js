@@ -111,7 +111,7 @@ if (typeof jQuery !== 'undefined') {
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
-        $('#page-title').html(p.data('page-title'));
+        $('#page-title').html(p.data('page-title') + ((submitted && p.data('page-title') !== 'WI Beaches') ? ' (Read Only)' : ''));
         $('#page-title-drawer').html(p.data('page-title'));
 
         curPage = page;
@@ -202,7 +202,7 @@ if (typeof jQuery !== 'undefined') {
         saveSurvey(totalQuestionPages);
         $('div[data-page]').show();
         $('div[data-page=home]').hide();
-        $('#page-title').html('Review');
+        $('#page-title').html('Review' + (submitted ? ' (Read Only)' : ''));
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
         $('#btn-next').html('Download');
