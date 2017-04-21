@@ -289,7 +289,7 @@ class IndexController {
                 questions: [
                         new TextQuestion(columnId: 'PH', prompt: 'pH level', type:"number", step:0.01 ),
                         new CheckQuestion(columnId: 'COLOR_CHANGE', prompts: [
-                                new Tuple2('Has the color changed?', false)
+                                new Tuple2('Color has changed', false)
                         ]),
                         new TextQuestion(columnId: 'COLOR_DESCRIPTION', prompt: 'If yes, describe'),
                         new SelectQuestion(columnId: 'ODOR_DESCRIPTION', options: [

@@ -189,6 +189,7 @@ if (typeof jQuery !== 'undefined') {
     }
 
     function submit(){
+        saveSurvey(totalQuestionPages, false);
         console.log("Survey submitted!");//  <-- DOWNLOAD CSV HERE
         downloadCSV();
         submitted = true;
@@ -214,7 +215,7 @@ if (typeof jQuery !== 'undefined') {
         $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
     }
 
-    function saveSurvey(page) {
+    function saveSurvey(page, toast) {
         if (typeof(surveyId) === 'undefined' || curPage == 'home') {
             completePage(page);
             return;
@@ -226,13 +227,14 @@ if (typeof jQuery !== 'undefined') {
         survey.save(function(){
             completePage(page);
         });
-        showSaveToast();
+        if (toast || toast === undefined) showSaveToast();
     }
 
     function showSaveToast() {
         'use strict';
+        if (submitted) return;
         var snackbarContainer = document.querySelector('#toast-container');
-        snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!', timeout: 1000});
+        snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!', timeout: 750});
     }
 
     function loadSurvey(id) {
@@ -389,7 +391,7 @@ if (typeof jQuery !== 'undefined') {
                 else
                     data[this.name] = false;
             }
-            else if (this.value) {
+            else /*if (this.value)*/ {
                 data[this.name] = this.value;
             }
         });
@@ -930,7 +932,8 @@ if (typeof jQuery !== 'undefined') {
             $('#__county').val() == '' ||
             $('#__lake').val() == '' ||
             $('#__beach').val() == '' ||
-            $('#__site').val() == ''
+            $('#__site').val() == '' ||
+            submitted
         )
     }
 
