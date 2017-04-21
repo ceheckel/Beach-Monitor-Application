@@ -142,7 +142,7 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
             $('#page-beach-drawer').css('display', 'inline');
-            $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Undefined Beach');
+            $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Unknown Beach');
         }
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
