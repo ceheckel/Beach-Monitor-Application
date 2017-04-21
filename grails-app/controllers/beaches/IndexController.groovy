@@ -32,8 +32,10 @@ class IndexController {
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
                         new TextQuestion(columnId: '__county', prompt: 'County', list: 'countyList'),
                         new TextQuestion(columnId: '__lake', prompt: 'Lake', list: 'lakeList'),
-                        new TextQuestion(columnId: 'BEACH_SEQ', prompt: 'Beach', list: 'beachList'),
-                        new TextQuestion(columnId: 'MONITOR_SITE_SEQ', prompt: 'Monitoring Site', list: 'monitorList'),
+                        new TextQuestion(columnId: '__beach', prompt: 'Beach', list: 'beachList'),
+                        new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
+                        new TextQuestion(columnId: '__site', prompt: 'Monitoring Site', list: 'monitorList'),
+                        new HiddenQuestion(columnId: 'MONITOR_SITE_SEQ', value: '-1'),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
