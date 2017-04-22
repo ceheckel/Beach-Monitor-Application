@@ -111,7 +111,7 @@ if (typeof jQuery !== 'undefined') {
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
-        $('#page-title').html(p.data('page-title'));
+        $('#page-title').html(p.data('page-title') + ((submitted && p.data('page-title') !== 'WI Beaches') ? ' (Read Only)' : ''));
         $('#page-title-drawer').html(p.data('page-title'));
 
         curPage = page;
@@ -142,7 +142,7 @@ if (typeof jQuery !== 'undefined') {
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
             $('#page-beach-drawer').css('display', 'inline');
-            $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Undefined Beach');
+            $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Unknown Beach');
         }
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
@@ -202,7 +202,7 @@ if (typeof jQuery !== 'undefined') {
         saveSurvey(totalQuestionPages);
         $('div[data-page]').show();
         $('div[data-page=home]').hide();
-        $('#page-title').html('Review');
+        $('#page-title').html('Review' + (submitted ? ' (Read Only)' : ''));
         $('#page-title-drawer').html('Review');
         curPage = totalQuestionPages;
         $('#btn-next').html('Download');
@@ -261,7 +261,7 @@ if (typeof jQuery !== 'undefined') {
                         $(this).prop("checked", false);
                     }
                 }
-                else if (this.name in survey)
+                else if (this.name in survey && survey[nameToString])
                 {
                     this.value = survey[nameToString];
                     this.parentElement.className += " is-dirty";
@@ -1332,119 +1332,120 @@ if (typeof jQuery !== 'undefined') {
     loadFavorites();
 
     saveFavoriteEnabled();
-}
 
-function updateSeq(input, list, stored) {
-    var val = $(input).val();
-    var opt = undefined;
+    function updateSeq(input, list, stored) {
+        var val = $(input).val();
+        var opt = undefined;
 
-    $(list).find('> option').each(function() {
-        if ($(this).val() === val) opt = this;
-    });
+        $(list).find('> option').each(function() {
+            if ($(this).val() === val) opt = this;
+        });
 
-    if (opt)
-        $(stored).val(opt.dataset.entityId);
-}
-
-function getDateFormatted(date) {
-    formattedString = "";
-    switch (date.getMonth()) {
-        case 0:
-            formattedString += "Jan. ";
-            break;
-        case 1:
-            formattedString += "Feb. ";
-            break;
-        case 2:
-            formattedString += "Mar. ";
-            break;
-        case 3:
-            formattedString += "Apr. ";
-            break;
-        case 4:
-            formattedString += "May. ";
-            break;
-        case 5:
-            formattedString += "Jun. ";
-            break;
-        case 6:
-            formattedString += "Jul. ";
-            break;
-        case 7:
-            formattedString += "Aug. ";
-            break;
-        case 8:
-            formattedString += "Sep. ";
-            break;
-        case 9:
-            formattedString += "Oct. ";
-            break;
-        case 10:
-            formattedString += "Nov. ";
-            break;
-        case 11:
-            formattedString += "Dec. ";
-            break;
+        if (opt)
+            $(stored).val(opt.dataset.entityId);
     }
-    formattedString += date.getDate();
-    return formattedString;
-}
 
-function deleteSurvey() {
-    var btn = $('#btn-delete');
-    if (deleteTimer == 0) {
-        btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
-        deleteTimer = 5;
-        btn.html('Really Delete? (' + deleteTimer + ')');
-        window.cancelDelete = false;
-        setTimeout(deleteCountdown, 1000);
-    } else {
-        var snackbarContainer = document.querySelector('#toast-container');
-        var data = {
-            message: 'Deleting survey...',
-            actionHandler: function() { window.cancelDelete = true; },
-            actionText: 'Undo'
-        };
-        snackbarContainer.MaterialSnackbar.showSnackbar(data);
-        setTimeout(function() {
-            if (!window.cancelDelete) {
-                sId = surveyId;
-                surveyId = undefined;
-                Surveys.remove(surveyId, function () {
-                    toPage('home');
-                });
-                btn.html('Delete');
-                btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-                deleteTimer = 0;
-            }
-        }, 3000);
-        btn.html('Delete');
-        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+    function getDateFormatted(date) {
+        formattedString = "";
+        switch (date.getMonth()) {
+            case 0:
+                formattedString += "Jan. ";
+                break;
+            case 1:
+                formattedString += "Feb. ";
+                break;
+            case 2:
+                formattedString += "Mar. ";
+                break;
+            case 3:
+                formattedString += "Apr. ";
+                break;
+            case 4:
+                formattedString += "May. ";
+                break;
+            case 5:
+                formattedString += "Jun. ";
+                break;
+            case 6:
+                formattedString += "Jul. ";
+                break;
+            case 7:
+                formattedString += "Aug. ";
+                break;
+            case 8:
+                formattedString += "Sep. ";
+                break;
+            case 9:
+                formattedString += "Oct. ";
+                break;
+            case 10:
+                formattedString += "Nov. ";
+                break;
+            case 11:
+                formattedString += "Dec. ";
+                break;
+        }
+        formattedString += date.getDate();
+        return formattedString;
+    }
+
+    function deleteSurvey() {
+        var btn = $('#btn-delete');
+        if (deleteTimer == 0) {
+            btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
+            deleteTimer = 5;
+            btn.html('Really Delete? (' + deleteTimer + ')');
+            window.cancelDelete = false;
+            setTimeout(deleteCountdown, 1000);
+        } else {
+            var snackbarContainer = document.querySelector('#toast-container');
+            var data = {
+                message: 'Deleting survey...',
+                actionHandler: function() { window.cancelDelete = true; },
+                actionText: 'Undo'
+            };
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            setTimeout(function() {
+                if (!window.cancelDelete) {
+                    sId = surveyId;
+                    surveyId = undefined;
+                    Surveys.remove(surveyId, function () {
+                        toPage('home');
+                    });
+                    btn.html('Delete');
+                    btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+                    deleteTimer = 0;
+                }
+            }, 3000);
+            btn.html('Delete');
+            btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+        }
+    }
+
+    function deleteCountdown() {
+        var btn = $('#btn-delete');
+        deleteTimer--;
+        if (deleteTimer > 0) {
+            btn.html('Really Delete? (' + deleteTimer + ')');
+            setTimeout(deleteCountdown, 1000);
+        } else {
+            deleteTimer = 0;
+            btn.html('Delete');
+            btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+        }
+    }
+
+    var deleteTimer = 0;
+
+    function collectSampleNow() {
+        var d = new Date();
+        $('#SAMPLE_DATE_TIME').val(
+            ('000'+d.getFullYear()).slice(-4) + '-' +
+            ('0'+d.getMonth()).slice(-2) + '-' +
+            ('0'+d.getDate()).slice(-2) + 'T' +
+            ('0'+d.getHours()).slice(-2) + ':' +
+            ('0'+d.getMinutes()).slice(-2)
+        );
     }
 }
 
-function deleteCountdown() {
-    var btn = $('#btn-delete');
-    deleteTimer--;
-    if (deleteTimer > 0) {
-        btn.html('Really Delete? (' + deleteTimer + ')');
-        setTimeout(deleteCountdown, 1000);
-    } else {
-        deleteTimer = 0;
-        btn.html('Delete');
-        btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-    }
-}
-
-var deleteTimer = 0;
-
-function collectSampleNow() {
-    var d = new Date();
-    $('#SAMPLE_DATE_TIME').val(
-        ('000'+d.getFullYear()).slice(-4) + '-' +
-        ('0'+d.getMonth()).slice(-2) + '-' +
-        ('0'+d.getDate()).slice(-2) + 'T' +
-        ('0'+d.getHours()).slice(-2) + ':' +
-        ('0'+d.getMinutes()).slice(-2)
-    );
-}

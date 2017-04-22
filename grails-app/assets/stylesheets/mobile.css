@@ -44,3 +44,7 @@ html, body {
     position: relative;
     padding: 0;
 }
+
+div.page-content[data-page='home'] {
+    padding-bottom: 48px;
+}
