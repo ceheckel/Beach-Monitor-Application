@@ -173,7 +173,10 @@ class IndexController {
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
-                        new TextQuestion(columnId: 'WIND_DIR_DESC', prompt: 'Wind direction description'),
+                        new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
+                                '', 'Calm', 'Variable',
+                                'N','NE','E','SE','S','SW','W','NW'
+                        ], title: 'Wind direction description'),
                         new SelectQuestion(columnId: 'WEATHER_DES', options: [
                                 '',
                                 'Clear',
@@ -222,9 +225,9 @@ class IndexController {
                                 'Normal',
                                 'Rough'
                         ], title:"Wave conditions"),
-                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (MPH)', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (FT/SEC)', type:"number", step:0.01 ),
                         //@TODO value of longshore current units
-                        new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'MPH', keep: true),
+                        new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'FT/SEC', keep: true),
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
