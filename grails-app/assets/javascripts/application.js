@@ -95,6 +95,7 @@ if (typeof jQuery !== 'undefined') {
         clearAllFields();
         surveyId = guid();
         surveyDate = new Date();
+        $('#DATE_ENTERED').val(dateToLocalDate(surveyDate));
         submitted = false;
         toPage(0);
         $('#page-questions').css('display', 'block');
@@ -220,6 +221,7 @@ if (typeof jQuery !== 'undefined') {
             completePage(page);
             return;
         }
+        $('#DATE_UPDATED').val(dateToLocalDate(new Date()));
         data = getAllFields();
         data.id = surveyId;
         data.date = surveyDate;
@@ -1441,13 +1443,15 @@ if (typeof jQuery !== 'undefined') {
 
     function collectSampleNow() {
         var d = new Date();
-        $('#SAMPLE_DATE_TIME').val(
-            ('000'+d.getFullYear()).slice(-4) + '-' +
+        $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d));
+    }
+
+    function dateToLocalDate(d) {
+        return ('000'+d.getFullYear()).slice(-4) + '-' +
             ('0'+d.getMonth()).slice(-2) + '-' +
             ('0'+d.getDate()).slice(-2) + 'T' +
             ('0'+d.getHours()).slice(-2) + ':' +
-            ('0'+d.getMinutes()).slice(-2)
-        );
+            ('0'+d.getMinutes()).slice(-2);
     }
 }
 
