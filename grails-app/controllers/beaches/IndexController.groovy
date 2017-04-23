@@ -42,7 +42,6 @@ class IndexController {
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
                         //@TODO decide on how to handle date, time and user
 //                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
-                        new HiddenQuestion(columnId: 'SAMPLE_SEQ', value: 'FETCH USER'),
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
                         new TextQuestion(columnId: 'user_id', prompt: 'User ID')
                 ]
@@ -324,9 +323,7 @@ class IndexController {
                         new TextQuestion(columnId: 'PART_4_COMMENTS', prompt: 'Debris, algae, and wildlife'),
                         //@TODO must assign theses later
                         new HiddenQuestion(columnId: 'DATA_ENTERED', value: 'FETCH DATE'),
-                        new HiddenQuestion(columnId: 'DATA_SAMPLE_SEQ', value: 'FETCH USER'),
                         new HiddenQuestion(columnId: 'DATE_UPDATED', value: 'FETCH DATE AND TIME'),
-                        new HiddenQuestion(columnId: 'UPDATE_ENTRY_SEQ', value: 'FETCH USER'),
                         new HiddenQuestion(columnId: 'MISSING_REQUIRED_FLAG', value: 'FETCH VALUE')
                 ]
         ]
