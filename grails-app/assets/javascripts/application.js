@@ -334,8 +334,18 @@ if (typeof jQuery !== 'undefined') {
                 var action = document.createElement("a");
                 action.id = surveys[i].id;
                 action.className = "mdl-list__item-secondary-action";
-                action.href = "#";
-                action.onclick = (function() {
+                // action.href = "#";
+                // action.onclick = (function() {
+                //     var id = surveys[i].id;
+                //     return function() {
+                //         clearAllFields();
+                //         loadSurvey(id);
+                //         toPage(0);
+                //         $('#page-questions').css('display', 'block');
+                //     }
+                // })();
+                li.onclick = (function(e) {
+                    $(e).addClass('mdl-color--grey');
                     var id = surveys[i].id;
                     return function() {
                         clearAllFields();
@@ -344,15 +354,7 @@ if (typeof jQuery !== 'undefined') {
                         $('#page-questions').css('display', 'block');
                     }
                 })();
-                nameSpan.onclick = (function() {
-                    var id = surveys[i].id;
-                    return function() {
-                        clearAllFields();
-                        loadSurvey(id);
-                        toPage(0);
-                        $('#page-questions').css('display', 'block');
-                    }
-                })();
+                $(li).css('cursor', 'pointer');
                 var icon = document.createElement("i");
                 icon.className="material-icons";
 
