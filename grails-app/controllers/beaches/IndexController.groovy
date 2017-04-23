@@ -332,7 +332,7 @@ class IndexController {
                         new TextQuestion(columnId: 'PART_3_COMMENTS', prompt: 'Human bathers'),
                         new TextQuestion(columnId: 'PART_4_COMMENTS', prompt: 'Debris, algae, and wildlife'),
                         //@TODO must assign theses later
-                        new HiddenQuestion(columnId: 'DATA_ENTERED', value: 'FETCH DATE'),
+                        new HiddenQuestion(columnId: 'DATE_ENTERED', value: 'FETCH DATE'),
                         new HiddenQuestion(columnId: 'DATE_UPDATED', value: 'FETCH DATE AND TIME'),
                         new HiddenQuestion(columnId: 'MISSING_REQUIRED_FLAG', value: 'FETCH VALUE')
                 ]
