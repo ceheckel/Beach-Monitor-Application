@@ -154,6 +154,7 @@ class IndexController {
                         ]),
                         new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'If other, describe'),
                         new SelectQuestion(columnId: 'DEBRIS_AMOUNT', options: [
+                                '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
@@ -174,6 +175,7 @@ class IndexController {
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
                         new TextQuestion(columnId: 'WIND_DIR_DESC', prompt: 'Wind direction description'),
                         new SelectQuestion(columnId: 'WEATHER_DES', options: [
+                                '',
                                 'Clear',
                                 'Mostly sunny',
                                 'Partly sunny',
@@ -181,6 +183,7 @@ class IndexController {
                                 'Cloudy'
                         ], title: "Weather Conditions"),
                         new SelectQuestion(columnId: 'RAINFALL_LAST_EVENT', options: [
+                                '',
                                 '<24',
                                 '<48',
                                 '<72',
@@ -190,6 +193,7 @@ class IndexController {
                         //@TODO value of rainfall units
                         new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN', keep: true),
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
+                                '',
                                 'Misting',
                                 'Light',
                                 'Steady',
@@ -209,9 +213,11 @@ class IndexController {
                                 new Tuple2('Estimated?', false)
                         ]),
                         new SelectQuestion(columnId: 'WAVE_DIRECTION', options: [
+                                '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ],title: "Wave direction"),
                         new SelectQuestion(columnId: 'WAVE_CONDITIONS', options: [
+                                '',
                                 'Calm',
                                 'Normal',
                                 'Rough'
@@ -220,6 +226,7 @@ class IndexController {
                         //@TODO value of longshore current units
                         new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'MPH', keep: true),
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
+                                '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ], title: "Longshore current direction")
                 ]
@@ -229,12 +236,14 @@ class IndexController {
                 pageName: 'Algae',
                 questions: [
                         new SelectQuestion(columnId: 'ALGAE_NEARSHORE', options: [
+                                '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
                         ], title: "Algae near the shore"),
                         new SelectQuestion(columnId: 'ALGAE_ON_BEACH', options: [
+                                '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
@@ -292,6 +301,7 @@ class IndexController {
                         ]),
                         new TextQuestion(columnId: 'COLOR_DESCRIPTION', prompt: 'If yes, describe'),
                         new SelectQuestion(columnId: 'ODOR_DESCRIPTION', options: [
+                                '',
                                 'None',
                                 'Septic',
                                 'Algae',
