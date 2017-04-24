@@ -5,7 +5,8 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better
 // to create separate JavaScript files as needed.
 //
-//= require jquery-2.2.0.min
+//= require jquery.min.js
+//= require jquery-ui.min.js
 //= require material.min.js
 //= require mdl-selectfield.min.js
 //= require beaches.js
@@ -18,6 +19,8 @@ var visitedPages = [];
 var surveyDate;
 var submitted = false;
 var incompletePages = new Set([]);
+
+var is_safari = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
 
 if (typeof jQuery !== 'undefined') {
     (function($) {
@@ -337,26 +340,23 @@ if (typeof jQuery !== 'undefined') {
                 var action = document.createElement("a");
                 action.id = surveys[i].id;
                 action.className = "mdl-list__item-secondary-action";
-                // action.href = "#";
-                // action.onclick = (function() {
-                //     var id = surveys[i].id;
-                //     return function() {
-                //         clearAllFields();
-                //         loadSurvey(id);
-                //         toPage(0);
-                //         $('#page-questions').css('display', 'block');
-                //     }
-                // })();
-                li.onclick = (function(e) {
-                    $(e).addClass('mdl-color--grey');
+                li.onclick = (function() {
                     var id = surveys[i].id;
                     return function() {
-                        clearAllFields();
-                        loadSurvey(id);
-                        toPage(0);
-                        $('#page-questions').css('display', 'block');
+                        setTimeout(function()
+                        {
+                            clearAllFields();
+                            loadSurvey(id);
+                            toPage(0);
+                            $('#page-questions').css('display', 'block');
+                        }, 10);
                     }
                 })();
+                $(li).hover(function(){
+                    $(this).css("background-color", "#e4e4e4");
+                }, function(){
+                    $(this).css("background-color", "white");
+                });
                 $(li).css('cursor', 'pointer');
                 var icon = document.createElement("i");
                 icon.className="material-icons";
@@ -610,9 +610,23 @@ if (typeof jQuery !== 'undefined') {
     function fillCounties() {
         var list = $('#countyList');
         list.empty();
+        if(is_safari) {
+            var selector = document.createElement("select");
+            selector.id = "countyListSelect";
+            //selector.className = "mdl-selectfield__select";
+            selector.setAttribute("style","display:none");
+            list.append(selector);
+            list = $('#countyListSelect');
+        }
         Object.keys(beaches).forEach(function(cval) {
             list.append('<option value="' + cval + '"/>');
         });
+        if(is_safari) {
+            var availableTags = list.find('option').map(function () {
+                return this.value;
+            }).get();
+            $("#__county").autocomplete({source: availableTags, change: fillLakes});
+        }
     }
 
     function fillLakes() {
@@ -620,9 +634,23 @@ if (typeof jQuery !== 'undefined') {
         var county = $('#__county');
         list.empty();
         if (typeof(beaches[county.val()]) !== 'undefined' && Object.keys(beaches).indexOf(county.val()) >= 0) {
+            if(is_safari) {
+                var selector = document.createElement("select");
+                selector.id = "lakeListSelect";
+                //selector.className = "mdl-selectfield__select";
+                selector.setAttribute("style","display:none");
+                list.append(selector);
+                list = $('#lakeListSelect');
+            }
             Object.keys(beaches[county.val()]).forEach(function (cval) {
                 list.append('<option value="' + cval + '"/>');
             });
+            if(is_safari) {
+                var availableTags = list.find('option').map(function () {
+                    return this.value;
+                }).get();
+                $("#__lake").autocomplete({source: availableTags, change: fillBeaches});
+            }
         }
         saveFavoriteEnabled();
     }
@@ -633,6 +661,14 @@ if (typeof jQuery !== 'undefined') {
         var county = $('#__county');
         list.empty();
         if (typeof(beaches[county.val()]) !== 'undefined' && typeof(beaches[county.val()][lake.val()]) !== 'undefined' && Object.keys(beaches[county.val()]).indexOf(lake.val()) >= 0) {
+            if(is_safari) {
+                var selector = document.createElement("select");
+                selector.id = "beachListSelect";
+                //selector.className = "mdl-selectfield__select";
+                selector.setAttribute("style","display:none");
+                list.append(selector);
+                list = $('#beachListSelect');
+            }
             Object.keys(beaches[county.val()][lake.val()]).forEach(function (cval) {
                 list.append('<option value="'
                     + cval
@@ -642,6 +678,12 @@ if (typeof jQuery !== 'undefined') {
                     + beaches[county.val()][lake.val()][cval]._site
                     + '"/>');
             });
+            if(is_safari) {
+                var availableTags = list.find('option').map(function () {
+                    return this.value;
+                }).get();
+                $("#BEACH_SEQ").autocomplete({source: availableTags, change: fillSites});
+            }
         }
         saveFavoriteEnabled();
     }
@@ -654,6 +696,14 @@ if (typeof jQuery !== 'undefined') {
         var county = $('#__county');
         list.empty();
         if (typeof(beaches[county.val()]) !== 'undefined' && typeof(beaches[county.val()][lake.val()]) !== 'undefined' && typeof(beaches[county.val()][lake.val()][beach.val()]) !== 'undefined' && Object.keys(beaches[county.val()][lake.val()]).indexOf(beach.val()) >= 0) {
+            if(is_safari) {
+                var selector = document.createElement("select");
+                selector.id = "siteListSelect";
+                //selector.className = "mdl-selectfield__select";
+                selector.setAttribute("style","display:none");
+                list.append(selector);
+                list = $('#siteListSelect');
+            }
             Object.keys(beaches[county.val()][lake.val()][beach.val()]).forEach(function (cval) {
                 if (cval != '_site')
                     list.append('<option value="'
@@ -664,6 +714,12 @@ if (typeof jQuery !== 'undefined') {
                         + beaches[county.val()][lake.val()][beach.val()][cval]
                         + '"/>');
             });
+            if(is_safari) {
+                var availableTags = list.find('option').map(function () {
+                    return this.value;
+                }).get();
+                $("#MONITOR_SITE_SEQ").autocomplete({source: availableTags, change: saveFavoriteEnabled});
+            }
         }
         saveFavoriteEnabled();
     }
@@ -837,3 +893,13 @@ if (typeof jQuery !== 'undefined') {
     }
 }
 
+function checkDirtyNumber(e){
+    e = e || window.event;
+    var targ = e.target || e.srcElement;
+    if (targ.nodeType == 3) targ = targ.parentNode; // defeat Safari bug
+    if(targ.parentNode.classList.contains("is-invalid"))
+        targ.parentNode.classList.add("is-dirty");
+    else if(targ.value == "")
+        targ.parentNode.classList.remove("is-dirty");
+    //alert(targ.id);
+}
