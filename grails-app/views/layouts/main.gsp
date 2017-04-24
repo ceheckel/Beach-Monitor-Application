@@ -12,6 +12,7 @@
     <asset:stylesheet src="dialog-polyfill.css"/>
     <asset:stylesheet src="material-icons.css"/>
     <asset:stylesheet src="roboto.css"/>
+    <asset:stylesheet src="jquery-ui.css"/>
 
     <g:layoutHead/>
 </head>

@@ -31,10 +31,18 @@
     <div data-page-title="${p.pageName}" data-page="${i}" class="page">
         <g:each var="q" in="${p.questions}">
             <g:if test="${q instanceof TextQuestion}">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <g:if test="${q.type == "number"}">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()">
+                    <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
+                    </div>
+                </g:if>
+                <g:else>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}">
                     <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
-                </div>
+                    </div>
+                </g:else>
                 <g:if test="${q.list != ''}">
                     <datalist id="${q.list}"></datalist>
                 </g:if>
