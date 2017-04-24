@@ -412,6 +412,11 @@ if (typeof jQuery !== 'undefined') {
                 this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
                 this.value = '';
             }
+            if(this.parentElement.classList.contains("is-invalid")){
+                this.parentElement.className = this.parentElement.className.replace("is-dirty", "");
+                this.parentElement.className = this.parentElement.className.replace("is-invalid", "");
+                this.value = '';
+            }
             if ($(this).attr('class') == "mdl-radio__button") {
                 $(this.parentElement.parentElement).children().each(function () {
                     this.className = this.className.replace("is-checked", "");
