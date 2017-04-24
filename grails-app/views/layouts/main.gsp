@@ -26,7 +26,7 @@
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title" id="page-title-drawer">Home</span>
-        <span class="mdl-layout-title" id="page-beach-drawer" style="font-size: small; font-weight: lighter; line-height: 1.2">Undefined Beach</span>
+        <span class="mdl-layout-title" id="page-beach-drawer" style="font-size: small; font-weight: lighter; line-height: 1.2">Unknown Beach</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="javascript:toPage('home');closeDrawer();">Home <span class="mdl-color-text--grey">(saves survey)</span></a>
             <div id="surveySectionsDrawer" style="display: none">
@@ -56,6 +56,11 @@
             <p>
                 You may still submit the data that you have, but once a survey is submitted, it may not be edited through this application.
             </p>
+            <p>
+                Incomplete Pages:
+            </p>
+            <ul id="incomplete-page-list">
+            </ul>
         </div>
         <div class="mdl-dialog__actions">
             <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-dialogSub">Submit</button>

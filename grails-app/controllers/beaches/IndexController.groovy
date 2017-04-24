@@ -32,15 +32,16 @@ class IndexController {
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
                         new TextQuestion(columnId: '__county', prompt: 'County', list: 'countyList'),
                         new TextQuestion(columnId: '__lake', prompt: 'Lake', list: 'lakeList'),
-                        new TextQuestion(columnId: 'BEACH_SEQ', prompt: 'Beach', list: 'beachList'),
-                        new TextQuestion(columnId: 'MONITOR_SITE_SEQ', prompt: 'Monitoring Site', list: 'monitorList'),
+                        new TextQuestion(columnId: '__beach', prompt: 'Beach', list: 'beachList'),
+                        new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
+                        new TextQuestion(columnId: '__site', prompt: 'Monitoring Site', list: 'monitorList'),
+                        new HiddenQuestion(columnId: 'MONITOR_SITE_SEQ', value: '-1'),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
                         //@TODO decide on how to handle date, time and user
-                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
-                        new HiddenQuestion(columnId: 'SAMPLE_SEQ', value: 'FETCH USER'),
+//                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
                         new TextQuestion(columnId: 'user_id', prompt: 'User ID')
                 ]
@@ -95,7 +96,7 @@ class IndexController {
                 questions: [
                         new CheckQuestion(columnId: 'FLOAT_STREET_LITTER', prompts: [
                                 new Tuple2('Street litter', false)
-                        ],hasTitle:true, title: "Floatables present:"),
+                        ],hasTitle:true, title: "Debris in water present:"),
                         new CheckQuestion(columnId: 'FLOAT_FOOD', prompts: [
                                 new Tuple2('Food', false)
                         ]),
@@ -123,7 +124,7 @@ class IndexController {
                 questions: [
                         new CheckQuestion(columnId: 'DEBRIS_STREET_ LITTER', prompts: [
                                 new Tuple2('Street litter', false)
-                        ], hasTitle:true, title: "Debris present:"),
+                        ], hasTitle:true, title: "Beach debris present:"),
                         new CheckQuestion(columnId: 'DEBRIS_FOOD', prompts: [
                                 new Tuple2('Food', false)
                         ]),
@@ -153,6 +154,7 @@ class IndexController {
                         ]),
                         new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'If other, describe'),
                         new SelectQuestion(columnId: 'DEBRIS_AMOUNT', options: [
+                                '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
@@ -164,15 +166,19 @@ class IndexController {
         def weather = [
                 pageName: "Weather",
                 questions: [
-                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature (F)', type:"number", step:0.0001 ),
                         //@TODO find value of air units
-                        new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F'),
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed', type:"number", step:0.0001 ),
+                        new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F', keep: true),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', type:"number", step:0.0001 ),
                         //@TODO find value of wind speed units
-                        new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH'),
+                        new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
-                        new TextQuestion(columnId: 'WIND_DIR_DESC', prompt: 'Wind direction description'),
+                        new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
+                                '', 'Calm', 'Variable',
+                                'N','NE','E','SE','S','SW','W','NW'
+                        ], title: 'Wind direction description'),
                         new SelectQuestion(columnId: 'WEATHER_DES', options: [
+                                '',
                                 'Clear',
                                 'Mostly sunny',
                                 'Partly sunny',
@@ -180,15 +186,17 @@ class IndexController {
                                 'Cloudy'
                         ], title: "Weather Conditions"),
                         new SelectQuestion(columnId: 'RAINFALL_LAST_EVENT', options: [
+                                '',
                                 '<24',
                                 '<48',
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount (IN)', type:"number", step:0.0001 ),
                         //@TODO value of rainfall units
-                        new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN'),
+                        new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN', keep: true),
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
+                                '',
                                 'Misting',
                                 'Light',
                                 'Steady',
@@ -201,24 +209,27 @@ class IndexController {
         def waves = [
                 pageName: 'Waves',
                 questions: [
-                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT)', type:"number", step:0.0001 ),
                         //@TODO value of wave height units
-                        new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT'),
+                        new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT', keep: true),
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
                                 new Tuple2('Estimated?', false)
                         ]),
                         new SelectQuestion(columnId: 'WAVE_DIRECTION', options: [
+                                '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ],title: "Wave direction"),
                         new SelectQuestion(columnId: 'WAVE_CONDITIONS', options: [
+                                '',
                                 'Calm',
                                 'Normal',
                                 'Rough'
                         ], title:"Wave conditions"),
-                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (FT/SEC)', type:"number", step:0.01 ),
                         //@TODO value of longshore current units
-                        new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'MPH'),
+                        new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'FT/SEC', keep: true),
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
+                                '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ], title: "Longshore current direction")
                 ]
@@ -228,12 +239,14 @@ class IndexController {
                 pageName: 'Algae',
                 questions: [
                         new SelectQuestion(columnId: 'ALGAE_NEARSHORE', options: [
+                                '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
                         ], title: "Algae near the shore"),
                         new SelectQuestion(columnId: 'ALGAE_ON_BEACH', options: [
+                                '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
@@ -277,7 +290,8 @@ class IndexController {
         def sampleTime = [
                 pageName: 'Sample Collection',
                 questions: [
-                        new ButtonElement(value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true)
+                        new ButtonElement(columnId: '__collectSampleNow', value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true),
+                        new TimeQuestion(columnId: 'SAMPLE_DATE_TIME')
                 ]
         ]
 
@@ -286,10 +300,11 @@ class IndexController {
                 questions: [
                         new TextQuestion(columnId: 'PH', prompt: 'pH level', type:"number", step:0.01 ),
                         new CheckQuestion(columnId: 'COLOR_CHANGE', prompts: [
-                                new Tuple2('Has the color changed?', false)
+                                new Tuple2('Color has changed', false)
                         ]),
                         new TextQuestion(columnId: 'COLOR_DESCRIPTION', prompt: 'If yes, describe'),
                         new SelectQuestion(columnId: 'ODOR_DESCRIPTION', options: [
+                                '',
                                 'None',
                                 'Septic',
                                 'Algae',
@@ -297,9 +312,9 @@ class IndexController {
                                 'Other'
                         ],title: "Odor description"),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
-                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature (F)', type:"number", step:0.01 ),
                         //@TODO value of avg water temp units
-                        new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F'),
+                        new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F', keep: true),
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
                                 '',
                                 'Clear',
@@ -320,10 +335,8 @@ class IndexController {
                         new TextQuestion(columnId: 'PART_3_COMMENTS', prompt: 'Human bathers'),
                         new TextQuestion(columnId: 'PART_4_COMMENTS', prompt: 'Debris, algae, and wildlife'),
                         //@TODO must assign theses later
-                        new HiddenQuestion(columnId: 'DATA_ENTERED', value: 'FETCH DATE'),
-                        new HiddenQuestion(columnId: 'DATA_SAMPLE_SEQ', value: 'FETCH USER'),
+                        new HiddenQuestion(columnId: 'DATE_ENTERED', value: 'FETCH DATE'),
                         new HiddenQuestion(columnId: 'DATE_UPDATED', value: 'FETCH DATE AND TIME'),
-                        new HiddenQuestion(columnId: 'UPDATE_ENTRY_SEQ', value: 'FETCH USER'),
                         new HiddenQuestion(columnId: 'MISSING_REQUIRED_FLAG', value: 'FETCH VALUE')
                 ]
         ]
@@ -364,6 +377,7 @@ class SelectQuestion extends Question {
 
 class HiddenQuestion extends Question {
     String value
+    boolean keep = false
 }
 
 class ButtonElement extends Question {
@@ -371,4 +385,8 @@ class ButtonElement extends Question {
     String onclick
     boolean accent = false
     boolean disabled = false
+}
+
+class TimeQuestion extends Question {
+
 }

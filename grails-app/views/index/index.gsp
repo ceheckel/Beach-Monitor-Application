@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement" %>
+<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion" %>
 <!doctype html>
 <html manifest="appcache.manifest">
 <head>
@@ -96,10 +96,13 @@
                 </div>
             </g:if>
             <g:if test ="${q instanceof HiddenQuestion}">
-                <input class="mdl-textfield__input" type="hidden" value="${q.value}" name="${q.columnId}" id="${q.columnId}">
+                <input class="mdl-textfield__input" type="hidden" value="${q.value}" name="${q.columnId}" id="${q.columnId}" data-keep="${q.keep}">
             </g:if>
             <g:if test="${q instanceof ButtonElement}">
                 <button class="mdl-button mdl-js-button mdl-button--raised ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}" ${q.disabled ? 'disabled=""' : ''}>${q.value}</button><br>
+            </g:if>
+            <g:if test="${q instanceof TimeQuestion}">
+                <input type="datetime-local" name="${q.columnId}" id="${q.columnId}">
             </g:if>
             <g:elseif test ="${!(q instanceof HiddenQuestion)}"><br></g:elseif>
         </g:each>
