@@ -10,17 +10,18 @@ CACHE:
 /assets/material.min.js?compile=false
 /assets/mdl-selectfield.min.js?compile=false
 /assets/survey.js?compile=false
+/assets/beaches.js?compile=false
 
 /assets/dialog-polyfill.js?compile=false
-#/assets/jquery.min.js?compile=false
-#/assets/jquery-ui.min.js?compile=false
+/assets/jquery.min.js?compile=false
+/assets/jquery-ui.min.js?compile=false
 
 /assets/application.css?compile=false
 /assets/errors.css?compile=false
 /assets/material.min.css?compile=false
 /assets/mdl-selectfield.min.css?compile=false
 /assets/mobile.css?compile=false
-#/assets/jquery-ui.css?compile=false
+/assets/jquery-ui.css?compile=false
 
 /assets/dialog-polyfill.css?compile=false
 /assets/roboto.css?compile=false
