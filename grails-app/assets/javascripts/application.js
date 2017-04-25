@@ -679,8 +679,8 @@ if (typeof jQuery !== 'undefined') {
                     + cval
                     // + ' (ID: '
                     // + beaches[county.val()][lake.val()][cval]._site
-                    + '" data-entity-id="'
-                    + beaches[county.val()][lake.val()][cval]._site
+                    // + '" data-entity-id="'
+                    // + beaches[county.val()][lake.val()][cval]._site
                     + '"/>');
             });
             if(is_safari) {
@@ -715,8 +715,8 @@ if (typeof jQuery !== 'undefined') {
                         + cval
                         // + ' (ID: '
                         // + beaches[county.val()][lake.val()][beach.val()][cval]
-                        + '" data-entity-id="'
-                        + beaches[county.val()][lake.val()][beach.val()][cval]
+                        // + '" data-entity-id="'
+                        // + beaches[county.val()][lake.val()][beach.val()][cval]
                         + '"/>');
             });
             if(is_safari) {
@@ -787,8 +787,17 @@ if (typeof jQuery !== 'undefined') {
             if ($(this).val() === val) opt = this;
         });
 
-        if (opt)
-            $(stored).val(opt.dataset.entityId);
+        // if (opt)
+        //     $(stored).val(opt.dataset.entityId);
+        if (opt) {
+            var county = $('#__county').val();
+            var lake = $('#__lake').val();
+            var beach = $('#__beach').val();
+            if (input === '#__beach')
+                $(stored).val(beaches[county][lake][beach]._site);
+            else
+                $(stored).val(beaches[county][lake][beach][$('#__site').val()])
+        }
     }
 
     function getDateFormatted(date) {
