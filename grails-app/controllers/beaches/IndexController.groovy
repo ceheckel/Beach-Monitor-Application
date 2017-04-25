@@ -43,7 +43,7 @@ class IndexController {
                         //@TODO decide on how to handle date, time and user
 //                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: 'FETCH DATE AND TIME'),
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
-                        new TextQuestion(columnId: 'user_id', prompt: 'User ID')
+                        new TextQuestion(columnId: 'user_id', prompt: 'User ID *', extraClasses: 'required')
                 ]
         ]
 

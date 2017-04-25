@@ -226,6 +226,7 @@ if (typeof jQuery !== 'undefined') {
             return;
         }
         $('#DATE_UPDATED').val(dateToLocalDate(new Date()));
+        $('#MISSING_REQUIRED_FLAG').val(('' + !completedSurvey).toUpperCase());
         data = getAllFields();
         data.id = surveyId;
         data.date = surveyDate;
@@ -469,6 +470,8 @@ if (typeof jQuery !== 'undefined') {
                 if ($(this).attr("id") == '__beach' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == '__site' && $(this).val() == "")
+                    complete = false;
+                if ($(this).attr('id') == 'user_id' && $(this).val() == '')
                     complete = false;
 
                 //Animals
