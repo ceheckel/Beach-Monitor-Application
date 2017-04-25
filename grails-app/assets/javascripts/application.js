@@ -849,7 +849,7 @@ if (typeof jQuery !== 'undefined') {
         if (deleteTimer == 0) {
             btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
             deleteTimer = 5;
-            btn.html('Really Delete? (' + deleteTimer + ')');
+            btn.html('Really? (' + deleteTimer + ')');
             window.cancelDelete = false;
             setTimeout(deleteCountdown, 1000);
         } else {
@@ -881,7 +881,7 @@ if (typeof jQuery !== 'undefined') {
         var btn = $('#btn-delete');
         deleteTimer--;
         if (deleteTimer > 0) {
-            btn.html('Really Delete? (' + deleteTimer + ')');
+            btn.html('Really? (' + deleteTimer + ')');
             setTimeout(deleteCountdown, 1000);
         } else {
             deleteTimer = 0;
