@@ -402,6 +402,17 @@ if (typeof jQuery !== 'undefined') {
         });
         data['vPages'] = visitedPages;
         data['submitted'] = submitted;
+        OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC");
+        OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC");
+        OtherChange("#NUM_OTHER","#NUM_OTHER_DESC");
+        OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC");
+        OtherCheckbox("#DEBRIS_OTHER","#DEBRIS_OTHER_DESC");
+        OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION");
+        OtherCheckbox("#ALGAE_TYPE_OTHER","#ALGAE_TYPE_OTHER_DESC");
+        OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC");
+        RainfallChange(false);
+        OdorChange();
+        TurbidityOrNTUChange();
         return data;
     }
 
@@ -426,6 +437,17 @@ if (typeof jQuery !== 'undefined') {
                 this.parentElement.className = this.parentElement.className.replace("is-checked", "");
             }
         });
+        OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC");
+        OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC");
+        OtherChange("#NUM_OTHER","#NUM_OTHER_DESC");
+        OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC");
+        OtherCheckbox("#DEBRIS_OTHER","#DEBRIS_OTHER_DESC");
+        OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION");
+        OtherCheckbox("#ALGAE_TYPE_OTHER","#ALGAE_TYPE_OTHER_DESC");
+        OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC");
+        RainfallChange(false);
+        OdorChange();
+        TurbidityOrNTUChange();
     }
 
     function closeDrawer() {
@@ -444,9 +466,9 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == '__lake' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'BEACH_SEQ' && $(this).val() == "")
+                if ($(this).attr("id") == '__beach' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'MONITOR_SITE_SEQ' && $(this).val() == "")
+                if ($(this).attr("id") == '__site' && $(this).val() == "")
                     complete = false;
 
                 //Animals
@@ -492,7 +514,7 @@ if (typeof jQuery !== 'undefined') {
                 //Beach Debris
                 if ($(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
                     complete = false;
-                if ($(this).attr("id") == 'DEBRIS_AMOUNT' && $("#DEBRIS_AMOUNT option:selected").index() < 0)
+                if ($(this).attr("id") == 'DEBRIS_AMOUNT' && $("#DEBRIS_AMOUNT option:selected").index() <= 0)
                     complete = false;
 
                 //Bathers
@@ -524,27 +546,27 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == 'WIND_DIR_DEGREES' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'WIND_DIR_DESC' && $(this).val() == "")
+                if ($(this).attr("id") == 'WIND_DIR_DESC' && $("#WIND_DIR_DESC option:selected").index() <= 0)
                     complete = false;
-                if ($(this).attr("id") == 'WEATHER_DES' && $("#WEATHER_DES option:selected").index() < 0)
+                if ($(this).attr("id") == 'WEATHER_DES' && $("#WEATHER_DES option:selected").index() <= 0)
                     complete = false;
-                if ($(this).attr("id") == 'RAINFALL_LAST_EVENT' && $("#RAINFALL_LAST_EVENT option:selected").index() < 0)
+                if ($(this).attr("id") == 'RAINFALL_LAST_EVENT' && $("#RAINFALL_LAST_EVENT option:selected").index() <= 0)
                     complete = false;
                 if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'RAINFALL_STD_DESC' && $("#RAINFALL_STD_DESC option:selected").index() < 0 && parseInt($('#RAINFALL').val()) > 0)
+                if ($(this).attr("id") == 'RAINFALL_STD_DESC' && $("#RAINFALL_STD_DESC option:selected").index() <= 0 && parseFloat($('#RAINFALL').val()) > 0)
                     complete = false;
 
                 //Waves
                 if ($(this).attr("id") == 'WAVE_HEIGHT' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'WAVE_DIRECTION' && $("#WAVE_DIRECTION option:selected").index() < 0)
+                if ($(this).attr("id") == 'WAVE_DIRECTION' && $("#WAVE_DIRECTION option:selected").index() <= 0)
                     complete = false;
-                if ($(this).attr("id") == 'WAVE_CONDITIONS' && $("#WAVE_CONDITIONS option:selected").index() < 0)
+                if ($(this).attr("id") == 'WAVE_CONDITIONS' && $("#WAVE_CONDITIONS option:selected").index() <= 0)
                     complete = false;
                 if ($(this).attr("id") == 'CURRENT_SPEED' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'SHORELINE_CURRENT_DIR' && $("#SHORELINE_CURRENT_DIR option:selected").index() < 0)
+                if ($(this).attr("id") == 'SHORELINE_CURRENT_DIR' && $("#SHORELINE_CURRENT_DIR option:selected").index() <= 0)
                     complete = false;
 
                 //Water Conditions
@@ -552,23 +574,23 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($('#COLOR_CHANGE').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'ODOR_DESCRIPTION' && $("#ODOR_DESCRIPTION option:selected").index() < 0)
+                if ($(this).attr("id") == 'ODOR_DESCRIPTION' && $("#ODOR_DESCRIPTION option:selected").index() <= 0)
                     complete = false;
                 if ($('#ODOR_DESCRIPTION').val() == 'Other' && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'CLARITY_DESC' && $("#CLARITY_DESC option:selected").index() < 0 && $('#NTU').val() == "")
+                if ($(this).attr("id") == 'CLARITY_DESC' && $("#CLARITY_DESC option:selected").index() <= 0 && $('#NTU').val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NTU' && $(this).val() == "" && $("#CLARITY_DESC option:selected").index() < 0)
+                if ($(this).attr("id") == 'NTU' && $(this).val() == "" && $("#CLARITY_DESC option:selected").index() <= 0)
                     complete = false;
                 if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
                     complete = false;
 
                 //Algae
-                if ($(this).attr("id") == 'ALGAE_NEARSHORE' && $("#ALGAE_NEARSHORE option:selected").index() < 0)
+                if ($(this).attr("id") == 'ALGAE_NEARSHORE' && $("#ALGAE_NEARSHORE option:selected").index() <= 0)
                     complete = false;
-                if ($(this).attr("id") == 'ALGAE_ON_BEACH' && $("#ALGAE_ON_BEACH option:selected").index() < 0)
+                if ($(this).attr("id") == 'ALGAE_ON_BEACH' && $("#ALGAE_ON_BEACH option:selected").index() <= 0)
                     complete = false;
                 if ($('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
                     complete = false;
@@ -915,4 +937,100 @@ function checkDirtyNumber(e){
     else if(targ.value == "")
         targ.parentNode.classList.remove("is-dirty");
     //alert(targ.id);
+}
+
+function OtherChange(id,desc){
+    if(parseInt($(id).val()) > 0){
+        $(desc).parent().show();
+        if($(desc).next().html().indexOf(" *") < 0)
+            $(desc).next().html($(desc).next().html()+" *");
+        $(desc).addClass('required');
+    }
+    else{
+        $(desc).next().html($(desc).next().html().replace(" *",""));
+        $(desc).removeClass('required');
+        $(desc).parent().removeClass('is-dirty');
+        $(desc).val("");
+        $(desc).parent().hide();
+    }
+}
+
+function OtherCheckbox(id,desc){
+    if($(id).get()[0].checked){
+        $(desc).parent().show();
+        if($(desc).next().html().indexOf(" *") < 0)
+            $(desc).next().html($(desc).next().html()+" *");
+        $(desc).addClass('required');
+    }
+    else{
+        $(desc).next().html($(desc).next().html().replace(" *",""));
+        $(desc).removeClass('required');
+        $(desc).parent().removeClass('is-dirty');
+        $(desc).val("");
+        $(desc).parent().hide();
+    }
+}
+
+function RainfallChange(fromChange){
+    if(parseInt($('#RAINFALL').val()) > 0){
+        if(!$('#RAINFALL_STD_DESC').is(':visible') && fromChange) {
+            $('#RAINFALL_STD_DESC').parent().removeClass('is-dirty');
+            $('#RAINFALL_STD_DESC').val("");
+        }
+        $('#RAINFALL_STD_DESC').parent().show();
+        if($('#RAINFALL_STD_DESC').next().next().html().indexOf(" *") < 0)
+            $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html()+" *");
+    }
+    else{
+        $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html().replace(" *",""));
+        $('#RAINFALL_STD_DESC').parent().addClass('is-dirty');
+        $('#RAINFALL_STD_DESC').val("Other");
+        $('#RAINFALL_STD_DESC').parent().hide();
+    }
+}
+
+function OdorChange(){
+    if($("#ODOR_DESCRIPTION").val() == 'Other'){
+        $("#ODOR_OTHER_DESCRIPTION").parent().show();
+        if($("#ODOR_OTHER_DESCRIPTION").next().html().indexOf(" *") < 0)
+            $("#ODOR_OTHER_DESCRIPTION").next().html($("#ODOR_OTHER_DESCRIPTION").next().html()+" *");
+        $("#ODOR_OTHER_DESCRIPTION").addClass('required');
+    }
+    else{
+        $("#ODOR_OTHER_DESCRIPTION").next().html($("#ODOR_OTHER_DESCRIPTION").next().html().replace(" *",""));
+        $("#ODOR_OTHER_DESCRIPTION").removeClass('required');
+        $("#ODOR_OTHER_DESCRIPTION").parent().removeClass('is-dirty');
+        $("#ODOR_OTHER_DESCRIPTION").val("");
+        $("#ODOR_OTHER_DESCRIPTION").parent().hide();
+    }
+}
+
+function TurbidityOrNTUChange(){
+    if($("#CLARITY_DESC option:selected").index() > 0){
+        if($('#CLARITY_DESC').next().next().html().indexOf(" *") < 0)
+            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html() + " *");
+        $('#CLARITY_DESC').addClass('required');
+        if(($('#NTU').val() == "")){
+            $('#NTU').next().html($('#NTU').next().html().replace(" *", ""));
+            $('#NTU').removeClass('required');
+        }
+    }
+    else if($('#NTU').val() == ""){
+        if($('#NTU').next().html().indexOf(" *") < 0)
+            $('#NTU').next().html($('#NTU').next().html() + " *");
+        $('#NTU').addClass('required');
+        if($('#CLARITY_DESC').next().next().html().indexOf(" *") < 0)
+            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html() + " *");
+        $('#CLARITY_DESC').addClass('required');
+    }
+
+    if($('#NTU').val() != "") {
+        if($('#NTU').next().html().indexOf(" *") < 0)
+            $('#NTU').next().html($('#NTU').next().html() + " *");
+        $('#NTU').addClass('required');
+        if($("#CLARITY_DESC option:selected").index() <= 0){
+            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html().replace(" *",""));
+            $('#CLARITY_DESC').removeClass('required');
+        }
+    }
 }

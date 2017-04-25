@@ -33,13 +33,13 @@
             <g:if test="${q instanceof TextQuestion}">
                 <g:if test="${q.type == "number"}">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()">
+                    <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}">
                     <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                     </div>
                 </g:if>
                 <g:else>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}">
+                    <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}">
                     <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                     </div>
                 </g:else>
@@ -74,7 +74,7 @@
                 <g:else>
                     <g:each var="c" in="${q.prompts}">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${q.columnId}">
-                            <input type="checkbox" name="${q.columnId}" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''}>
+                            <input type="checkbox" name="${q.columnId}" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''} onclick="${q.onclick}">
                             <span class="mdl-checkbox__label">${c.first}</span>
                         </label>
                         <g:if test="${!q.inline}">
@@ -86,7 +86,7 @@
             <g:if test="${q instanceof SelectQuestion}">
                 %{-- not using g:select because it's easier to create mdl components by hand --}%
                 <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                    <select name="${q.columnId}" id="${q.columnId}" class="mdl-selectfield__select">
+                    <select name="${q.columnId}" id="${q.columnId}" class="mdl-selectfield__select ${q.extraClasses}" onchange="${q.onchange}">
                         <g:each var="o" in="${q.options}">
                             <option value="${o}">${o}</option>
                         </g:each>
