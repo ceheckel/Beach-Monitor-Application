@@ -761,19 +761,18 @@ if (typeof jQuery !== 'undefined') {
     document.getElementById('__beach').onfocus = fillBeaches;
     document.getElementById('__site').onfocus = fillSites;
 
-    document.getElementById('__county').oninput = saveFavoriteEnabled;
-
-    document.getElementById('__lake').oninput = saveFavoriteEnabled;
-
-    document.getElementById('__beach').oninput = function() {
+    document.getElementById('__beach').onchange = function() {
         updateSeq('#__beach', '#beachList', '#BEACH_SEQ');
-        saveFavoriteEnabled();
     };
 
-    document.getElementById('__site').oninput = function() {
+    document.getElementById('__site').onchange = function() {
         updateSeq('#__site', '#monitorList', '#MONITOR_SITE_SEQ');
-        saveFavoriteEnabled();
     };
+
+    document.getElementById('__county').onkeyup = saveFavoriteEnabled;
+    document.getElementById('__lake').onkeyup = saveFavoriteEnabled;
+    document.getElementById('__beach').onkeyup = saveFavoriteEnabled;
+    document.getElementById('__site').onkeyup = saveFavoriteEnabled;
 
     var favorites;
     loadFavorites();
