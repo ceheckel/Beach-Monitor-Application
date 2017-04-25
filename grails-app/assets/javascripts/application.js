@@ -31,6 +31,9 @@ if (typeof jQuery !== 'undefined') {
         });
     })(jQuery);
 
+    /**
+     * Function called when document is ready
+     */
     $(document).ready(function() {
         $('div[data-page]').hide();
         toPage('home');
@@ -55,7 +58,11 @@ if (typeof jQuery !== 'undefined') {
         });
     });
 
+    /**
+     * Generates and downloads a CSV of the current survey
+     */
     function downloadCSV(){
+        // Gets current survey from localforage
         Surveys.getById(surveyId, function(myData) {
 
             // var myData = getAllFields();
@@ -68,6 +75,7 @@ if (typeof jQuery !== 'undefined') {
             var colDelim = '","';
             var rowDelim = '"\r\n"';
 
+            // generates rows and columns of csv from survey data
             var csv = '"';
             for (var key in myData) {
                 if (myData.hasOwnProperty(key)) {
@@ -85,6 +93,7 @@ if (typeof jQuery !== 'undefined') {
             }
             csv += '"';
 
+            // generates file data for csv
             var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
             nameOfFile = myData["__beach"] + "," + myData["__site"] + ',' + myData['date'] + '.csv';
             var link = document.createElement("a");
@@ -95,20 +104,37 @@ if (typeof jQuery !== 'undefined') {
         });
     }
 
+    /**
+     * Clears all fields and starts a new survey, navigating to the beach selection page.
+     * Sets onbeforeunload function to warn user before refreshing page.
+     */
     function newSurvey(){
+        // Clears all fields
         clearAllFields();
+
+        // Generate new guid and date
         surveyId = guid();
         surveyDate = new Date();
         $('#DATE_ENTERED').val(dateToLocalDate(surveyDate));
         submitted = false;
+
+        // Navigate to beach selection page
         toPage(0);
         $('#page-questions').css('display', 'block');
+
+        // Set page to warn user before reloading
         window.onbeforeunload = function() {
             saveSurvey(curPage);
             return "Are you sure you want to refresh?";
         };
     }
 
+    /**
+     * Navigates to a page, saving all changes to the current survey
+     * @param page
+     *      The page to be navigated to. This can either be an integer denoting survey page number,
+     *      or the string 'home'
+     */
     function toPage(page) {
         saveSurvey(page);
         if(visitedPages.indexOf(page) < 0)
@@ -161,10 +187,16 @@ if (typeof jQuery !== 'undefined') {
         });
     }
 
+    /**
+     * Called upon the previous button being pressed in a survey
+     */
     function btnPrev() {
         toPage(curPage - 1);
     }
 
+    /**
+     * Called upon the next button being pressed in a survey
+     */
     function btnNext() {
         if (curPage == totalQuestionPages - 1)
             toReview();
@@ -174,6 +206,10 @@ if (typeof jQuery !== 'undefined') {
             toPage(curPage + 1);
     }
 
+    /**
+     * Checks to see if survey is complete.
+     * If survey is incomplete, alerts user of incomplete pages
+     */
     function completionCheck() {
         completePage(curPage);
         if(completedSurvey){
@@ -193,6 +229,9 @@ if (typeof jQuery !== 'undefined') {
         }
     }
 
+    /**
+     * Downloads csv, marks survey as submitted, and returns to home page
+     */
     function submit(){
         saveSurvey(totalQuestionPages, false);
         console.log("Survey submitted!");//  <-- DOWNLOAD CSV HERE
@@ -201,6 +240,9 @@ if (typeof jQuery !== 'undefined') {
         toPage('home');
     }
 
+    /**
+     * Handles navigation to review page
+     */
     function toReview() {
         if(visitedPages.indexOf(totalQuestionPages) < 0)
             visitedPages.push(totalQuestionPages);
@@ -220,6 +262,11 @@ if (typeof jQuery !== 'undefined') {
         $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
     }
 
+    /**
+     * Saves survey to localforage
+     * @param {Integer} page
+     *      Calls completePage on page
+     */
     function saveSurvey(page, toast) {
         if (typeof(surveyId) === 'undefined' || curPage == 'home') {
             completePage(page);
@@ -237,6 +284,9 @@ if (typeof jQuery !== 'undefined') {
         if (toast || toast === undefined) showSaveToast();
     }
 
+    /**
+     * Creates toast that tells user survey is saved
+     */
     function showSaveToast() {
         'use strict';
         if (submitted) return;
@@ -244,6 +294,11 @@ if (typeof jQuery !== 'undefined') {
         snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!', timeout: 750});
     }
 
+    /**
+     * Loads a survey from local forage and navigates to beach selection page
+     * @param {String} id
+     *      id of survey to be loaded from local forage
+     */
     function loadSurvey(id) {
         surveyId = id;
         Surveys.getById(id, function(survey) {
@@ -293,6 +348,9 @@ if (typeof jQuery !== 'undefined') {
         });
     }
 
+    /**
+     * Loads saved surveys in local forage and displays them in a list on home page
+     */
     function getSurveys() {
         var unsubmittedList = document.getElementById("unsubmitted-reports");
         var submittedList = document.getElementById("submitted-reports");
@@ -383,6 +441,11 @@ if (typeof jQuery !== 'undefined') {
         });
     }
 
+    /**
+     * Gets all of the fields in the current survey and returns them as a map
+     * @returns {{}|*}
+     *      Maps the name of each field to its value, including undefined fields
+     */
     function getAllFields() {
         data = {};
         $('[name]').each(function () {
@@ -417,6 +480,9 @@ if (typeof jQuery !== 'undefined') {
         return data;
     }
 
+    /**
+     * Sets the value of each field in the survey to be the default values
+     */
     function clearAllFields() {
         $('[name]').each(function () {
             $(this).prop('disabled', false);
@@ -451,11 +517,18 @@ if (typeof jQuery !== 'undefined') {
         TurbidityOrNTUChange();
     }
 
+    /**
+    * Closes the drawer
+    */
     function closeDrawer() {
         var d = document.querySelector('.mdl-layout');
         d.MaterialLayout.toggleDrawer();
     }
 
+    /**
+     * Determines if the page is completed or not and marks it as such
+     * @param nextPage
+     */
     function completePage(nextPage) {
         completedSurvey = true;
         for(var page = 0; page < totalQuestionPages; page++) {
@@ -627,6 +700,10 @@ if (typeof jQuery !== 'undefined') {
         }
     }
 
+    /**
+     * Generates a random guid
+     * @returns {string} The guid generated
+     */
     function guid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
@@ -637,6 +714,9 @@ if (typeof jQuery !== 'undefined') {
             s4() + '-' + s4() + s4() + s4();
     }
 
+    /**
+     * Generates the list of counties for beach selection page
+     */
     function fillCounties() {
         var list = $('#countyList');
         list.empty();
@@ -659,6 +739,9 @@ if (typeof jQuery !== 'undefined') {
         }
     }
 
+    /**
+     * Generates the list of lakes for beach selection page
+     */
     function fillLakes() {
         var list = $('#lakeList');
         var county = $('#__county');
@@ -685,6 +768,9 @@ if (typeof jQuery !== 'undefined') {
         saveFavoriteEnabled();
     }
 
+    /**
+     * Generates the list of beaches for beach selection page
+     */
     function fillBeaches() {
         var list = $('#beachList');
         var lake = $('#__lake');
@@ -718,6 +804,9 @@ if (typeof jQuery !== 'undefined') {
         saveFavoriteEnabled();
     }
 
+    /**
+     * Generates the list of sites for beach selection page
+     */
     function fillSites() {
         var list = $('#monitorList');
         // var beach = $('#BEACH_SEQ');
@@ -754,6 +843,9 @@ if (typeof jQuery !== 'undefined') {
         saveFavoriteEnabled();
     }
 
+    /**
+     * Enables save favorite button if valid beach information is entered
+     */
     function saveFavoriteEnabled() {
         var unique = true;
         if(favorites) {
@@ -786,6 +878,9 @@ if (typeof jQuery !== 'undefined') {
     document.getElementById('__beach').onfocus = fillBeaches;
     document.getElementById('__site').onfocus = fillSites;
 
+    /**
+     * Tries to populate dropdown from current value
+     */
     function tryPropagate() {
         var county = $('#__county');
         var lake = $('#__lake');
@@ -854,6 +949,11 @@ if (typeof jQuery !== 'undefined') {
         }
     }
 
+    /**
+     * Takes a date and returns a formatted string for surveys in home page
+     * @param date
+     * @returns {number|*|string}
+     */
     function getDateFormatted(date) {
         formattedString = "";
         switch (date.getMonth()) {
@@ -898,6 +998,9 @@ if (typeof jQuery !== 'undefined') {
         return formattedString;
     }
 
+    /**
+     * Deletes the current survey from localforage
+     */
     function deleteSurvey() {
         var btn = $('#btn-delete');
         if (deleteTimer == 0) {
@@ -931,6 +1034,9 @@ if (typeof jQuery !== 'undefined') {
         }
     }
 
+    /**
+     * Displays a delete countdown to prevent accidental deletions of surveys
+     */
     function deleteCountdown() {
         var btn = $('#btn-delete');
         deleteTimer--;
@@ -951,6 +1057,11 @@ if (typeof jQuery !== 'undefined') {
         $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d));
     }
 
+    /**
+     * Changes date to localized date
+     * @param d
+     * @returns {string}
+     */
     function dateToLocalDate(d) {
         return ('000'+d.getFullYear()).slice(-4) + '-' +
             ('0'+d.getMonth()).slice(-2) + '-' +
