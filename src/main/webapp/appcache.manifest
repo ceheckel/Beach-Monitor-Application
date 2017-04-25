@@ -1,5 +1,14 @@
 CACHE MANIFEST
-# 04/19/2017 v0.0.02
+
+# 04/19/2017 v0.0.02 <-- Increment this with new builds to make browser pull latest file changes
+
+# **************************** IMPORTANT!! *****************************************
+# In order for the manifest to work on the deployment or production server,
+# you must add the prefix '/beaches' before all files listed here. The easiest
+# way to do this is with Ctrl+R, which you can use to find and replace '/assets'
+# with '/beaches/assets'. If you do this method, do not forget to add the '/beaches'
+# to the index.html references, since it is not listed under assets.
+# **********************************************************************************
 
 # Explicitly cached 'master entries'.
 CACHE:
