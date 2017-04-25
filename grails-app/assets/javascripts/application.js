@@ -687,7 +687,7 @@ if (typeof jQuery !== 'undefined') {
                 var availableTags = list.find('option').map(function () {
                     return this.value;
                 }).get();
-                $("#BEACH_SEQ").autocomplete({source: availableTags, change: fillSites});
+                $("#__beach").autocomplete({source: availableTags, change: fillSites});
             }
         }
         saveFavoriteEnabled();
@@ -723,7 +723,7 @@ if (typeof jQuery !== 'undefined') {
                 var availableTags = list.find('option').map(function () {
                     return this.value;
                 }).get();
-                $("#MONITOR_SITE_SEQ").autocomplete({source: availableTags, change: saveFavoriteEnabled});
+                $("#__site").autocomplete({source: availableTags, change: saveFavoriteEnabled});
             }
         }
         saveFavoriteEnabled();
