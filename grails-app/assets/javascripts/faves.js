@@ -32,8 +32,8 @@ function applyFavorites() {
 function addFavorite() {
     var c = $('#__county').val();
     var l = $('#__lake').val();
-    var b = $('#BEACH_SEQ').val();
-    var s = $('#MONITOR_SITE_SEQ').val();
+    var b = $('#__beach').val();
+    var s = $('#__site').val();
     favorites.push({
         county: c,
         lake: l,
@@ -54,8 +54,8 @@ function addFavorite() {
 function fillFavorite() {
     var c = $('#__county');
     var l = $('#__lake');
-    var b = $('#BEACH_SEQ');
-    var s = $('#MONITOR_SITE_SEQ');
+    var b = $('#__beach');
+    var s = $('#__site');
     var f = $('#__favorites');
 
     if(typeof(favorites[f.val()]) === 'undefined')
