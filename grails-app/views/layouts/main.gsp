@@ -133,9 +133,9 @@
                 Check the menu (upper-left corner) to see which pages are incomplete.<br>
                 You may still submit the data that you have, but once a survey is submitted, it may not be edited through this application.
             </p>
-            <p>
+            %{--<p>
                 Incomplete Pages:
-            </p>
+            </p>--}%
             %{--<ul id="incomplete-page-list">--}%
             %{--</ul>--}%
         </div>
