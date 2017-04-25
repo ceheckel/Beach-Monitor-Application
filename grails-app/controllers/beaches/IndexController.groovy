@@ -30,11 +30,11 @@ class IndexController {
                 pageName: 'Beach Selection',
                 questions: [
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
-                        new TextQuestion(columnId: '__county', prompt: 'County', list: 'countyList'),
-                        new TextQuestion(columnId: '__lake', prompt: 'Lake', list: 'lakeList'),
-                        new TextQuestion(columnId: '__beach', prompt: 'Beach', list: 'beachList'),
+                        new TextQuestion(columnId: '__county', prompt: 'County *', list: 'countyList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__lake', prompt: 'Lake *', list: 'lakeList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__beach', prompt: 'Beach *', list: 'beachList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
-                        new TextQuestion(columnId: '__site', prompt: 'Monitoring Site', list: 'monitorList'),
+                        new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'MONITOR_SITE_SEQ', value: '-1'),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
@@ -50,15 +50,15 @@ class IndexController {
         def bathers = [
                 pageName: "Bathers",
                 questions: [
-                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people wind surfing', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people Clamming', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people wind surfing *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people Clamming *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities *', type:"number", step:1, extraClasses: 'required', oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -66,10 +66,10 @@ class IndexController {
         def wildlifeBathers = [
                 pageName: 'Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of dogs', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of gulls *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of geese *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of dogs *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other wildlife *', type:"number", step:1, extraClasses: 'required', oninput:'OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -77,16 +77,16 @@ class IndexController {
         def deadWildlife = [
                 pageName :'Deceased Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NUM_LOONS', prompt: 'Number of dead loons', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_HERR_GULLS', prompt: 'Number of dead Herr Gulls', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_RING_GULLS', prompt: 'Number of dead Ring Gulls', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_CORMORANTS', prompt: 'Number of dead Cormorants', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', prompt: 'Number of dead Longtail Ducks', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horn Grebe', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead rednecked Grebe ', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead fish ', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of dead other birds', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_LOONS', prompt: 'Number of dead loons *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_HERR_GULLS', prompt: 'Number of dead Herr Gulls *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_RING_GULLS', prompt: 'Number of dead Ring Gulls *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_CORMORANTS', prompt: 'Number of dead Cormorants *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', prompt: 'Number of dead Longtail Ducks *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horn Grebe *', type:"number", step:1 ),
+                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead rednecked Grebe *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead fish *', type:"number", step:1, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of dead other birds *', type:"number", step:1, extraClasses: 'required', oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -114,7 +114,7 @@ class IndexController {
                         ]),
                         new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
                                 new Tuple2('Other material', false),
-                        ]),
+                        ], onclick: 'OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC")'),
                         new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -151,7 +151,7 @@ class IndexController {
                         ]),
                         new CheckQuestion(columnId: 'DEBRIS_OTHER', prompts: [
                                 new Tuple2('Other', false),
-                        ]),
+                        ], onclick: 'OtherCheckbox("#DEBRIS_OTHER","#DEBRIS_OTHER_DESC")'),
                         new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'If other, describe'),
                         new SelectQuestion(columnId: 'DEBRIS_AMOUNT', options: [
                                 '',
@@ -159,24 +159,24 @@ class IndexController {
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
-                        ],title: "Amount of beach debris/litter")
+                        ],title: "Amount of beach debris/litter *", extraClasses: 'required')
                 ]
         ]
 
         def weather = [
                 pageName: "Weather",
                 questions: [
-                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature (F)', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature (F) *', type:"number", step:0.0001, extraClasses: 'required'),
                         //@TODO find value of air units
                         new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F', keep: true),
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH) *', type:"number", step:0.0001, extraClasses: 'required'),
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
-                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees *', type:"number", step:0.01, extraClasses: 'required'),
                         new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
                                 '', 'Calm', 'Variable',
                                 'N','NE','E','SE','S','SW','W','NW'
-                        ], title: 'Wind direction description'),
+                        ], title: 'Wind direction description *', extraClasses: 'required'),
                         new SelectQuestion(columnId: 'WEATHER_DES', options: [
                                 '',
                                 'Clear',
@@ -184,15 +184,15 @@ class IndexController {
                                 'Partly sunny',
                                 'Mostly cloudy',
                                 'Cloudy'
-                        ], title: "Weather Conditions"),
+                        ], title: "Weather Conditions *", extraClasses: 'required'),
                         new SelectQuestion(columnId: 'RAINFALL_LAST_EVENT', options: [
                                 '',
                                 '<24',
                                 '<48',
                                 '<72',
                                 '>72'
-                        ], title: "Hours since last rain event"),
-                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount (IN)', type:"number", step:0.0001 ),
+                        ], title: "Hours since last rain event", extraClasses: 'required'),
+                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount (IN) *', type:"number", step:0.0001, extraClasses: 'required', oninput: "RainfallChange(true)"),
                         //@TODO value of rainfall units
                         new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN', keep: true),
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
@@ -202,14 +202,14 @@ class IndexController {
                                 'Steady',
                                 'Heavy',
                                 'Other'
-                        ], title: "Rain intensity" )
+                        ], title: "Rain intensity *", extraClasses: 'required')
                 ]
         ]
 
         def waves = [
                 pageName: 'Waves',
                 questions: [
-                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT)', type:"number", step:0.0001 ),
+                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT) *', type:"number", step:0.0001, extraClasses: 'required'),
                         //@TODO value of wave height units
                         new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT', keep: true),
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
@@ -218,20 +218,20 @@ class IndexController {
                         new SelectQuestion(columnId: 'WAVE_DIRECTION', options: [
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
-                        ],title: "Wave direction"),
+                        ],title: "Wave direction *", extraClasses: 'required'),
                         new SelectQuestion(columnId: 'WAVE_CONDITIONS', options: [
                                 '',
                                 'Calm',
                                 'Normal',
                                 'Rough'
-                        ], title:"Wave conditions"),
-                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (FT/SEC)', type:"number", step:0.01 ),
+                        ], title:"Wave conditions *", extraClasses: 'required'),
+                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (FT/SEC) *', type:"number", step:0.01 ),
                         //@TODO value of longshore current units
                         new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'FT/SEC', keep: true),
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
-                        ], title: "Longshore current direction")
+                        ], title: "Longshore current direction *", extraClasses: 'required')
                 ]
         ]
 
@@ -244,14 +244,14 @@ class IndexController {
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
-                        ], title: "Algae near the shore"),
+                        ], title: "Algae near the shore *", extraClasses: 'required'),
                         new SelectQuestion(columnId: 'ALGAE_ON_BEACH', options: [
                                 '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
-                        ],title: "Algae on the beach"),
+                        ],title: "Algae on the beach *", extraClasses: 'required'),
                         new CheckQuestion(columnId: 'ALGAE_TYPE_PERIPHYTON', prompts: [
                                 new Tuple2('Periphyton ', false),
                         ],hasTitle:true, title: "Algae type:"),
@@ -263,7 +263,7 @@ class IndexController {
                         ]),
                         new CheckQuestion(columnId: 'ALGAE_TYPE_OTHER', prompts: [
                                 new Tuple2('Other', false),
-                        ]),
+                        ], onclick: 'OtherCheckbox("#ALGAE_TYPE_OTHER","#ALGAE_TYPE_OTHER_DESC")'),
                         new TextQuestion(columnId: 'ALGAE_TYPE_OTHER_DESC', prompt: 'If other, describe'),
                         new CheckQuestion(columnId: 'ALGAE_COLOR_LT_GREEN', prompts: [
                                 new Tuple2('Light Green ', false),
@@ -282,7 +282,7 @@ class IndexController {
                         ]),
                         new CheckQuestion(columnId: 'ALGAE_COLOR_OTHER', prompts: [
                                 new Tuple2('Other', false),
-                        ]),
+                        ], onclick: 'OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC")'),
                         new TextQuestion(columnId: 'ALGAE_COLOR_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -298,10 +298,10 @@ class IndexController {
         def water = [
                 pageName: 'Water conditions',
                 questions: [
-                        new TextQuestion(columnId: 'PH', prompt: 'pH level', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'PH', prompt: 'pH level *', type:"number", step:0.01, extraClasses: 'required'),
                         new CheckQuestion(columnId: 'COLOR_CHANGE', prompts: [
                                 new Tuple2('Color has changed', false)
-                        ]),
+                        ], onclick: 'OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION")'),
                         new TextQuestion(columnId: 'COLOR_DESCRIPTION', prompt: 'If yes, describe'),
                         new SelectQuestion(columnId: 'ODOR_DESCRIPTION', options: [
                                 '',
@@ -310,9 +310,9 @@ class IndexController {
                                 'Algae',
                                 'Sulfur',
                                 'Other'
-                        ],title: "Odor description"),
+                        ],title: "Odor description *", extraClasses: 'required', onchange: "OdorChange()"),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
-                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature (F)', type:"number", step:0.01 ),
+                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature (F) *', type:"number", step:0.01, extraClasses: 'required'),
                         //@TODO value of avg water temp units
                         new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F', keep: true),
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
@@ -321,9 +321,9 @@ class IndexController {
                                 'Slightly turbid',
                                 'Turbid',
                                 'Opaque'
-                        ], title: "Turbidity"),
-                        new TextQuestion(columnId: 'NTU', prompt: 'OR NTU', type:"number", step:0.01),
-                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube (CM)', type:"number", step:0.01 )
+                        ], title: "Turbidity *", extraClasses: 'required', onchange: "TurbidityOrNTUChange()"),
+                        new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', type:"number", step:0.01, extraClasses: 'required', onchange:"TurbidityOrNTUChange()"),
+                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube (CM) *', type:"number", step:0.01, extraClasses: 'required')
                 ]
         ]
 
@@ -360,6 +360,8 @@ class TextQuestion extends Question {
     String step
     String extraClasses = ""
     String list = ""
+    String onchange = ""
+    String oninput = ""
 }
 
 class CheckQuestion extends Question {
@@ -368,11 +370,14 @@ class CheckQuestion extends Question {
     boolean hasTitle = false
     String title
     boolean inline = false
+    String onclick = ""
 }
 
 class SelectQuestion extends Question {
     List<String> options
     String title
+    String extraClasses = ""
+    String onchange = ""
 }
 
 class HiddenQuestion extends Question {
