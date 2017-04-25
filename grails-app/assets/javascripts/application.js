@@ -184,12 +184,12 @@ if (typeof jQuery !== 'undefined') {
             dialog.showModal();
 
             // load and display incomplete pages
-            var list = $('#incomplete-page-list');
-            list.empty();
-            incompletePages.forEach(function(page) {
-                var pageName = $('div[data-page=' + page + ']').data('page-title');
-                list.append('<li><p>' + pageName + '</p></li>');
-            });
+            // var list = $('#incomplete-page-list');
+            // list.empty();
+            // incompletePages.forEach(function(page) {
+            //     var pageName = $('div[data-page=' + page + ']').data('page-title');
+            //     list.append('<li><p>' + pageName + '</p></li>');
+            // });
         }
     }
 
@@ -786,11 +786,35 @@ if (typeof jQuery !== 'undefined') {
     document.getElementById('__beach').onfocus = fillBeaches;
     document.getElementById('__site').onfocus = fillSites;
 
+    function tryPropagate() {
+        var county = $('#__county');
+        var lake = $('#__lake');
+        var beach = $('#__beach');
+        var site = $('#__site');
+        if (Object.keys(beaches[county.val()]).length === 1) {
+            lake.val(Object.keys(beaches[county.val()])[0]);
+            lake.parent().addClass('is-dirty');
+        }
+        if (Object.keys(beaches[county.val()][lake.val()]).length === 1) {
+            beach.val(Object.keys(beaches[county.val()][lake.val()])[0]);
+            beach.parent().addClass('is-dirty');
+        }
+        if (Object.keys(beaches[county.val()][lake.val()][beach.val()]).length === 2) {
+            site.val(Object.keys(beaches[county.val()][lake.val()][beach.val()])[1]);
+            site.parent().addClass('is-dirty');
+        }
+    }
+
+    document.getElementById('__county').onchange = tryPropagate;
+    document.getElementById('__lake').onchange = tryPropagate;
+
     document.getElementById('__beach').onchange = function() {
+        tryPropagate();
         updateSeq('#__beach', '#beachList', '#BEACH_SEQ');
     };
 
     document.getElementById('__site').onchange = function() {
+        tryPropagate();
         updateSeq('#__site', '#monitorList', '#MONITOR_SITE_SEQ');
     };
 

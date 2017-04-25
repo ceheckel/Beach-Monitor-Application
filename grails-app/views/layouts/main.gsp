@@ -130,13 +130,14 @@
         <h4 class="mdl-dialog__title">Incomplete Survey</h4>
         <div class="mdl-dialog__content">
             <p>
+                Check the menu (upper-left corner) to see which pages are incomplete.<br>
                 You may still submit the data that you have, but once a survey is submitted, it may not be edited through this application.
             </p>
             <p>
                 Incomplete Pages:
             </p>
-            <ul id="incomplete-page-list">
-            </ul>
+            %{--<ul id="incomplete-page-list">--}%
+            %{--</ul>--}%
         </div>
         <div class="mdl-dialog__actions">
             <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-dialogSub">Submit</button>
