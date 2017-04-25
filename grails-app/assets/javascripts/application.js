@@ -936,11 +936,12 @@ function checkDirtyNumber(e){
         targ.parentNode.classList.add("is-dirty");
     else if(targ.value == "")
         targ.parentNode.classList.remove("is-dirty");
-    //alert(targ.id);
 }
 
 function OtherChange(id,desc){
     if(parseInt($(id).val()) > 0){
+        if(!$(desc).parent().next().is("br"))
+            $(desc).parent().after("<br>");
         $(desc).parent().show();
         if($(desc).next().html().indexOf(" *") < 0)
             $(desc).next().html($(desc).next().html()+" *");
@@ -951,12 +952,16 @@ function OtherChange(id,desc){
         $(desc).removeClass('required');
         $(desc).parent().removeClass('is-dirty');
         $(desc).val("");
+        if($(desc).parent().next().is("br"))
+            $(desc).parent().next().remove();
         $(desc).parent().hide();
     }
 }
 
 function OtherCheckbox(id,desc){
     if($(id).get()[0].checked){
+        if(!$(desc).parent().next().is("br"))
+            $(desc).parent().after("<br>");
         $(desc).parent().show();
         if($(desc).next().html().indexOf(" *") < 0)
             $(desc).next().html($(desc).next().html()+" *");
@@ -967,16 +972,20 @@ function OtherCheckbox(id,desc){
         $(desc).removeClass('required');
         $(desc).parent().removeClass('is-dirty');
         $(desc).val("");
+        if($(desc).parent().next().is("br"))
+            $(desc).parent().next().remove();
         $(desc).parent().hide();
     }
 }
 
 function RainfallChange(fromChange){
-    if(parseInt($('#RAINFALL').val()) > 0){
+    if(parseFloat($('#RAINFALL').val()) > 0){
         if(!$('#RAINFALL_STD_DESC').is(':visible') && fromChange) {
             $('#RAINFALL_STD_DESC').parent().removeClass('is-dirty');
             $('#RAINFALL_STD_DESC').val("");
         }
+        if(!$('#RAINFALL_STD_DESC').parent().next().is("br"))
+            $('#RAINFALL_STD_DESC').parent().after("<br>");
         $('#RAINFALL_STD_DESC').parent().show();
         if($('#RAINFALL_STD_DESC').next().next().html().indexOf(" *") < 0)
             $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html()+" *");
@@ -985,12 +994,16 @@ function RainfallChange(fromChange){
         $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html().replace(" *",""));
         $('#RAINFALL_STD_DESC').parent().addClass('is-dirty');
         $('#RAINFALL_STD_DESC').val("Other");
+        if($('#RAINFALL_STD_DESC').parent().next().is("br"))
+            $('#RAINFALL_STD_DESC').parent().next().remove();
         $('#RAINFALL_STD_DESC').parent().hide();
     }
 }
 
 function OdorChange(){
     if($("#ODOR_DESCRIPTION").val() == 'Other'){
+        if(!$('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
+            $('#ODOR_OTHER_DESCRIPTION').parent().after("<br>");
         $("#ODOR_OTHER_DESCRIPTION").parent().show();
         if($("#ODOR_OTHER_DESCRIPTION").next().html().indexOf(" *") < 0)
             $("#ODOR_OTHER_DESCRIPTION").next().html($("#ODOR_OTHER_DESCRIPTION").next().html()+" *");
@@ -1001,6 +1014,8 @@ function OdorChange(){
         $("#ODOR_OTHER_DESCRIPTION").removeClass('required');
         $("#ODOR_OTHER_DESCRIPTION").parent().removeClass('is-dirty');
         $("#ODOR_OTHER_DESCRIPTION").val("");
+        if($('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
+            $('#ODOR_OTHER_DESCRIPTION').parent().next().remove();
         $("#ODOR_OTHER_DESCRIPTION").parent().hide();
     }
 }
