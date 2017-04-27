@@ -1,14 +1,24 @@
+/**
+ * Generates a survey object with an id and data
+ * @param {String} id
+ *      The guid that identifies the object
+ * @param data
+ *      The data of the survey
+ * @constructor
+ */
 Survey = function(id, data) {
     this.data = data;
 
     this.key = id;
 
+    // Updates and saves the survey in localforage
     this.save = function(callback) {
         localforage.setItem(this.key, this.data, function(){});
 
         Surveys.add(this, callback);
     };
 
+    // Deletes the survey from localforage
     this.delete = function(callback) {
         localforage.removeItem(this.key, callback);
 
@@ -17,6 +27,12 @@ Survey = function(id, data) {
 };
 
 Surveys = {};
+
+/**
+ * Gets all surveys from localforage and executes a callback on results
+ * @param callback
+ *      The function to be executed after retreiving surveys from localforage
+ */
 Surveys.getAll = function(callback) {
     localforage.getItem("surveys", function(error, result) {
         if (result == null || result.length === 0)
@@ -37,6 +53,13 @@ Surveys.getAll = function(callback) {
     })
 };
 
+/**
+ * Adds a survey to the stored list of survey ids in localforage
+ * @param survey
+ *      The survey to be added
+ * @param callback
+ *      A function to be executed after adding the survey
+ */
 Surveys.add = function(survey, callback) {
     localforage.getItem("surveys", function(error, result) {
         var surveys = result;
@@ -53,6 +76,12 @@ Surveys.add = function(survey, callback) {
     })
 };
 
+/**
+ * Gets a survey from localforage from an id
+ * @param id
+ * @param callback
+ *      The callback to be executed on the survey after retreiving it from localforage
+ */
 Surveys.getById = function(id, callback) {
     localforage.getItem(id, function(error, item) {
         if (!error)
@@ -60,6 +89,12 @@ Surveys.getById = function(id, callback) {
     });
 };
 
+/**
+ * Removes a survey by id from localforage
+ * @param id
+ * @param callback
+ *      The callback to be executed after removing survey from localforage
+ */
 Surveys.remove = function(id, callback) {
     localforage.getItem("surveys", function(error, result) {
         var index = result.indexOf(survey.key);
