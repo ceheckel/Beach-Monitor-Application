@@ -1,3 +1,6 @@
+/**
+ * Loads stored favorites from localforage
+ */
 function loadFavorites() {
     localforage.getItem('favorites').then(function(v) {
         window.favorites = v === null ? [] : v;
@@ -10,6 +13,9 @@ function loadFavorites() {
     });
 }
 
+/**
+ * Saves changes made to favorites
+ */
 function saveFavorites() {
     localforage.setItem('favorites', favorites).then(function(v) {
         console.log(v);
@@ -18,6 +24,9 @@ function saveFavorites() {
     });
 }
 
+/**
+ * Applies favorites and populates dropdown
+ */
 function applyFavorites() {
     var f = $('#__favorites');
     f.empty();
@@ -51,6 +60,9 @@ function addFavorite() {
     saveFavorites();
 }
 
+/**
+ * Applies values after selecting a favorite
+ */
 function fillFavorite() {
     var c = $('#__county');
     var l = $('#__lake');
