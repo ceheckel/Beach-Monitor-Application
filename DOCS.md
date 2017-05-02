@@ -18,7 +18,8 @@ Additionally, Firefox on Android has been tested, but not as thoroughly as Googl
 
 ## Maintenance
 
-___ADD INSTRUCTIONS ABOUT REBUILDING EVERYTHING___
+### Production
+To build the web application for a production envronment, some portions of the code should be changed from their development counterparts. In particular, the files `grails-app/views/layouts/main.gsp` and `src/main/webapp/appcache.manifest` must have all of the static paths for files changes to be prefixed with "/beaches" for production. Comments in these files serve as reminders to change these paths. Once the paths are changed, a Web Archive (WAR) file must be generated. Using IntelliJ, this is done from the 'Build->Make Web Archive' menu. If this option is not present, we have found that selecting or opening the `build.gradle` file tends to make it show up again as it should. The generated WAR file should be named `beaches.war` and should be located in the `build/libs` folder in the project's local directory. With this file generated, it can simply be deployed by copying `beaches.war` to the webapp folder of a tomcat server, and starting the server through the appropriate commands. No additional configuration is necessary, since the app does not rely on any databases or other external resources.
 
 ### Beach and Site Maintenance
 
