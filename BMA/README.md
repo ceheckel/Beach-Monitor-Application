@@ -1,5 +1,7 @@
-# HCI Team 4 - Wisconsin Beaches
+# CS4791 Beach Monitor Survey
 
-[Project Website](http://www.csl.mtu.edu/classes/cs4760/www/projects/s17/group4/www/)
+The site is currently hosted [here](https://cshci.cs.mtu.edu/beaches/).
 
-[Documentation](DOCS.md)
+[HCI's Documentation](DOCS.md)
+
+[Our (Senior Design's) Documentation](DOCS2.md)
