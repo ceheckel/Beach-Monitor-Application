@@ -4,6 +4,18 @@
 <head>
     <meta name="layout" content="main"/>
     <title>WI Beach Health</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <asset:javascript src="beaches_sites_get.js"/>
+    <script>
+        $(function () {
+            var callback = function (gotten_beaches) {
+                beaches = gotten_beaches;
+            }
+            window.beaches_sites_get.run(callback, false);
+        });
+    </script>
+
 </head>
 <body>
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
