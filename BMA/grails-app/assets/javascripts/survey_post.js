@@ -1,0 +1,123 @@
+/**
+ * Created by cwbaldwi on 10/11/17.
+ */
+
+
+survey_post.TEST = true;
+survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/surveys";
+survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8105/bms/surveys";
+
+survey_post.test_survey = {
+    __county: "Test County",
+    __lake: "Test Lake",
+    __beach: "Test Beach",
+    __site: "Test Site",
+    user_id: 24,
+    NO_GULLS: 1,
+    NO_GEESE: 2,
+    NO_DOGS: 2,
+    NO_ANIMALS_OTHER: 0,
+    NUM_LOONS: 1,
+    NUM_HERR_GULLS: 1,
+    NUM_RING_GULLS: 1,
+    NUM_CORMORANTS: 1,
+    NUM_LONGTAIL_DUCKS: 1,
+    NUM_SCOTER: 1,
+    NUM_HORN_GREBE: 1,
+    NUM_REDNECKED_GREBE: 1,
+    NUM_FISH: 1,
+    NUM_OTHER: 0,
+    FLOAT_STREET_LITTER: true,
+    FLOAT_FOOD: true,
+    FLOAT_MEDICAL: true,
+    FLOAT_SEWAGE: true,
+    FLOAT_BLDG_MATERIALS: true,
+    FLOAT_FISHING: true,
+    FLOAT_OTHER: false,
+    DEBRIS_STREET_LITTER: true,
+    DEBRIS_FOOD: true,
+    DEBRIS_MEDICAL: true,
+    DEBRIS_SEWAGE: true,
+    DEBRIS_BLDG_MATERIALS: true,
+    DEBRIS_FISHING: true,
+    DEBRIS_HOUSEHOLD: true,
+    DEBRIS_TAR: true,
+    DEBRIS_OIL: true,
+    DEBRIS_OTHER: false,
+    DEBRIS_AMOUNT: "much",
+    NO_IN_WATER: 1,
+    NUM_OUT_OF_WATER: 1,
+    NO_PEOPLE_BOATING: 1,
+    NO_PEOPLE_FISHING: 1,
+    NO_PEOPLE_SURFING: 1,
+    NO_PEOPLE_WINDSURFING: 1,
+    NUM_PEOPLE_DIVING: 1,
+    NO_PEOPLE_CLAMMING: 1,
+    NO_PEOPLE_OTHER: 0,
+    AIR_TEMP: 70,
+    AIR_TEMP_UNITS: "F",
+    WIND_SPEED: 5,
+    WIND_SPEED_UNITS: "mph",
+    WIND_DIR_DEGREES: 50,
+    WIND_DIR_DESC: "very light",
+    WEATHER_DES: "mostly clear",
+    RAINFALL_LAST_EVENT: "2 hours",
+    RAINFALL:
+    RAINFALL_UNITS
+    RAINFALL_STD_DESC
+    WAVE_HEIGHT
+    WAVE_HEIGHT_UNITS
+    EST_ACT_FLAG
+    WAVE_DIRECTION
+    WAVE_CONDITIONS
+    CURRENT_SPEED
+    CURRENT_SPEED_UNITS
+    SHORELINE_CURRENT_DIR
+    PH
+    COLOR_CHANGE
+    ODOR_DESCRIPTION
+    AVG_WATER_TEMP
+    AVG_WATER_TEMP_UNITS
+    CLARITY_DESC
+    NTU
+    SECCHI_TUBE_CM
+    ALGAE_NEARSHORE
+    ALGAE_ON_BEACH
+    ALGAE_TYPE_PERIPHYTON
+    ALGAE_TYPE_GLOBULAR
+    ALGAE_TYPE_FREEFLOATING
+    ALGAE_TYPE_OTHER
+    ALGAE_COLOR_LT_GREEN
+    ALGAE_COLOR_BRGHT_GREEN
+    ALGAE_COLOR_DRK_GREEN
+    ALGAE_COLOR_YELLOW
+    ALGAE_COLOR_BROWN
+    ALGAE_COLOR_OTHER
+};
+
+/**
+ * Uploads all surveys to the Wi Beach Server
+ * @param callback
+ */
+survey_post.upload = function() {
+    var surveyJson = {};
+
+    if (survey_post.TEST) {
+        jQuery.post({
+            url: survey_post.LOCALHOST_SURVEYS_URL,
+            data: survey_post.test_survey,
+            success: function() {
+                console.log("Post successful!");
+            }
+        })
+    }
+    else {
+        Surveys.getAll(jQuery.post({
+            url: survey_post.LOCALHOST_SURVEYS_URL,
+            data: surveys,
+            success: function () {
+                console.log("Post successful!");
+            }
+        }))
+    }
+};
