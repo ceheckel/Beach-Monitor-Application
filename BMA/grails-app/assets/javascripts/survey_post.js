@@ -2,9 +2,10 @@
  * Created by cwbaldwi on 10/11/17.
  */
 
+window.survey_post = {};
 
 survey_post.TEST = true;
-survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/surveys";
+survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/survey";
 survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8105/bms/surveys";
 
 survey_post.test_survey = {
@@ -62,37 +63,37 @@ survey_post.test_survey = {
     WIND_DIR_DESC: "very light",
     WEATHER_DES: "mostly clear",
     RAINFALL_LAST_EVENT: "2 hours",
-    RAINFALL:
-    RAINFALL_UNITS
-    RAINFALL_STD_DESC
-    WAVE_HEIGHT
-    WAVE_HEIGHT_UNITS
-    EST_ACT_FLAG
-    WAVE_DIRECTION
-    WAVE_CONDITIONS
-    CURRENT_SPEED
-    CURRENT_SPEED_UNITS
-    SHORELINE_CURRENT_DIR
-    PH
-    COLOR_CHANGE
-    ODOR_DESCRIPTION
-    AVG_WATER_TEMP
-    AVG_WATER_TEMP_UNITS
-    CLARITY_DESC
-    NTU
-    SECCHI_TUBE_CM
-    ALGAE_NEARSHORE
-    ALGAE_ON_BEACH
-    ALGAE_TYPE_PERIPHYTON
-    ALGAE_TYPE_GLOBULAR
-    ALGAE_TYPE_FREEFLOATING
-    ALGAE_TYPE_OTHER
-    ALGAE_COLOR_LT_GREEN
-    ALGAE_COLOR_BRGHT_GREEN
-    ALGAE_COLOR_DRK_GREEN
-    ALGAE_COLOR_YELLOW
-    ALGAE_COLOR_BROWN
-    ALGAE_COLOR_OTHER
+    RAINFALL: 3,
+    RAINFALL_UNITS: "IN",
+    RAINFALL_STD_DESC: "Not much",
+    WAVE_HEIGHT: 1.2,
+    WAVE_HEIGHT_UNITS: "FT",
+    EST_ACT_FLAG: true,
+    WAVE_DIRECTION: "NNW",
+    WAVE_CONDITIONS: "Not many",
+    CURRENT_SPEED: "10",
+    CURRENT_SPEED_UNITS: "cm/sec",
+    SHORELINE_CURRENT_DIR: "NNW",
+    PH: 7.0,
+    COLOR_CHANGE: false,
+    ODOR_DESCRIPTION: "Smells like a lake alright",
+    AVG_WATER_TEMP: 60,
+    AVG_WATER_TEMP_UNITS: "F",
+    CLARITY_DESC: "Pretty clear, pretty clear",
+    NTU: 1.0,
+    SECCHI_TUBE_CM: 5,
+    ALGAE_NEARSHORE: "yep",
+    ALGAE_ON_BEACH: "yep",
+    ALGAE_TYPE_PERIPHYTON: true,
+    ALGAE_TYPE_GLOBULAR: true,
+    ALGAE_TYPE_FREEFLOATING: true,
+    ALGAE_TYPE_OTHER: false,
+    ALGAE_COLOR_LT_GREEN: true,
+    ALGAE_COLOR_BRGHT_GREEN: true,
+    ALGAE_COLOR_DRK_GREEN: true,
+    ALGAE_COLOR_YELLOW: true,
+    ALGAE_COLOR_BROWN: true,
+    ALGAE_COLOR_OTHER: false
 };
 
 /**
@@ -100,24 +101,33 @@ survey_post.test_survey = {
  * @param callback
  */
 survey_post.upload = function() {
-    var surveyJson = {};
-
     if (survey_post.TEST) {
-        jQuery.post({
+
+        $.ajax({
+            type: 'POST',
+            crossDomain: true,
+            contentType: 'application/json; charset=utf-8',
             url: survey_post.LOCALHOST_SURVEYS_URL,
+            dataType: 'json',
             data: survey_post.test_survey,
-            success: function() {
-                console.log("Post successful!");
-            }
-        })
+            success: function() { alert("Success"); },
+            error: function() { alert('Failed!'); }
+        });
     }
     else {
-        Surveys.getAll(jQuery.post({
-            url: survey_post.LOCALHOST_SURVEYS_URL,
-            data: surveys,
-            success: function () {
-                console.log("Post successful!");
-            }
-        }))
+        Surveys.getAll(function(surveys) {
+            console.log(surveys);
+
+            $.ajax({
+                type: 'POST',
+                crossDomain: true,
+                contentType: 'application/json; charset=utf-8',
+                url: survey_post.LOCALHOST_SURVEYS_URL,
+                dataType: 'json',
+                data: surveys,
+                success: function() { alert("Success"); },
+                error: function() { alert('Failed!'); }
+            });
+        })
     }
 };

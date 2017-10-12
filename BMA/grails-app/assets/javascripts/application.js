@@ -9,6 +9,7 @@
 //= require jquery-ui.min.js
 //= require material.min.js
 //= require mdl-selectfield.min.js
+//= require survey_post.js
 //= require beaches_sites_get.js
 //= require_tree .
 //= require_self
