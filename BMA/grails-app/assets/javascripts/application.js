@@ -174,26 +174,17 @@ if (typeof jQuery !== 'undefined') {
             window.onbeforeunload = null;
         }
         else if(curPage == 'help') {
-
-            // This is a goddamn mess
-
             document.getElementById("surveySectionsDrawer").style.display = 'none';
             document.getElementById("homeSectionDrawer").style.display = 'block';
             document.getElementById("helpSectionDrawer").style.display = 'none';
-
             $('#help-button').show();
-
-
             saveSurvey(curPage);
             curPage = 'help';
             $('#help-button').show();
             $('div[data-page=home]').hide();
-
             $('#page-questions').css('display', 'none');
             $('#page-beach-drawer').css('display', 'none');
-
             $('#page-title').html("Help Page");
-
         }
         else {
 
