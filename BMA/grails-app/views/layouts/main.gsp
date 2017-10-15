@@ -127,7 +127,7 @@
             </div>
             <!-- Help Button (in navbar) -->
             <div id="helpSectionDrawer">
-                <a class="mdl-navigation__link" href="javascript:toHelp();closeDrawer();">Help?</a>
+                <a class="mdl-navigation__link" href="javascript:toPage('help');closeDrawer();">Help?</a>
             </div>
         </nav>
     </div>
