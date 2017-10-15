@@ -279,7 +279,7 @@ if (typeof jQuery !== 'undefined') {
         data.id = surveyId;
         data.date = surveyDate;
         survey = new Survey(surveyId, data);
-        survey.save(function(){
+        survey.save(function() {
             completePage(page);
         });
         if (toast || toast === undefined) showSaveToast();

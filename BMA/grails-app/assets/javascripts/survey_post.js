@@ -4,7 +4,7 @@
 
 window.survey_post = {};
 
-survey_post.TEST = true;
+survey_post.TEST = false;
 survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/survey";
 survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8105/bms/surveys";
 
@@ -124,16 +124,28 @@ survey_post.upload = function() {
         Surveys.getAll(function(surveys) {
             console.log(surveys);
 
-            $.ajax({
-                type: 'POST',
-                crossDomain: true,
-                contentType: 'application/json; charset=utf-8',
-                url: JSON.stringify(survey_post.LOCALHOST_SURVEYS_URL),
-                dataType: 'json',
-                data: surveys,
-                success: function() { alert("Success"); },
-                error: function() { alert('Failed!'); }
-            });
+            surveys.forEach(function(survey) {
+
+                console.log(survey);
+
+                $.ajax({
+                    type: 'POST',
+                    crossDomain: true,
+                    contentType: 'application/json; charset=utf-8',
+                    url: survey_post.LOCALHOST_SURVEYS_URL,
+                    dataType: 'json',
+                    data: JSON.stringify(survey),
+                    success: function(response) {
+                        alert("Success");
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        alert('Failed!');
+                        console.log(getAllFields());
+                        //console.log(response);
+                    }
+                });
+            })
         })
     }
 };
