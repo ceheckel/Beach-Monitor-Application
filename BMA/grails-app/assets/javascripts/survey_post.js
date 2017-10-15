@@ -13,7 +13,7 @@ survey_post.test_survey = {
     __lake: "Test Lake",
     __beach: "Test Beach",
     __site: "Test Site",
-    user_id: 24,
+    user_id: "asdf",
     NO_GULLS: 1,
     NO_GEESE: 2,
     NO_DOGS: 2,
@@ -56,7 +56,7 @@ survey_post.test_survey = {
     NO_PEOPLE_CLAMMING: 1,
     NO_PEOPLE_OTHER: 0,
     AIR_TEMP: 70,
-    AIR_TEMP_UNITS: "F",
+    AIR_UNITS: "F",
     WIND_SPEED: 5,
     WIND_SPEED_UNITS: "mph",
     WIND_DIR_DEGREES: 50,
@@ -109,9 +109,15 @@ survey_post.upload = function() {
             contentType: 'application/json; charset=utf-8',
             url: survey_post.LOCALHOST_SURVEYS_URL,
             dataType: 'json',
-            data: survey_post.test_survey,
-            success: function() { alert("Success"); },
-            error: function() { alert('Failed!'); }
+            data: JSON.stringify(survey_post.test_survey),
+            success: function(response) {
+                alert("Success");
+                console.log(response);
+            },
+            error: function(response) {
+                alert('Failed!');
+                console.log(response);
+            }
         });
     }
     else {
@@ -122,7 +128,7 @@ survey_post.upload = function() {
                 type: 'POST',
                 crossDomain: true,
                 contentType: 'application/json; charset=utf-8',
-                url: survey_post.LOCALHOST_SURVEYS_URL,
+                url: JSON.stringify(survey_post.LOCALHOST_SURVEYS_URL),
                 dataType: 'json',
                 data: surveys,
                 success: function() { alert("Success"); },
