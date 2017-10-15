@@ -162,16 +162,46 @@ if (typeof jQuery !== 'undefined') {
         else
             $('#bottom-nav').css('display', 'none');
         if (curPage == 'home') {
+
+            $('#help-button').hide();
+
             document.getElementById("surveySectionsDrawer").style.display = 'none';
             document.getElementById("homeSectionDrawer").style.display = 'block';
+            document.getElementById("helpSectionDrawer").style.display = 'block';
             $('#page-questions').css('display', 'none');
             $('#page-beach-drawer').css('display', 'none');
             visitedPages = [];
             window.onbeforeunload = null;
         }
+        else if(curPage == 'help') {
+
+            // This is a goddamn mess
+
+            document.getElementById("surveySectionsDrawer").style.display = 'none';
+            document.getElementById("homeSectionDrawer").style.display = 'block';
+            document.getElementById("helpSectionDrawer").style.display = 'none';
+
+            $('#help-button').show();
+
+
+            saveSurvey(curPage);
+            curPage = 'help';
+            $('#help-button').show();
+            $('div[data-page=home]').hide();
+
+            $('#page-questions').css('display', 'none');
+            $('#page-beach-drawer').css('display', 'none');
+
+            $('#page-title').html("Help Page");
+
+        }
         else {
+
+            $('#help-button').hide();
+
             document.getElementById("surveySectionsDrawer").style.display = 'block';
             document.getElementById("homeSectionDrawer").style.display = 'none';
+            document.getElementById("helpSectionDrawer").style.display = 'block';
             $('#page-beach-drawer').css('display', 'inline');
             $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Unknown Beach');
         }
@@ -262,6 +292,24 @@ if (typeof jQuery !== 'undefined') {
         $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
     }
 
+    /**
+     * Handles navigation to help page
+     */
+    function toHelp() {
+
+        toPage('help');
+
+        /*
+        saveSurvey(curPage);
+        curPage = 'help';
+        $('#help-button').show();
+        $('div[data-page=home]').hide();
+
+        $('#page-questions').css('display', 'none');
+        $('#page-beach-drawer').css('display', 'none');
+
+       */
+    }
     /**
      * Saves survey to localforage
      * @param {Integer} page
