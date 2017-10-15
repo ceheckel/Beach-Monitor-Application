@@ -9,6 +9,11 @@
     <asset:javascript src="beaches_sites_get.js"/>
     <script>
         $(function () {
+
+            //console.log("HERE00");
+            //console.log(window.beaches_sites_get);
+
+
             var callback = function (gotten_beaches) {
                 beaches = gotten_beaches;
             };
@@ -17,11 +22,13 @@
     </script>
 
     <asset:javascript src="survey_post.js"/>
+    <!--
     <script>
         $(function() {
             window.survey_post.upload();
         })
     </script>
+    -->
 
 </head>
 <body>
@@ -36,6 +43,7 @@
             </span>
         </li>
     </ul>
+    <button id="post-surveys-btn" onclick="window.survey_post.upload();">Upload Past Reports</button>
     <ul class="mdl-list" id="submitted-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">

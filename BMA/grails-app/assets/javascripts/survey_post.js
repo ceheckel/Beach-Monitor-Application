@@ -72,7 +72,7 @@ survey_post.test_survey = {
     WAVE_DIRECTION: "NNW",
     WAVE_CONDITIONS: "Not many",
     CURRENT_SPEED: "10",
-    CURRENT_SPEED_UNITS: "cm/sec",
+    LONGSHORE_CURRENT_UNITS: "cm/sec",
     SHORELINE_CURRENT_DIR: "NNW",
     PH: 7.0,
     COLOR_CHANGE: false,
@@ -127,24 +127,34 @@ survey_post.upload = function() {
 
                 //console.log(survey);
 
-                $.ajax({
-                    type: 'POST',
-                    crossDomain: true,
-                    contentType: 'application/json; charset=utf-8',
-                    url: survey_post.LOCALHOST_SURVEYS_URL,
-                    dataType: 'json',
-                    data: JSON.stringify(survey),
-                    success: function(response) {
-                        alert("Success");
-                        console.log(response);
-                    },
-                    error: function(response) {
-                        alert('Failed!');
-                        console.log(getAllFields());
-                        //console.log(response);
-                    }
-                });
-            })
+                if (survey.submitted) {
+
+                    $.ajax({
+                        type: 'POST',
+                        crossDomain: true,
+                        contentType: 'application/json; charset=utf-8',
+                        url: survey_post.LOCALHOST_SURVEYS_URL,
+                        dataType: 'json',
+                        data: JSON.stringify(survey),
+                        success: function (response) {
+                            alert("Success");
+                            console.log(response);
+                        },
+                        error: function (response) {
+                            alert('Failed!');
+                            console.log(getAllFields());
+                            //console.log(response);
+                        }
+                    });
+                }
+            });
+
+
+            var callback = function (gotten_beaches) {
+                beaches = gotten_beaches;
+            };
+            window.beaches_sites_get.run(callback, false);
+
         })
     }
 };

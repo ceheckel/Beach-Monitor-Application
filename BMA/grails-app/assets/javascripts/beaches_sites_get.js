@@ -13,25 +13,25 @@ beaches_sites_get.test_beaches = [
         BEACH_SEQ: 1,
         BEACH_NAME: "Big Bay Town Park Beach",
         COUNTY: "Ashland",
-        WATER_BODY_NAME: "Lake Superior"
+        WATERBODY_NAME: "Lake Superior"
     },
     {
         BEACH_SEQ: 171,
         BEACH_NAME: "Braod Street Beach",
         COUNTY: "Bayfield",
-        WATER_BODY_NAME: "Lake Superior"
+        WATERBODY_NAME: "Lake Superior"
     },
     {
         BEACH_SEQ: 3,
         BEACH_NAME: "Maslowski Beaches",
         COUNTY: "Ashland",
-        WATER_BODY_NAME: "Lake Superior"
+        WATERBODY_NAME: "Lake Superior"
     },
     {
         BEACH_SEQ: 298,
         BEACH_NAME: "Copper Falls SP Beach",
         COUNTY: "Ashland",
-        WATER_BODY_NAME: "Loon Lake"
+        WATERBODY_NAME: "Loon Lake"
     }
 ];
 
@@ -73,11 +73,11 @@ beaches_sites_get.parse = function (beaches, sites, callback) {
         if (formatted_beaches[beaches[i].COUNTY] === undefined) {
             formatted_beaches[beaches[i].COUNTY] = {};
         }
-        if (formatted_beaches[beaches[i].COUNTY][beaches[i].WATER_BODY_NAME] === undefined) {
-            formatted_beaches[beaches[i].COUNTY][beaches[i].WATER_BODY_NAME] = {};
+        if (formatted_beaches[beaches[i].COUNTY][beaches[i].WATERBODY_NAME] === undefined) {
+            formatted_beaches[beaches[i].COUNTY][beaches[i].WATERBODY_NAME] = {};
         }
         this_beach = {};
-        formatted_beaches[beaches[i].COUNTY][beaches[i].WATER_BODY_NAME][beaches[i].BEACH_NAME] = this_beach;
+        formatted_beaches[beaches[i].COUNTY][beaches[i].WATERBODY_NAME][beaches[i].BEACH_NAME] = this_beach;
         this_beach["_site"] = beaches[i].BEACH_SEQ;
 
         map_beach_seq_to_obj[beaches[i].BEACH_SEQ] = this_beach;
@@ -99,17 +99,37 @@ beaches_sites_get.run = function (callback, use_test_data) {
         beaches_sites_get.parse(beaches, sites, callback);
     }
     else {
-        jQuery.get({
+        $.ajax({
+            type: 'GET',
+            crossDomain: true,
+            contentType: 'application/json; charset=utf-8',
             url: beaches_sites_get.BEACHES_GET_URL,
-            success: function (data) {
+            dataType: 'json',
+            success: function(data) {
                 beaches = data;
-                jQuery.get({
+
+                console.log(beaches);
+
+                $.ajax({
+                    type: 'GET',
+                    crossDomain: true,
+                    contentType: 'application/json; charset=utf-8',
                     url: beaches_sites_get.SITES_GET_URL,
-                    success: function (data) {
+                    dataType: 'json',
+                    success: function(data) {
                         sites = data;
+
+                        console.log(sites);
+
                         beaches_sites_get.parse(beaches, sites, callback);
+                    },
+                    error: function () {
+                        alert('Get sites failed');
                     }
                 });
+            },
+            error: function () {
+                alert('Get beaches failed.');
             }
         });
     }
