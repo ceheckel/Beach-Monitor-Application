@@ -312,7 +312,7 @@ class IndexController {
                                 'Other'
                         ],title: "Odor description *", extraClasses: 'required', onchange: "OdorChange()"),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
-                        new TextQuestion(columnId: 'AVG_WATER_TEMP  ', prompt: 'Water temperature (F) *', type:"number", step:0.01, extraClasses: 'required'),
+                        new TextQuestion(columnId: 'AVG_WATER_TEMP', prompt: 'Water temperature (F) *', type:"number", step:0.01, extraClasses: 'required'),
                         //@TODO value of avg water temp units
                         new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F', keep: true),
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [

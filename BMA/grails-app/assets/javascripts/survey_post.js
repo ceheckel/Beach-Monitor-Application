@@ -122,11 +122,10 @@ survey_post.upload = function() {
     }
     else {
         Surveys.getAll(function(surveys) {
-            console.log(surveys);
 
             surveys.forEach(function(survey) {
 
-                console.log(survey);
+                //console.log(survey);
 
                 $.ajax({
                     type: 'POST',
