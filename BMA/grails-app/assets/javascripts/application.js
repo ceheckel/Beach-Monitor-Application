@@ -9,6 +9,7 @@
 //= require jquery-ui.min.js
 //= require material.min.js
 //= require mdl-selectfield.min.js
+//= require survey_post.js
 //= require beaches_sites_get.js
 //= require_tree .
 //= require_self
@@ -308,7 +309,7 @@ if (typeof jQuery !== 'undefined') {
         data.id = surveyId;
         data.date = surveyDate;
         survey = new Survey(surveyId, data);
-        survey.save(function(){
+        survey.save(function() {
             completePage(page);
         });
         if (toast || toast === undefined) showSaveToast();

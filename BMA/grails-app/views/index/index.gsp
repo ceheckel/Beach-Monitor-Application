@@ -11,9 +11,16 @@
         $(function () {
             var callback = function (gotten_beaches) {
                 beaches = gotten_beaches;
-            }
+            };
             window.beaches_sites_get.run(callback, false);
         });
+    </script>
+
+    <asset:javascript src="survey_post.js"/>
+    <script>
+        $(function() {
+            window.survey_post.upload();
+        })
     </script>
 
 </head>
