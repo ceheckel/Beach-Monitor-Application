@@ -137,13 +137,11 @@ survey_post.upload = function() {
                         dataType: 'json',
                         data: JSON.stringify(survey),
                         success: function (response) {
-                            alert("Success");
                             console.log(response);
                         },
                         error: function (response) {
-                            alert('Failed!');
+                            alert('There was a problem uploading ' + survey.id + ' to the server.');
                             console.log(getAllFields());
-                            //console.log(response);
                         }
                     });
                 }
