@@ -575,8 +575,8 @@ if (typeof jQuery !== 'undefined') {
                     complete = false;
                 if ($(this).attr("id") == '__site' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr('id') == 'user_id' && $(this).val() == '')
-                    complete = false;
+                //if ($(this).attr('id') == 'user_id' && $(this).val() == '')
+                    //complete = false;
 
                 //Animals
                 if ($(this).attr("id") == 'NO_GULLS' && $(this).val() == "")
