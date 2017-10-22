@@ -140,12 +140,15 @@ if (typeof jQuery !== 'undefined') {
         saveSurvey(page);
         if(visitedPages.indexOf(page) < 0)
             visitedPages.push(page);
+
+        // hide everything, then show only desired page
         $('div[data-page]').hide();
         var p = $('div[data-page=' + page + ']');
         p.show();
         $('#page-title').html(p.data('page-title') + ((submitted && p.data('page-title') !== 'WI Beaches') ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
         $('#page-title-drawer').html(p.data('page-title'));
 
+        // set current page
         curPage = page;
         if (curPage > 0)
             $('#btn-prev').css('display', 'block');
@@ -569,145 +572,18 @@ if (typeof jQuery !== 'undefined') {
             var p = $('div[data-page=' + page + '] :input');
             var complete = true;
             p.each(function () {
-                //Beach Selection
-                if ($(this).attr("id") == '__county' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == '__lake' && $(this).val() == "")
-                    complete = false;
+                // Required Fields for POSTing
                 if ($(this).attr("id") == '__beach' && $(this).val() == "")
                     complete = false;
                 if ($(this).attr("id") == '__site' && $(this).val() == "")
                     complete = false;
-                //if ($(this).attr('id') == 'user_id' && $(this).val() == '')
-                    //complete = false;
-
-                //Animals
-                if ($(this).attr("id") == 'NO_GULLS' && $(this).val() == "")
+                if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
                     complete = false;
-                if ($(this).attr("id") == 'NO_GEESE' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_DOGS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_ANIMALS_OTHER' && $(this).val() == "")
-                    complete = false;
-                if (parseInt($('#NO_ANIMALS_OTHER').val()) > 0 && $(this).attr("id") == 'NO_ANIMALS_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
-                //Deceased Animals
-                if ($(this).attr("id") == 'NUM_LOONS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_HERR_GULLS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_RING_GULLS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_CORMORANTS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_LONGTAIL_DUCKS' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_SCOTER' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_HORN_GREBE' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_REDNECKED_GREBE' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_FISH' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_OTHER' && $(this).val() == "")
-                    complete = false;
-                if (parseInt($('#NUM_OTHER').val()) > 0 && $(this).attr("id") == 'NUM_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
-                //Debris In water
-                if ($(this).attr("id") == 'FLOAT_OTHER_DESC' && $(this).val() == "" && $('#FLOAT_OTHER').get()[0].checked)
-                    complete = false;
-
-                //Beach Debris
-                if ($(this).attr("id") == 'DEBRIS_OTHER_DESC' && $(this).val() == "" && $('#DEBRIS_OTHER').get()[0].checked)
-                    complete = false;
-                if ($(this).attr("id") == 'DEBRIS_AMOUNT' && $("#DEBRIS_AMOUNT option:selected").index() <= 0)
-                    complete = false;
-
-                //Bathers
-                if ($(this).attr("id") == 'NO_IN_WATER' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_OUT_OF_WATER' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_BOATING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_FISHING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_SURFING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_WINDSURFING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NUM_PEOPLE_DIVING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_CLAMMING' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NO_PEOPLE_OTHER' && $(this).val() == "")
-                    complete = false;
-                if (parseInt($('#NO_PEOPLE_OTHER').val()) > 0 && $(this).attr("id") == 'NO_PEOPLE_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
-                //Weather
-                if ($(this).attr("id") == 'AIR_TEMP' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'WIND_SPEED' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'WIND_DIR_DEGREES' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'WIND_DIR_DESC' && $("#WIND_DIR_DESC option:selected").index() <= 0)
-                    complete = false;
-                if ($(this).attr("id") == 'WEATHER_DES' && $("#WEATHER_DES option:selected").index() <= 0)
-                    complete = false;
-                if ($(this).attr("id") == 'RAINFALL_LAST_EVENT' && $("#RAINFALL_LAST_EVENT option:selected").index() <= 0)
-                    complete = false;
-                if ($(this).attr("id") == 'RAINFALL' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'RAINFALL_STD_DESC' && $("#RAINFALL_STD_DESC option:selected").index() <= 0 && parseFloat($('#RAINFALL').val()) > 0)
-                    complete = false;
-
-                //Waves
-                if ($(this).attr("id") == 'WAVE_HEIGHT' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'WAVE_DIRECTION' && $("#WAVE_DIRECTION option:selected").index() <= 0)
-                    complete = false;
-                if ($(this).attr("id") == 'WAVE_CONDITIONS' && $("#WAVE_CONDITIONS option:selected").index() <= 0)
-                    complete = false;
-                if ($(this).attr("id") == 'CURRENT_SPEED' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'SHORELINE_CURRENT_DIR' && $("#SHORELINE_CURRENT_DIR option:selected").index() <= 0)
-                    complete = false;
-
-                //Water Conditions
-                if ($(this).attr("id") == 'PH' && $(this).val() == "")
-                    complete = false;
-                if ($('#COLOR_CHANGE').get()[0].checked && $(this).attr("id") == 'COLOR_DESCRIPTION' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'ODOR_DESCRIPTION' && $("#ODOR_DESCRIPTION option:selected").index() <= 0)
-                    complete = false;
-                if ($('#ODOR_DESCRIPTION').val() == 'Other' && $(this).attr("id") == 'ODOR_OTHER_DESCRIPTION' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'AVG_WATER_TEMP' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'CLARITY_DESC' && $("#CLARITY_DESC option:selected").index() <= 0 && $('#NTU').val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'NTU' && $(this).val() == "" && $("#CLARITY_DESC option:selected").index() <= 0)
-                    complete = false;
-                if ($(this).attr("id") == 'SECCHI_TUBE_CM' && $(this).val() == "")
-                    complete = false;
-
-                //Algae
-                if ($(this).attr("id") == 'ALGAE_NEARSHORE' && $("#ALGAE_NEARSHORE option:selected").index() <= 0)
-                    complete = false;
-                if ($(this).attr("id") == 'ALGAE_ON_BEACH' && $("#ALGAE_ON_BEACH option:selected").index() <= 0)
-                    complete = false;
-                if ($('#ALGAE_TYPE_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_TYPE_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-                if ($('#ALGAE_COLOR_OTHER').get()[0].checked && $(this).attr("id") == 'ALGAE_COLOR_OTHER_DESC' && $(this).val() == "")
-                    complete = false;
-
-                //Comments - Not Required for completion
+                /*
+                 * Many of the previously required fields are no longer needed.
+                 * Large portion of if-then's were removed.
+                 * See previous version
+                 */
             });
             if (!visitedPages)
                 visitedPages = [];
@@ -716,7 +592,12 @@ if (typeof jQuery !== 'undefined') {
 
             if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
                 if (complete) {
-                    document.getElementById('Complete_' + page).style.display = 'inline';
+                    /*
+                     * inclusion of the next line provides check marks next to page names on drawer.
+                     * With new set of requirements (beach id, site id, and time), most pages are 'complete' by default.
+                     * Removed by Heckel
+                     */
+                    // document.getElementById('Complete_' + page).style.display = 'inline';
                     incompletePages.delete(page);
                 }
                 else {
