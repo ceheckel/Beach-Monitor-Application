@@ -44,6 +44,7 @@ class IndexController {
 //                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: ''),
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
                         new TextQuestion(columnId: 'user_id', prompt: 'User ID *') // required by some documentation, not by others
+
                 ]
         ]
 
@@ -167,10 +168,19 @@ class IndexController {
         def weather = [
                 pageName: "Weather",
                 questions: [
-                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature', type:"number", step:0.0001),
-                        new TextQuestion(columnId: 'AIR_UNITS', prompt: 'Units'),
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', type:"number", step:0.0001),
-                        //@TODOLATER find value of wind speed units
+                        new UnitQuestion(columnId: 'AIR_TEMP', columnId2: 'AIR_UNITS', prompt: 'Air temperature', type:"number", step:0.0001, extraClasses: 'required', title: "Units", options: ['F', 'C',]),
+
+                        /*
+                        new TextQuestion(columnId: 'AIR_TEMP', prompt: 'Air temperature (F) *', type:"number", step:0.0001, extraClasses: 'required'),
+                        //@TODO find value of air units
+                        new SelectQuestion(columnId: 'AIR_UNITS', options: [
+                                'F',
+                                'C',
+                        ], title: "Air Temperature Units", extraClasses: 'required'),
+                        new HiddenQuestion(columnId: 'AIR_UNITS', value: 'F', keep: true),
+                        */
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH) *', type:"number", step:0.0001, extraClasses: 'required'),
+                        //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01),
                         new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
@@ -192,9 +202,13 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount', type:"number", step:0.0001, oninput: "RainfallChange(true)"),
+
+                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINDFALL_UNITS', prompt: 'Rainfall amount', type:"number", step:0.0001, extraClasses: 'required', oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
+                        /*
+                        new TextQuestion(columnId: 'RAINFALL', prompt: 'Rainfall amount (IN) *', type:"number", step:0.0001, extraClasses: 'required', oninput: "RainfallChange(true)"),
                         //@TODO value of rainfall units
                         new HiddenQuestion(columnId: 'RAINFALL_UNITS', value: 'IN', keep: true),
+                        */
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
                                 '',
                                 'Misting',
@@ -224,10 +238,16 @@ class IndexController {
                                 'Calm',
                                 'Normal',
                                 'Rough'
-                        ], title:"Wave conditions"),
-                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed', type:"number", step:0.01 ),
-                        //@TODO value of longshore current units (ft/sec or cm/sec)
+                        ], title:"Wave conditions *"),
+
+                        new UnitQuestion(columnId: 'CURRENT_SPEED', columnId2: 'LONGSHORE_CURRENT_UNITS', prompt: 'Longshore current speed', type:"number", step:0.01, extraClasses: 'required', title: "Units", options: ['ft/sec', 'cm/sec',]),
+
+                        /*
+                        new TextQuestion(columnId: 'CURRENT_SPEED', prompt: 'Longshore current speed (FT/SEC) *', type:"number", step:0.01 ),
+                        //@TODO value of longshore current units
+
                         new HiddenQuestion(columnId: 'LONGSHORE_CURRENT_UNITS', value: 'FT/SEC', keep: true),
+                        */
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
@@ -312,9 +332,14 @@ class IndexController {
                                 'Other'
                         ],title: "Odor description", onchange: "OdorChange()"),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
-                        new TextQuestion(columnId: 'AVG_WATER_TEMP', prompt: 'Water temperature *', type:"number", step:0.01), // recommended field
-                        //@TODO value of avg water temp units (required field)
+
+                        new UnitQuestion(columnId: 'AVG_WATER_TEMP', columnId2: 'AVG_WATER_TEMP_UNITS', prompt: 'Water temperature', type:"number", step:0.01, extraClasses: 'required', title: "Units", options: ['F', 'C',]),
+
+                        /*
+                        new TextQuestion(columnId: 'AVG_WATER_TEMP', prompt: 'Water temperature (F) *', type:"number", step:0.01, extraClasses: 'required'),
+                        //@TODO value of avg water temp units
                         new HiddenQuestion(columnId: 'AVG_WATER_TEMP_UNITS', value: 'F', keep: true),
+                        */
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
                                 '',
                                 'Clear',
@@ -391,4 +416,27 @@ class ButtonElement extends Question {
 }
 
 class TimeQuestion extends Question {
+}
+
+class UnitQuestion extends Question {
+    // From TextQuestion
+    String prompt
+    String type = "text"
+    String pattern = ".*"
+    String step
+    //String extraClasses = ""
+    String list = ""
+    //String onchange = ""
+    String oninput = ""
+
+    // From SelectQuestion
+    List<String> options
+    String title
+    String columnId2
+
+    // Shared between both
+    String extraClasses = ""
+    String onchange = ""
+
+
 }

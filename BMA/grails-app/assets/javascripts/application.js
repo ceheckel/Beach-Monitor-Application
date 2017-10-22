@@ -231,8 +231,11 @@ if (typeof jQuery !== 'undefined') {
     function btnNext() {
         if (curPage == totalQuestionPages - 1)
             toReview();
-        else if (curPage == totalQuestionPages)
+        else if (curPage == totalQuestionPages) {
+            // Save survey here, in case user made changes on review page
+            saveSurvey(totalQuestionPages, false);
             completionCheck();
+        }
         else
             toPage(curPage + 1);
     }
