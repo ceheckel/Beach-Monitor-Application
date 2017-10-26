@@ -205,7 +205,7 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINDFALL_UNITS', prompt: 'Rainfall amount', type:"number", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
+                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', type:"number", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
                                 '',
                                 'Misting',
@@ -360,6 +360,7 @@ class IndexController {
 
 abstract class Question {
     String columnId
+    String extraClasses = ""
 }
 
 class TextQuestion extends Question {
@@ -370,7 +371,7 @@ class TextQuestion extends Question {
     String list = ""
     String onchange = ""
     String oninput = ""
-    String extraClasses = ""
+//    String extraClasses = ""
 }
 
 class CheckQuestion extends Question {
@@ -386,7 +387,7 @@ class SelectQuestion extends Question {
     List<String> options
     String title
     String onchange = ""
-    String extraClasses = ""
+//    String extraClasses = ""
 }
 
 class HiddenQuestion extends Question {
@@ -402,7 +403,7 @@ class ButtonElement extends Question {
 }
 
 class TimeQuestion extends Question {
-    String extraClasses = ""
+//    String extraClasses = ""
 }
 
 class UnitQuestion extends Question {
@@ -411,7 +412,7 @@ class UnitQuestion extends Question {
     String type = "text"
     String pattern = ".*"
     String step
-    String extraClasses = ""
+//    String extraClasses = ""
     String list = ""
     //String onchange = ""
     String oninput = ""
@@ -423,6 +424,4 @@ class UnitQuestion extends Question {
 
     // Shared between both
     String onchange = ""
-
-
 }
