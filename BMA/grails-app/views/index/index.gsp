@@ -29,19 +29,22 @@
         })
     </script>
     -->
-
-    <script>
-        function highlight(){
-            console.log("highlight() called");
-//            if (extraClasses === 'required') {
-//                this.style.color = "red";
-////     document.getElementById('ID').style.color = "red";
-//            } else if (extraClasses === 'recommended') {
-//                this.style.color = "yellow";
-//            }
+    <style>
+        /* for highlighting required and recommended fields */
+        .mdl-textfield__input.required {
+            background-color: rgba(255,0,0,0.15);
         }
-    </script>
-
+        .mdl-textfield__input.recommended {
+            background-color: rgba(0,255,0,0.15);
+        }
+        .mdl-selectfield__select.required {
+            background-color: rgba(255,0,0,0.15);
+        }
+        .mdl-selectfield__select.recommended {
+            background-color: rgba(0,255,0,0.15);
+        }
+        /* end of highlighting */
+    </style>
 </head>
 <body>
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
@@ -151,15 +154,7 @@
                             </g:each>
                         </select>
                         <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                        <g:if test="${q.extraClasses == "required"}">
-                            <label class="mdl-selectfield__label" for="${q.columnId}" style="background-color: rgba(255,0,0,0.15)">${q.title}</label>
-                        </g:if>
-                        <g:elseif test="${q.extraClasses == "recommended"}">
-                            <label class="mdl-selectfield__label" for="${q.columnId}" style="background-color: rgba(255,0,0,0.15)">${q.title}</label>
-                        </g:elseif>
-                        <g:else>
-                            <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
-                        </g:else>
+                        <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
                     </div>
                 </g:if>
 
@@ -174,16 +169,7 @@
                     <g:else>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}">
-                            <!-- if tags for highlighting, Can most definitely be cleaned up.  Scripting? -->
-                            <g:if test="${q.extraClasses == "required"}">
-                                <label class="mdl-textfield__label" for="${q.columnId}" style="background-color: rgba(255, 0, 0, 0.15)">${q.prompt}</label>
-                            </g:if>
-                            <g:elseif test="${q.extraClasses == "recommended"}">
-                                <label class="mdl-textfield__label" for="${q.columnId}" style="background-color: rgba(0, 255, 0, 0.15)">${q.prompt}</label>
-                            </g:elseif>
-                            <g:else>
-                                <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
-                            </g:else>
+                            <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                         </div>
                     </g:else>
                     <g:if test="${q.list != ''}">
@@ -239,15 +225,7 @@
                             </g:each>
                         </select>
                         <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                        <g:if test="${q.extraClasses == "required"}">
-                            <label class="mdl-selectfield__label" for="${q.columnId}" style="background-color: rgba(255,0,0,0.15)">${q.title}</label>
-                        </g:if>
-                        <g:elseif test="${q.extraClasses == "recommended"}">
-                            <label class="mdl-selectfield__label" for="${q.columnId}" style="background-color: rgba(0,255,0,0.15)">${q.title}</label>
-                        </g:elseif>
-                        <g:else>
                             <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
-                        </g:else>
                     </div>
                 </g:if>
 
@@ -263,6 +241,7 @@
 
                 <!-- For Time Questions -->
                 <g:if test="${q instanceof TimeQuestion}">
+                    <!-- if-then tags for highlighting, Can most definitely be cleaned up.  Scripting? CSS? -->
                     <g:if test="${q.extraClasses == "required"}">
                         <input type="datetime-local" name="${q.columnId}" id="${q.columnId}" style="background-color: rgba(255,0,0,0.15)">
                     </g:if>

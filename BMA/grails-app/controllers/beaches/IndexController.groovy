@@ -73,7 +73,7 @@ class IndexController {
         def wildlifeBathers = [
                 pageName: 'Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living Gulls *', type:"number", step:1, extraClasses: 'recommended'),
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living Gulls *', type:"number", step:1, extraClasses:'recommended'),
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living Geese', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', type:"number", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC")'),
@@ -178,7 +178,7 @@ class IndexController {
                         new UnitQuestion(columnId: 'AIR_TEMP', columnId2: 'AIR_UNITS', prompt: 'Air temperature', type:"number", step:0.0001, title: "Units", options: ['F', 'C',]),
 
                         // Wind
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH) *', type:"number", step:0.0001),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', type:"number", step:0.0001),
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01),
@@ -195,7 +195,7 @@ class IndexController {
                                 'Partly sunny',
                                 'Mostly cloudy',
                                 'Cloudy'
-                        ], title: "Weather Conditions *", extraClasses: 'recommended'),
+                        ], title: "Weather Conditions *", extraClasses:'recommended'),
 
                         // Rain
                         new SelectQuestion(columnId: 'RAINFALL_LAST_EVENT', options: [
@@ -221,7 +221,7 @@ class IndexController {
                 pageName: 'Waves',
                 questions: [
                         // Waves
-                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT)', type:"number", step:0.0001, extraClasses: 'recommended'),
+                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT) *', type:"number", step:0.0001, extraClasses:'recommended'),
                         //@TODO value of wave height units
                         new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT', keep: true),
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
@@ -236,7 +236,7 @@ class IndexController {
                                 'Calm',
                                 'Normal',
                                 'Rough'
-                        ], title:"Wave conditions *"),
+                        ], title:"Wave conditions"),
 
                         // Current
                         new UnitQuestion(columnId: 'CURRENT_SPEED', columnId2: 'LONGSHORE_CURRENT_UNITS', prompt: 'Longshore current speed', type:"number", step:0.01, title: "Units", options: ['ft/sec', 'cm/sec',]),
@@ -257,14 +257,14 @@ class IndexController {
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
-                        ], title: "Algae near the shore *", extraClasses: 'recommended'),
+                        ], title: "Algae near the shore *", extraClasses:'recommended'),
                         new SelectQuestion(columnId: 'ALGAE_ON_BEACH', options: [
                                 '',
                                 '0%',
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
-                        ],title: "Algae on the beach *", extraClasses: 'recommended'),
+                        ],title: "Algae on the beach *", extraClasses:'recommended'),
 
                         // Algae Type
                         new CheckQuestion(columnId: 'ALGAE_TYPE_PERIPHYTON', prompts: [
@@ -322,7 +322,7 @@ class IndexController {
                         ],title: "Odor description", onchange: "OdorChange()"),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
 
-                        new UnitQuestion(columnId: 'AVG_WATER_TEMP', columnId2: 'AVG_WATER_TEMP_UNITS', prompt: 'Water temperature', type:"number", step:0.01, title: "Units", options: ['F', 'C',], extraClasses: 'recommended'),
+                        new UnitQuestion(columnId: 'AVG_WATER_TEMP', columnId2: 'AVG_WATER_TEMP_UNITS', prompt: 'Water temperature *', type:"number", step:0.01, title: "Units *", options: ['F', 'C',], extraClasses: 'recommended'),
 
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
                                 '',
@@ -330,8 +330,8 @@ class IndexController {
                                 'Slightly turbid',
                                 'Turbid',
                                 'Opaque'
-                        ], title: "Turbidity *", onchange: "TurbidityOrNTUChange()"),
-                        new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', type:"number", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses: 'recommended'),
+                        ], title: "Turbidity *", onchange: "TurbidityOrNTUChange()", extraClasses:'recommended'),
+                        new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', type:"number", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
                         new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', type:"number", step:0.01)
                 ]
         ]
