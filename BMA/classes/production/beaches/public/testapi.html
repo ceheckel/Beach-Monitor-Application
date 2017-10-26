@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $.post({
+                url: "http://localhost:8081/bms/survey",
+                data: {name: "PostTestSurvey"},
+                success: function () {
+
+                    $.get({
+                        url: "http://localhost:8081/bms/survey",
+                        success: function (data) {
+                            console.log("GET /survey : " + JSON.stringify(data));
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<p>Testing the api. Output is logged on the console.</p>
+</body>
+</html>
