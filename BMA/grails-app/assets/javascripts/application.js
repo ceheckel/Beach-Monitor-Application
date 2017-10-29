@@ -11,8 +11,8 @@
 //= require material.min.js
 //= require mdl-selectfield.min.js
 //= require faves.js
-//= localforage.js
-//= survey.js
+//= require localforage.js
+//= require survey.js
 //= require survey_post.js
 //= require beaches_sites_get.js
 //= require_tree .
@@ -990,7 +990,7 @@ if (typeof jQuery !== 'undefined') {
     }
 }
 
-function checkDirtyNumber(e){
+function checkDirtyNumber(e) {
     e = e || window.event;
     var targ = e.target || e.srcElement;
     if (targ.nodeType == 3) targ = targ.parentNode; // defeat Safari bug

@@ -5,8 +5,8 @@ var TEST_SITES = 3;
 
 window.beaches_sites_get = {};
 
-beaches_sites_get.BEACHES_GET_URL = "http://localhost:8081/bms/beaches";
-beaches_sites_get.SITES_GET_URL   = "http://localhost:8081/bms/sites";
+beaches_sites_get.BEACHES_GET_URL = "";
+beaches_sites_get.SITES_GET_URL = "";
 
 beaches_sites_get.test_beaches = [
     {

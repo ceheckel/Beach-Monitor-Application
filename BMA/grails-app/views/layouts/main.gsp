@@ -1,6 +1,5 @@
 <!doctype html>
-<!--<html lang="en" class="no-js" manifest="static/appcache.manifest">-->
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" manifest="static/appcache.manifest">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -14,7 +13,6 @@
         be changed to '/beaches/assets' - a find and replace with Ctrl+R will expedite this process.
     -->
     <asset:stylesheet src="application.css"/>
-    <asset:javascript src="application.js"/>
 
     <!-- Replaces material-icons.css -->
     <style>
@@ -161,6 +159,25 @@
     %{--<footer>--}%
 
     %{--</footer>--}%
+
+    <asset:javascript src="application.js"/>
+
+    <g:if env="development">
+        <script>
+            console.log("In DEV");
+            window.beaches_sites_get.BEACHES_GET_URL = "http://localhost:8081/bms/beaches";
+            window.beaches_sites_get.SITES_GET_URL = "http://localhost:8081/bms/sites";
+            window.survey_post.POST_URL = "http://localhost:8081/bms/survey";
+        </script>
+    </g:if>
+    <g:if env="production">
+        <script>
+            console.log("In PROD");
+            window.beaches_sites_get.BEACHES_GET_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/beaches";
+            window.beaches_sites_get.SITES_GET_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/sites";
+            window.survey_post.POST_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/survey";
+        </script>
+    </g:if>
 
 </body>
 </html>

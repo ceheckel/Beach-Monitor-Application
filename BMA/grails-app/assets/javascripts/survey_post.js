@@ -5,6 +5,7 @@
 window.survey_post = {};
 
 survey_post.TEST = true;
+survey_post.POST_URL = "";
 survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/survey";
 survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/survey";
 
@@ -107,7 +108,7 @@ survey_post.upload = function() {
             type: 'POST',
             crossDomain: true,
             contentType: 'application/json; charset=utf-8',
-            url: survey_post.TOMCAT_SURVEYS_URL,
+            url: survey_post.POST_URL,
             dataType: 'json',
             data: JSON.stringify(survey_post.test_survey),
             success: function(response) {
@@ -133,7 +134,7 @@ survey_post.upload = function() {
                         type: 'POST',
                         crossDomain: true,
                         contentType: 'application/json; charset=utf-8',
-                        url: survey_post.LOCALHOST_SURVEYS_URL,
+                        url: survey_post.POST_URL,
                         dataType: 'json',
                         data: JSON.stringify(survey),
                         success: function (response) {
