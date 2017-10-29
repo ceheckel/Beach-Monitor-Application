@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" class="no-js" manifest="static/appcache.manifest">
+<!--<html lang="en" class="no-js" manifest="static/appcache.manifest">-->
+<html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -13,14 +14,14 @@
         be changed to '/beaches/assets' - a find and replace with Ctrl+R will expedite this process.
     -->
 
-    <link rel="stylesheet" href="/assets/material.min.css?compile=false" />
-    <link rel="stylesheet" href="/assets/mdl-selectfield.min.css?compile=false" />
-    <link rel="stylesheet" href="/assets/mobile.css?compile=false" />
-    <link rel="stylesheet" href="/assets/application.css?compile=false" />
-    <link rel="stylesheet" href="/assets/dialog-polyfill.css?compile=false" />
+    <link rel="stylesheet" href="/beaches/assets/material.min.css?compile=false" />
+    <link rel="stylesheet" href="/beaches/assets/mdl-selectfield.min.css?compile=false" />
+    <link rel="stylesheet" href="/beaches/assets/mobile.css?compile=false" />
+    <link rel="stylesheet" href="/beaches/assets/application.css?compile=false" />
+    <link rel="stylesheet" href="/beaches/assets/dialog-polyfill.css?compile=false" />
     <!--<link rel="stylesheet" href="/assets/material-icons.css?compile=false" />-->
     <!--<link rel="stylesheet" href="/assets/roboto.css?compile=false" />-->
-    <link rel="stylesheet" href="/assets/jquery-ui.css?compile=false" />
+    <link rel="stylesheet" href="/beaches/assets/jquery-ui.css?compile=false" />
 
     <!-- Replaces material-icons.css -->
     <style>
@@ -154,7 +155,7 @@
             <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btn-dialogCan">Not Now</button>
         </div>
     </dialog>
-    <script type="text/javascript" src="/assets/dialog-polyfill.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/dialog-polyfill.js?compile=false" ></script>
     <script>
         var dialog = document.querySelector('#dialog');
         if(!dialog.showModal) {
@@ -167,15 +168,15 @@
 
     %{--</footer>--}%
 
-    <script type="text/javascript" src="/assets/jquery.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/jquery-ui.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/material.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/mdl-selectfield.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/beaches.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/faves.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/localforage.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/survey.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/application.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/jquery.min.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/jquery-ui.min.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/material.min.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/mdl-selectfield.min.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/beaches.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/faves.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/localforage.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/survey.js?compile=false" ></script>
+    <script type="text/javascript" src="/beaches/assets/application.js?compile=false" ></script>
 
 </body>
 </html>
