@@ -22,7 +22,7 @@
         font-family: 'Material Icons';
         font-style: normal;
         font-weight: 400;
-        src: url(../assets/fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+        src: url(assets/MaterialIcons-Regular.eot); /* For IE6-8 */
         src: local('Material Icons'),
         local('MaterialIcons-Regular'),
         url(assets/MaterialIcons-Regular.woff2) format('woff2'),
