@@ -7,7 +7,7 @@
     <title>WI Beach Health</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <asset:javascript src="beaches_sites_get.js"/>
+    <!--<asset:javascript src="beaches_sites_get.js"/>-->
     <script>
         $(function () {
 
@@ -22,7 +22,7 @@
         });
     </script>
 
-    <asset:javascript src="survey_post.js"/>
+    <!--<asset:javascript src="survey_post.js"/>-->
     <!--
     <script>
         $(function() {

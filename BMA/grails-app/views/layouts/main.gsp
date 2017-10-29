@@ -13,15 +13,8 @@
         To build correctly for the production/deployment server, all references to '/assets' should
         be changed to '/beaches/assets' - a find and replace with Ctrl+R will expedite this process.
     -->
-
-    <link rel="stylesheet" href="/beaches/assets/material.min.css?compile=false" />
-    <link rel="stylesheet" href="/beaches/assets/mdl-selectfield.min.css?compile=false" />
-    <link rel="stylesheet" href="/beaches/assets/mobile.css?compile=false" />
-    <link rel="stylesheet" href="/beaches/assets/application.css?compile=false" />
-    <link rel="stylesheet" href="/beaches/assets/dialog-polyfill.css?compile=false" />
-    <!--<link rel="stylesheet" href="/assets/material-icons.css?compile=false" />-->
-    <!--<link rel="stylesheet" href="/assets/roboto.css?compile=false" />-->
-    <link rel="stylesheet" href="/beaches/assets/jquery-ui.css?compile=false" />
+    <asset:stylesheet src="application.css"/>
+    <asset:javascript src="application.js"/>
 
     <!-- Replaces material-icons.css -->
     <style>
@@ -29,7 +22,7 @@
         font-family: 'Material Icons';
         font-style: normal;
         font-weight: 400;
-        src: url(assets/MaterialIcons-Regular.eot); /* For IE6-8 */
+        src: url(../assets/fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
         src: local('Material Icons'),
         local('MaterialIcons-Regular'),
         url(assets/MaterialIcons-Regular.woff2) format('woff2'),
@@ -155,7 +148,6 @@
             <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btn-dialogCan">Not Now</button>
         </div>
     </dialog>
-    <script type="text/javascript" src="/beaches/assets/dialog-polyfill.js?compile=false" ></script>
     <script>
         var dialog = document.querySelector('#dialog');
         if(!dialog.showModal) {
@@ -167,16 +159,6 @@
     %{--<footer>--}%
 
     %{--</footer>--}%
-
-    <script type="text/javascript" src="/beaches/assets/jquery.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/jquery-ui.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/material.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/mdl-selectfield.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/beaches.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/faves.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/localforage.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/survey.js?compile=false" ></script>
-    <script type="text/javascript" src="/beaches/assets/application.js?compile=false" ></script>
 
 </body>
 </html>
