@@ -58,14 +58,30 @@
             </span>
         </li>
     </ul>
-    <button id="post-surveys-btn" onclick="window.survey_post.upload();">Upload Past Reports</button>
-    <ul class="mdl-list" id="submitted-reports">
-        <li class="mdl-list__item">
-            <span class="mdl-list__item-primary-content">
-                <span class="mdl-typography--font-bold">Past Reports</span>
-            </span>
-        </li>
-    </ul>
+%{--Shows login button when not logged in--}%
+    <sec:ifNotLoggedIn>
+
+        <button id="login-btn" onclick="window.location.href='login/auth';">Log In</button>
+        <ul class="mdl-list" id="submitted-reports">
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <span class="mdl-typography--font-bold">Past Reports</span>
+                </span>
+            </li>
+        </ul>
+    </sec:ifNotLoggedIn>
+%{--Shows post surveys and logout buttons when logged in--}%
+    <sec:ifLoggedIn>
+        <button id="post-surveys-btn" onclick="window.survey_post.upload();">Upload Past Reports</button>
+        <button id="logout-btn" onclick="window.location.href='logout';">Log Out</button>
+        <ul class="mdl-list" id="submitted-reports">
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                    <span class="mdl-typography--font-bold">Past Reports</span>
+                </span>
+            </li>
+        </ul>
+    </sec:ifLoggedIn>
 </div>
 
 <!-- help page link -->

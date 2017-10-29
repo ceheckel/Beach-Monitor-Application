@@ -101,6 +101,7 @@
         </div>
 
     </header>
+
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title" id="page-title-drawer">Home</span>
         <span class="mdl-layout-title" id="page-beach-drawer" style="font-size: small; font-weight: lighter; line-height: 1.2">Unknown Beach</span>
@@ -131,6 +132,7 @@
             </div>
         </nav>
     </div>
+
     <main class="mdl-layout__content">
         <g:layoutBody/>
     </main>
