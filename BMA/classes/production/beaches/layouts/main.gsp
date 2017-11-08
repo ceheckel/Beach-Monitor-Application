@@ -12,15 +12,7 @@
         To build correctly for the production/deployment server, all references to '/assets' should
         be changed to '/beaches/assets' - a find and replace with Ctrl+R will expedite this process.
     -->
-
-    <link rel="stylesheet" href="/assets/material.min.css?compile=false" />
-    <link rel="stylesheet" href="/assets/mdl-selectfield.min.css?compile=false" />
-    <link rel="stylesheet" href="/assets/mobile.css?compile=false" />
-    <link rel="stylesheet" href="/assets/application.css?compile=false" />
-    <link rel="stylesheet" href="/assets/dialog-polyfill.css?compile=false" />
-    <!--<link rel="stylesheet" href="/assets/material-icons.css?compile=false" />-->
-    <!--<link rel="stylesheet" href="/assets/roboto.css?compile=false" />-->
-    <link rel="stylesheet" href="/assets/jquery-ui.css?compile=false" />
+    <asset:stylesheet src="application.css"/>
 
     <!-- Replaces material-icons.css -->
     <style>
@@ -156,7 +148,6 @@
             <button type="button" class="mdl-button mdl-js-button mdl-button--raised" id="btn-dialogCan">Not Now</button>
         </div>
     </dialog>
-    <script type="text/javascript" src="/assets/dialog-polyfill.js?compile=false" ></script>
     <script>
         var dialog = document.querySelector('#dialog');
         if(!dialog.showModal) {
@@ -169,15 +160,24 @@
 
     %{--</footer>--}%
 
-    <script type="text/javascript" src="/assets/jquery.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/jquery-ui.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/material.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/mdl-selectfield.min.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/beaches.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/faves.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/localforage.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/survey.js?compile=false" ></script>
-    <script type="text/javascript" src="/assets/application.js?compile=false" ></script>
+    <asset:javascript src="application.js"/>
+
+    <g:if env="development">
+        <script>
+            console.log("In DEV");
+            window.beaches_sites_get.BEACHES_GET_URL = "http://localhost:8081/bms/beaches";
+            window.beaches_sites_get.SITES_GET_URL = "http://localhost:8081/bms/sites";
+            window.survey_post.POST_URL = "http://localhost:8081/bms/survey";
+        </script>
+    </g:if>
+    <g:if env="production">
+        <script>
+            console.log("In PROD");
+            window.beaches_sites_get.BEACHES_GET_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/beaches";
+            window.beaches_sites_get.SITES_GET_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/sites";
+            window.survey_post.POST_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/survey";
+        </script>
+    </g:if>
 
 </body>
 </html>

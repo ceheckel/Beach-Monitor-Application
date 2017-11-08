@@ -152,25 +152,29 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title').html(p.data('page-title') + ((submitted && p.data('page-title') !== 'WI Beaches') ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
         $('#page-title-drawer').html(p.data('page-title'));
 
-        // set current page
+        /* display buttons based on current page */
         curPage = page;
-        if (curPage > 0)
+        if (curPage > 0) // if not on first page, show 'Previous' button
             $('#btn-prev').css('display', 'block');
         else
             $('#btn-prev').css('display', 'none');
-        if (curPage == totalQuestionPages - 1) {
+
+        if (curPage == totalQuestionPages - 1) { // if on last page, make 'Review' button
             $('#btn-next').html('Review');
             $('#bottom-nav').css('display', 'flex');
         }
-        else if (curPage >= 0) {
+        else if (curPage >= 0) { // if on any survey page, show 'Next' and 'Delete'
             $('#btn-next').css('display', 'block');
             $('#btn-next').html('Next');
+            $('#btn-delete').css('display', 'block');
+            $('#btn-delete').html('Delete');
+
             $('#bottom-nav').css('display', 'flex');
         }
         else
             $('#bottom-nav').css('display', 'none');
-        if (curPage == 'home') {
 
+        if (curPage == 'home') {
             $('#help-button').hide();
 
             document.getElementById("surveySectionsDrawer").style.display = 'none';
@@ -216,7 +220,6 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
-        $('#btn-delete').css('display', 'none');
         $('.mdl-layout__content').scrollTop(0);
 
         $('#surveySectionsDrawer a').each(function(i,e) {
@@ -259,14 +262,6 @@ if (typeof jQuery !== 'undefined') {
         else {
             var dialog = document.querySelector('dialog');
             dialog.showModal();
-
-            // load and display incomplete pages
-            // var list = $('#incomplete-page-list');
-            // list.empty();
-            // incompletePages.forEach(function(page) {
-            //     var pageName = $('div[data-page=' + page + ']').data('page-title');
-            //     list.append('<li><p>' + pageName + '</p></li>');
-            // });
         }
     }
 
@@ -705,13 +700,7 @@ if (typeof jQuery !== 'undefined') {
                 list = $('#beachListSelect');
             }
             Object.keys(beaches[county.val()][lake.val()]).forEach(function (cval) {
-                list.append('<option value="'
-                    + cval
-                    // + ' (ID: '
-                    // + beaches[county.val()][lake.val()][cval]._site
-                    // + '" data-entity-id="'
-                    // + beaches[county.val()][lake.val()][cval]._site
-                    + '"/>');
+                list.append('<option value="' + cval + '"/>');
             });
             if(is_safari) {
                 var availableTags = list.find('option').map(function () {
@@ -744,13 +733,7 @@ if (typeof jQuery !== 'undefined') {
             }
             Object.keys(beaches[county.val()][lake.val()][beach.val()]).forEach(function (cval) {
                 if (cval != '_site')
-                    list.append('<option value="'
-                        + cval
-                        // + ' (ID: '
-                        // + beaches[county.val()][lake.val()][beach.val()][cval]
-                        // + '" data-entity-id="'
-                        // + beaches[county.val()][lake.val()][beach.val()][cval]
-                        + '"/>');
+                    list.append('<option value="' + cval + '"/>');
             });
             if(is_safari) {
                 var availableTags = list.find('option').map(function () {
@@ -786,12 +769,7 @@ if (typeof jQuery !== 'undefined') {
 
     fillCounties();
 
-    // document.getElementById('__county').oninput = fillLakes;
-    // document.getElementById('__lake').oninput = fillBeaches;
-    // document.getElementById('BEACH_SEQ').oninput = fillSites;
-    // document.getElementById('MONITOR_SITE_SEQ').oninput = saveFavoriteEnabled;
     document.getElementById('__favorites').onchange = fillFavorite;
-
     document.getElementById('__county').onfocus = fillCounties;
     document.getElementById('__lake').onfocus = fillLakes;
     document.getElementById('__beach').onfocus = fillBeaches;
@@ -855,8 +833,6 @@ if (typeof jQuery !== 'undefined') {
             if ($(this).val() === val) opt = this;
         });
 
-        // if (opt)
-        //     $(stored).val(opt.dataset.entityId);
         if (opt) {
             var county = $('#__county').val();
             var lake = $('#__lake').val();
@@ -974,6 +950,7 @@ if (typeof jQuery !== 'undefined') {
     function collectSampleNow() {
         var d = new Date();
         $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d));
+        // console.log(d);
     }
 
     /**
@@ -983,7 +960,7 @@ if (typeof jQuery !== 'undefined') {
      */
     function dateToLocalDate(d) {
         return ('000'+d.getFullYear()).slice(-4) + '-' +
-            ('0'+d.getMonth()).slice(-2) + '-' +
+            ('0'+(d.getMonth()+1)).slice(-2) + '-' +
             ('0'+d.getDate()).slice(-2) + 'T' +
             ('0'+d.getHours()).slice(-2) + ':' +
             ('0'+d.getMinutes()).slice(-2);
