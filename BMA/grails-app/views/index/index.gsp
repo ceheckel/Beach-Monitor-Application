@@ -15,23 +15,51 @@
         });
     </script>
     <style>
+        /* Place the navbar at the bottom of the page, and make it stick */
+        .bottom-nav {
+            background-color: rgb(63,81,181);
+            overflow: visible;
+            position: fixed;
+            z-index: 1; /* prevents checkQuestions from being visible through bottom Navbar */
+            bottom: 0;
+            width: 100%;
+        }
+        /*.bottom-nav a {*/
+            /*float: left;*/
+            /*display: block;*/
+            /*color: #f2f2f2;*/
+            /*text-align: center;*/
+            /*padding: 14px 16px;*/
+            /*text-decoration: none;*/
+            /*font-size: 17px;*/
+        /*}*/
+        /*.bottom-nav a:hover {*/
+            /*background: #f1f1f1;*/
+            /*color: blue;*/
+        /*}*/
+        /*.bottom-nav a.active {*/
+            /*background-color: #4CAF50;*/
+            /*color: antiquewhite;*/
+        /*}*/
+
         /* for highlighting required and recommended fields */
         .mdl-textfield__input.required {
-            background-color: rgba(255,0,0,0.15);
+            background-color: rgba(255,0,0,0.20);
         }
         .mdl-textfield__input.recommended {
-            background-color: rgba(0,255,0,0.15);
+            background-color: rgba(0,255,0,0.20);
         }
         .mdl-selectfield__select.required {
-            background-color: rgba(255,0,0,0.15);
+            background-color: rgba(255,0,0,0.20);
         }
         .mdl-selectfield__select.recommended {
-            background-color: rgba(0,255,0,0.15);
+            background-color: rgba(0,255,0,0.20);
         }
         /* end of highlighting */
     </style>
 </head>
 <body>
+<!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
     <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()">
         <i class="material-icons">add</i>
@@ -43,6 +71,7 @@
             </span>
         </li>
     </ul>
+
 %{--Shows login button when not logged in--}%
     <sec:ifNotLoggedIn>
 
@@ -74,67 +103,68 @@
     <!-- AUTHOR: Heckel -->
 
     <!-- Home Page Navigation -->
-    <h1 style="color:rgb(61,81,181);padding:0px 0px 0px 10px;">Home Page</h1>
+    <h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1>
     <p style="padding:0px 0px 0px 10px;">The home page is broken down into five major sections:</p>
     <ol>
-        <a name="Navigation Bar" style="color:rgb(61,81,181);"><li>Navigation Bar</li></a>
+        <a name="Navigation Bar" style="color:rgb(63,81,181);"><li>Navigation Bar</li></a>
         <p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length horizontal bars.  This button can be clicked on to open a drawer that displays two additional options: the "Home Page" (which is currently displayed) and the "<a href="#Survey Creation">New Survey</a>" option which will initiate the creation of a new survey.</p>
-        <a name="UnRep" style="color:rgb(61,81,181);"><li>Unsubmitted Reports</li></a>
+        <a name="UnRep" style="color:rgb(63,81,181);"><li>Unsubmitted Reports</li></a>
         <p>This section contains all surveys that have not yet been downloaded.  These surveys may be incomplete or ready to download.  Surveys in this section are editable by clicking on the name of an existing survey.</p>
-        <a name="PastRep" style="color:rgb(61,81,181);"><li>Past Reports</li></a>
+        <a name="PastRep" style="color:rgb(63,81,181);"><li>Past Reports</li></a>
         <p>Surveys within this section have been previously downloaded.  This may include both incomplete and completed surveys.  Surveys within this section are not editable, but may be opened and viewed in the same manner as unsubmitted surveys.  You can determine if the currently viewed survey is editable by referring to the navigation bar at the top of the screen.  On the right side of the page name within this bar, there will be "(read-only)".  If this is not visible, the survey is unsubmitted and you may still edit it.</p>
-        <a name="Other Buttons" style="color:rgb(61,81,181);"><li>Other Buttons</li></a>
+        <a name="Other Buttons" style="color:rgb(63,81,181);"><li>Other Buttons</li></a>
         <p>In the bottom right-hand corner of the home page, you should see a circle with a plus sign in it.  This button is an alternate way to start a new survey.</p>
-        <li style="color:rgb(61,81,181);">Deleting Surveys</li>
+        <li style="color:rgb(63,81,181);">Deleting Surveys</li>
         <p>To delete a survey, open the survey for editing or viewing, navigate to the 'review' page (the last page), and scroll to the bottom.  At the bottom of the page, in the center, there will be a 'Delete' button, upon the first press, you will be prompted to confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the button that reads, "Deleting Survey... ".  On this pop-up, there is an undo option, but will vanish quickly.  When the pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
     </ol>
 
     <!-- Upon new survey creation -->
-    <a name="Survey Creation" style="color:rgb(61,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Creation</h1></a>
+    <a name="Survey Creation" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Creation</h1></a>
     <p style="padding:0px 0px 0px 10px;">For "<i>how to create a new survey</i>" refer to above sections, '<a href="#Other Buttons">Other Buttons</a>' or '<a href="#Navigation Bar">Navigation Bar</a>'.<br/>Note that the survey is saved after each page opens.</p>
     <ol type="I">
         <!-- Section I -->
-        <li style="color:rgb(61,81,181);">Menu and Navigation</li>
+        <li style="color:rgb(63,81,181);">Menu and Navigation</li>
         <p>Please note that the navigation bar's drawer now has new features.  After a new survey has been initiated, the menu will now contain not only the home page, but also links to each page of the survey.  Each page will be described below.  Please note that two buttons can now be found after the last field on each page (except for the first page 'Beach Selection' and the last page 'Review').  These are page buttons for easy transitions between the next portion of the survey and the previous.</p>
         <!-- Section II -->
-        <li style="color:rgb(61,81,181);">Beach Selection</li>
+        <li style="color:rgb(63,81,181);">Beach Selection</li>
         <p>After creating a new survey, you will be brought to the first page of the survey creation, "Beach Selection".  On this page, you will first be prompted to input your name and user id. <b>Although these are not required and may be omitted, it is recommended that a user id be provided if applicable. </b> Next the user will be able to input the county name from a drop-down menu, lake name based on the county you selected, beach name based on the lake selected, and monitoring site.  <b>The beach name and monitoring site are required fields.</b>  If the county has only one option, the other fields will be automatically filled in.  After specifying a site, you can denote it as a "Composite sample", and/or mark the site as a favorite.  Once you have a site marked as favorite, you can select it in future surveys from the 'Favorites' drop-down menu (first field on Beach Selection page) and the data will be auto-filled.  The last field on this page allows you to input a time of collection (either automatically or manually).  An example time is provided for format if a manual input is made.  Information can be adjusted after insertion by selecting a portion of the date/time and typing new data, or using the provided up/down arrows on the right side of the field.  Also on the right side of the field is a drop-down button that displays a calendar.  The calendar can be used to fill in the required information.  <b>The time-of-survey is required for completion.</b><br/>Please note that from this point on, there are no <b><i>required</i></b> field, but some fields are still recommended and will be denoted with an astrisk * and highlighted for easy visibility.</p>
         <!-- Section III -->
-        <li style="color:rgb(61,81,181);">Animals</li>
+        <li style="color:rgb(63,81,181);">Animals</li>
         <p>This page refers to the number of <i>living</i> animals on the beach at the time of the survey.  Fields are specified for seagulls, geese, dogs, and other wildlife. For dead animals, see next heading (Section IV).<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section IV -->
-        <li style="color:rgb(61,81,181);">Deceased Animals</li>
+        <li style="color:rgb(63,81,181);">Deceased Animals</li>
         <p>This page refers to the number of <i>dead</i> animals on the beach or within the vicinity, specific fields are provided for Loons, Herring Gulls, Ring Gulls, Cormorants, Longtail Ducks, Scoters, Horned Grebes, Rednecked Grebes, Fish, and other birds.<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section V -->
-        <a name="DinW" style="color:rgb(61,81,181);"><li>Debris in Water</li></a>
+        <a name="DinW" style="color:rgb(63,81,181);"><li>Debris in Water</li></a>
         <p>The debris page contains a list of possible foreign objects that can be <b>found in the water</b>, <i>not on the beach</i>.  To mark an objects' presence, simply click the box(es) to the left of each debris type.  If the 'other' box is checked, a field will appear that will allow you to input the type of debris found.  If 'other' is selected, <b>the description is required.</b><br/>Please note that any number of boxes may be checked.<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section VI -->
-        <li style="color:rgb(61,81,181);">Debris on Beach</li>
+        <li style="color:rgb(63,81,181);">Debris on Beach</li>
         <p>This page refers to the possible debris <b>found on the beach</b>, <i>not in the water.</i>  See <a href="#DinW">previous section</a> (Section V) for functionality.  Also on this page is a field that allows you to input a rough percentage of beach covered in debris. The drop-down menu has options for "0%", "1-20%", "21-50%", and ">50%".<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section VII -->
-        <li style="color:rgb(61,81,181);">Bathers</li>
+        <li style="color:rgb(63,81,181);">Bathers</li>
         <p>The bathers page provides input fields for people in water, out of the water, boating, fishing, surfing, diving, clamming, and other activities.<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section VIII -->
-        <li style="color:rgb(61,81,181);">Weather</li>
+        <li style="color:rgb(63,81,181);">Weather</li>
         <p>On this page, fields are provided for air temperature (<sup>o</sup>F or <sup>o</sup>C), Wind speed (MPH), wind direction (degrees), wind direction description (cardinal directions: N, NE, E, SE, etc.) weather conditions (sunny, cloudy, etc.), hours since last rain, and rainfall amount (rainfall can be measured in either inches, or centimeters).  Drop-down menus are provided for both unit selections, 'wind direction description', 'weather conditions', and 'hours since last rain event'.  'Weather condition' is a recommended field.<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section IX -->
-        <li style="color:rgb(61,81,181);">Waves</li>
+        <li style="color:rgb(63,81,181);">Waves</li>
         <p>On this page, Wave height can be described, and includes a checkbox to represent an estimated measurement.  'Wave direction' (cardinal directions: N, NE, E, SE, etc.), and 'wave conditions' have drop-down menus, as well as 'longshore current direction' (also measured with cardinal directions).  Included on this page is a field for Longshore current speed (measured in ft/sec or cm/sec).  Wave height is a recommended field.<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section X -->
-        <li style="color:rgb(61,81,181);">Water Conditions</li>
+        <li style="color:rgb(63,81,181);">Water Conditions</li>
         <p>This page is used to input information about the pH levels of the water and provides a checkbox to indicate the color has changed.  Odor can be described, and a drop-down menu is provided for this field.  'Water temperature' can be input in terms of '<sup>o</sup>F' or '<sup>o</sup>C'.  The Haziness of water can be defined as one of the drop-down options from the 'Turbidity' field.  Alternatively, Nephelometric Turbidity Units, or NTUs, can be supplied in the proceeding field.  Common measurements are 5, 50, or 500 NTUs.  A final field is provided for a secchi tube reading.  Recommended fields include 'Water Temperature' and either 'Turbidity' or 'NTU'.<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section XI -->
-        <li style="color:rgb(61,81,181);">Algae</li>
+        <li style="color:rgb(63,81,181);">Algae</li>
         <p>On this page, there are two fields for percentage of algae present (on beach, and near shore).  Both of these fields are recommended and have drop-down menus with values for 0%, 1-20%, 21-50% and >50%.  Also found of this page are checkboxes for type of algae, and color of algae.<br/>Note that both sets of checkboxes have an 'other' option that, when selected, display an description field.  <b>If the 'other' box is checked, the description is required for completion.</b><br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
         <!-- Section XII -->
-        <a name="Comments" style="color:rgb(61,81,181);"><li>Comments</li></a>
+        <a name="Comments" style="color:rgb(63,81,181);"><li>Comments</li></a>
         <p>This page provides fields for additional comments.  Four fields are provided, one for each of the following: 'Waves and Weather', 'Color and odor of water', 'Human bathers', 'Debris, Algae, and Wildlife'.</p>
         <!-- Section XIII -->
-        <li style="color:rgb(61,81,181);">Review</li>
+        <li style="color:rgb(63,81,181);">Review</li>
         <p>When creating a new survey, this page allows you to review and adjust any of the previously mentioned data fields as well as the comments sections described above.<br/>At the bottom of this page, you will be able to see three buttons.  The leftmost, "previous", will take you back to the comments page of the survey form.  The middle button is the delete function (see delete from above), and the rightmost button will allow you to download this survey as a .CSV file.  If the user has not filled out all of the required information fields, then clicking the download button will prompt the user with a warning.  The warning states that submitting the survey will prevent them from further editing.  At this point the user can download the incomplete survey, or return to the review page.  After the Survey is downloaded, it will move from the "<a href="#UnRep">Unsubmitted Reports</a>" section of the home page to the "<a href="#PastRep">Past Reports</a>" section.  See Sections II and III for more on unsubmitted reports or past reports.</p>
     </ol>
 </div>
 
+<!-- Questions -->
 <div class="page-content" id="page-questions" style="display: none">
     <g:each status="i" var="p" in="${survey}">
         <div data-page-title="${p.pageName}" data-page="${i}" class="page">
@@ -241,10 +271,10 @@
                 <g:if test="${q instanceof TimeQuestion}">
                     <!-- if-then tags for highlighting, Can most definitely be cleaned up.  Scripting? CSS? -->
                     <g:if test="${q.extraClasses == "required"}">
-                        <input type="datetime-local" name="${q.columnId}" id="${q.columnId}" style="background-color: rgba(255,0,0,0.15)">
+                        <input type="datetime-local" name="${q.columnId}" id="${q.columnId}" style="background-color: rgba(255,0,0,0.20)">
                     </g:if>
                     <g:elseif test="${q.extraClasses == "recommended"}">
-                        <input type="datetime-local" name="${q.columnId}" id="${q.columnId}" style="background-color: rgba(0,255,0,0.15)">
+                        <input type="datetime-local" name="${q.columnId}" id="${q.columnId}" style="background-color: rgba(0,255,0,0.20)">
                     </g:elseif>
                     <g:else>
                         <input type="datetime-local" name="${q.columnId}" id="${q.columnId}">
@@ -255,18 +285,22 @@
         </div>
     </g:each>
 
+    <!-- Bottom Navbar -->
     <div class="bottom-nav" id="bottom-nav">
-        <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="display: none">Previous</button>
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="color:white; background-color:rgba(68,138,255,1); display:none">Previous</button>
         <div style="flex-grow: 1"></div>
-        <button id="btn-delete" class="mdl-button mdl-js-button mdl-button--raised" onclick="deleteSurvey()">Delete</button>
+        <button id="btn-delete" class="mdl-button mdl-js-button mdl-button--raised" onclick="deleteSurvey()" style="color:white; background-color:rgba(68,138,255,1);">Delete</button>
         <div style="flex-grow:1"></div>
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="btn-next" onclick="btnNext()">Next</button>
     </div>
 </div>
+
+<!-- Toast pop-up -->
 <div id="toast-container" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
     <button class="mdl-snackbar__action" type="button"></button>
 </div>
+
 <script type="text/javascript">
     var totalQuestionPages = ${survey.size()};
 </script>

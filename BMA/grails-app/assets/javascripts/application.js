@@ -152,25 +152,29 @@ if (typeof jQuery !== 'undefined') {
         $('#page-title').html(p.data('page-title') + ((submitted && p.data('page-title') !== 'WI Beaches') ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
         $('#page-title-drawer').html(p.data('page-title'));
 
-        // set current page
+        /* display buttons based on current page */
         curPage = page;
-        if (curPage > 0)
+        if (curPage > 0) // if not on first page, show 'Previous' button
             $('#btn-prev').css('display', 'block');
         else
             $('#btn-prev').css('display', 'none');
-        if (curPage == totalQuestionPages - 1) {
+
+        if (curPage == totalQuestionPages - 1) { // if on last page, make 'Review' button
             $('#btn-next').html('Review');
             $('#bottom-nav').css('display', 'flex');
         }
-        else if (curPage >= 0) {
+        else if (curPage >= 0) { // if on any survey page, show 'Next' and 'Delete'
             $('#btn-next').css('display', 'block');
             $('#btn-next').html('Next');
+            $('#btn-delete').css('display', 'block');
+            $('#btn-delete').html('Delete');
+
             $('#bottom-nav').css('display', 'flex');
         }
         else
             $('#bottom-nav').css('display', 'none');
-        if (curPage == 'home') {
 
+        if (curPage == 'home') {
             $('#help-button').hide();
 
             document.getElementById("surveySectionsDrawer").style.display = 'none';
@@ -216,7 +220,7 @@ if (typeof jQuery !== 'undefined') {
 
         if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
         else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
-        $('#btn-delete').css('display', 'none');
+        // $('#btn-delete').css('display', 'none');
         $('.mdl-layout__content').scrollTop(0);
 
         $('#surveySectionsDrawer a').each(function(i,e) {
