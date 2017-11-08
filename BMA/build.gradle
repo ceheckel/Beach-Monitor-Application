@@ -35,12 +35,6 @@ dependencyManagement {
 ext['tomcat.version'] = '7.0.69'
 
 dependencies {
-
-    // Adds Spring Security plugins
-    compile 'org.grails.plugins:spring-security-core:3.1.1'
-    compile 'org.grails.plugins:spring-security-ui:3.0.0.M2'
-    compile 'org.grails.plugins:mail:2.0.0.RC6'
-
     compile 'org.grails.plugins:mail:2.0.0.RC6'
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"

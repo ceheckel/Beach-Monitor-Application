@@ -4,7 +4,7 @@
 
 window.survey_post = {};
 
-survey_post.TEST = true;
+survey_post.TEST = false;
 survey_post.POST_URL = "";
 survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/survey";
 survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/survey";
@@ -141,7 +141,7 @@ survey_post.upload = function() {
                             console.log(response);
                         },
                         error: function (response) {
-                            alert('There was a problem uploading ' + survey.id + ' to the server.');
+                            alert('There was a problem uploading Survey ' + survey.id + ' to the server.');
                             console.log(getAllFields());
                         }
                     });
