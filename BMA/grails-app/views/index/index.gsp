@@ -24,23 +24,6 @@
             bottom: 0;
             width: 100%;
         }
-        /*.bottom-nav a {*/
-            /*float: left;*/
-            /*display: block;*/
-            /*color: #f2f2f2;*/
-            /*text-align: center;*/
-            /*padding: 14px 16px;*/
-            /*text-decoration: none;*/
-            /*font-size: 17px;*/
-        /*}*/
-        /*.bottom-nav a:hover {*/
-            /*background: #f1f1f1;*/
-            /*color: blue;*/
-        /*}*/
-        /*.bottom-nav a.active {*/
-            /*background-color: #4CAF50;*/
-            /*color: antiquewhite;*/
-        /*}*/
 
         /* for highlighting required and recommended fields */
         .mdl-textfield__input.required {

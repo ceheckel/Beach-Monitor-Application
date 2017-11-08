@@ -46,7 +46,6 @@ class IndexController {
                         ]),
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
                         //@TODO decide on how to handle date, time and user
-//                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: ''),
 
                         // Date/Time Info
                         new ButtonElement(columnId: '__collectSampleNow', value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true),
@@ -78,7 +77,6 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', type:"number", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'If other, describe')
-                        // NOTE: Number of ducks is a recommended field, but is not mentioned anywhere else in project
                 ]
         ]
 
@@ -371,7 +369,6 @@ class TextQuestion extends Question {
     String list = ""
     String onchange = ""
     String oninput = ""
-//    String extraClasses = ""
 }
 
 class CheckQuestion extends Question {
@@ -387,7 +384,6 @@ class SelectQuestion extends Question {
     List<String> options
     String title
     String onchange = ""
-//    String extraClasses = ""
 }
 
 class HiddenQuestion extends Question {
@@ -402,9 +398,7 @@ class ButtonElement extends Question {
     boolean disabled = false
 }
 
-class TimeQuestion extends Question {
-//    String extraClasses = ""
-}
+class TimeQuestion extends Question { }
 
 class UnitQuestion extends Question {
     // From TextQuestion
@@ -412,9 +406,7 @@ class UnitQuestion extends Question {
     String type = "text"
     String pattern = ".*"
     String step
-//    String extraClasses = ""
     String list = ""
-    //String onchange = ""
     String oninput = ""
 
     // From SelectQuestion
