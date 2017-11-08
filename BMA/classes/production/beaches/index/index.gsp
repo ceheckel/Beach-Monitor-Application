@@ -6,29 +6,14 @@
     <title>WI Beach Health</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <asset:javascript src="beaches_sites_get.js"/>
     <script>
         $(function () {
-
-            //console.log("HERE00");
-            //console.log(window.beaches_sites_get);
-
-
             var callback = function (gotten_beaches) {
                 beaches = gotten_beaches;
             };
             window.beaches_sites_get.run(callback, false);
         });
     </script>
-
-    <asset:javascript src="survey_post.js"/>
-    <!--
-    <script>
-        $(function() {
-            window.survey_post.upload();
-        })
-    </script>
-    -->
     <style>
         /* for highlighting required and recommended fields */
         .mdl-textfield__input.required {

@@ -171,18 +171,17 @@
             <g:each var="q" in="${p.questions}">
                 <!-- For Questions with Flexible Units -->
                 <g:if test="${q instanceof UnitQuestion}">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" display="inline-block" style="width:220px;">
-                        <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}">
-                        <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
-                    </div>
-                    <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" display="inline-block" style="width:80px;">
-                        <select name="${q.columnId2}" id="${q.columnId2}" class="mdl-selectfield__select ${q.extraClasses}" onchange="${q.onchange}">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:218px;display:inline-block;">
+                        <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" style="display:inline-block;">
+                        <label class="mdl-textfield__label" for="${q.columnId}" style="display:inline-block;">${q.prompt}</label>
+                    </div><div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="width:80px;display:inline-block;">
+                        <select name="${q.columnId2}" id="${q.columnId2}" class="mdl-selectfield__select ${q.extraClasses}" onchange="${q.onchange}" style="display:inline-block;">
                             <g:each var="o" in="${q.options}">
                                 <option value="${o}">${o}</option>
                             </g:each>
                         </select>
-                        <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                        <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
+                        <div class="mdl-selectfield__icon"><i class="material-icons" style="display:inline-block;">arrow_drop_down</i></div>
+                        <label class="mdl-selectfield__label" for="${q.columnId}" style="display:inline-block;">${q.title}</label>
                     </div>
                 </g:if>
 
