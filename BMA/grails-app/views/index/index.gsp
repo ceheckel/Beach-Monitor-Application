@@ -44,9 +44,18 @@
 <body>
 <!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
-    <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()">
-        <i class="material-icons">add</i>
-    </button>
+    <div class="bottom-nav">
+        <!-- Create new Survey Button -->
+        <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            New Survey
+        </button>
+
+        <!-- Upload Surveys Button -->
+        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect"  onclick="window.survey_post.upload();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            Upload Past Reports
+        </button>
+
+    </div>
     <ul class="mdl-list" id="unsubmitted-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
@@ -64,7 +73,7 @@
 
 
     <!-- Survey post button-->
-    <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--raised"  onclick="window.survey_post.upload();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">Upload Past Reports</button>
+    %{--<button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--raised"  onclick="window.survey_post.upload();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">Upload Past Reports</button>--}%
 
 </div>
 
