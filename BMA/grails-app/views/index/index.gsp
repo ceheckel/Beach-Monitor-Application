@@ -85,21 +85,21 @@
     <h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1>
     <p style="padding:0px 0px 0px 10px;">The home page is broken down into five major sections:</p>
     <ol>
-        <a name="Navigation Bar" style="color:rgb(63,81,181);"><li>Navigation Bar</li></a>
-        <p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length horizontal bars.  This button can be clicked on to open a drawer that displays two additional options: the "Home Page" (which is currently displayed) and the "<a href="#Survey Creation">New Survey</a>" option which will initiate the creation of a new survey.</p>
-        <a name="UnRep" style="color:rgb(63,81,181);"><li>Unsubmitted Reports</li></a>
+        <a name="UpNavBar" style="color:rgb(63,81,181);"><li> Upper Navigation Bar</li></a>
+        <p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length horizontal bars.  This button can be clicked on to open a drawer that displays two additional options: the "Home Page" (which is currently displayed) and the "<a href="#Survey Creation">New Survey</a>" option which will initiate the creation of a new survey. When viewing the open drawer from a page that is not the help page, an option corresponding to the help page will also be displayed.</p>
+        <a name="UnRep" style="color:rgb(63,81,181);"><li>Un-submitted Reports</li></a>
         <p>This section contains all surveys that have not yet been downloaded.  These surveys may be incomplete or ready to download.  Surveys in this section are editable by clicking on the name of an existing survey.</p>
         <a name="PastRep" style="color:rgb(63,81,181);"><li>Past Reports</li></a>
         <p>Surveys within this section have been previously downloaded.  This may include both incomplete and completed surveys.  Surveys within this section are not editable, but may be opened and viewed in the same manner as unsubmitted surveys.  You can determine if the currently viewed survey is editable by referring to the navigation bar at the top of the screen.  On the right side of the page name within this bar, there will be "(read-only)".  If this is not visible, the survey is unsubmitted and you may still edit it.</p>
-        <a name="Other Buttons" style="color:rgb(63,81,181);"><li>Other Buttons</li></a>
-        <p>In the bottom right-hand corner of the home page, you should see a circle with a plus sign in it.  This button is an alternate way to start a new survey.</p>
+        <a name="LowNavBar" style="color:rgb(63,81,181);"><li>Lower Navigation Bar</li></a>
+        <p>Across the bottom of the home page, you should see another navigation bar, this bar contains a button on the right, "New Survey", and a button on the left "Upload Past Reports". The right-hand button is an alternate way to start a new survey. The "Upload Past Reports" button allows the user to post their surveys to the database. Every Survey within the "Past Reports" section will be posted.</p>
         <li style="color:rgb(63,81,181);">Deleting Surveys</li>
-        <p>To delete a survey, open the survey for editing or viewing, navigate to the 'review' page (the last page), and scroll to the bottom.  At the bottom of the page, in the center, there will be a 'Delete' button, upon the first press, you will be prompted to confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the button that reads, "Deleting Survey... ".  On this pop-up, there is an undo option, but will vanish quickly.  When the pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
+        <p>To delete a survey, open the survey for editing or viewing.  At the bottom of the page, in the center, there will be a 'Delete' button, upon the first press, you will be prompted to confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the button that reads, "Deleting Survey... ".  On this pop-up, there is an undo option, but will vanish quickly.  When the pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
     </ol>
 
     <!-- Upon new survey creation -->
     <a name="Survey Creation" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Creation</h1></a>
-    <p style="padding:0px 0px 0px 10px;">For "<i>how to create a new survey</i>" refer to above sections, '<a href="#Other Buttons">Other Buttons</a>' or '<a href="#Navigation Bar">Navigation Bar</a>'.<br/>Note that the survey is saved after each page opens.</p>
+    <p style="padding:0px 0px 0px 10px;">For "<i>how to create a new survey</i>" refer to above sections, '<a href="#LowNavBar">Lower Navigation Bar</a>' or '<a href="#UpNavBar">Upper Navigation Bar</a>'.<br/>Note that the survey is saved after each page opens.</p>
     <ol type="I">
         <!-- Section I -->
         <li style="color:rgb(63,81,181);">Menu and Navigation</li>
