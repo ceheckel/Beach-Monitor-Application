@@ -138,6 +138,7 @@ survey_post.upload = function() {
                         dataType: 'json',
                         data: JSON.stringify(survey),
                         success: function (response) {
+                            alert("Surveys have been uploaded.");
                             console.log(response);
                         },
                         error: function (response) {
