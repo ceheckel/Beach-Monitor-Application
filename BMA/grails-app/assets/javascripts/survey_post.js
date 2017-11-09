@@ -123,7 +123,7 @@ survey_post.upload = function() {
     }
     else {
         Surveys.getAll(function(surveys) {
-            var postSuccess = 1;
+            var postSuccess = true;
 
             surveys.forEach(function(survey) {
                 if (survey.submitted) {
@@ -136,18 +136,18 @@ survey_post.upload = function() {
                         dataType: 'json',
                         data: JSON.stringify(survey),
                         error: function (response) {
-                            postSuccess = 0;
+                            postSuccess = false;
                             alert('There was a problem uploading Survey ' + survey.id + ' to the server.\n\nSurveys were not saved to the server.');
                             console.log(getAllFields());
                         }
-                    });
+                    }).then(function() {
+                        if (postSuccess) {
+                            alert("Surveys have been uploaded.");
+                            console.log(response);
+                        }
+                    })
                 }
             });
-
-            if(postSuccess == 1) {
-                alert("Surveys have been uploaded.");
-                console.log(response);
-            }
 
             var callback = function (gotten_beaches) {
                 beaches = gotten_beaches;
