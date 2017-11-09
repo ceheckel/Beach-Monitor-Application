@@ -63,7 +63,7 @@
     </ul>
 
 
-    <!-- THIS FUCKING BUTTON POSTS THE FUCKING SURVEYS CAN WE PUT A FUCKING COMMENT HERE THAT SAYS THAT THIS IS A FUCKING IMPORTANT BUTTON OTHERWISE THER IS NO FUCKING CONTEXT FOR THIS k -->
+    <!-- Survey post button-->
     <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--raised"  onclick="window.survey_post.upload();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">Upload Past Reports</button>
 
 </div>
