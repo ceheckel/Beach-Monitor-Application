@@ -5,6 +5,7 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better
 // to create separate JavaScript files as needed.
 //
+//= require page_validation.js
 //= require jquery.min.js
 //= require jquery-ui.min.js
 //= require dialog-polyfill.js
@@ -141,6 +142,12 @@ if (typeof jQuery !== 'undefined') {
      *      or the string 'home'
      */
     function toPage(page) {
+
+
+        if (validatePage(curPage) === false) {
+            return;
+        }
+
         saveSurvey(page);
         if(visitedPages.indexOf(page) < 0)
             visitedPages.push(page);
