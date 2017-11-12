@@ -44,7 +44,7 @@ if (typeof jQuery !== 'undefined') {
      */
     $(document).ready(function() {
         $('div[data-page]').hide();
-        toPage('home');
+        toPage('home',false);
 
         $('#btn-menu').click(function() {
             console.log('menu button clicked');
@@ -127,7 +127,7 @@ if (typeof jQuery !== 'undefined') {
         submitted = false;
 
         // Navigate to beach selection page
-        toPage(0);
+        toPage(0,false);
         $('#page-questions').css('display', 'block');
 
         // Set page to warn user before reloading
@@ -142,12 +142,16 @@ if (typeof jQuery !== 'undefined') {
      * @param page
      *      The page to be navigated to. This can either be an integer denoting survey page number,
      *      or the string 'home'
+     *
+     * @param toDelete
+     *      Boolean to ignore validation for redirect during delete
      */
-    function toPage(page) {
+    function toPage(page, toDelete) {
 
-
-        if (validatePage(curPage) === false) {
-            return;
+        if(toDelete === false) {
+            if (validatePage(curPage) === false) {
+                return;
+            }
         }
 
         saveSurvey(page);
@@ -241,7 +245,7 @@ if (typeof jQuery !== 'undefined') {
      * Called upon the previous button being pressed in a survey
      */
     function btnPrev() {
-        toPage(curPage - 1);
+        toPage(curPage - 1,false);
     }
 
     /**
@@ -256,7 +260,7 @@ if (typeof jQuery !== 'undefined') {
             completionCheck();
         }
         else
-            toPage(curPage + 1);
+            toPage(curPage + 1,false);
     }
 
     /**
@@ -282,7 +286,7 @@ if (typeof jQuery !== 'undefined') {
         console.log("Survey submitted!");//  <-- DOWNLOAD CSV HERE
         downloadCSV();
         submitted = true;
-        toPage('home');
+        toPage('home',false);
     }
 
     /**
@@ -389,7 +393,7 @@ if (typeof jQuery !== 'undefined') {
                     saveSurvey(curPage);
                     return "Are you sure you want to refresh?";
                 };
-            toPage(0);
+            toPage(0,false);
         });
     }
 
@@ -451,7 +455,7 @@ if (typeof jQuery !== 'undefined') {
                         {
                             clearAllFields();
                             loadSurvey(id);
-                            toPage(0);
+                            toPage(0,false);
                             $('#page-questions').css('display', 'block');
                         }, 10);
                     }
@@ -925,8 +929,9 @@ if (typeof jQuery !== 'undefined') {
                 if (!window.cancelDelete) {
                     sId = surveyId;
                     surveyId = undefined;
+                    toPage('home',true);
                     Surveys.remove(surveyId, function () {
-                        toPage('home');
+                        toPage('home',true);
                     });
                     btn.html('Delete');
                     btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
