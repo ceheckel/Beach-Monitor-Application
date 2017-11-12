@@ -524,26 +524,28 @@ if (typeof jQuery !== 'undefined') {
         });
     }
 
+    /**
+     * Function used for uploading selected surveys from the home page
+     */
     function uploadSurveys() {
-        var selected = $(".mdl-checkbox__input:checked");
-        var surveys = [];
-        var promises = [];
+        var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for upload
+        var surveys = []; // collection of all surveys to be uploaded
+        var promises = []; // each callback is going to promise to return, used to prevent asynch uploading
 
-
+        // for each survey marked for upload ...
         for (var i = 0; i < selected.length; i++) {
-
             var deferred = new $.Deferred();
 
+            // Retrieve survey from localforage and add it to surveys to be uploaded
             Surveys.getById(selected[i].parentElement.id, function(result, survey) {
                 surveys.push(survey);
-                deferred.resolve();
+                deferred.resolve(); // Callback is complete, so resolve the promise
             });
 
-            promises.push(deferred.promise());
+            promises.push(deferred.promise()); // Add this to the list of pending callbacks
         }
 
-        console.log(promises);
-
+        // Wait for all pending callbacks to complete before attempting to upload
         $.when(promises).done(function(surveys) {
             window.survey_post.upload(surveys)
         });
@@ -1006,10 +1008,87 @@ if (typeof jQuery !== 'undefined') {
      * Deletes multiple surveys from localforage by calling 'deleteSurvey()'
      */
     function deleteSelected() {
-        // for all surveys in localforage
+        var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for deletion
+        var surveys = []; // collection of all surveys to be deleted
+        var promises = []; // each callback is going to promise to return, used to prevent asynch deleting
 
-        // if selected, delete
+        var btn = $('#del-surveys-btn');
+        if (deleteTimer == 0) {
+            btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
+            deleteTimer = 5;
+            btn.html('Really? (' + deleteTimer + ')');
+            window.cancelDelete = false;
+            setTimeout(deleteCountdown, 1000);
+        }
+        else {
+            var snackbarContainer = document.querySelector('#toast-container');
+            var data = {
+                message: 'Deleting survey...',
+                actionHandler: function() { window.cancelDelete = true; },
+                actionText: 'Undo'
+            };
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            setTimeout(function() {
+                if (!window.cancelDelete) {
+                    for (var i = 0; i < selected.length; i++) {
+                        var deferred = new $.Deferred();
 
+                        // Retrieve survey from localforage and add it to surveys to be uploaded
+                        Surveys.remove(selected[i].parentElement.id, function (survey) {
+                            console.log("survey removed");
+                            toPage('home', false);
+                        })
+                    }
+
+
+                    toPage('home',true);
+
+                    /*
+                    sId = surveyId;
+                    surveyId = undefined;
+                    Surveys.remove(surveyId, function () {
+                        toPage('home',true);
+                    });
+                    btn.html('Delete');
+                    btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+                    */
+                    deleteTimer = 0;
+
+                }
+            }, 3000);
+            btn.html('Delete');
+            btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+        }
+
+
+
+
+
+        /*
+        if ()
+        // for each survey marked for deletion ...
+        for (var i = 0; i < selected.length; i++) {
+            var deferred = new $.Deferred();
+
+            // Retrieve survey from localforage and add it to surveys to be uploaded
+            Surveys.remove(selected[i].parentElement.id, function(result, survey) {
+
+            })
+
+
+            Surveys.getById(selected[i].parentElement.id, function(result, survey) {
+                surveys.push(survey);
+                deferred.resolve(); // Callback is complete, so resolve the promise
+            });
+
+            promises.push(deferred.promise()); // Add this to the list of pending callbacks
+        }
+
+        // Wait for all pending callbacks to complete before attempting to upload
+        $.when(promises).done(function(surveys) {
+            window.survey_post.upload(surveys)
+        });
+        */
     }
 
     /**
