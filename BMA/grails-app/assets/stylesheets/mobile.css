@@ -3,6 +3,10 @@ html, body {
     min-height: 100%;
 }
 
+#del-surveys-btn {
+    left: 16px;
+}
+
 #btn-new-survey {
     position: fixed;
     right: 16px;

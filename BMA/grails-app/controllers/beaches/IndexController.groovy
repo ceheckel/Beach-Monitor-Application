@@ -35,8 +35,8 @@ class IndexController {
 
                         // Beach Info
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
-                        new TextQuestion(columnId: '__county', prompt: 'County', list: 'countyList'),
-                        new TextQuestion(columnId: '__lake', prompt: 'Lake', list: 'lakeList'),
+                        new TextQuestion(columnId: '__county', prompt: 'County *', list: 'countyList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__lake', prompt: 'Lake *', list: 'lakeList', extraClasses: 'required'),
                         new TextQuestion(columnId: '__beach', prompt: 'Beach *', list: 'beachList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
                         new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
@@ -61,7 +61,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people wind surfing', type:"number", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people windsurfing', type:"number", step:1),
                         new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people clamming', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', type:"number", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
@@ -72,9 +72,9 @@ class IndexController {
         def wildlifeBathers = [
                 pageName: 'Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living Gulls *', type:"number", step:1, extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living Geese', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', type:"number", step:1),
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living gulls *', type:"number", step:1, extraClasses:'recommended'),
+                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living geese', type:"number", step:1),
+                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living dogs', type:"number", step:1),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', type:"number", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'If other, describe')
                 ]
@@ -91,7 +91,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter', type:"number", step:1),
                         new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horned Grebe', type:"number", step:1 ),
                         new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead Red-necked Grebe', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead Fish', type:"number", step:1),
+                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead fish', type:"number", step:1),
                         new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of other dead birds', type:"number", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe')
                 ]

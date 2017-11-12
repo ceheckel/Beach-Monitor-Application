@@ -24,6 +24,7 @@ var completedSurvey;
 var visitedPages = [];
 var surveyDate;
 var submitted = false;
+var selected = false; // added for mass interactions
 var incompletePages = new Set([]);
 
 var is_safari = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
@@ -123,6 +124,7 @@ if (typeof jQuery !== 'undefined') {
         surveyDate = new Date();
         $('#DATE_ENTERED').val(dateToLocalDate(surveyDate));
         submitted = false;
+        selected = false;
 
         // Navigate to beach selection page
         toPage(0);
@@ -937,6 +939,16 @@ if (typeof jQuery !== 'undefined') {
     }
 
     /**
+     * Deletes multiple surveys from localforage by calling 'deleteSurvey()'
+     */
+    function deleteSelected() {
+        // for all surveys in localforage
+
+        // if selected, delete
+
+    }
+
+    /**
      * Displays a delete countdown to prevent accidental deletions of surveys
      */
     function deleteCountdown() {
@@ -971,6 +983,14 @@ if (typeof jQuery !== 'undefined') {
             ('0'+d.getDate()).slice(-2) + 'T' +
             ('0'+d.getHours()).slice(-2) + ':' +
             ('0'+d.getMinutes()).slice(-2);
+    }
+
+    /**
+     * Changes boolean flag, meant to be used for mass interactions
+     */
+    function toggleSelect() {
+        if(selected == true) { selected = false; }
+        else { selected = true; }
     }
 }
 

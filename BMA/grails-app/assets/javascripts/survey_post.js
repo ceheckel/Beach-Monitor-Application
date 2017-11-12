@@ -126,7 +126,7 @@ survey_post.upload = function() {
             var postSuccess = true;
 
             surveys.forEach(function(survey) {
-                if (survey.submitted) {
+                if (survey.selected) {         // change to '.selected' for mass interaction?
 
                     $.ajax({
                         type: 'POST',
