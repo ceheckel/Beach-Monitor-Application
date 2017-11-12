@@ -153,6 +153,7 @@
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:218px;display:inline-block;">
                         <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" style="display:inline-block;">
                         <label class="mdl-textfield__label" for="${q.columnId}" style="display:inline-block;">${q.prompt}</label>
+                        <span class = "mdl-textfield__error" style="display:inline-block;">${q.errorm}</span>
                     </div><div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="width:80px;display:inline-block;">
                         <select name="${q.columnId2}" id="${q.columnId2}" class="mdl-selectfield__select ${q.extraClasses}" onchange="${q.onchange}" style="display:inline-block;">
                             <g:each var="o" in="${q.options}">
@@ -166,6 +167,7 @@
 
                 <!-- For Text Questions -->
                 <g:if test="${q instanceof TextQuestion}">
+                    <!-- "number" case no longer affects any fields; possibly safe to remove -->
                     <g:if test="${q.type == "number"}">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}">
@@ -176,6 +178,7 @@
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
+                            <span class = "mdl-textfield__error">${q.errorm}</span>
                         </div>
                     </g:else>
                     <g:if test="${q.list != ''}">
