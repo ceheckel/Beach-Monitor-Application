@@ -101,7 +101,7 @@ survey_post.test_survey = {
  * Uploads all surveys to the Wi Beach Server
  * @param callback
  */
-survey_post.upload = function() {
+survey_post.upload = function(surveys) {
     if (survey_post.TEST) {
 
         $.ajax({
@@ -122,11 +122,43 @@ survey_post.upload = function() {
         });
     }
     else {
+
+        console.log(surveys);
+
+        surveys.forEach(function(survey) {
+            $.ajax({
+                type: 'POST',
+                crossDomain: true,
+                contentType: 'application/json; charset=utf-8',
+                url: survey_post.POST_URL,
+                dataType: 'json',
+                data: JSON.stringify(survey),
+                error: function (response) {
+                    postSuccess = false;
+                    alert('There was a problem uploading Survey ' + survey.id + ' to the server.\n\nSurveys were not saved to the server.');
+                    console.log(getAllFields());
+                    console.log(response);
+                }
+            }).then(function() {
+                if (postSuccess) {
+                    alert("Surveys have been uploaded.");
+                    console.log(response);
+                }
+            })
+        });
+
+        var callback = function (gotten_beaches) {
+            beaches = gotten_beaches;
+        };
+        window.beaches_sites_get.run(callback, false);
+
+
+        /*
         Surveys.getAll(function(surveys) {
             var postSuccess = true;
 
             surveys.forEach(function(survey) {
-                if (survey.selected) {         // change to '.selected' for mass interaction?
+                if (survey.submitted) {
 
                     $.ajax({
                         type: 'POST',
@@ -148,12 +180,8 @@ survey_post.upload = function() {
                     })
                 }
             });
+            */
 
-            var callback = function (gotten_beaches) {
-                beaches = gotten_beaches;
-            };
-            window.beaches_sites_get.run(callback, false);
 
-        })
     }
 };

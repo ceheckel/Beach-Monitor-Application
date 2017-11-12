@@ -47,12 +47,12 @@
     <!-- Bottom Navbar for Home page -->
     <div class="bottom-nav">
         <!-- Upload Surveys Button -->
-        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="window.survey_post.upload();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="uploadSurveys();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
             Upload
         </button>
 
         <!-- Delete Surveys Button -->
-        <button id="del-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" disabled onclick="deleteSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+        <button id="del-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="deleteSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
             Delete
         </button>
 

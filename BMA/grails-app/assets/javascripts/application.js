@@ -397,12 +397,16 @@ if (typeof jQuery !== 'undefined') {
      * Loads saved surveys in local forage and displays them in a list on home page
      */
     function getSurveys() {
+        // create two lists for surveys
         var unsubmittedList = document.getElementById("unsubmitted-reports");
         var submittedList = document.getElementById("submitted-reports");
-        // Remove all elements
+
+
+        // Remove all elements from unsubmitted reports list
         while (unsubmittedList.firstChild)
             unsubmittedList.removeChild(unsubmittedList.firstChild);
-        // Create header
+
+        // Create header for unsubmitted reports
         var header = document.createElement("li");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
@@ -413,10 +417,13 @@ if (typeof jQuery !== 'undefined') {
         header.appendChild(span1);
         span1.appendChild(span2);
         unsubmittedList.appendChild(header);
-        //Submitted Reports
+
+
+        // Remove all elements from submitted reports list
         while (submittedList.firstChild)
             submittedList.removeChild(submittedList.firstChild);
-        // Create header
+
+        // Create header for submitted reports
         header = document.createElement("li");
         span1 = document.createElement("span");
         span2 = document.createElement("span");
@@ -427,28 +434,47 @@ if (typeof jQuery !== 'undefined') {
         header.appendChild(span1);
         span1.appendChild(span2);
         submittedList.appendChild(header);
+
+
         // Populate list
         Surveys.getAll(function(surveys) {
             surveys.sort(function(a, b){return new Date(b.date) - new Date(a.date)});
-            for (var i = 0; i < surveys.length; i++)
-            {
+            for (var i = 0; i < surveys.length; i++) {
+                // create list item
                 var li = document.createElement("li");
                 li.className = "mdl-list__item mdl-list__item--two-line";
+
+
+                // create span for data, item name, item info, and action
                 var dataSpan = document.createElement("span");
                 dataSpan.className = "mdl-list__item-primary-content";
+
                 var nameSpan = document.createElement("span");
+
                 var infoSpan = document.createElement("span");
                 infoSpan.className = "mdl-list__item-sub-title";
+
                 var actionSpan = document.createElement("span");
                 actionSpan.className = "mdl-list__item-secondary-content";
+
+                // create checkbox for mass interactions
+                var selectionSpan = document.createElement("label");
+                selectionSpan.className = "mdl-checkbox mdl-js-checkbox";
+                var checkbox = document.createElement("input");
+                checkbox.className = "mdl-checkbox__input";
+                checkbox.setAttribute("type", "checkbox");
+                selectionSpan.id = surveys[i].id;
+                selectionSpan.appendChild(checkbox);
+
+                // create link to survey for edit/view
                 var action = document.createElement("a");
                 action.id = surveys[i].id;
                 action.className = "mdl-list__item-secondary-action";
-                li.onclick = (function() {
+
+                li.onclick = (function () {
                     var id = surveys[i].id;
-                    return function() {
-                        setTimeout(function()
-                        {
+                    return function () {
+                        setTimeout(function () {
                             clearAllFields();
                             loadSurvey(id);
                             toPage(0);
@@ -456,18 +482,19 @@ if (typeof jQuery !== 'undefined') {
                         }, 10);
                     }
                 })();
-                $(li).hover(function(){
+
+                $(li).hover(function () {
                     $(this).css("background-color", "#e4e4e4");
-                }, function(){
+                }, function () {
                     $(this).css("background-color", "white");
                 });
                 $(li).css('cursor', 'pointer');
                 var icon = document.createElement("i");
-                icon.className="material-icons";
+                icon.className = "material-icons";
 
                 nameSpan.appendChild(document.createTextNode((surveys[i].__beach ? surveys[i].__beach : 'Unknown Beach')));
                 infoSpan.appendChild(document.createTextNode(getDateFormatted(new Date(surveys[i].date)) + " - Site: " + (surveys[i].__site ? surveys[i].__site : 'Unknown')));
-                if(!surveys[i].submitted)
+                if (!surveys[i].submitted)
                     icon.appendChild(document.createTextNode("edit"));
                 else
                     icon.appendChild(document.createTextNode("visibility"));
@@ -476,13 +503,43 @@ if (typeof jQuery !== 'undefined') {
                 dataSpan.appendChild(infoSpan);
                 action.appendChild(icon);
                 actionSpan.appendChild(action);
+                //actionSpan.appendChild(selectionSpan);
                 li.appendChild(dataSpan);
                 li.appendChild(actionSpan);
-                if(!surveys[i].submitted)
+                if (!surveys[i].submitted) {
                     unsubmittedList.appendChild(li);
-                else
+                    unsubmittedList.appendChild(selectionSpan);
+                }
+                else {
                     submittedList.appendChild(li);
+                    submittedList.appendChild(selectionSpan);
+                }
             }
+        });
+    }
+
+    function uploadSurveys() {
+        var selected = $(".mdl-checkbox__input:checked");
+        var surveys = [];
+        var promises = [];
+
+
+        for (var i = 0; i < selected.length; i++) {
+
+            var deferred = new $.Deferred();
+
+            Surveys.getById(selected[i].parentElement.id, function(result, survey) {
+                surveys.push(survey);
+                deferred.resolve();
+            });
+
+            promises.push(deferred.promise());
+        }
+
+        console.log(promises);
+
+        $.when(promises).done(function(surveys) {
+            window.survey_post.upload(surveys)
         });
     }
 
