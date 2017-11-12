@@ -134,8 +134,8 @@
         <h4 class="mdl-dialog__title">Incomplete Survey</h4>
         <div class="mdl-dialog__content">
             <p>
-                Check the menu (upper-left corner) to see which pages are incomplete.<br>
-                You may still submit the data that you have, but once a survey is submitted, it may not be edited through this application.
+                Check 'Beach Selection' for valid beach name and monitoring site.<br/>
+                Also, review "if other, describe *" fields.
             </p>
         </div>
         <div class="mdl-dialog__actions">

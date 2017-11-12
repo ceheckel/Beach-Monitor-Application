@@ -140,12 +140,16 @@ if (typeof jQuery !== 'undefined') {
      * @param page
      *      The page to be navigated to. This can either be an integer denoting survey page number,
      *      or the string 'home'
+     *
+     * @param toDelete
+     *      Boolean to ignore validation for redirect during delete
      */
-    function toPage(page) {
+    function toPage(page, toDelete) {
 
-
-        if (validatePage(curPage) === false) {
-            return;
+        if(toDelete === false) {
+            if (validatePage(curPage) === false) {
+                return;
+            }
         }
 
         saveSurvey(page);
@@ -923,6 +927,7 @@ if (typeof jQuery !== 'undefined') {
                 if (!window.cancelDelete) {
                     sId = surveyId;
                     surveyId = undefined;
+                    toPage('home',true);
                     Surveys.remove(surveyId, function () {
                         toPage('home');
                     });
