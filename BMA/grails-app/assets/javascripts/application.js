@@ -5,6 +5,8 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better
 // to create separate JavaScript files as needed.
 //
+//= require bootstrap.min.js
+//= require bootstrap-dialog.js
 //= require page_validation.js
 //= require jquery.min.js
 //= require jquery-ui.min.js
