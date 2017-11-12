@@ -100,7 +100,7 @@
         <!-- Navigation Bar -->
         <nav class="mdl-navigation">
             <!-- Home Page (in navbar) -->
-            <a class="mdl-navigation__link" href="javascript:toPage('home');closeDrawer();">Home <span class="mdl-color-text--grey">(saves survey)</span></a>
+            <a class="mdl-navigation__link" href="javascript:toPage('home',false);closeDrawer();">Home <span class="mdl-color-text--grey">(saves survey)</span></a>
             <!-- each page in new survey creation (in navbar) -->
             <div id="surveySectionsDrawer" style="display: none">
                 <g:set var="pageNum" value="${0}"/>
@@ -120,7 +120,7 @@
             </div>
             <!-- Help Button (in navbar) -->
             <div id="helpSectionDrawer">
-                <a class="mdl-navigation__link" href="javascript:toPage('help');closeDrawer();">Help?</a>
+                <a class="mdl-navigation__link" href="javascript:toPage('help',false);closeDrawer();">Help?</a>
             </div>
         </nav>
     </div>

@@ -4,12 +4,13 @@
  *   Jacob Striebel
  */
 
+// TODO: NOTE FROM ZAC: Not all numeric fields are integers. Need to add checks for certain floating-point fields (these fields can be identified in the schema domain docs)
 
 function myAlert (msg) {
 
     // The method of displaying this information to the user can be altered to be made prettier if we want.
 
-    window.alert("The following form validation error occurred:\n" + msg);
+    BootstrapDialog.alert("The following form validation error occurred:\n" + msg);
 
 }
 
@@ -95,6 +96,7 @@ function validatePage (curPage) {
     var numLivingGeese;
     var numLivingDogs;
     var numOtherLiving;
+    var otherLivingDescription;
 
     var numDeadLoons;
     var numDeadHerringGulls;
@@ -227,6 +229,12 @@ function validatePage (curPage) {
         numOtherLiving = $("#NO_ANIMALS_OTHER").val();
         if (isEmptyOrIsNonnegativeInteger(numOtherLiving) === false) {
             myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+            return false;
+        }
+
+        otherLivingDescription = $("#NO_ANIMALS_OTHER_DESC").val().trim();
+        if (numOtherLiving !== "" && otherLivingDescription === "") {
+            myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, you must also provide a description of that wildlife.");
             return false;
         }
 

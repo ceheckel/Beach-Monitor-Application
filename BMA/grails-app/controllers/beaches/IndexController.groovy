@@ -56,15 +56,15 @@ class IndexController {
         def bathers = [
                 pageName: "Bathers",
                 questions: [
-                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people windsurfing', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people clamming', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', type:"number", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people wind surfing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people clamming', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -72,10 +72,10 @@ class IndexController {
         def wildlifeBathers = [
                 pageName: 'Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living gulls *', type:"number", step:1, extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living geese', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living dogs', type:"number", step:1),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', type:"number", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living Gulls *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1, extraClasses:'recommended'),
+                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -83,16 +83,16 @@ class IndexController {
         def deadWildlife = [
                 pageName :'Deceased Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NUM_LOONS', prompt: 'Number of dead Loons', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_HERR_GULLS', prompt: 'Number of dead Herring Gulls', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_RING_GULLS', prompt: 'Number of dead Ring Gulls', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_CORMORANTS', prompt: 'Number of dead Cormorants', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', prompt: 'Number of dead Long-tail Ducks', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horned Grebe', type:"number", step:1 ),
-                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead Red-necked Grebe', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead fish', type:"number", step:1),
-                        new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of other dead birds', type:"number", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'NUM_LOONS', prompt: 'Number of dead Loons', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_HERR_GULLS', prompt: 'Number of dead Herring Gulls', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_RING_GULLS', prompt: 'Number of dead Ring Gulls', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_CORMORANTS', prompt: 'Number of dead Cormorants', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', prompt: 'Number of dead Long-tail Ducks', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horned Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1 ),
+                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1),
+                        new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
@@ -173,13 +173,13 @@ class IndexController {
                 pageName: "Weather",
                 questions: [
                         // Air
-                        new UnitQuestion(columnId: 'AIR_TEMP', columnId2: 'AIR_UNITS', prompt: 'Air temperature', type:"number", step:0.0001, title: "Units", options: ['F', 'C',]),
+                        new UnitQuestion(columnId: 'AIR_TEMP', columnId2: 'AIR_UNITS', prompt: 'Air temperature', errorm:"Must be an integer", type:"numeric", pattern:"(-?[1-9][0-9]*)|0", step:0.0001, title: "Units", options: ['F', 'C',]),
 
                         // Wind
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', type:"number", step:0.0001),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:0.0001),
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
-                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', type:"number", step:0.01),
+                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(360)|(3[0-5][0-9])|([1-2][0-9][0-9])|([1-9][0-9])|([1-9])|0", step:0.01),
                         new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
                                 '', 'Calm', 'Variable',
                                 'N','NE','E','SE','S','SW','W','NW'
@@ -203,7 +203,7 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', type:"number", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
+                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
                         new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
                                 '',
                                 'Misting',
@@ -219,7 +219,7 @@ class IndexController {
                 pageName: 'Waves',
                 questions: [
                         // Waves
-                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT) *', type:"number", step:0.0001, extraClasses:'recommended'),
+                        new TextQuestion(columnId: 'WAVE_HEIGHT', prompt: 'Wave height (FT) *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:0.0001, extraClasses:'recommended'),
                         //@TODO value of wave height units
                         new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT', keep: true),
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
@@ -237,7 +237,7 @@ class IndexController {
                         ], title:"Wave conditions"),
 
                         // Current
-                        new UnitQuestion(columnId: 'CURRENT_SPEED', columnId2: 'LONGSHORE_CURRENT_UNITS', prompt: 'Longshore current speed', type:"number", step:0.01, title: "Units", options: ['ft/sec', 'cm/sec',]),
+                        new UnitQuestion(columnId: 'CURRENT_SPEED', columnId2: 'LONGSHORE_CURRENT_UNITS', prompt: 'Longshore current speed', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:0.01, title: "Units", options: ['ft/sec', 'cm/sec',]),
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
@@ -305,7 +305,7 @@ class IndexController {
         def water = [
                 pageName: 'Water conditions',
                 questions: [
-                        new TextQuestion(columnId: 'PH', prompt: 'pH level', type:"number", step:0.01),
+                        new TextQuestion(columnId: 'PH', prompt: 'pH level', errorm:"Must be an integer between 0 and 14 (inclusive)", type:"numeric", pattern:"(1[0-4])|([0-9])", step:0.01),
                         new CheckQuestion(columnId: 'COLOR_CHANGE', prompts: [
                                 new Tuple2('Color has changed', false)
                         ], onclick: 'OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION")'),
@@ -320,7 +320,7 @@ class IndexController {
                         ],title: "Odor description", onchange: "OdorChange()"),
                         new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
 
-                        new UnitQuestion(columnId: 'AVG_WATER_TEMP', columnId2: 'AVG_WATER_TEMP_UNITS', prompt: 'Water temperature *', type:"number", step:0.01, title: "Units *", options: ['F', 'C',], extraClasses: 'recommended'),
+                        new UnitQuestion(columnId: 'AVG_WATER_TEMP', columnId2: 'AVG_WATER_TEMP_UNITS', prompt: 'Water temperature *', errorm:"Must be an integer", type:"numeric", pattern:"(-?[1-9][0-9]*)|0", step:0.01, title: "Units *", options: ['F', 'C',], extraClasses: 'recommended'),
 
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
                                 '',
@@ -329,8 +329,8 @@ class IndexController {
                                 'Turbid',
                                 'Opaque'
                         ], title: "Turbidity *", onchange: "TurbidityOrNTUChange()", extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', type:"number", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', type:"number", step:0.01)
+                        new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
+                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"([1-9][0-9]*)|0", step:0.01)
                 ]
         ]
 
@@ -341,7 +341,7 @@ class IndexController {
                         new TextQuestion(columnId: 'PART_2_COMMENTS', prompt: 'Color and odor of water'),
                         new TextQuestion(columnId: 'PART_3_COMMENTS', prompt: 'Human bathers'),
                         new TextQuestion(columnId: 'PART_4_COMMENTS', prompt: 'Debris, algae, and wildlife'),
-                        //@TODO must assign theses later
+                        //@TODO must assign these later
                         new HiddenQuestion(columnId: 'DATE_ENTERED', value: 'FETCH DATE'),
                         new HiddenQuestion(columnId: 'DATE_UPDATED', value: 'FETCH DATE AND TIME'),
                         new HiddenQuestion(columnId: 'MISSING_REQUIRED_FLAG', value: 'FETCH VALUE')
@@ -369,6 +369,7 @@ class TextQuestion extends Question {
     String list = ""
     String onchange = ""
     String oninput = ""
+    String errorm = "Invalid input" // Message written under field when input is invalid
 }
 
 class CheckQuestion extends Question {
@@ -408,6 +409,7 @@ class UnitQuestion extends Question {
     String step
     String list = ""
     String oninput = ""
+    String errorm = "Invalid input" // Message written under field when input is invalid
 
     // From SelectQuestion
     List<String> options
