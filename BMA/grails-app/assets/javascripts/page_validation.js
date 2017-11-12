@@ -4,6 +4,7 @@
  *   Jacob Striebel
  */
 
+// TODO: NOTE FROM ZAC: Not all numeric fields are integers. Need to add checks for certain floating-point fields (these fields can be identified in the schema domain docs)
 
 function myAlert (msg) {
 
