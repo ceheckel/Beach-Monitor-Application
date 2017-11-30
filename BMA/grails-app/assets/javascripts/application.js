@@ -971,10 +971,11 @@ if (typeof jQuery !== 'undefined') {
      * Deletes the current survey from localforage
      */
     function deleteSurvey() {
+        console.log("in deleteSurvey()");
         var btn = $('#btn-delete');
         if (deleteTimer == 0) {
             btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
-            deleteTimer = 5;
+            deleteTimer = 10;
             btn.html('Really? (' + deleteTimer + ')');
             window.cancelDelete = false;
             setTimeout(deleteCountdown, 1000);
@@ -1041,7 +1042,7 @@ if (typeof jQuery !== 'undefined') {
                     }
 
 
-                    toPage('home',true);
+                    toPage('home', true);
 
                     /*
                     sId = surveyId;
@@ -1059,45 +1060,17 @@ if (typeof jQuery !== 'undefined') {
             btn.html('Delete');
             btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
         }
-
-
-
-
-
-        /*
-        if ()
-        // for each survey marked for deletion ...
-        for (var i = 0; i < selected.length; i++) {
-            var deferred = new $.Deferred();
-
-            // Retrieve survey from localforage and add it to surveys to be uploaded
-            Surveys.remove(selected[i].parentElement.id, function(result, survey) {
-
-            })
-
-
-            Surveys.getById(selected[i].parentElement.id, function(result, survey) {
-                surveys.push(survey);
-                deferred.resolve(); // Callback is complete, so resolve the promise
-            });
-
-            promises.push(deferred.promise()); // Add this to the list of pending callbacks
-        }
-
-        // Wait for all pending callbacks to complete before attempting to upload
-        $.when(promises).done(function(surveys) {
-            window.survey_post.upload(surveys)
-        });
-        */
     }
 
     /**
      * Displays a delete countdown to prevent accidental deletions of surveys
      */
     function deleteCountdown() {
+        console.log("here");
         var btn = $('#btn-delete');
         deleteTimer--;
         if (deleteTimer > 0) {
+            console.log("in if statement");
             btn.html('Really? (' + deleteTimer + ')');
             setTimeout(deleteCountdown, 1000);
         } else {
