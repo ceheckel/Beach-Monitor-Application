@@ -47,8 +47,13 @@
     <!-- Bottom Navbar for Home page -->
     <div class="bottom-nav">
         <!-- Upload Surveys Button -->
-        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="uploadSurveys();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="uploadSurveys()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
             Upload
+        </button>
+
+        <!-- Download Surveys Button -->
+        <button id="dl-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="downloadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            Download
         </button>
 
         <!-- Delete Surveys Button -->

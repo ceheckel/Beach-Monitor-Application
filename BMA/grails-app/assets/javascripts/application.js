@@ -114,6 +114,67 @@ if (typeof jQuery !== 'undefined') {
     }
 
     /**
+     * Generates and downloads a CSV of the selected surveys
+     */
+    function downloadSelected() {
+        var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for deletion
+        var surveys = []; // collection of all surveys to be deleted
+        var promises = []; // each callback is going to promise to return, used to prevent asynch deleting
+
+        // check if any surveys selected
+        if(selected.length == 0) {
+            alert("No Surveys Selected");
+            return;
+        }
+
+        var btn = $('#dl-surveys-btn');
+        // Gets current survey from localforage
+        for (var i = 0; i < selected.length; i++) {
+            var deferred = new $.Deferred();
+
+            // Retrieve survey from localforage and add it to surveys to be uploaded
+            Surveys.getById(selected[i].parentElement.id, function (myData) {
+                // var myData = getAllFields();
+                console.log(myData);
+
+                var stuff = myData.toString();
+                console.log(stuff.toString());
+
+                //delimeters for csv format
+                var colDelim = '","';
+                var rowDelim = '"\r\n"';
+
+                // generates rows and columns of csv from survey data
+                var csv = '"';
+                for (var key in myData) {
+                    if (myData.hasOwnProperty(key)) {
+                        csv += key;
+                        csv += colDelim;
+                    }
+                }
+                csv += rowDelim;
+
+                for (var key in myData) {
+                    if (myData.hasOwnProperty(key)) {
+                        csv += myData[key];
+                        csv += colDelim;
+                    }
+                }
+                csv += '"';
+
+                // generates file data for csv
+                var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
+                nameOfFile = myData["__beach"] + "," + myData["__site"] + ',' + myData['date'] + '.csv';
+                var link = document.createElement("a");
+                link.setAttribute("href", csvData);
+                link.setAttribute("download", nameOfFile);
+                document.body.appendChild(link);
+                link.click();
+            });
+        }
+    }
+
+    /**
      * Clears all fields and starts a new survey, navigating to the beach selection page.
      * Sets onbeforeunload function to warn user before refreshing page.
      */
@@ -531,6 +592,12 @@ if (typeof jQuery !== 'undefined') {
         var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for upload
         var surveys = []; // collection of all surveys to be uploaded
         var promises = []; // each callback is going to promise to return, used to prevent asynch uploading
+
+        // check if any surveys selected
+        if(selected.length == 0) {
+            alert("No Surveys Selected");
+            return;
+        }
 
         // for each survey marked for upload ...
         for (var i = 0; i < selected.length; i++) {
@@ -1012,6 +1079,12 @@ if (typeof jQuery !== 'undefined') {
         var surveys = []; // collection of all surveys to be deleted
         var promises = []; // each callback is going to promise to return, used to prevent asynch deleting
 
+        // check if any surveys selected
+        if(selected.length == 0) {
+            alert("No Surveys Selected");
+            return;
+        }
+
         var btn = $('#del-surveys-btn');
         if (deleteTimer == 0) {
             btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
@@ -1019,11 +1092,10 @@ if (typeof jQuery !== 'undefined') {
             btn.html('Really? (' + deleteTimer + ')');
             window.cancelDelete = false;
             setTimeout(deleteCountdown, 1000);
-        }
-        else {
+        } else {
             var snackbarContainer = document.querySelector('#toast-container');
             var data = {
-                message: 'Deleting survey...',
+            message: 'Deleting survey...',
                 actionHandler: function() { window.cancelDelete = true; },
                 actionText: 'Undo'
             };
@@ -1035,35 +1107,17 @@ if (typeof jQuery !== 'undefined') {
 
                         // Retrieve survey from localforage and add it to surveys to be uploaded
                         Surveys.remove(selected[i].parentElement.id, function (survey) {
-                            console.log("survey removed");
                             toPage('home', false);
-                        })
+                        });
                     }
-
-
-                    toPage('home',true);
-
-                    /*
-                    sId = surveyId;
-                    surveyId = undefined;
-                    Surveys.remove(surveyId, function () {
-                        toPage('home',true);
-                    });
                     btn.html('Delete');
                     btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-                    */
                     deleteTimer = 0;
-
                 }
             }, 3000);
             btn.html('Delete');
             btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
         }
-
-
-
-
-
         /*
         if ()
         // for each survey marked for deletion ...
@@ -1096,14 +1150,18 @@ if (typeof jQuery !== 'undefined') {
      */
     function deleteCountdown() {
         var btn = $('#btn-delete');
+        var btn2 = $('#del-surveys-btn');
         deleteTimer--;
         if (deleteTimer > 0) {
             btn.html('Really? (' + deleteTimer + ')');
+            btn2.html('Really? (' + deleteTimer + ')');
             setTimeout(deleteCountdown, 1000);
         } else {
             deleteTimer = 0;
             btn.html('Delete');
+            btn2.html('Delete');
             btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+            btn2.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
         }
     }
 
