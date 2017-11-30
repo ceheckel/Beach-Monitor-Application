@@ -1038,10 +1038,11 @@ if (typeof jQuery !== 'undefined') {
      * Deletes the current survey from localforage
      */
     function deleteSurvey() {
+        console.log("in deleteSurvey()");
         var btn = $('#btn-delete');
         if (deleteTimer == 0) {
             btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
-            deleteTimer = 5;
+            deleteTimer = 10;
             btn.html('Really? (' + deleteTimer + ')');
             window.cancelDelete = false;
             setTimeout(deleteCountdown, 1000);
@@ -1149,10 +1150,12 @@ if (typeof jQuery !== 'undefined') {
      * Displays a delete countdown to prevent accidental deletions of surveys
      */
     function deleteCountdown() {
+        console.log("here");
         var btn = $('#btn-delete');
         var btn2 = $('#del-surveys-btn');
         deleteTimer--;
         if (deleteTimer > 0) {
+            console.log("in if statement");
             btn.html('Really? (' + deleteTimer + ')');
             btn2.html('Really? (' + deleteTimer + ')');
             setTimeout(deleteCountdown, 1000);
