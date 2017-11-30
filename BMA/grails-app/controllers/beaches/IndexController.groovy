@@ -41,6 +41,7 @@ class IndexController {
                         new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
                         new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'MONITOR_SITE_SEQ', value: '-1'),
+                        new ButtonElement(columnId: '__unused', value: 'Clear Beach Fields', onclick: 'clearBeachFields()', accent: true),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
@@ -223,7 +224,7 @@ class IndexController {
                         //@TODO value of wave height units
                         new HiddenQuestion(columnId: 'WAVE_HEIGHT_UNITS', value: 'FT', keep: true),
                         new CheckQuestion(columnId: 'EST_ACT_FLAG', prompts: [
-                                new Tuple2('Estimated?', false)
+                                new Tuple2('Estimated', false)
                         ]),
                         new SelectQuestion(columnId: 'WAVE_DIRECTION', options: [
                                 '',

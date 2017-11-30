@@ -967,6 +967,13 @@ if (typeof jQuery !== 'undefined') {
         // console.log(d);
     }
 
+    function clearBeachFields() {
+        $('#__county').val("");
+        $('#__lake').val("");
+        $('#__beach').val("");
+        $('#__site').val("");
+    }
+
     /**
      * Changes date to localized date
      * @param d
