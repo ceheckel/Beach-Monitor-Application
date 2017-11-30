@@ -59,14 +59,52 @@ function isEmptyOrIsIntegerDegree (candidate) {
 
 }
 
+function isNumeric(val) {
+
+    var len;
+    var decimalPoint;
+    var i;
+    var j;
+    var ch;
+
+    val = "" + val;
+    len = val.length;
+    decimalPoint = false;
+
+    for (i = 0; i < len; i++) {
+
+        ch = val.charAt(i);
+
+        if (ch === ".") {
+            if (decimalPoint === true) {
+                return false;
+            }
+            decimalPoint = true;
+        }
+        else {
+            for (j = 0; j < 10; j++) {
+                if (ch === "0123456789".charAt(j)) {
+                    break;
+                }
+            }
+            if (j === 10) {
+                return false;
+            }
+        }
+    }
+
+    return  true;
+
+}
+
 function isEmptyOrIspH (candidate) {
 
     if (candidate === "") {
         return true;
     }
 
-    var num = Math.floor(Number(candidate));
-    if (num >= 0 && num <= 14 && String(num) === candidate) {
+    var num = parseFloat("" + candidate);
+    if (isNumeric(candidate) === true && num >= 0 && num <= 14) {
         return true;
     }
 
@@ -436,7 +474,7 @@ function validatePage (curPage) {
 
         pH = $("#PH").val();
         if (isEmptyOrIspH(pH) === false) {
-            myAlert("pH level is not a required field. However, if you do choose to provide it, only integers in the inclusive range of 0 to 14 are valid input.");
+            myAlert("pH level is not a required field. However, if you do choose to provide it, only values in the inclusive range of 0 to 14 are valid input.");
             return false;
         }
 

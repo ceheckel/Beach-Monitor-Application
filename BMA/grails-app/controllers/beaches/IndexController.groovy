@@ -305,7 +305,7 @@ class IndexController {
         def water = [
                 pageName: 'Water conditions',
                 questions: [
-                        new TextQuestion(columnId: 'PH', prompt: 'pH level', errorm:"Must be an integer between 0 and 14 (inclusive)", type:"numeric", pattern:"(1[0-4])|([0-9])", step:0.01),
+                        new TextQuestion(columnId: 'PH', prompt: 'pH level', errorm:"Must be a value between 0 and 14 (inclusive)", type:"numeric", pattern:"(1[0-3](\\.[0-9]*)?)|([0-9](\\.[0-9]*)?)|(14(\\.[0]*)?)", step:0.01),
                         new CheckQuestion(columnId: 'COLOR_CHANGE', prompts: [
                                 new Tuple2('Color has changed', false)
                         ], onclick: 'OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION")'),
