@@ -618,9 +618,8 @@ if (typeof jQuery !== 'undefined') {
             });
         }
 
-        Promise.all(promises).then(function() {
-            window.survey_post.upload(surveys);
-        });
+        // Once all promises have resolved, upload the surveys to the server
+        Promise.all(promises).then(window.survey_post.upload(surveys));
     }
 
     /**
