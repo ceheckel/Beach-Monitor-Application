@@ -599,6 +599,13 @@ if (typeof jQuery !== 'undefined') {
             return;
         }
 
+        for (var i = 0; i < selected.length; i++) {
+            if (selected[i].parentElement.parentElement.id == "unsubmitted-reports") {
+                alert("Unsubmitted reports cannot be uploaded to the server.");
+                return;
+            }
+        }
+
         // for each survey marked for upload ...
         for (var i = 0; i < selected.length; i++) {
             var deferred = new $.Deferred();
@@ -612,7 +619,6 @@ if (typeof jQuery !== 'undefined') {
         }
 
         Promise.all(promises).then(function() {
-            console.log(surveys);
             window.survey_post.upload(surveys);
         });
     }
