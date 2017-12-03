@@ -1087,13 +1087,17 @@ if (typeof jQuery !== 'undefined') {
         }
 
         var btn = $('#del-surveys-btn');
-        if (deleteTimer == 0) {
+        if (deleteTimer == 0) { // on first button press
+            // change button style
             btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
             deleteTimer = 5;
             btn.html('Really? (' + deleteTimer + ')');
             window.cancelDelete = false;
+
+            // start countdown
             setTimeout(deleteCountdown, 1000);
-        } else {
+        } else { // on second button press
+            // ready toast
             var snackbarContainer = document.querySelector('#toast-container');
             var data = {
             message: 'Deleting survey...',
@@ -1101,61 +1105,53 @@ if (typeof jQuery !== 'undefined') {
                 actionText: 'Undo'
             };
             snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+            // start deletion
             setTimeout(function() {
                 if (!window.cancelDelete) {
+                    // for each survey marked for deletion ...
                     for (var i = 0; i < selected.length; i++) {
                         var deferred = new $.Deferred();
 
-                        // Retrieve survey from localforage and add it to surveys to be uploaded
-                        Surveys.remove(selected[i].parentElement.id, function (survey) {
-                            toPage('home', false);
+                        promises.push(deferred); // Add this to the list of pending callbacks
+
+                        // Retrieve survey from localforage and add it to surveys to be deleted
+                        Surveys.getById(selected[i].parentElement.id, deferred, function(survey, deferred) {
+                            surveys.push(survey);
+                            console.log(survey);
                         });
                     }
-                    btn.html('Delete');
-                    btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-                    deleteTimer = 0;
+
+                    // wait for promises to resolve
+                    Promise.all(promises).then(function() {
+                        for(var i = 0; i < surveys.length; i += 1) {
+
+                            console.log(surveys);
+                            console.log(surveys[i].id);
+
+                            Surveys.remove(surveys[i].id, function(survey) {
+                                console.log("Survey removed");
+                            });
+                        }
+                    });
                 }
             }, 3000);
+
+            // change button back to normal
             btn.html('Delete');
             btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+            deleteTimer = 0;
         }
-        /*
-        if ()
-        // for each survey marked for deletion ...
-        for (var i = 0; i < selected.length; i++) {
-            var deferred = new $.Deferred();
-
-            // Retrieve survey from localforage and add it to surveys to be uploaded
-            Surveys.remove(selected[i].parentElement.id, function(result, survey) {
-
-            })
-
-
-            Surveys.getById(selected[i].parentElement.id, function(result, survey) {
-                surveys.push(survey);
-                deferred.resolve(); // Callback is complete, so resolve the promise
-            });
-
-            promises.push(deferred.promise()); // Add this to the list of pending callbacks
-        }
-
-        // Wait for all pending callbacks to complete before attempting to upload
-        $.when(promises).done(function(surveys) {
-            window.survey_post.upload(surveys)
-        });
-        */
     }
 
     /**
      * Displays a delete countdown to prevent accidental deletions of surveys
      */
     function deleteCountdown() {
-        console.log("here");
         var btn = $('#btn-delete');
         var btn2 = $('#del-surveys-btn');
         deleteTimer--;
         if (deleteTimer > 0) {
-            console.log("in if statement");
             btn.html('Really? (' + deleteTimer + ')');
             btn2.html('Really? (' + deleteTimer + ')');
             setTimeout(deleteCountdown, 1000);
@@ -1173,7 +1169,6 @@ if (typeof jQuery !== 'undefined') {
     function collectSampleNow() {
         var d = new Date();
         $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d));
-        // console.log(d);
     }
 
     /**
