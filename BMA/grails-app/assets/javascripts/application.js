@@ -599,23 +599,27 @@ if (typeof jQuery !== 'undefined') {
             return;
         }
 
+        for (var i = 0; i < selected.length; i++) {
+            if (selected[i].parentElement.parentElement.id == "unsubmitted-reports") {
+                alert("Unsubmitted reports cannot be uploaded to the server.");
+                return;
+            }
+        }
+
         // for each survey marked for upload ...
         for (var i = 0; i < selected.length; i++) {
             var deferred = new $.Deferred();
 
-            // Retrieve survey from localforage and add it to surveys to be uploaded
-            Surveys.getById(selected[i].parentElement.id, function(result, survey) {
-                surveys.push(survey);
-                deferred.resolve(); // Callback is complete, so resolve the promise
-            });
+            promises.push(deferred); // Add this to the list of pending callbacks
 
-            promises.push(deferred.promise()); // Add this to the list of pending callbacks
+            // Retrieve survey from localforage and add it to surveys to be uploaded
+            Surveys.getById(selected[i].parentElement.id, deferred, function(result, survey) {
+                surveys.push(survey);
+            });
         }
 
-        // Wait for all pending callbacks to complete before attempting to upload
-        $.when(promises).done(function(surveys) {
-            window.survey_post.upload(surveys)
-        });
+        // once all promises have resolved, upload the surveys to the server
+        Promise.all(promises).then(window.survey_post.upload(surveys));
     }
 
     /**
@@ -1059,6 +1063,9 @@ if (typeof jQuery !== 'undefined') {
                     sId = surveyId;
                     surveyId = undefined;
                     toPage('home',true);
+
+                    console.log(surveyId);
+
                     Surveys.remove(surveyId, function () {
                         toPage('home',true);
                     });
@@ -1127,9 +1134,10 @@ if (typeof jQuery !== 'undefined') {
                         for(var i = 0; i < surveys.length; i += 1) {
 
                             console.log(surveys);
+                            console.log(surveys[i]);
                             console.log(surveys[i].id);
 
-                            Surveys.remove(surveys[i].id, function(survey) {
+                            Surveys.remove(surveys[i], function() {
                                 console.log("Survey removed");
                             });
                         }
