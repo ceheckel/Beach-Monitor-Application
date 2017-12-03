@@ -79,13 +79,20 @@ Surveys.add = function(survey, callback) {
 /**
  * Gets a survey from localforage from an id
  * @param id
+ * @param deferred
+ *      The promise that will be resolved/rejected
  * @param callback
  *      The callback to be executed on the survey after retreiving it from localforage
  */
-Surveys.getById = function(id, callback) {
+Surveys.getById = function(id, deferred, callback) {
     localforage.getItem(id, function(error, item) {
-        if (!error)
+        if (!error) {
             callback(item);
+            deferred.resolve();
+        }
+        else {
+            deferred.reject();
+        }
     });
 };
 
