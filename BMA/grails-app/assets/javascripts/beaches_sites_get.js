@@ -100,6 +100,30 @@ beaches_sites_get.run = function (callback, use_test_data) {
     }
     else {
         $.ajax({
+            type: "GET",
+            crossDomain: true,
+            url: beaches_sites_get.SITES_GET_URL,
+            success: function (data) {
+
+                console.log(data);
+
+                data = JSON.parse(data);
+
+                beaches = data.beaches;
+                sites = data.sites;
+
+                console.log(beaches);
+                console.log(sites);
+
+                beaches_sites_get.parse(beaches, sites, callback);
+            },
+            error: function () {
+                alert('Get beaches and sites failed (' + beaches_sites_get.SITES_GET_URL + ').');
+            }
+        });
+
+/*
+        $.ajax({
             type: 'GET',
             crossDomain: true,
             contentType: 'application/json; charset=utf-8',
@@ -124,13 +148,14 @@ beaches_sites_get.run = function (callback, use_test_data) {
                         beaches_sites_get.parse(beaches, sites, callback);
                     },
                     error: function () {
-                        alert('Get sites failed');
+                        alert('Get sites failed (' + beaches_sites_get.SITES_GET_URL + ').');
                     }
                 });
             },
             error: function () {
-                alert('Get beaches failed.');
+                alert('Get beaches failed (' + beaches_sites_get.BEACHES_GET_URL + ').');
             }
         });
+*/
     }
 };
