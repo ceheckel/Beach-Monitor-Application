@@ -102,9 +102,13 @@ survey_post.test_survey = {
  * @param callback
  */
 survey_post.upload = function(surveys) {
+    var promises = [];
+    var successful = [];
+    var unsuccessful = [];
+
     if (survey_post.TEST) {
 
-        $.ajax({
+        promises.push($.ajax({
             type: 'POST',
             crossDomain: true,
             contentType: 'application/json; charset=utf-8',
@@ -112,76 +116,64 @@ survey_post.upload = function(surveys) {
             dataType: 'json',
             data: JSON.stringify(survey_post.test_survey),
             success: function(response) {
-                alert("Success");
-                console.log(response);
+                successful.push(survey_post.test_survey.id);
             },
             error: function(response) {
-                alert('Failed!');
-                console.log(response);
+                unsuccessful.push(survey_post.test_survey.id);
             }
-        });
+        }));
     }
     else {
 
-        console.log(surveys);
-
         surveys.forEach(function(survey) {
-            $.ajax({
+            promises.push($.ajax({
                 type: 'POST',
                 crossDomain: true,
                 contentType: 'application/json; charset=utf-8',
                 url: survey_post.POST_URL,
                 dataType: 'json',
                 data: JSON.stringify(survey),
+                success: function(response) {
+                    successful.push(survey);
+                },
                 error: function (response) {
-                    postSuccess = false;
-                    alert('There was a problem uploading Survey ' + survey.id + ' to the server.\n\nSurveys were not saved to the server.');
-                    console.log(getAllFields());
-                    console.log(response);
+                    unsuccessful.push(survey);
+                    //console.log(getAllFields());
+                    //console.log(response);
                 }
-            }).then(function() {
-                if (postSuccess) {
-                    alert("Surveys have been uploaded.");
-                    console.log(response);
-                }
-            })
+            }));
+        });
+    }
+
+    Promise.all(promises).then(function() {
+        var alertString = "The following surveys have successfully been uploaded to the server:\n";
+
+        successful.forEach(function(survey) {
+            alertString += "  " + survey.__beach + " survey created by User " + survey.user_id + " on " + survey.date + "\n";
         });
 
+        if (unsuccessful.length !== 0) {
+            alertString += "\n";
+            alertString += "NOTE: The following surveys were NOT uploaded to the server:\n";
+
+            unsuccessful.forEach(function(survey) {
+                alertString += "  " + survey.__beach + " survey created by User " + survey.user_id + " on " + survey.date + "\n";
+            });
+
+            alertString += "\n";
+            alertString += "Please make sure you having a working network connection and are not attempting to upload surveys that have already been uploaded.";
+        }
+
+        alertString += "\n";
+        alertString += "NOTE: The surveys will remain on your device until you delete them, but you cannot reupload surveys that have already been successfully been uploaded.";
+
+        alert(alertString);
+
+        // Update the beaches/sites lists while we can connect to the server
         var callback = function (gotten_beaches) {
             beaches = gotten_beaches;
         };
+
         window.beaches_sites_get.run(callback, false);
-
-
-        /*
-        Surveys.getAll(function(surveys) {
-            var postSuccess = true;
-
-            surveys.forEach(function(survey) {
-                if (survey.submitted) {
-
-                    $.ajax({
-                        type: 'POST',
-                        crossDomain: true,
-                        contentType: 'application/json; charset=utf-8',
-                        url: survey_post.POST_URL,
-                        dataType: 'json',
-                        data: JSON.stringify(survey),
-                        error: function (response) {
-                            postSuccess = false;
-                            alert('There was a problem uploading Survey ' + survey.id + ' to the server.\n\nSurveys were not saved to the server.');
-                            console.log(getAllFields());
-                        }
-                    }).then(function() {
-                        if (postSuccess) {
-                            alert("Surveys have been uploaded.");
-                            console.log(response);
-                        }
-                    })
-                }
-            });
-            */
-
-
-    }
+    });
 };

@@ -594,7 +594,7 @@ if (typeof jQuery !== 'undefined') {
         var promises = []; // each callback is going to promise to return, used to prevent asynch uploading
 
         // check if any surveys selected
-        if(selected.length == 0) {
+        if (selected.length == 0) {
             alert("No Surveys Selected");
             return;
         }
@@ -613,12 +613,12 @@ if (typeof jQuery !== 'undefined') {
             promises.push(deferred); // Add this to the list of pending callbacks
 
             // Retrieve survey from localforage and add it to surveys to be uploaded
-            Surveys.getById(selected[i].parentElement.id, deferred, function(result, survey) {
+            Surveys.getById(selected[i].parentElement.id, deferred, function(survey, deferred) {
                 surveys.push(survey);
             });
         }
 
-        // once all promises have resolved, upload the surveys to the server
+        // Once all promises have resolved, upload the surveys to the server
         Promise.all(promises).then(window.survey_post.upload(surveys));
     }
 
