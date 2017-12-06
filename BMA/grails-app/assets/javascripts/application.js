@@ -72,7 +72,7 @@ if (typeof jQuery !== 'undefined') {
      */
     function downloadCSV(){
         // Gets current survey from localforage
-        Surveys.getById(surveyId, function(myData) {
+        Surveys.getById(surveyId, null, function(myData) {
 
             // var myData = getAllFields();
             console.log(myData);
@@ -133,7 +133,7 @@ if (typeof jQuery !== 'undefined') {
             var deferred = new $.Deferred();
 
             // Retrieve survey from localforage and add it to surveys to be uploaded
-            Surveys.getById(selected[i].parentElement.id, function (myData) {
+            Surveys.getById(selected[i].parentElement.id, null, function (myData) {
                 // var myData = getAllFields();
                 console.log(myData);
 
@@ -413,7 +413,7 @@ if (typeof jQuery !== 'undefined') {
      */
     function loadSurvey(id) {
         surveyId = id;
-        Surveys.getById(id, function(survey) {
+        Surveys.getById(id, null, function(survey) {
             submitted = survey['submitted'];
             $('[name]').each(function () {
                 $(this).prop('disabled', submitted);
@@ -1063,9 +1063,6 @@ if (typeof jQuery !== 'undefined') {
                     sId = surveyId;
                     surveyId = undefined;
                     toPage('home',true);
-
-                    console.log(surveyId);
-
                     Surveys.remove(surveyId, function () {
                         toPage('home',true);
                     });
@@ -1123,7 +1120,7 @@ if (typeof jQuery !== 'undefined') {
                         promises.push(deferred); // Add this to the list of pending callbacks
 
                         // Retrieve survey from localforage and add it to surveys to be deleted
-                        Surveys.getById(selected[i].parentElement.id, deferred, function(survey, deferred) {
+                        Surveys.getById(selected[i].parentElement.id, deferred, function (survey, deferred) {
                             surveys.push(survey);
                             console.log(survey);
                         });
@@ -1132,13 +1129,11 @@ if (typeof jQuery !== 'undefined') {
                     // wait for promises to resolve
                     Promise.all(promises).then(function() {
                         for(var i = 0; i < surveys.length; i += 1) {
-
-                            console.log(surveys);
-                            console.log(surveys[i]);
-                            console.log(surveys[i].id);
-
-                            Surveys.remove(surveys[i], function() {
+                            Surveys.remove(surveys[i].id, function() {
                                 console.log("Survey removed");
+
+                                // reload home page.  This line does not work anywhere else
+                                toPage('home', false);
                             });
                         }
                     });

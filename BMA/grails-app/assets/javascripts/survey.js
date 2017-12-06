@@ -88,10 +88,15 @@ Surveys.getById = function(id, deferred, callback) {
     localforage.getItem(id, function(error, item) {
         if (!error) {
             callback(item);
-            deferred.resolve();
+
+            if(deferred != null) {
+                deferred.resolve();
+            }
         }
         else {
-            deferred.reject();
+            if(deferred != null) {
+                deferred.reject();
+            }
         }
     });
 };
