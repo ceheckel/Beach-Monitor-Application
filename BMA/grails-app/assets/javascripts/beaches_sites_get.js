@@ -105,15 +105,15 @@ beaches_sites_get.run = function (callback, use_test_data) {
             url: beaches_sites_get.SITES_GET_URL,
             success: function (data) {
 
-                console.log(data);
+                //console.log(data);
 
                 data = JSON.parse(data);
 
                 beaches = data.beaches;
                 sites = data.sites;
 
-                console.log(beaches);
-                console.log(sites);
+                //console.log(beaches);
+                //console.log(sites);
 
                 beaches_sites_get.parse(beaches, sites, callback);
             },

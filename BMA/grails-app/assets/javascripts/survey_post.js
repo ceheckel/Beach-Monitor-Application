@@ -7,7 +7,7 @@ window.survey_post = {};
 survey_post.TEST = false;
 survey_post.POST_URL = "";
 survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/survey";
-survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/survey";
+survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/survey"; // TOMCAT URL IS CURRENTLY FOR TESTING SERVER
 
 survey_post.test_survey = {
     __county: "Test County",
@@ -146,6 +146,7 @@ survey_post.upload = function(surveys) {
     }
 
     Promise.all(promises).then(function() {
+
         var alertString = "The following surveys have successfully been uploaded to the server:\n";
 
         successful.forEach(function(survey) {

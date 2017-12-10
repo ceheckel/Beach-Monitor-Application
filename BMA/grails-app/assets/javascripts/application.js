@@ -616,13 +616,15 @@ if (typeof jQuery !== 'undefined') {
             promises.push(deferred); // Add this to the list of pending callbacks
 
             // Retrieve survey from localforage and add it to surveys to be uploaded
-            Surveys.getById(selected[i].parentElement.id, deferred, function(survey, deferred) {
+            Surveys.getById(selected[i].parentElement.id, deferred, function(survey) {
                 surveys.push(survey);
             });
         }
 
         // Once all promises have resolved, upload the surveys to the server
-        Promise.all(promises).then(window.survey_post.upload(surveys));
+        Promise.all(promises).then(function() {
+            window.survey_post.upload(surveys)
+        });
     }
 
     /**
