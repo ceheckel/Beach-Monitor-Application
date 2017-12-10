@@ -1,6 +1,7 @@
 <%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
 <!doctype html>
-<html manifest="appcache.manifest">
+<!--<html manifest="appcache.manifest">-->
+<html>
 <head>
     <meta name="layout" content="main"/>
     <title>WI Beach Health</title>
@@ -44,18 +45,33 @@
 <body>
 <!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
+    <!-- Bottom Navbar for Home page -->
     <div class="bottom-nav">
+        <!-- Upload Surveys Button -->
+        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="uploadSurveys()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
+            Upload
+        </button>
+
+        <!-- Download Surveys Button -->
+        <button id="dl-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="downloadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            Download
+        </button>
+
+        <!-- Delete Surveys Button -->
+        <button id="del-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="deleteSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            Delete
+        </button>
+
+        <!-- Used as Spacing -->
+        <div style="flex:1"></div>
+
         <!-- Create new Survey Button -->
         <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
             New Survey
         </button>
-
-        <!-- Upload Surveys Button -->
-        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect"  onclick="window.survey_post.upload();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
-            Upload Past Reports
-        </button>
-
     </div>
+
+    <!-- Unsubmitted Reports Section -->
     <ul class="mdl-list" id="unsubmitted-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
@@ -63,6 +79,8 @@
             </span>
         </li>
     </ul>
+
+    <!-- Submitted Reports Section -->
     <ul class="mdl-list" id="submitted-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">

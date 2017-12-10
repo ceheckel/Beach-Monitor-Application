@@ -22,7 +22,7 @@ Survey = function(id, data) {
     this.delete = function(callback) {
         localforage.removeItem(this.key, callback);
 
-        Surveys.remove(this.key);
+        Surveys.remove(this.key, null);
     };
 };
 
@@ -66,26 +66,40 @@ Surveys.add = function(survey, callback) {
         if (result == null)
             surveys = [];
 
-        if (surveys.indexOf(survey.key) < 0)
+        // if key is less than zero, survey is new.  Add to localforage
+        if (surveys.indexOf(survey.key) < 0) {
             surveys.push(survey.key);
+        }
 
         localforage.setItem("surveys", surveys, function(settingError, newSurvey) {
             if (callback && !settingError)
                 callback(newSurvey);
         });
-    })
+    });
 };
 
 /**
  * Gets a survey from localforage from an id
  * @param id
+ * @param deferred
+ *      The promise that will be resolved/rejected
  * @param callback
- *      The callback to be executed on the survey after retreiving it from localforage
+ *      The callback to be executed on the survey after retrieving it from localforage
  */
-Surveys.getById = function(id, callback) {
+Surveys.getById = function(id, deferred, callback) {
     localforage.getItem(id, function(error, item) {
-        if (!error)
+        if (!error) {
             callback(item);
+
+            if(deferred != null) {
+                deferred.resolve();
+            }
+        }
+        else {
+            if(deferred != null) {
+                deferred.reject();
+            }
+        }
     });
 };
 
@@ -96,12 +110,21 @@ Surveys.getById = function(id, callback) {
  *      The callback to be executed after removing survey from localforage
  */
 Surveys.remove = function(id, callback) {
+    // getItem("surveys" ...) returns IDs of all surveys
+    // IDs stored in result
     localforage.getItem("surveys", function(error, result) {
-        var index = result.indexOf(survey.key);
+        // find index of survey to be removed
+        var index = result.indexOf(id);
         if (index >= 0) {
+            // omit "removed" survey from existing surveys list
             result.splice(index, 1);
+            // reset array of survey IDs in localforage to exclude the survey we want to delete
             localforage.setItem("surveys", result, function () {
-                localforage.removeItem(id, callback);
+                localforage.removeItem(id, function() {
+                    if (!error) {
+                        callback(result);
+                    }
+                })
             });
         }
     });

@@ -132,8 +132,6 @@ beaches_sites_get.run = function (callback, use_test_data) {
             success: function(data) {
                 beaches = data;
 
-                console.log(beaches);
-
                 $.ajax({
                     type: 'GET',
                     crossDomain: true,
@@ -142,8 +140,6 @@ beaches_sites_get.run = function (callback, use_test_data) {
                     dataType: 'json',
                     success: function(data) {
                         sites = data;
-
-                        console.log(sites);
 
                         beaches_sites_get.parse(beaches, sites, callback);
                     },

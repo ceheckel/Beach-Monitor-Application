@@ -26,6 +26,7 @@ var completedSurvey;
 var visitedPages = [];
 var surveyDate;
 var submitted = false;
+var selected = false; // added for mass interactions
 var incompletePages = new Set([]);
 
 var is_safari = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
@@ -71,7 +72,7 @@ if (typeof jQuery !== 'undefined') {
      */
     function downloadCSV(){
         // Gets current survey from localforage
-        Surveys.getById(surveyId, function(myData) {
+        Surveys.getById(surveyId, null, function(myData) {
 
             // var myData = getAllFields();
             console.log(myData);
@@ -113,6 +114,67 @@ if (typeof jQuery !== 'undefined') {
     }
 
     /**
+     * Generates and downloads a CSV of the selected surveys
+     */
+    function downloadSelected() {
+        var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for deletion
+        var surveys = []; // collection of all surveys to be deleted
+        var promises = []; // each callback is going to promise to return, used to prevent asynch deleting
+
+        // check if any surveys selected
+        if(selected.length == 0) {
+            alert("No Surveys Selected");
+            return;
+        }
+
+        var btn = $('#dl-surveys-btn');
+        // Gets current survey from localforage
+        for (var i = 0; i < selected.length; i++) {
+            var deferred = new $.Deferred();
+
+            // Retrieve survey from localforage and add it to surveys to be uploaded
+            Surveys.getById(selected[i].parentElement.id, null, function (myData) {
+                // var myData = getAllFields();
+                console.log(myData);
+
+                var stuff = myData.toString();
+                console.log(stuff.toString());
+
+                //delimeters for csv format
+                var colDelim = '","';
+                var rowDelim = '"\r\n"';
+
+                // generates rows and columns of csv from survey data
+                var csv = '"';
+                for (var key in myData) {
+                    if (myData.hasOwnProperty(key)) {
+                        csv += key;
+                        csv += colDelim;
+                    }
+                }
+                csv += rowDelim;
+
+                for (var key in myData) {
+                    if (myData.hasOwnProperty(key)) {
+                        csv += myData[key];
+                        csv += colDelim;
+                    }
+                }
+                csv += '"';
+
+                // generates file data for csv
+                var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
+                nameOfFile = myData["__beach"] + "," + myData["__site"] + ',' + myData['date'] + '.csv';
+                var link = document.createElement("a");
+                link.setAttribute("href", csvData);
+                link.setAttribute("download", nameOfFile);
+                document.body.appendChild(link);
+                link.click();
+            });
+        }
+    }
+
+    /**
      * Clears all fields and starts a new survey, navigating to the beach selection page.
      * Sets onbeforeunload function to warn user before refreshing page.
      */
@@ -125,6 +187,7 @@ if (typeof jQuery !== 'undefined') {
         surveyDate = new Date();
         $('#DATE_ENTERED').val(dateToLocalDate(surveyDate));
         submitted = false;
+        selected = false;
 
         // Navigate to beach selection page
         toPage(0,false);
@@ -352,7 +415,7 @@ if (typeof jQuery !== 'undefined') {
      */
     function loadSurvey(id) {
         surveyId = id;
-        Surveys.getById(id, function(survey) {
+        Surveys.getById(id, null, function(survey) {
             submitted = survey['submitted'];
             $('[name]').each(function () {
                 $(this).prop('disabled', submitted);
@@ -403,12 +466,16 @@ if (typeof jQuery !== 'undefined') {
      * Loads saved surveys in local forage and displays them in a list on home page
      */
     function getSurveys() {
+        // create two lists for surveys
         var unsubmittedList = document.getElementById("unsubmitted-reports");
         var submittedList = document.getElementById("submitted-reports");
-        // Remove all elements
+
+
+        // Remove all elements from unsubmitted reports list
         while (unsubmittedList.firstChild)
             unsubmittedList.removeChild(unsubmittedList.firstChild);
-        // Create header
+
+        // Create header for unsubmitted reports
         var header = document.createElement("li");
         var span1 = document.createElement("span");
         var span2 = document.createElement("span");
@@ -419,10 +486,13 @@ if (typeof jQuery !== 'undefined') {
         header.appendChild(span1);
         span1.appendChild(span2);
         unsubmittedList.appendChild(header);
-        //Submitted Reports
+
+
+        // Remove all elements from submitted reports list
         while (submittedList.firstChild)
             submittedList.removeChild(submittedList.firstChild);
-        // Create header
+
+        // Create header for submitted reports
         header = document.createElement("li");
         span1 = document.createElement("span");
         span2 = document.createElement("span");
@@ -433,28 +503,48 @@ if (typeof jQuery !== 'undefined') {
         header.appendChild(span1);
         span1.appendChild(span2);
         submittedList.appendChild(header);
+
+
         // Populate list
         Surveys.getAll(function(surveys) {
             surveys.sort(function(a, b){return new Date(b.date) - new Date(a.date)});
-            for (var i = 0; i < surveys.length; i++)
-            {
+
+            for (var i = 0; i < surveys.length; i++) {
+                // create list item
                 var li = document.createElement("li");
                 li.className = "mdl-list__item mdl-list__item--two-line";
+
+
+                // create span for data, item name, item info, and action
                 var dataSpan = document.createElement("span");
                 dataSpan.className = "mdl-list__item-primary-content";
+
                 var nameSpan = document.createElement("span");
+
                 var infoSpan = document.createElement("span");
                 infoSpan.className = "mdl-list__item-sub-title";
+
                 var actionSpan = document.createElement("span");
                 actionSpan.className = "mdl-list__item-secondary-content";
+
+                // create checkbox for mass interactions
+                var selectionSpan = document.createElement("label");
+                selectionSpan.className = "mdl-checkbox mdl-js-checkbox";
+                var checkbox = document.createElement("input");
+                checkbox.className = "mdl-checkbox__input";
+                checkbox.setAttribute("type", "checkbox");
+                selectionSpan.id = surveys[i].id;
+                selectionSpan.appendChild(checkbox);
+
+                // create link to survey for edit/view
                 var action = document.createElement("a");
                 action.id = surveys[i].id;
                 action.className = "mdl-list__item-secondary-action";
-                li.onclick = (function() {
+
+                li.onclick = (function () {
                     var id = surveys[i].id;
-                    return function() {
-                        setTimeout(function()
-                        {
+                    return function () {
+                        setTimeout(function () {
                             clearAllFields();
                             loadSurvey(id);
                             toPage(0,false);
@@ -462,18 +552,19 @@ if (typeof jQuery !== 'undefined') {
                         }, 10);
                     }
                 })();
-                $(li).hover(function(){
+
+                $(li).hover(function () {
                     $(this).css("background-color", "#e4e4e4");
-                }, function(){
+                }, function () {
                     $(this).css("background-color", "white");
                 });
                 $(li).css('cursor', 'pointer');
                 var icon = document.createElement("i");
-                icon.className="material-icons";
+                icon.className = "material-icons";
 
                 nameSpan.appendChild(document.createTextNode((surveys[i].__beach ? surveys[i].__beach : 'Unknown Beach')));
                 infoSpan.appendChild(document.createTextNode(getDateFormatted(new Date(surveys[i].date)) + " - Site: " + (surveys[i].__site ? surveys[i].__site : 'Unknown')));
-                if(!surveys[i].submitted)
+                if (!surveys[i].submitted)
                     icon.appendChild(document.createTextNode("edit"));
                 else
                     icon.appendChild(document.createTextNode("visibility"));
@@ -482,14 +573,56 @@ if (typeof jQuery !== 'undefined') {
                 dataSpan.appendChild(infoSpan);
                 action.appendChild(icon);
                 actionSpan.appendChild(action);
+                //actionSpan.appendChild(selectionSpan);
                 li.appendChild(dataSpan);
                 li.appendChild(actionSpan);
-                if(!surveys[i].submitted)
+                if (!surveys[i].submitted) {
                     unsubmittedList.appendChild(li);
-                else
+                    unsubmittedList.appendChild(selectionSpan);
+                }
+                else {
                     submittedList.appendChild(li);
+                    submittedList.appendChild(selectionSpan);
+                }
             }
         });
+    }
+
+    /**
+     * Function used for uploading selected surveys from the home page
+     */
+    function uploadSurveys() {
+        var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for upload
+        var surveys = []; // collection of all surveys to be uploaded
+        var promises = []; // each callback is going to promise to return, used to prevent asynch uploading
+
+        // check if any surveys selected
+        if (selected.length == 0) {
+            alert("No Surveys Selected");
+            return;
+        }
+
+        for (var i = 0; i < selected.length; i++) {
+            if (selected[i].parentElement.parentElement.id == "unsubmitted-reports") {
+                alert("Unsubmitted reports cannot be uploaded to the server.");
+                return;
+            }
+        }
+
+        // for each survey marked for upload ...
+        for (var i = 0; i < selected.length; i++) {
+            var deferred = new $.Deferred();
+
+            promises.push(deferred); // Add this to the list of pending callbacks
+
+            // Retrieve survey from localforage and add it to surveys to be uploaded
+            Surveys.getById(selected[i].parentElement.id, deferred, function(survey, deferred) {
+                surveys.push(survey);
+            });
+        }
+
+        // Once all promises have resolved, upload the surveys to the server
+        Promise.all(promises).then(window.survey_post.upload(surveys));
     }
 
     /**
@@ -912,6 +1045,7 @@ if (typeof jQuery !== 'undefined') {
      * Deletes the current survey from localforage
      */
     function deleteSurvey() {
+        console.log("in deleteSurvey()");
         var btn = $('#btn-delete');
         if (deleteTimer == 0) {
             btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
@@ -932,7 +1066,7 @@ if (typeof jQuery !== 'undefined') {
                     sId = surveyId;
                     surveyId = undefined;
                     toPage('home',true);
-                    Surveys.remove(surveyId, function () {
+                    Surveys.remove(sId, null, function () {
                         toPage('home',true);
                     });
                     btn.html('Delete');
@@ -946,18 +1080,90 @@ if (typeof jQuery !== 'undefined') {
     }
 
     /**
+     * Deletes multiple surveys from localforage by calling 'deleteSurvey()'
+     */
+    function deleteSelected() {
+        var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for deletion
+        var surveys = []; // collection of all surveys to be deleted
+        var promises = []; // each callback is going to promise to return, used to prevent asynch deleting
+
+        // check if any surveys selected
+        if (selected.length == 0) {
+            alert("No Surveys Selected");
+            return;
+        }
+
+        var btn = $('#del-surveys-btn');
+        if (deleteTimer == 0) { // on first button press
+            // change button style
+            btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
+            deleteTimer = 5;
+            btn.html('Really? (' + deleteTimer + ')');
+            window.cancelDelete = false;
+
+            // start countdown
+            setTimeout(deleteCountdown, 1000);
+        } else { // on second button press
+            // ready toast
+            var snackbarContainer = document.querySelector('#toast-container');
+            var data = {
+            message: 'Deleting survey...',
+                actionHandler: function() { window.cancelDelete = true; },
+                actionText: 'Undo'
+            };
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+            // start deletion
+            setTimeout(function() {
+                if (!window.cancelDelete) {
+
+                    // Due to the asynchronous nature of the localforage functions, removing the surveys must be done sequentially
+                    // As such, we have opted to use a recursive loop as opposed to a normal for-loop so that we can control the
+                    // pace of its execution
+                    var i = 0;
+                    var loopArray = function() {
+                        Surveys.remove(selected[i].parentElement.id, function() {
+                            i += 1;
+
+                            // If there are more surveys to remove, continuing removing them
+                            if (i < selected.length) {
+                                loopArray();
+                            }
+                            // Otherwise (i.e. last survey removed) navigate back to the home page
+                            else {
+                                toPage('home', false);
+                            }
+                        });
+                    };
+
+                    loopArray();
+                }
+            }, 3000);
+
+            // change button back to normal
+            btn.html('Delete');
+            btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+            deleteTimer = 0;
+        }
+    }
+
+    /**
      * Displays a delete countdown to prevent accidental deletions of surveys
      */
     function deleteCountdown() {
         var btn = $('#btn-delete');
+        var btn2 = $('#del-surveys-btn');
         deleteTimer--;
         if (deleteTimer > 0) {
             btn.html('Really? (' + deleteTimer + ')');
+            btn2.html('Really? (' + deleteTimer + ')');
             setTimeout(deleteCountdown, 1000);
         } else {
             deleteTimer = 0;
             btn.html('Delete');
+            btn2.html('Delete');
             btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
+            btn2.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
         }
     }
 
@@ -966,7 +1172,6 @@ if (typeof jQuery !== 'undefined') {
     function collectSampleNow() {
         var d = new Date();
         $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d));
-        // console.log(d);
     }
 
     /**
@@ -980,6 +1185,14 @@ if (typeof jQuery !== 'undefined') {
             ('0'+d.getDate()).slice(-2) + 'T' +
             ('0'+d.getHours()).slice(-2) + ':' +
             ('0'+d.getMinutes()).slice(-2);
+    }
+
+    /**
+     * Changes boolean flag, meant to be used for mass interactions
+     */
+    function toggleSelect() {
+        if(selected == true) { selected = false; }
+        else { selected = true; }
     }
 }
 
