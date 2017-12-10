@@ -506,6 +506,7 @@ if (typeof jQuery !== 'undefined') {
         // Populate list
         Surveys.getAll(function(surveys) {
             surveys.sort(function(a, b){return new Date(b.date) - new Date(a.date)});
+
             for (var i = 0; i < surveys.length; i++) {
                 // create list item
                 var li = document.createElement("li");
@@ -1046,7 +1047,7 @@ if (typeof jQuery !== 'undefined') {
         var btn = $('#btn-delete');
         if (deleteTimer == 0) {
             btn.addClass('mdl-color--red-A700').addClass('mdl-color-text--white');
-            deleteTimer = 10;
+            deleteTimer = 5;
             btn.html('Really? (' + deleteTimer + ')');
             window.cancelDelete = false;
             setTimeout(deleteCountdown, 1000);
@@ -1063,7 +1064,7 @@ if (typeof jQuery !== 'undefined') {
                     sId = surveyId;
                     surveyId = undefined;
                     toPage('home',true);
-                    Surveys.remove(surveyId, function () {
+                    Surveys.remove(sId, null, function () {
                         toPage('home',true);
                     });
                     btn.html('Delete');
@@ -1085,7 +1086,7 @@ if (typeof jQuery !== 'undefined') {
         var promises = []; // each callback is going to promise to return, used to prevent asynch deleting
 
         // check if any surveys selected
-        if(selected.length == 0) {
+        if (selected.length == 0) {
             alert("No Surveys Selected");
             return;
         }
@@ -1113,39 +1114,27 @@ if (typeof jQuery !== 'undefined') {
             // start deletion
             setTimeout(function() {
                 if (!window.cancelDelete) {
-                    // for each survey marked for deletion ...
-                    for (var i = 0; i < selected.length; i++) {
-                        var deferred = new $.Deferred();
 
-                        promises.push(deferred); // Add this to the list of pending callbacks
+                    // Due to the asynchronous nature of the localforage functions, removing the surveys must be done sequentially
+                    // As such, we have opted to use a recursive loop as opposed to a normal for-loop so that we can control the
+                    // pace of its execution
+                    var i = 0;
+                    var loopArray = function() {
+                        Surveys.remove(selected[i].parentElement.id, function() {
+                            i += 1;
 
-                        Surveys.remove(selected[i].parentElement.id, deferred, function () {
-                            console.log("Survey removed");
+                            // If there are more surveys to remove, continuing removing them
+                            if (i < selected.length) {
+                                loopArray();
+                            }
+                            // Otherwise (i.e. last survey removed) navigate back to the home page
+                            else {
+                                toPage('home', false);
+                            }
                         });
+                    };
 
-
-                        /*
-
-                        // Retrieve survey from localforage and add it to surveys to be deleted
-                        Surveys.getById(selected[i].parentElement.id, deferred, function (survey, deferred) {
-                            surveys.push(survey);
-                            console.log(survey);
-                        });
-
-                        */
-                    }
-
-                    // wait for promises to resolve
-                    Promise.all(promises).then(function() {
-                        // for(var i = 0; i < surveys.length; i += 1) {
-                        //     Surveys.remove(surveys[i].id, function() {
-                        //         console.log("Survey removed");
-                        //     });
-                        // }
-                        // reload home page.
-                        console.log("here");
-                        toPage('home', false);
-                    });
+                    loopArray();
                 }
             }, 3000);
 
