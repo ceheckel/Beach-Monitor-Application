@@ -6,6 +6,15 @@
 
 // TODO: NOTE FROM ZAC: Not all numeric fields are integers. Need to add checks for certain floating-point fields (these fields can be identified in the schema domain docs)
 
+//$(function () {
+//    var $btn = $("#btn-next");
+//     $btn.click(function () {
+//         if ($btn.html() === "Download") {
+//             validatePage(undefined, true);
+//         }
+//    });
+//});
+
 function myAlert (msg) {
 
     // The method of displaying this information to the user can be altered to be made prettier if we want.
@@ -112,7 +121,7 @@ function isEmptyOrIspH (candidate) {
 
 }
 
-function validatePage (curPage) {
+function validatePage (curPage, checkPage1) {
 
     var userId;
     var county;
@@ -176,13 +185,13 @@ function validatePage (curPage) {
     var secchiTube;
 
     // Beach Selection
-    if (curPage === 0) {
+    if (checkPage1 === true /*curPage === 0*/) {
 
-        userId = $("#user_id").val();
-        if (/\w/.test(userId) === false) {
-           myAlert("User ID is a required field and must be a single word made up of only alphanumeric and underscore characters.");
-           return false;
-        }
+        //userId = $("#user_id").val();
+        //if (/\w/.test(userId) === false) {
+        //   myAlert("User ID is a required field and must be a single word made up of only alphanumeric and underscore characters.");
+        //   return false;
+        //}
 
         county = $("#__county").val();
         countyOptions = $("#countyList")[0].options;
@@ -238,7 +247,7 @@ function validatePage (curPage) {
 
         date = $("#SAMPLE_DATE_TIME").val();
         if (date === "") {
-            myAlert("Sample Date is a required field. Please use the current datetime by clicking \"COLLECT SAMPLE NOW\" or use the date picker to chose a custom datetime.");
+            myAlert("Sample Date is a required field. Please use the current datetime by clicking \"COLLECT SAMPLE NOW\" or use the date picker to choose a custom datetime.");
             return false;
         }
 

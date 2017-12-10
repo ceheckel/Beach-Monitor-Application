@@ -273,8 +273,10 @@ if (typeof jQuery !== 'undefined') {
             submit();
         }
         else {
-            var dialog = document.querySelector('dialog');
-            dialog.showModal();
+            //var dialog = document.querySelector('dialog');
+            //dialog.showModal();
+
+            validatePage(undefined, true);
         }
     }
 
