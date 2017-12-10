@@ -28,6 +28,8 @@ Survey = function(id, data) {
 
 Surveys = {};
 
+var _surveys = new Set([]);
+
 /**
  * Gets all surveys from localforage and executes a callback on results
  * @param callback
@@ -61,6 +63,7 @@ Surveys.getAll = function(callback) {
  *      A function to be executed after adding the survey
  */
 Surveys.add = function(survey, callback) {
+    console.log("add called");
     localforage.getItem("surveys", function(error, result) {
         var surveys = result;
         if (result == null)
@@ -72,8 +75,10 @@ Surveys.add = function(survey, callback) {
         localforage.setItem("surveys", surveys, function(settingError, newSurvey) {
             if (callback && !settingError)
                 callback(newSurvey);
+
+                _surveys.add(survey.key);
         });
-    })
+    });
 };
 
 /**
@@ -104,16 +109,34 @@ Surveys.getById = function(id, deferred, callback) {
 /**
  * Removes a survey by id from localforage
  * @param id
+ * @param deferred
+ *      The promise that will be resolved/rejected
  * @param callback
  *      The callback to be executed after removing survey from localforage
  */
-Surveys.remove = function(id, callback) {
+Surveys.remove = function(id, deferred, callback) {
     localforage.getItem("surveys", function(error, result) {
         var index = result.indexOf(survey.key);
         if (index >= 0) {
             result.splice(index, 1);
             localforage.setItem("surveys", result, function () {
-                localforage.removeItem(id, callback);
+                //localforage.removeItem(id, callback);
+                localforage.removeItem(id, function() {
+                    if (!error) {
+                        callback(result);
+
+                        if (deferred !== null) {
+                            deferred.resolve();
+                        }
+                    }
+                    else {
+                        if (deferred !== null) {
+                            deferred.reject();
+                        }
+                    }
+
+                    _surveys.delete(id);
+                })
             });
         }
     });

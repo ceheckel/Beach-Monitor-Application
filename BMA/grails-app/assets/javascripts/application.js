@@ -1119,23 +1119,32 @@ if (typeof jQuery !== 'undefined') {
 
                         promises.push(deferred); // Add this to the list of pending callbacks
 
+                        Surveys.remove(selected[i].parentElement.id, deferred, function () {
+                            console.log("Survey removed");
+                        });
+
+
+                        /*
+
                         // Retrieve survey from localforage and add it to surveys to be deleted
                         Surveys.getById(selected[i].parentElement.id, deferred, function (survey, deferred) {
                             surveys.push(survey);
                             console.log(survey);
                         });
+
+                        */
                     }
 
                     // wait for promises to resolve
                     Promise.all(promises).then(function() {
-                        for(var i = 0; i < surveys.length; i += 1) {
-                            Surveys.remove(surveys[i].id, function() {
-                                console.log("Survey removed");
-
-                                // reload home page.  This line does not work anywhere else
-                                toPage('home', false);
-                            });
-                        }
+                        // for(var i = 0; i < surveys.length; i += 1) {
+                        //     Surveys.remove(surveys[i].id, function() {
+                        //         console.log("Survey removed");
+                        //     });
+                        // }
+                        // reload home page.
+                        console.log("here");
+                        toPage('home', false);
                     });
                 }
             }, 3000);
