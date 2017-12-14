@@ -1172,8 +1172,9 @@ if (typeof jQuery !== 'undefined') {
     var deleteTimer = 0;
 
     function collectSampleNow() {
-        var d = new Date();
-        $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d));
+        var d = new Date(); // get full date/time
+        $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
+        $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d, false)); // parse for server info
     }
 
     function clearBeachFields() {
@@ -1186,14 +1187,24 @@ if (typeof jQuery !== 'undefined') {
     /**
      * Changes date to localized date
      * @param d
+     * @param isDisplay boolean to determine if format is for button or for server
      * @returns {string}
      */
-    function dateToLocalDate(d) {
-        return ('000'+d.getFullYear()).slice(-4) + '-' +
-            ('0'+(d.getMonth()+1)).slice(-2) + '-' +
-            ('0'+d.getDate()).slice(-2) + 'T' +
-            ('0'+d.getHours()).slice(-2) + ':' +
-            ('0'+d.getMinutes()).slice(-2);
+    function dateToLocalDate(d, isDisplay) {
+        if(isDisplay == true) {
+            return ('000'+d.getFullYear()).slice(-4) + '-' +
+                ('0'+(d.getMonth()+1)).slice(-2) + '-' +
+                ('0'+d.getDate()).slice(-2) + 'T' +
+                ('0'+d.getHours()).slice(-2) + ':' +
+                ('0'+d.getMinutes()).slice(-2);
+        } else {
+            return ('000'+d.getFullYear()).slice(-4) + '-' +
+                ('0'+(d.getMonth()+1)).slice(-2) + '-' +
+                ('0'+d.getDate()).slice(-2) + ' ' +
+                ('0'+d.getHours()).slice(-2) + ':' +
+                ('0'+d.getMinutes()).slice(-2) + ':' +
+                ('0'+d.getSeconds()).slice(-2) + ' z';
+        }
     }
 
     /**
