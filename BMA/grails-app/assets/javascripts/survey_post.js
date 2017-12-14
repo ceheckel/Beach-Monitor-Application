@@ -126,22 +126,31 @@ survey_post.upload = function(surveys) {
     else {
 
         surveys.forEach(function(survey) {
-            promises.push($.ajax({
-                type: 'POST',
-                crossDomain: true,
-                contentType: 'application/json; charset=utf-8',
-                url: survey_post.POST_URL,
-                dataType: 'json',
-                data: JSON.stringify(survey),
-                success: function(response) {
-                    successful.push(survey);
-                },
-                error: function (response) {
-                    unsuccessful.push(survey);
-                    //console.log(getAllFields());
-                    //console.log(response);
-                }
-            }));
+
+            //ensure that water and air temp are null if they ="" upon upload
+            if(survey.AVG_WATER_TEMP == "")
+                survey.AVG_WATER_TEMP = null;
+            if(survey.AIR_TEMP == "")
+                survey.AIR_TEMP = null;
+            if (survey.submitted) {
+
+                promises.push($.ajax({
+                    type: 'POST',
+                    crossDomain: true,
+                    contentType: 'application/json; charset=utf-8',
+                    url: survey_post.POST_URL,
+                    dataType: 'json',
+                    data: JSON.stringify(survey),
+                    success: function (response) {
+                        successful.push(survey);
+                    },
+                    error: function (response) {
+                        unsuccessful.push(survey);
+                        //console.log(getAllFields());
+                        //console.log(response);
+                    }
+                }));
+            }
         });
     }
 
