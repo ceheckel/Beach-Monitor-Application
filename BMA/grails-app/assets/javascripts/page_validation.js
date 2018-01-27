@@ -194,11 +194,9 @@ function validatePage (curPage, checkPage1) {
     var beachMaterialDescription;
 
     var otherPeopleDescription;
-
-    var algaeTypeOther;
+    
     var algaeTypeDescription;
 
-    var algaeColorOther;
     var algaeColorDescription;
 
 
