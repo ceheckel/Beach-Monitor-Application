@@ -30,9 +30,14 @@ function isEmptyOrIsNonnegativeInteger (candidate) {
     }
 
     var num = Math.floor(Number(candidate));
-    if (num >= 0 && String(num) === candidate) {
+
+    if (num >= 0 && num == parseInt(Number(candidate), 10)){
         return true;
     }
+
+    //if (num >= 0 && String(num) === candidate) {
+    //    return true;
+    //}
 
     return false;
 
@@ -45,9 +50,14 @@ function isEmptyOrIsInteger (candidate) {
     }
 
     var num = Math.floor(Number(candidate));
-    if (String(num) === candidate) {
+
+    if (num == parseInt(Number(candidate), 10)){
         return true;
     }
+
+    // if (String(num) === candidate) {
+    //     return true;
+    // }
 
     return false;
 
@@ -60,9 +70,14 @@ function isEmptyOrIsIntegerDegree (candidate) {
     }
 
     var num = Math.floor(Number(candidate));
-    if (num >= 0 && num <= 360 && String(num) === candidate) {
+
+    if (num >= 0 && num <= 360 && num == parseInt(Number(candidate), 10)){
         return true;
     }
+
+    // if (num >= 0 && num <= 360 && String(num) === candidate) {
+    //     return true;
+    // }
 
     return false;
 
