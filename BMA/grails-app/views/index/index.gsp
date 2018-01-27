@@ -15,6 +15,8 @@
             window.beaches_sites_get.run(callback, false);
         });
     </script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         /* Place the navbar at the bottom of the page, and make it stick */
         .bottom-nav {
@@ -40,6 +42,35 @@
             background-color: rgba(0,255,0,0.20);
         }
         /* end of highlighting */
+
+        /* bottom nav-bar styling */
+        /*@media (max-width: 334px) {*/
+
+            /*.bottom-nav-button {*/
+                /*width: 50%;*/
+            /*}*/
+            /*.bottom-nav-flex {*/
+                /*display: none;*/
+            /*}*/
+        /*}*/
+        @media (min-width: 0px) and (max-width: 579px) {
+            .bottom-nav-icon {
+                display: block;
+            }
+            .bottom-nav-icon-item {
+                display: none;
+            }
+        }
+        @media (min-width: 580px) {
+            .bottom-nav-icon {
+                display: block;
+            }
+
+            .bottom-nav-icon-item {
+                display: none;
+            }
+        }
+        /* end bottom nav-bar styling */
     </style>
 </head>
 <body>
@@ -48,26 +79,30 @@
     <!-- Bottom Navbar for Home page -->
     <div class="bottom-nav">
         <!-- Upload Surveys Button -->
-        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="uploadSurveys()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
-            Upload
+        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="uploadSurveys()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
+            <div class="bottom-nav-icon"><i class="material-icons">file_upload</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">file_upload</i>&nbsp;Upload</div>
         </button>
 
         <!-- Download Surveys Button -->
-        <button id="dl-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="downloadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
-            Download
+        <button id="dl-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="downloadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            <div class="bottom-nav-icon"><i class="material-icons">file_download</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">file_download</i>&nbsp;Download</div>
         </button>
 
         <!-- Delete Surveys Button -->
-        <button id="del-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="deleteSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
-            Delete
+        <button id="del-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="deleteSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            <div class="bottom-nav-icon"><i class="material-icons">delete</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">delete</i>&nbsp;Delete</div>
         </button>
 
         <!-- Used as Spacing -->
-        <div style="flex:1"></div>
+        <div class="bottom-nav-flex" style="flex:1"></div>
 
         <!-- Create new Survey Button -->
-        <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
-            New Survey
+        <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="newSurvey()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            <div class="bottom-nav-icon"><i class="material-icons">create</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">create</i>&nbsp;New Survey</div>
         </button>
     </div>
 
