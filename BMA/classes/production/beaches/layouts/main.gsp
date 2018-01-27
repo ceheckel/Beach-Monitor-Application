@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" class="no-js" manifest="static/appcache.manifest">
+<!--<html lang="en" class="no-js" manifest="static/appcache.manifest">-->
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -164,9 +165,9 @@
     <g:if env="production">
         <script>
             console.log("In PROD");
-            window.beaches_sites_get.BEACHES_GET_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/beaches";
-            window.beaches_sites_get.SITES_GET_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/sites";
-            window.survey_post.POST_URL = "https://hci-dev.cs.mtu.edu:8105/BMS2/survey";
+            window.beaches_sites_get.BEACHES_GET_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/beaches";
+            window.beaches_sites_get.SITES_GET_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/sites";
+            window.survey_post.POST_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/survey";
         </script>
     </g:if>
 

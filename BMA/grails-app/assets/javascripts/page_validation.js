@@ -184,6 +184,29 @@ function validatePage (curPage, checkPage1) {
     var NTU;
     var secchiTube;
 
+
+    // -------------------------------------------
+
+    var deadBirdsDescription;
+
+    var waterMaterialDescription;
+
+    var beachMaterialDescription;
+
+    var otherPeopleDescription;
+
+    var algaeTypeOther;
+    var algaeTypeDescription;
+
+    var algaeColorOther;
+    var algaeColorDescription;
+
+
+
+
+
+
+
     // Beach Selection
     if (checkPage1 === true /*curPage === 0*/) {
 
@@ -280,7 +303,7 @@ function validatePage (curPage, checkPage1) {
         }
 
         otherLivingDescription = $("#NO_ANIMALS_OTHER_DESC").val().trim();
-        if (numOtherLiving !== "" && otherLivingDescription === "") {
+        if ((numOtherLiving !== "" && numOtherLiving !== "0") && otherLivingDescription === "") {
             myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, you must also provide a description of that wildlife.");
             return false;
         }
@@ -349,13 +372,31 @@ function validatePage (curPage, checkPage1) {
             return false;
         }
 
+        deadBirdsDescription = $("#NUM_OTHER_DESC").val().trim();
+        if ((numDeadBirds !== "" && numDeadBirds !== "0") && deadBirdsDescription === "") {
+            myAlert("Number of other dead birds is not a required field. However, if you do choose to provide it, you must also provide a description of them.");
+            return false;
+        }
+
     }
     // Debris in Water
     else if (curPage === 3) {
 
+        waterMaterialDescription = $("#FLOAT_OTHER_DESC").val().trim();
+        if ($("#FLOAT_OTHER").is(':checked') && waterMaterialDescription === "") {
+            myAlert("Other material is not a required field. However, if you do choose to provide it, you must also provide a description of the material.");
+            return false;
+        }
+
     }
     // Debris on Beach
     else if (curPage === 4) {
+
+        beachMaterialDescription = $("#DEBRIS_OTHER_DESC").val().trim();
+        if ($("#DEBRIS_OTHER").is(':checked') && beachMaterialDescription === "") {
+            myAlert("Other debris is not a required field. However, if you do choose to provide it, you must also provide a description of the debris.");
+            return false;
+        }
 
     }
     // Bathers
@@ -414,6 +455,13 @@ function validatePage (curPage, checkPage1) {
             myAlert("Number of people doing other activities is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
             return false;
         }
+
+        otherPeopleDescription = $("#NO_PEOPLE_OTHER_DESC").val().trim();
+        if ((numPeopleOther !== "" && numPeopleOther !== "0") && otherPeopleDescription === "") {
+            myAlert("Number of other people is not a required field. However, if you do choose to provide it, you must also provide a description of them.");
+            return false;
+        }
+
 
     }
     // Weather
@@ -515,6 +563,18 @@ function validatePage (curPage, checkPage1) {
     // Algae
     else if (curPage === 9) {
 
+        algaeTypeDescription = $("#ALGAE_TYPE_OTHER_DESC").val().trim();
+        if ($("#ALGAE_TYPE_OTHER").is(':checked') && algaeTypeDescription === "") {
+            myAlert("Other algae type is not a required field. However, if you do choose to provide it, you must also provide a description of the algae type.");
+            return false;
+        }
+
+        algaeColorDescription = $("#ALGAE_COLOR_OTHER_DESC").val().trim();
+        if ($("#ALGAE_COLOR_OTHER").is(':checked') && algaeColorDescription === "") {
+            myAlert("Other algae color is not a required field. However, if you do choose to provide it, you must also provide a description of the algae color.");
+            return false;
+        }
+
     }
     // Comments
     else if (curPage === 10) {
@@ -524,3 +584,28 @@ function validatePage (curPage, checkPage1) {
     return true;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
