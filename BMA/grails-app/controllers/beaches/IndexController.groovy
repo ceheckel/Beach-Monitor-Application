@@ -50,7 +50,8 @@ class IndexController {
 
                         // Date/Time Info
                         new ButtonElement(columnId: '__collectSampleNow', value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true),
-                        new TimeQuestion(columnId: 'SAMPLE_DATE_TIME', extraClasses: 'required')
+                        new TimeQuestion(columnId: 'SAMPLE_DATE_TIME_DISPLAYED', extraClasses: 'required'),
+                        new HiddenQuestion(columnId: 'SAMPLE_DATE_TIME', value: '-1')
                 ]
         ]
 
