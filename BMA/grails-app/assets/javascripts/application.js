@@ -1068,7 +1068,7 @@ if (typeof jQuery !== 'undefined') {
                     sId = surveyId;
                     surveyId = undefined;
                     toPage('home',true);
-                    Surveys.remove(sId, null, function () {
+                    Surveys.remove(sId, function () {
                         toPage('home',true);
                     });
                     btn.html('Delete');
