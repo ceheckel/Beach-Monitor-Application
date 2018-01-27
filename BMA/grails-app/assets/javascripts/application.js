@@ -1171,6 +1171,11 @@ if (typeof jQuery !== 'undefined') {
 
     var deleteTimer = 0;
 
+    /**
+     * Creates and sets two versions of a new Date instance.
+     * Version 1 is for the browser to display
+     * Version 2 is for the server to store
+     */
     function collectSampleNow() {
         var d = new Date(); // get full date/time
         $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
@@ -1191,19 +1196,20 @@ if (typeof jQuery !== 'undefined') {
      * @returns {string}
      */
     function dateToLocalDate(d, isDisplay) {
-        if(isDisplay == true) {
+        if(isDisplay == true) { // The display's version
             return ('000'+d.getFullYear()).slice(-4) + '-' +
                 ('0'+(d.getMonth()+1)).slice(-2) + '-' +
                 ('0'+d.getDate()).slice(-2) + 'T' +
                 ('0'+d.getHours()).slice(-2) + ':' +
                 ('0'+d.getMinutes()).slice(-2);
-        } else {
+        } else { // The server's version includes seconds and milliseconds
             return ('000'+d.getFullYear()).slice(-4) + '-' +
                 ('0'+(d.getMonth()+1)).slice(-2) + '-' +
-                ('0'+d.getDate()).slice(-2) + ' ' +
+                ('0'+d.getDate()).slice(-2) + 'T' +
                 ('0'+d.getHours()).slice(-2) + ':' +
                 ('0'+d.getMinutes()).slice(-2) + ':' +
-                ('0'+d.getSeconds()).slice(-2) + ' z';
+                ('0'+d.getSeconds()).slice(-2) + '.' +
+                ('0'+d.getMilliseconds()).slice(-3) + 'Z';
         }
     }
 

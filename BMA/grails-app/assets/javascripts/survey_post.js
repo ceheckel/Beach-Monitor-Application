@@ -132,8 +132,9 @@ survey_post.upload = function(surveys) {
                 survey.AVG_WATER_TEMP = null;
             if(survey.AIR_TEMP == "")
                 survey.AIR_TEMP = null;
-            if (survey.submitted) {
 
+            // ensure that survey has been submitted
+            if (survey.submitted) {
                 promises.push($.ajax({
                     type: 'POST',
                     crossDomain: true,
