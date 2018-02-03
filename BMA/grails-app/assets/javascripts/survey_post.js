@@ -105,6 +105,8 @@ survey_post.upload = function(surveys) {
     var promises = [];
     var successful = [];
     var unsuccessful = [];
+    var toUpload = ""; // all the surveys clumped into one string
+    var surveyAsString = ""; // holder for each survey data after it is stringified
 
     if (survey_post.TEST) {
 
@@ -124,35 +126,36 @@ survey_post.upload = function(surveys) {
         }));
     }
     else {
-
         surveys.forEach(function(survey) {
-
             //ensure that water and air temp are null if they ="" upon upload
-            if(survey.AVG_WATER_TEMP == "")
+            if (survey.AVG_WATER_TEMP == "")
                 survey.AVG_WATER_TEMP = null;
-            if(survey.AIR_TEMP == "")
+            if (survey.AIR_TEMP == "")
                 survey.AIR_TEMP = null;
 
             // ensure that survey has been submitted
             if (survey.submitted) {
-                promises.push($.ajax({
-                    type: 'POST',
-                    crossDomain: true,
-                    contentType: 'application/json; charset=utf-8',
-                    url: survey_post.POST_URL,
-                    dataType: 'json',
-                    data: JSON.stringify(survey),
-                    success: function (response) {
-                        successful.push(survey);
-                    },
-                    error: function (response) {
-                        unsuccessful.push(survey);
-                        //console.log(getAllFields());
-                        //console.log(response);
-                    }
-                }));
+                surveyAsString = JSON.stringify(survey);
+                toUpload = toUpload + surveyAsString;
             }
         });
+
+        promises.push($.ajax({
+            type: 'POST',
+            crossDomain: true,
+            contentType: 'application/json; charset=utf-8',
+            url: survey_post.POST_URL,
+            dataType: 'json',
+            data: toUpload,
+            success: function (response) {
+                
+            },
+            error: function (response) {
+                unsuccessful.push(survey);
+                //console.log(getAllFields());
+                //console.log(response);
+            }
+        }));
     }
 
     Promise.all(promises).then(function() {
