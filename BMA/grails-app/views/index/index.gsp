@@ -18,6 +18,10 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
+
+        p{
+            color: #ffffff;
+        }
         /* Place the navbar at the bottom of the page, and make it stick */
         .bottom-nav {
             background-color: rgb(63,81,181);
@@ -29,6 +33,45 @@
         }
 
         /* for highlighting required and recommended fields */
+        .mdl-textfield{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield{
+            color: #ffffff;
+        }
+
+        .mdl-textfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-textfield__label:after{
+            background-color: #ffffff !important;
+        }
+
+        .mdl-selectfield--floating-label.is-focused .mdl-selectfield__label,.mdl-selectfield--floating-label.is-dirty .mdl-selectfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-checkbox__label{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield__label:after{
+            background-color: #ffffff !important;
+        }
+
+        #SAMPLE_DATE_TIME_DISPLAYED{
+            color: #ffffff;
+        }
         .mdl-textfield__input.required {
             background-color: rgba(255,0,0,0.20);
         }
@@ -41,6 +84,7 @@
         .mdl-selectfield__select.recommended {
             background-color: rgba(0,255,0,0.20);
         }
+
         /* end of highlighting */
 
         /* bottom nav-bar styling */
@@ -71,6 +115,10 @@
             }
         }
         /* end bottom nav-bar styling */
+
+        body {
+            background-color: #a4b0c4;
+        }
     </style>
 </head>
 <body>
@@ -242,7 +290,8 @@
                 <!-- For Checkbox Questions -->
                 <g:if test="${q instanceof CheckQuestion}">
                     <g:if test="${q.hasTitle}">
-                        <h6>${q.title}</h6>
+                        <!--Is this really needed?-->
+                        <!-- <h6>${q.title}</h6> -->
                     </g:if>
                     <g:if test="${q.radio}">
                         <g:if test="${q.inline}">
