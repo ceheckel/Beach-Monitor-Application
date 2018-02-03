@@ -32,46 +32,7 @@
             width: 100%;
         }
 
-        /* for highlighting required and recommended fields */
-        .mdl-textfield{
-            color: #ffffff;
-        }
 
-        .mdl-selectfield{
-            color: #ffffff;
-        }
-
-        .mdl-textfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-selectfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-textfield__label:after{
-            background-color: #ffffff !important;
-        }
-
-        .mdl-selectfield--floating-label.is-focused .mdl-selectfield__label,.mdl-selectfield--floating-label.is-dirty .mdl-selectfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-checkbox__label{
-            color: #ffffff;
-        }
-
-        .mdl-selectfield__label:after{
-            background-color: #ffffff !important;
-        }
-
-        #SAMPLE_DATE_TIME_DISPLAYED{
-            color: #ffffff;
-        }
         .mdl-textfield__input.required {
             background-color: rgba(255,0,0,0.20);
         }
@@ -116,6 +77,47 @@
         }
         /* end bottom nav-bar styling */
 
+        /* Restyled page code */
+        /* for highlighting required and recommended fields */
+        .mdl-textfield{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield{
+            color: #ffffff;
+        }
+
+        .mdl-textfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-textfield__label:after{
+            background-color: #ffffff !important;
+        }
+
+        .mdl-selectfield--floating-label.is-focused .mdl-selectfield__label,.mdl-selectfield--floating-label.is-dirty .mdl-selectfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-checkbox__label{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield__label:after{
+            background-color: #ffffff !important;
+        }
+
+        #SAMPLE_DATE_TIME_DISPLAYED{
+            color: #ffffff;
+        }
         body {
             background-color: #a4b0c4;
         }
