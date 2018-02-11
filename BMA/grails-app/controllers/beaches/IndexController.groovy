@@ -67,7 +67,9 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people clamming', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe')
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe'),
+
+                        new TextQuestion(columnId: 'HUMAN_BATHERS_COMMENTS', prompt: 'Additional Comments')
                 ]
         ]
 
@@ -167,7 +169,9 @@ class IndexController {
                                 '1-20%',
                                 '21-50%',
                                 '>50%'
-                        ],title: "Amount of beach debris/litter")
+                        ],title: "Amount of beach debris/litter"),
+
+                        new TextQuestion(columnId: 'DEBRIS_COMMENTS', prompt: 'Additional Comments')
                 ]
         ]
 
@@ -213,7 +217,9 @@ class IndexController {
                                 'Steady',
                                 'Heavy',
                                 'Other'
-                        ], title: "Rain intensity")
+                        ], title: "Rain intensity"),
+
+                        new TextQuestion(columnId: 'WEATHER_COMMENTS', prompt: 'Additional Comments')
                 ]
         ]
 
@@ -243,7 +249,9 @@ class IndexController {
                         new SelectQuestion(columnId: 'SHORELINE_CURRENT_DIR', options: [
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
-                        ], title: "Longshore current direction")
+                        ], title: "Longshore current direction"),
+
+                        new TextQuestion(columnId: 'WAVES_COMMENTS', prompt: 'Additional Comments')
                 ]
         ]
 
@@ -300,7 +308,9 @@ class IndexController {
                         new CheckQuestion(columnId: 'ALGAE_COLOR_OTHER', prompts: [
                                 new Tuple2('Other', false),
                         ], onclick: 'OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'ALGAE_COLOR_OTHER_DESC', prompt: 'If other, describe')
+                        new TextQuestion(columnId: 'ALGAE_COLOR_OTHER_DESC', prompt: 'If other, describe'),
+
+                        new TextQuestion(columnId: 'ALGAE_COMMENTS', prompt: 'Additional Comments')
                 ]
         ]
 
@@ -332,11 +342,13 @@ class IndexController {
                                 'Opaque'
                         ], title: "Turbidity *", onchange: "TurbidityOrNTUChange()", extraClasses:'recommended'),
                         new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01)
+                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01),
+
+                        new TextQuestion(columnId: 'WATER_COMMENTS', prompt: 'Additional Comments')
                 ]
         ]
 
-        def comments = [
+        /*def comments = [
                 pageName: 'Comments',
                 questions: [
                         new TextQuestion(columnId: 'PART_1_COMMENTS', prompt: 'Waves and weather'),
@@ -348,9 +360,9 @@ class IndexController {
                         new HiddenQuestion(columnId: 'DATE_UPDATED', value: 'FETCH DATE AND TIME'),
                         new HiddenQuestion(columnId: 'MISSING_REQUIRED_FLAG', value: 'FETCH VALUE')
                 ]
-        ]
+        ]*/
 
-        [survey: [beachSelection, wildlifeBathers, deadWildlife, floaters, debris, bathers, weather, waves, water, algae, comments]]
+        [survey: [beachSelection, wildlifeBathers, deadWildlife, floaters, debris, bathers, weather, waves, water, algae]]
     }
 
     def addSurvey() {
