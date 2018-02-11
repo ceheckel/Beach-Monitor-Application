@@ -348,6 +348,11 @@ class IndexController {
                 ]
         ]
 
+        /**
+         * Decomposed by E.Daley
+         * 02/11/2018
+         * All fields from this section can be found in one of the above fields
+         */
         /*def comments = [
                 pageName: 'Comments',
                 questions: [
@@ -362,6 +367,7 @@ class IndexController {
                 ]
         ]*/
 
+        // 'comments' page removed from list below
         [survey: [beachSelection, wildlifeBathers, deadWildlife, floaters, debris, bathers, weather, waves, water, algae]]
     }
 
