@@ -1,31 +1,7 @@
-
 package beaches
 
 class IndexController {
     def index() {
-        def demoPage = [
-                pageName: 'Beach Selection',
-                questions: [
-                        new TextQuestion(columnId: 'Q1', prompt: 'Prompt 1'),
-                        new TextQuestion(columnId: 'Q2', prompt: 'Prompt 2'),
-                        new CheckQuestion(columnId: 'Q3', prompts: [
-                                new Tuple2('Thing 1', false),
-                                new Tuple2('Thing 2', false),
-                                new Tuple2('Thing 3', true)
-                        ]),
-                        new CheckQuestion(columnId: 'Q4', prompts: [
-                                new Tuple2('Radio 1', true),
-                                new Tuple2('Radio 2', false),
-                                new Tuple2('Radio 3', true)
-                        ], radio: true),
-                        new SelectQuestion(columnId: 'Q5', options: [
-                                'Option 1',
-                                'Option 2',
-                                'Option 3'
-                        ], title:"Q5")
-                ]
-        ]
-
         def beachSelection = [
                 pageName: 'Beach Selection',
                 questions: [
@@ -130,7 +106,7 @@ class IndexController {
         def debris = [
                 pageName :'Debris on Beach',
                 questions: [
-                        new CheckQuestion(columnId: 'DEBRIS_STREET_ LITTER', prompts: [
+                        new CheckQuestion(columnId: 'DEBRIS_STREET_LITTER', prompts: [
                                 new Tuple2('Street litter', false)
                         ], hasTitle:true, title: "Beach debris present:"),
                         new CheckQuestion(columnId: 'DEBRIS_FOOD', prompts: [
@@ -285,7 +261,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'ALGAE_COLOR_LT_GREEN', prompts: [
                                 new Tuple2('Light Green ', false),
                         ], hasTitle:true,title:"Algae color:"),
-                        new CheckQuestion(columnId: 'ALGAE_COLOR_BRIGHT_GREEN', prompts: [
+                        new CheckQuestion(columnId: 'ALGAE_COLOR_BRGHT_GREEN', prompts: [ // Bright is intentionally spelled like this
                                 new Tuple2('Bright Green', false),
                         ]),
                         new CheckQuestion(columnId: 'ALGAE_COLOR_DRK_GREEN', prompts: [

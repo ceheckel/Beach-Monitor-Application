@@ -463,7 +463,7 @@ var beaches = {
         },
         'Mirror Lake': {
             'Mirror Lake SP Beach': { _site: 312, 'Center of beach': 334,  },
-        },
+        }
     },
     'Sawyer': {
         'Connors Lake': {
@@ -471,7 +471,7 @@ var beaches = {
         },
         'Lake of the Pines': {
             'Flambeau River State Forest -- Lake of the Pines': { _site: 318, 'Center of beach': 340,  },
-        },
+        }
     },
     'Sheboygan': {
         'Lake Michigan': {
