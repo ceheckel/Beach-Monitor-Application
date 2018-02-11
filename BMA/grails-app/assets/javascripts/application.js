@@ -115,11 +115,14 @@ if (typeof jQuery !== 'undefined') {
 
     /**
      * Generates and downloads a CSV of the selected surveys
+     * @author Heckel
+     * @author Baldwin
+     *
+     * WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP
      */
     function downloadSelected() {
         var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for deletion
         var surveys = []; // collection of all surveys to be deleted
-        var promises = []; // each callback is going to promise to return, used to prevent asynch deleting
 
         // check if any surveys selected
         if(selected.length == 0) {
@@ -130,17 +133,11 @@ if (typeof jQuery !== 'undefined') {
         var btn = $('#dl-surveys-btn');
         // Gets current survey from localforage
         for (var i = 0; i < selected.length; i++) {
-            var deferred = new $.Deferred();
 
             // Retrieve survey from localforage and add it to surveys to be uploaded
             Surveys.getById(selected[i].parentElement.id, null, function (myData) {
-                // var myData = getAllFields();
-                console.log(myData);
 
-                var stuff = myData.toString();
-                console.log(stuff.toString());
-
-                //delimeters for csv format
+                // delimiters for csv format
                 var colDelim = '","';
                 var rowDelim = '"\r\n"';
 
@@ -177,6 +174,8 @@ if (typeof jQuery !== 'undefined') {
     /**
      * Clears all fields and starts a new survey, navigating to the beach selection page.
      * Sets onbeforeunload function to warn user before refreshing page.
+     *
+     * @author Paris
      */
     function newSurvey(){
         // Clears all fields
@@ -185,7 +184,7 @@ if (typeof jQuery !== 'undefined') {
         // Generate new guid and date
         surveyId = guid();
         surveyDate = new Date();
-        $('#DATE_ENTERED').val(dateToLocalDate(surveyDate));
+        $('#DATE_ENTERED').val(dateToLocalDate(surveyDate, true));
         submitted = false;
         selected = false;
 
@@ -1194,6 +1193,8 @@ if (typeof jQuery !== 'undefined') {
      * @param d
      * @param isDisplay boolean to determine if format is for button or for server
      * @returns {string}
+     *
+     * @author Heckel (edited)
      */
     function dateToLocalDate(d, isDisplay) {
         if(isDisplay == true) { // The display's version
