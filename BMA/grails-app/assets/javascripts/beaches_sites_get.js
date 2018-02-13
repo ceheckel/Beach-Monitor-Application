@@ -5,8 +5,8 @@ var TEST_SITES = 3;
 
 window.beaches_sites_get = {};
 
-beaches_sites_get.BEACHES_GET_URL = "";
-beaches_sites_get.SITES_GET_URL = "";
+beaches_sites_get.BEACHES_GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
+beaches_sites_get.SITES_GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
 
 beaches_sites_get.test_beaches = [
     {
@@ -90,8 +90,8 @@ beaches_sites_get.parse = function (beaches, sites, callback) {
 };
 
 beaches_sites_get.run = function (callback, use_test_data) {
-    var beaches = null;
-    var sites = null;
+    var beaches = [];
+    var sites = [];
 
     if (use_test_data === true) {
         beaches = beaches_sites_get.test_beaches;
@@ -102,18 +102,41 @@ beaches_sites_get.run = function (callback, use_test_data) {
         $.ajax({
             type: "GET",
             crossDomain: true,
-            url: beaches_sites_get.SITES_GET_URL,
+            url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata",
             success: function (data) {
 
                 //console.log(data);
+                at = 0;
+                //data = JSON.parse(data);
+                data.forEach(function(tbl){
+                    console.log(tbl);
+                    console.log("At iteration # " , at);
 
-                data = JSON.parse(data);
+                    curb =     {
+                                    BEACH_SEQ: tbl.BEACH_SEQ,
+                                    BEACH_NAME: tbl.BEACH_NAME,
+                                    COUNTY: tbl.COUNTY,
+                                    WATERBODY_NAME: "NOT SET"// How are we deriving this?
+                                };
+                    curs =     {
+                                    MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
+                                    BEACH_SEQ: tbl.BEACH_SEQ,
+                                    STATION_NAME: tbl.STATION_NAME
+                                };
+                    beaches.push(curb);
+                    sites.push(curs);
 
-                beaches = data.beaches;
-                sites = data.sites;
+                    at++;
+            });
 
-                //console.log(beaches);
-                //console.log(sites);
+
+                //beaches = data.beaches;
+                //sites = data.sites;
+                console.log("DONE READING IN NOW!");
+                console.log(beaches);
+                console.log(beaches.length);
+                console.log(sites);
+                console.log(sites.length);
 
                 beaches_sites_get.parse(beaches, sites, callback);
             },
@@ -155,3 +178,4 @@ beaches_sites_get.run = function (callback, use_test_data) {
 */
     }
 };
+
