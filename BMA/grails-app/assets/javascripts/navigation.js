@@ -6,9 +6,9 @@
  */
 
 /**
- *
- * @param page
- * @param toDelete
+ * Go to a specified page
+ * @param page Page to jump to
+ * @param toDelete Boolean stating whether or not to delete survey
  */
 function toPage(page, toDelete) {
 
@@ -119,14 +119,20 @@ function toPage(page, toDelete) {
 }
 
 /**
- *
+ * Function for previous button behavior
+ * Goes to page directly before current page
+ * NOTE: Logic checking for array out of bounds is in toPage()
+ * @see toPage
  */
 function btnPrev() {
     toPage(curPage - 1,false);
 }
 
 /**
- *
+ * Function for next button behavior
+ * Goes to page directly after current page
+ * NOTE: Logic checking for array out of bounds is in toPage()
+ * @see toPage
  */
 function btnNext() {
     if (curPage == totalQuestionPages - 1)
@@ -141,7 +147,8 @@ function btnNext() {
 }
 
 /**
- *
+ * Display the Review page if the user is at the end of survey
+ *  @see btnNext
  */
 function toReview() {
     if(visitedPages.indexOf(totalQuestionPages) < 0)
