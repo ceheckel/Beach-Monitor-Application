@@ -133,7 +133,7 @@ function btnNext() {
         toReview();
     else if (curPage == totalQuestionPages) {
         // Save survey here, in case user made changes on review page
-        saveSurvey(totalQuestionPages, false);
+        saveSurvey(totalQuestionPages);
         completionCheck();
     }
     else
