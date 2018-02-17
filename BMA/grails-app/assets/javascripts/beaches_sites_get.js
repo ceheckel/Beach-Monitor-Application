@@ -102,9 +102,25 @@ beaches_sites_get.run = function (callback, use_test_data) {
         $.ajax({
             type: "GET",
             crossDomain: true,
+            ifModified: true, // Important
             url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata",
-            success: function (data) {
+            // https://dzone.com/articles/caching-jquery-ajax-and-otherhttps://dzone.com/articles/caching-jquery-ajax-and-other
+            success: function (data, textStatus, jqXHR) {
+                console.log("==========================")
+                if (jqXHR) { // Make sure we even have XHR from JQ
+                    if (jqXHR.status === 200) { // IF MODIFIED SINCE
 
+                        console.log("Reqest got cache okay! 200")
+
+                    } else {
+                        console.log("Request reply is ", jqXHR.status.toString())
+                        //return; // Unclear if we need to continue from here
+                    }
+                }else{
+                    console.log("! jqXHR was sent as null/false !")
+                    //return; // Unclear if we need to continue from here
+                }
+                console.log("==========================")
                 //console.log(data);
                 at = 0;
                 //data = JSON.parse(data);
