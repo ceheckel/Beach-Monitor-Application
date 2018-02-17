@@ -1,5 +1,5 @@
 /**
- *
+ * Collection of functions that aid in page navigation
  *
  * @author Heckel (edited 02/17/2018)
  * @author Wagner (edited 02/17/2018)
@@ -20,7 +20,7 @@ function toPage(page, toDelete) {
     }
 
     // save survey
-    saveSurvey(page);
+    saveSurvey();
 
     //
     // if(visitedPages.indexOf(page) < 0)
@@ -66,6 +66,8 @@ function toPage(page, toDelete) {
     // if on home page, setup home page drawer
     if (curPage == 'home') {
         $('#help-button').hide(); // '#help-button' is bad name
+
+        getSurveys(); // retrieves the surveys to populate home screen
 
         document.getElementById("surveySectionsDrawer").style.display = 'none'; // hide survey sections
         document.getElementById("homeSectionDrawer").style.display = 'block';   // show home section
@@ -135,13 +137,11 @@ function btnPrev() {
  * @see toPage
  */
 function btnNext() {
-    if (curPage == totalQuestionPages - 1)
-        toReview();
-    else if (curPage == totalQuestionPages) {
-        // Save survey here, in case user made changes on review page
-        saveSurvey(totalQuestionPages);
-        completionCheck();
-    }
+    // if current page is last page on form, go to review page
+    if (curPage == totalQuestionPages - 1) { toReview(); }
+    // if current page is review page, save any possible changes
+    else if (curPage == totalQuestionPages) { saveSurvey(totalQuestionPages); }
+    // if current page is any other form page, move ahead
     else
         toPage(curPage + 1,false);
 }

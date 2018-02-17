@@ -35,31 +35,26 @@ function newSurvey() {
 
 /**
  * Saves current survey information to localforage,
- *
- * @param page
- *      number or string denoting which page will be checked for completion
  */
-function saveSurvey(page) {
+function saveSurvey() {
     // if survey is invalid, or current page is the home page, do nothing
-    if (typeof(surveyId) === 'undefined' || curPage == 'home') {
-        completePage(page);
-        // if on first survey page
-        // check required field
-        // call it good
+    if (typeof(surveyId) === 'undefined' || curPage == 'home') { return; }
 
-        return;
-    }
+    // ensure that the required fields have values
+    validatePage(curPage, true)
 
     // set last modified date
     $('#DATE_UPDATED').val(dateToLocalDate(new Date(), false));
-    $('#MISSING_REQUIRED_FLAG').val(('' + !completedSurvey).toUpperCase());
+    // $('#MISSING_REQUIRED_FLAG').val(('' + !completedSurvey).toUpperCase());
 
     // save/update all fields
-    data = getAllFields();
+    var data = getAllFields();
     data.id = surveyId;
     data.date = surveyDate;
-    survey = new Survey(surveyId, data);
-    survey.save(function() { completePage(page); });
+
+    // create new survey
+    var survey = new Survey(data.id, data);
+    survey.save(function() { /* callback does nothing */ });
 
     // Show toast
     showSaveToast();

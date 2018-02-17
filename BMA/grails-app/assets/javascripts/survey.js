@@ -21,7 +21,6 @@ Survey = function(id, data) {
     // Deletes the survey from localforage
     this.delete = function(callback) {
         localforage.removeItem(this.key, callback);
-
         Surveys.remove(this.key, null);
     };
 };

@@ -10,10 +10,10 @@ beaches_sites_get.run(callback,false);
 
 /**
  * Old List of Beaches, Formerly defaults to this when GET fails
+ *
+ * @author Streibel
  * @author Kriz (edited)
- * /
-
-/*
+ */
 var beaches = { 
     'Adams': {
         'Other': {
@@ -632,4 +632,3 @@ var beaches = {
         }
     }
  };
- */

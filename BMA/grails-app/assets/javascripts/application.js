@@ -23,7 +23,7 @@
 
 var curPage = -1;   // Page tracker ('home', 'review', 'help', or form pages '1-10'
 var completedSurvey; // probably removable
-var visitedPages = []; // probably removable
+// var visitedPages = []; // probably removable
 var surveyDate; // holds the creation date of the survey
 var submitted = false; // determines if the survey has been downloaded
 var selected = false; // added for mass interactions
@@ -170,23 +170,17 @@ if (typeof jQuery !== 'undefined') {
      */
     function completePage(nextPage) {
         completedSurvey = true;
-        for(var page = 0; page < totalQuestionPages; page++) {
-            var p = $('div[data-page=' + page + '] :input');
-            var complete = true;
-            p.each(function () {
-                // Required Fields for POSTing
-                if ($(this).attr("id") == '__beach' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == '__site' && $(this).val() == "")
-                    complete = false;
-                if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
-                    complete = false;
-                /*
-                 * Many of the previously required fields are no longer needed.
-                 * Large portion of if-then's were removed.
-                 * See previous version
-                 */
-            });
+        var complete = true;
+
+        // ensure that the required fields have values
+        if(curPage == 0) {
+            if ($(this).attr("id") == '__beach' && $(this).val() == "")
+                complete = false;
+            if ($(this).attr("id") == '__site' && $(this).val() == "")
+                complete = false;
+            if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
+                complete = false;
+        }
             if (!visitedPages)
                 visitedPages = [];
             if(visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
@@ -208,7 +202,7 @@ if (typeof jQuery !== 'undefined') {
                     incompletePages.add(page);
                 }
             }
-        }
+
         if (nextPage == 'home') {
             for (var i = 0; i < totalQuestionPages; i++) {
                 document.getElementById('Complete_' + i).style.display = 'none';
@@ -416,13 +410,13 @@ if (typeof jQuery !== 'undefined') {
         }
     }
 
-    /**
-     * Changes boolean flag, meant to be used for mass interactions
-     */
-    function toggleSelect() {
-        if(selected == true) { selected = false; }
-        else { selected = true; }
-    }
+    // /**
+    //  * Changes boolean flag, meant to be used for mass interactions
+    //  */
+    // function toggleSelect() {
+    //     if(selected == true) { selected = false; }
+    //     else { selected = true; }
+    // }
 }
 
 function checkDirtyNumber(e) {

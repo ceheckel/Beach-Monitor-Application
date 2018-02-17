@@ -136,7 +136,14 @@ function isEmptyOrIspH (candidate) {
 
 }
 
-function validatePage (curPage, checkPage1) {
+/**
+ * Checks fields based on what page number is supplied.
+ * Warns is invalid input is present
+ *
+ * @param curPage   int
+ * @returns {boolean}
+ */
+function validatePage (curPage) {
 
     var userId;
     var county;
@@ -221,7 +228,7 @@ function validatePage (curPage, checkPage1) {
 
 
     // Beach Selection
-    if (checkPage1 === true /*curPage === 0*/) {
+    if (curPage === 0) {
 
         //userId = $("#user_id").val();
         //if (/\w/.test(userId) === false) {
