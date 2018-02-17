@@ -38,12 +38,70 @@ function toPage(page, toDelete) {
     );
     $('#page-title-drawer').html(p.data('page-title'));
 
+    curPage = page;  // curPage is a GLOBAL variable, and this is where it gets set
 
-    /**
-     * display buttons based on current page
-     * could be a separate function?
-     */
-    curPage = page;
+    // Display buttons on the page based upon current page
+    displayBtns();
+
+}
+
+/**
+ * Function for previous button behavior
+ * Goes to page directly before current page
+ * NOTE: Logic checking for array out of bounds is in toPage()
+ * @see toPage
+ */
+function btnPrev() {
+    toPage(curPage - 1,false);
+}
+
+/**
+ * Function for next button behavior
+ * Goes to page directly after current page
+ * NOTE: Logic checking for array out of bounds is in toPage()
+ * @see toPage
+ */
+function btnNext() {
+    // if current page is last page on form, go to review page
+    if (curPage == totalQuestionPages - 1) { toReview(); }
+    // if current page is review page, save any possible changes
+    else if (curPage == totalQuestionPages) { saveSurvey(totalQuestionPages); }
+    // if current page is any other form page, move ahead
+    else
+        toPage(curPage + 1,false);
+}
+
+/**
+ * Display the Review page if the user is at the end of survey
+ *  @see btnNext
+ */
+function toReview() {
+    if(visitedPages.indexOf(totalQuestionPages) < 0)
+        visitedPages.push(totalQuestionPages);
+    saveSurvey(totalQuestionPages);
+    $('div[data-page]').show();
+    $('div[data-page=home]').hide();
+    $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
+    $('#page-title-drawer').html('Review');
+    curPage = totalQuestionPages;
+    $('#btn-next').html('Download');
+    $('#btn-prev').css('display', 'block');
+    $('#btn-delete').css('display', 'block');
+    $('.mdl-layout__content').scrollTop(0);
+    $('#surveySectionsDrawer a').each(function(i,e) {
+        $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
+    });
+    $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
+}
+
+/**
+ * Display buttons based upon current page
+ * @see toPage
+ *      toPage calls this after loading the new page and
+ *      setting curPage [GLOBAL] to the new current page
+ */
+function displayBtns(){
+
     if (curPage > 0) { $('#btn-prev').css('display', 'block'); }    // if not on first page, display previous button
     else { $('#btn-prev').css('display', 'none'); }                 // else, remove previous button
 
@@ -118,53 +176,4 @@ function toPage(page, toDelete) {
         if (i === curPage) $(e).css('font-weight', 'bold').addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
         else $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
     });
-}
-
-/**
- * Function for previous button behavior
- * Goes to page directly before current page
- * NOTE: Logic checking for array out of bounds is in toPage()
- * @see toPage
- */
-function btnPrev() {
-    toPage(curPage - 1,false);
-}
-
-/**
- * Function for next button behavior
- * Goes to page directly after current page
- * NOTE: Logic checking for array out of bounds is in toPage()
- * @see toPage
- */
-function btnNext() {
-    // if current page is last page on form, go to review page
-    if (curPage == totalQuestionPages - 1) { toReview(); }
-    // if current page is review page, save any possible changes
-    else if (curPage == totalQuestionPages) { saveSurvey(totalQuestionPages); }
-    // if current page is any other form page, move ahead
-    else
-        toPage(curPage + 1,false);
-}
-
-/**
- * Display the Review page if the user is at the end of survey
- *  @see btnNext
- */
-function toReview() {
-    if(visitedPages.indexOf(totalQuestionPages) < 0)
-        visitedPages.push(totalQuestionPages);
-    saveSurvey(totalQuestionPages);
-    $('div[data-page]').show();
-    $('div[data-page=home]').hide();
-    $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
-    $('#page-title-drawer').html('Review');
-    curPage = totalQuestionPages;
-    $('#btn-next').html('Download');
-    $('#btn-prev').css('display', 'block');
-    $('#btn-delete').css('display', 'block');
-    $('.mdl-layout__content').scrollTop(0);
-    $('#surveySectionsDrawer a').each(function(i,e) {
-        $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
-    });
-    $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
 }
