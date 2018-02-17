@@ -68,18 +68,6 @@ if (typeof jQuery !== 'undefined') {
         });
     });
 
-
-
-    /**
-     * Creates toast that tells user survey is saved
-     */
-    function showSaveToast() {
-        'use strict';
-        if (submitted) return;
-        var snackbarContainer = document.querySelector('#toast-container');
-        snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!', timeout: 750});
-    }
-
     /**
      * Gets all of the fields in the current survey and returns them as a map
      * @returns {{}|*}
@@ -154,14 +142,6 @@ if (typeof jQuery !== 'undefined') {
         RainfallChange(false);
         OdorChange();
         TurbidityOrNTUChange();
-    }
-
-    /**
-    * Closes the drawer
-    */
-    function closeDrawer() {
-        var d = document.querySelector('.mdl-layout');
-        d.MaterialLayout.toggleDrawer();
     }
 
     /**
@@ -350,6 +330,8 @@ if (typeof jQuery !== 'undefined') {
         return formattedString;
     }
 
+    var deleteTimer = 0;
+
     /**
      * Displays a delete countdown to prevent accidental deletions of surveys
      */
@@ -358,8 +340,8 @@ if (typeof jQuery !== 'undefined') {
         var btn2 = $('#del-surveys-btn');
         deleteTimer--;
         if (deleteTimer > 0) {
-            btn.html('Really? (' + deleteTimer + ')');
-            btn2.html('Really? (' + deleteTimer + ')');
+            btn.html('Really? Click again to confirm(' + deleteTimer + ')');
+            btn2.html('Really? Click again to confirm(' + deleteTimer + ')');
             setTimeout(deleteCountdown, 1000);
         } else {
             deleteTimer = 0;
@@ -370,7 +352,6 @@ if (typeof jQuery !== 'undefined') {
         }
     }
 
-    var deleteTimer = 0;
 
     /**
      * Creates and sets two versions of a new Date instance.
