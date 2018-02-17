@@ -7,9 +7,8 @@
  * @constructor
  */
 Survey = function(id, data) {
-    this.data = data;
-
     this.key = id;
+    this.data = data;
 
     // Updates and saves the survey in localforage
     this.save = function(callback) {

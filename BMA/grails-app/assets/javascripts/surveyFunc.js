@@ -35,6 +35,8 @@ function newSurvey() {
 
 /**
  * Saves current survey information to localforage,
+ *
+ * @author Heckel (edited 02/17/2018)
  */
 function saveSurvey() {
     // if survey is invalid, or current page is the home page, do nothing
@@ -45,7 +47,6 @@ function saveSurvey() {
 
     // set last modified date
     $('#DATE_UPDATED').val(dateToLocalDate(new Date(), false));
-    // $('#MISSING_REQUIRED_FLAG').val(('' + !completedSurvey).toUpperCase());
 
     // save/update all fields
     var data = getAllFields();
@@ -171,12 +172,9 @@ function getSurveys() {
             // create span for data, item name, item info, and action
             var dataSpan = document.createElement("span");
             dataSpan.className = "mdl-list__item-primary-content";
-
             var nameSpan = document.createElement("span");
-
             var infoSpan = document.createElement("span");
             infoSpan.className = "mdl-list__item-sub-title";
-
             var actionSpan = document.createElement("span");
             actionSpan.className = "mdl-list__item-secondary-content";
 
@@ -194,6 +192,7 @@ function getSurveys() {
             action.id = surveys[i].id;
             action.className = "mdl-list__item-secondary-action";
 
+            // when survey is selected, open first page of form
             li.onclick = (function () {
                 var id = surveys[i].id;
                 return function () {
@@ -250,7 +249,7 @@ function getSurveys() {
 function uploadSelected() {
     var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for upload
     var surveys = []; // collection of all surveys to be uploaded
-    var promises = []; // each callback is going to promise to return, used to prevent asynch uploading
+    var promises = []; // each callback is going to promise to return, used to prevent async uploading
 
     // check if any surveys selected
     if (selected.length == 0) {
@@ -285,34 +284,32 @@ function uploadSelected() {
 }
 
 /**
- *  Creates a CSV and downloads it to the host device
+ *  Builds a CSV for an individual survey
  *
  *  @author Heckel (edited 02/17/2018)
  */
-function downloadCSV(){
+function downloadCSV() {
     // Gets current survey from localforage
-    Surveys.getById(surveyId, null, function(myData) {
-        // get survey information
-        var myData = getAllFields();
-        var myDataString = myData.toString();
-
-        // delimiters for csv format
-        var colDelim = '","';
-        var rowDelim = '"\r\n"';
+    Surveys.getById(surveyId, null, function() {
+        var data = getAllFields();  // get survey information
+        var colDelim = '","';       // delimiter for csv format
+        var rowDelim = '"\r\n"';    // delimiter for csv format
 
         // generates rows and columns of csv from survey data
         var csv = '"';
-        for (var key in myData) {
-            if (myData.hasOwnProperty(key)) {
+        for (var key in data) {
+            // setup first row (field names)
+            if (data.hasOwnProperty(key)) {
                 csv += key;
                 csv += colDelim;
             }
         }
         csv += rowDelim;
 
-        for (var key in myData) {
-            if (myData.hasOwnProperty(key)) {
-                csv += myData[key];
+        // setup second row (field values)
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                csv += data[key];
                 csv += colDelim;
             }
         }
@@ -320,7 +317,7 @@ function downloadCSV(){
 
         // generates file data for csv
         var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
-        nameOfFile = myData["__beach"] + "," + myData["__site"] + ',' + myData['date'] + '.csv';
+        nameOfFile = data["__beach"] + "," + data["__site"] + ',' + data['date'] + '.csv';
         var link = document.createElement("a");
         link.setAttribute("href", csvData);
         link.setAttribute("download", nameOfFile);
@@ -330,57 +327,76 @@ function downloadCSV(){
 }
 
 /**
+ * Builds a CSV for a collection of surveys
  *
+ * @author Heckel (created 02/17/2018)
  */
 function downloadSelected() {
-    var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for deletion
-    var surveys = []; // collection of all surveys to be deleted
+    var selected = $(".mdl-checkbox__input:checked"); // Determines if survey is marked for upload
+    var surveys = []; // collection of all surveys to be compiled on CSV
+    var promises = []; // each callback is going to promise to return, used to prevent async CSV building
 
     // check if any surveys selected
-    if(selected.length == 0) {
+    if (selected.length == 0) {
         alert("No Surveys Selected");
         return;
     }
 
-    var btn = $('#dl-surveys-btn');
-    // Gets current survey from localforage
-    for (var i = 0; i < selected.length; i++) {
+    // for each survey marked for download ...
+    for (var i = 0; i < selected.length; i += 1) {
+        var deferred = new $.Deferred();
 
-        // Retrieve survey from localforage and add it to surveys to be uploaded
-        Surveys.getById(selected[i].parentElement.id, null, function (myData) {
+        promises.push(deferred); // Add this to the list of pending callbacks
 
-            // delimiters for csv format
-            var colDelim = '","';
-            var rowDelim = '"\r\n"';
+        // Retrieve survey from localforage and add it to surveys to be downloaded
+        Surveys.getById(selected[i].parentElement.id, deferred, function(survey) {
+            surveys.push(survey);
+        });
+    }
 
-            // generates rows and columns of csv from survey data
-            var csv = '"';
-            for (var key in myData) {
-                if (myData.hasOwnProperty(key)) {
-                    csv += key;
-                    csv += colDelim;
+    // Once all promises have resolved, construct CSV of all marked surveys
+    Promise.all(promises).then(function() {
+        // build CSV
+        var csv = "";
+        var colDelim = '","';       // delimiter for csv format
+        var rowDelim = '"\r\n"';    // delimiter for csv format
+        var data = null;
+
+        for (var i = 0; i < surveys.length; i += 1) {
+            data = (surveys[i]); // get survey information
+
+            // setup first row (field names)
+            if(i == 0) {
+                // generate columns for csv from survey fields
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        csv += key;
+                        csv += colDelim;
+                    }
                 }
             }
             csv += rowDelim;
 
-            for (var key in myData) {
-                if (myData.hasOwnProperty(key)) {
-                    csv += myData[key];
+            // setup second row (field values)
+            for (var key in data) {
+                // generate rows for csv from survey data
+                if (data.hasOwnProperty(key)) {
+                    csv += data[key];
                     csv += colDelim;
                 }
             }
-            csv += '"';
+        }
+        csv += '"';
 
-            // generates file data for csv
-            var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
-            nameOfFile = myData["__beach"] + "," + myData["__site"] + ',' + myData['date'] + '.csv';
-            var link = document.createElement("a");
-            link.setAttribute("href", csvData);
-            link.setAttribute("download", nameOfFile);
-            document.body.appendChild(link);
-            link.click();
-        });
-    }
+        // generates file data for csv
+        var csvData = 'data:application/csv;charset=utf-8,' + encodeURI(csv);
+        var nameOfFile = (new Date()) + '.csv';
+        var link = document.createElement("a");
+        link.setAttribute("href", csvData);
+        link.setAttribute("download", nameOfFile);
+        document.body.appendChild(link);
+        link.click();
+    });
 }
 
 /**
@@ -411,8 +427,8 @@ function deleteSurvey() {
                 sId = surveyId;
                 surveyId = undefined;
 
-                // toPage('home',true);
                 // remove survey from localforage
+                toPage('home',true); // This prevents Survey.remove() from failing on blank surveys
                 Surveys.remove(sId, function () {
                     toPage('home',true); // go to homepage
                 });
