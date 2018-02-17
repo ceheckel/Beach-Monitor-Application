@@ -102,8 +102,8 @@ beaches_sites_get.run = function (callback, use_test_data) {
         $.ajax({
             type: "GET",
             crossDomain: true,
-            ifModified: true, // Important
-            url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata",
+            //ifModified: true, // Do not enable
+            url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata", // Change me to var!
             // https://dzone.com/articles/caching-jquery-ajax-and-otherhttps://dzone.com/articles/caching-jquery-ajax-and-other
             success: function (data, textStatus, jqXHR) {
                 console.log("==========================")
@@ -132,7 +132,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
                                     BEACH_SEQ: tbl.BEACH_SEQ,
                                     BEACH_NAME: tbl.BEACH_NAME,
                                     COUNTY: tbl.COUNTY,
-                                    WATERBODY_NAME: "NOT SET"// How are we deriving this?
+                                    WATERBODY_NAME: tbl.WATERBODY_NAME
                                 };
                     curs =     {
                                     MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
