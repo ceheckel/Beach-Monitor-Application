@@ -18,6 +18,7 @@
 //= require survey.js
 //= require survey_post.js
 //= require beaches_sites_get.js
+//= require display.js
 //= require_tree .
 //= require_self
 
