@@ -6,7 +6,7 @@
  */
 
 /**
- *
+ * Populates the counties drop down on the beach selection page
  */
 function fillCounties() {
     var list = $('#countyList');
@@ -31,7 +31,7 @@ function fillCounties() {
 }
 
 /**
- *
+ * Populates the lakes dropdown on the beach selection page
  */
 function fillLakes() {
     var list = $('#lakeList');
@@ -60,7 +60,7 @@ function fillLakes() {
 }
 
 /**
- *
+ * Populates the beaches dropdown on the beach selection page
  */
 function fillBeaches() {
     var list = $('#beachList');
@@ -90,7 +90,7 @@ function fillBeaches() {
 }
 
 /**
- *
+ * Populates the sites drop down on the beach selection page
  */
 function fillSites() {
     var list = $('#monitorList');
@@ -123,7 +123,14 @@ function fillSites() {
 }
 
 /**
+ * Attempt to propagate the fields based on
+ * previous selections in the form
  *
+ * In other words, display only relevant lakes for
+ * a county, only relevant beaches for a lake, and only
+ * relevant sites for a beach
+ *
+ * @see updateSeq
  */
 function tryPropagate() {
     var county = $('#__county');
