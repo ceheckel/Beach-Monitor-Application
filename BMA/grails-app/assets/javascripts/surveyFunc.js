@@ -526,19 +526,3 @@ function submit(){
     submitted = true;
     toPage('home',false);
 }
-
-/**
- *
- */
-function completionCheck() {
-    completePage(curPage);
-    if(completedSurvey){
-        submit();
-    }
-    else {
-        //var dialog = document.querySelector('dialog');
-        //dialog.showModal();
-
-        validatePage(undefined, true);
-    }
-}

@@ -22,10 +22,6 @@ function toPage(page, toDelete) {
     // save survey
     saveSurvey();
 
-    //
-    // if(visitedPages.indexOf(page) < 0)
-    //     visitedPages.push(page);
-
     // hide everything, then show only desired page
     $('div[data-page]').hide();
     var p = $('div[data-page=' + page + ']');
