@@ -24,12 +24,9 @@
 //= require_self
 
 var curPage = -1;   // Page tracker ('home', 'review', 'help', or form pages '1-10'
-var completedSurvey; // probably removable
-// var visitedPages = []; // probably removable
 var surveyDate; // holds the creation date of the survey
 var submitted = false; // determines if the survey has been downloaded
 var selected = false; // added for mass interactions
-var incompletePages = new Set([]); // removable
 
 var is_safari = (navigator.userAgent.indexOf('Safari') != -1) && (navigator.userAgent.indexOf('Chrome') == -1);
 
@@ -105,7 +102,7 @@ if (typeof jQuery !== 'undefined') {
         OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC");
         RainfallChange(false);
         OdorChange();
-        TurbidityOrNTUChange();
+        // TurbidityOrNTUChange();
         return data;
     }
 
@@ -143,7 +140,7 @@ if (typeof jQuery !== 'undefined') {
         OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC");
         RainfallChange(false);
         OdorChange();
-        TurbidityOrNTUChange();
+        // TurbidityOrNTUChange();
     }
 
     /**
@@ -410,116 +407,4 @@ function checkDirtyNumber(e) {
         targ.parentNode.classList.add("is-dirty");
     else if(targ.value == "")
         targ.parentNode.classList.remove("is-dirty");
-}
-
-function OtherChange(id,desc){
-    if(parseInt($(id).val()) > 0){
-        if(!$(desc).parent().next().is("br"))
-            $(desc).parent().after("<br>");
-        $(desc).parent().show();
-        if($(desc).next().html().indexOf(" *") < 0)
-            $(desc).next().html($(desc).next().html()+" *");
-        $(desc).addClass('required');
-    }
-    else{
-        $(desc).next().html($(desc).next().html().replace(" *",""));
-        $(desc).removeClass('required');
-        $(desc).parent().removeClass('is-dirty');
-        $(desc).val("");
-        if($(desc).parent().next().is("br"))
-            $(desc).parent().next().remove();
-        $(desc).parent().hide();
-    }
-}
-
-function OtherCheckbox(id,desc){
-    if($(id).get()[0].checked){
-        if(!$(desc).parent().next().is("br"))
-            $(desc).parent().after("<br>");
-        $(desc).parent().show();
-        if($(desc).next().html().indexOf(" *") < 0)
-            $(desc).next().html($(desc).next().html()+" *");
-        $(desc).addClass('required');
-    }
-    else{
-        $(desc).next().html($(desc).next().html().replace(" *",""));
-        $(desc).removeClass('required');
-        $(desc).parent().removeClass('is-dirty');
-        $(desc).val("");
-        if($(desc).parent().next().is("br"))
-            $(desc).parent().next().remove();
-        $(desc).parent().hide();
-    }
-}
-
-function RainfallChange(fromChange){
-    if(parseFloat($('#RAINFALL').val()) > 0){
-        if(!$('#RAINFALL_STD_DESC').is(':visible') && fromChange) {
-            $('#RAINFALL_STD_DESC').parent().removeClass('is-dirty');
-            $('#RAINFALL_STD_DESC').val("");
-        }
-        if(!$('#RAINFALL_STD_DESC').parent().next().is("br"))
-            $('#RAINFALL_STD_DESC').parent().after("<br>");
-        $('#RAINFALL_STD_DESC').parent().show();
-        if($('#RAINFALL_STD_DESC').next().next().html().indexOf(" *") < 0)
-            $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html()+" *");
-    }
-    else{
-        $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html().replace(" *",""));
-        $('#RAINFALL_STD_DESC').parent().addClass('is-dirty');
-        $('#RAINFALL_STD_DESC').val("Other");
-        if($('#RAINFALL_STD_DESC').parent().next().is("br"))
-            $('#RAINFALL_STD_DESC').parent().next().remove();
-        $('#RAINFALL_STD_DESC').parent().hide();
-    }
-}
-
-function OdorChange(){
-    if($("#ODOR_DESCRIPTION").val() == 'Other'){
-        if(!$('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
-            $('#ODOR_OTHER_DESCRIPTION').parent().after("<br>");
-        $("#ODOR_OTHER_DESCRIPTION").parent().show();
-        if($("#ODOR_OTHER_DESCRIPTION").next().html().indexOf(" *") < 0)
-            $("#ODOR_OTHER_DESCRIPTION").next().html($("#ODOR_OTHER_DESCRIPTION").next().html()+" *");
-        $("#ODOR_OTHER_DESCRIPTION").addClass('required');
-    }
-    else{
-        $("#ODOR_OTHER_DESCRIPTION").next().html($("#ODOR_OTHER_DESCRIPTION").next().html().replace(" *",""));
-        $("#ODOR_OTHER_DESCRIPTION").removeClass('required');
-        $("#ODOR_OTHER_DESCRIPTION").parent().removeClass('is-dirty');
-        $("#ODOR_OTHER_DESCRIPTION").val("");
-        if($('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
-            $('#ODOR_OTHER_DESCRIPTION').parent().next().remove();
-        $("#ODOR_OTHER_DESCRIPTION").parent().hide();
-    }
-}
-
-function TurbidityOrNTUChange(){
-    if($("#CLARITY_DESC option:selected").index() > 0){
-        if($('#CLARITY_DESC').next().next().html().indexOf(" *") < 0)
-            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html() + " *");
-        $('#CLARITY_DESC').addClass('required');
-        if(($('#NTU').val() == "")){
-            $('#NTU').next().html($('#NTU').next().html().replace(" *", ""));
-            $('#NTU').removeClass('required');
-        }
-    }
-    else if($('#NTU').val() == ""){
-        if($('#NTU').next().html().indexOf(" *") < 0)
-            $('#NTU').next().html($('#NTU').next().html() + " *");
-        $('#NTU').addClass('required');
-        if($('#CLARITY_DESC').next().next().html().indexOf(" *") < 0)
-            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html() + " *");
-        $('#CLARITY_DESC').addClass('required');
-    }
-
-    if($('#NTU').val() != "") {
-        if($('#NTU').next().html().indexOf(" *") < 0)
-            $('#NTU').next().html($('#NTU').next().html() + " *");
-        $('#NTU').addClass('required');
-        if($("#CLARITY_DESC option:selected").index() <= 0){
-            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html().replace(" *",""));
-            $('#CLARITY_DESC').removeClass('required');
-        }
-    }
 }
