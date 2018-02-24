@@ -296,7 +296,7 @@ function validatePage (curPage) {
 
     }
     // Animals
-    else if (curPage === 1) {
+    if (curPage === 1 || curPage === totalQuestionPages) {
 
         numLivingGulls = $("#NO_GULLS").val();
         if (isEmptyOrIsNonnegativeInteger(numLivingGulls) === false) {
@@ -330,7 +330,7 @@ function validatePage (curPage) {
 
     }
     // Deceased Animals
-    else if (curPage === 2) {
+    if (curPage === 2 || curPage === totalQuestionPages) {
 
         numDeadLoons = $("#NUM_LOONS").val();
         if (isEmptyOrIsNonnegativeInteger(numDeadLoons) === false) {
@@ -400,7 +400,7 @@ function validatePage (curPage) {
 
     }
     // Debris in Water
-    else if (curPage === 3) {
+    if (curPage === 3 || curPage === totalQuestionPages) {
 
         waterMaterialDescription = $("#FLOAT_OTHER_DESC").val().trim();
         if ($("#FLOAT_OTHER").is(':checked') && waterMaterialDescription === "") {
@@ -410,7 +410,7 @@ function validatePage (curPage) {
 
     }
     // Debris on Beach
-    else if (curPage === 4) {
+    if (curPage === 4 || curPage === totalQuestionPages) {
 
         beachMaterialDescription = $("#DEBRIS_OTHER_DESC").val().trim();
         if ($("#DEBRIS_OTHER").is(':checked') && beachMaterialDescription === "") {
@@ -420,7 +420,7 @@ function validatePage (curPage) {
 
     }
     // Bathers
-    else if (curPage === 5) {
+    if (curPage === 5 || curPage === totalQuestionPages) {
 
         numPeopleInWater = $("#NO_IN_WATER").val();
         if (isEmptyOrIsNonnegativeInteger(numPeopleInWater) === false) {
@@ -485,7 +485,7 @@ function validatePage (curPage) {
 
     }
     // Weather
-    else if (curPage === 6) {
+    if (curPage === 6 || curPage === totalQuestionPages) {
 
         airTemp = $("#AIR_TEMP").val();
         if (isEmptyOrIsInteger(airTemp) === false) {
@@ -525,7 +525,7 @@ function validatePage (curPage) {
         }
     }
     // Waves
-    else if (curPage === 7) {
+    if (curPage === 7 || curPage === totalQuestionPages) {
 
         waveHeight = $("#WAVE_HEIGHT").val();
         if (isEmptyOrIsNonnegativeInteger(waveHeight) === false) {
@@ -547,7 +547,7 @@ function validatePage (curPage) {
 
     }
     // Water conditions
-    else if (curPage === 8) {
+    if (curPage === 8 || curPage === totalQuestionPages) {
 
         pH = $("#PH").val();
         if (isEmptyOrIspH(pH) === false) {
@@ -581,7 +581,7 @@ function validatePage (curPage) {
 
     }
     // Algae
-    else if (curPage === 9) {
+    if (curPage === 9 || curPage === totalQuestionPages) {
 
         algaeTypeDescription = $("#ALGAE_TYPE_OTHER_DESC").val().trim();
         if ($("#ALGAE_TYPE_OTHER").is(':checked') && algaeTypeDescription === "") {

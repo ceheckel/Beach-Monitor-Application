@@ -61,7 +61,13 @@ function btnNext() {
     // if current page is last page on form, go to review page
     if (curPage == totalQuestionPages - 1) { toReview(); }
     // if current page is review page, save any possible changes
-    else if (curPage == totalQuestionPages) { saveSurvey(totalQuestionPages); }
+    else if (curPage == totalQuestionPages) {
+        saveSurvey(totalQuestionPages);
+        if(validatePage(curPage) == true) {
+            submit();
+        }
+
+    }
     // if current page is any other form page, move ahead
     else
         toPage(curPage + 1,false);
@@ -72,6 +78,8 @@ function btnNext() {
  *  @see btnNext
  */
 function toReview() {
+    console.log("In review section");
+    console.log(curPage);
     if(visitedPages.indexOf(totalQuestionPages) < 0)
         visitedPages.push(totalQuestionPages);
     saveSurvey(totalQuestionPages);
@@ -80,7 +88,7 @@ function toReview() {
     $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
     $('#page-title-drawer').html('Review');
     curPage = totalQuestionPages;
-    $('#btn-next').html('Download');
+    $('#btn-next').html('Submit');
     $('#btn-prev').css('display', 'block');
     $('#btn-delete').css('display', 'block');
     $('.mdl-layout__content').scrollTop(0);

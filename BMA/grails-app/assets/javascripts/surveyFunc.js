@@ -43,7 +43,7 @@ function saveSurvey() {
     if (typeof(surveyId) === 'undefined' || curPage == 'home') { return; }
 
     // ensure that the required fields have values
-    validatePage(curPage, true)
+    //validatePage(curPage, true)
 
     // set last modified date
     $('#DATE_UPDATED').val(dateToLocalDate(new Date(), false));
