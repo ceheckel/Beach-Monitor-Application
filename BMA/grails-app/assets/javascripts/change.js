@@ -110,7 +110,6 @@ function RainfallChange(){
     }
 }
 
-
 /**
  * Setup and removal of the description field for
  * odor based on its html attributes
@@ -139,6 +138,7 @@ function OdorChange() {
         $("#ODOR_OTHER_DESCRIPTION").parent().hide();
     }
 }
+
 
 function TurbidityOrNTUChange(){
     if($("#CLARITY_DESC option:selected").index() > 0){
