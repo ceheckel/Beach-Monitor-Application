@@ -103,6 +103,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
             type: "GET",
             crossDomain: true,
             //ifModified: true, // Do not enable
+            headers: {"If-Modified-Since": "Tue, 13 Feb 2018 14:05:19 GMT"},
             url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata", // Change me to var!
             // https://dzone.com/articles/caching-jquery-ajax-and-otherhttps://dzone.com/articles/caching-jquery-ajax-and-other
             success: function (data, textStatus, jqXHR) {
