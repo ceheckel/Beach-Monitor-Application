@@ -1,8 +1,6 @@
 // CS4791 Fall 2017
 // Jacob Striebel
 
-var TEST_SITES = 3;
-
 window.beaches_sites_get = {};
 
 beaches_sites_get.BEACHES_GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
@@ -116,7 +114,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
                                     BEACH_SEQ: tbl.BEACH_SEQ,
                                     BEACH_NAME: tbl.BEACH_NAME,
                                     COUNTY: tbl.COUNTY,
-                                    WATERBODY_NAME: "NOT SET"// How are we deriving this?
+                                    WATERBODY_NAME: tbl.WATERBODY_NAME //"NOT SET"// How are we deriving this?
                                 };
                     curs =     {
                                     MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,

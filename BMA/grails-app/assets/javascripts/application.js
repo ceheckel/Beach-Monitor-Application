@@ -117,32 +117,4 @@ if (typeof jQuery !== 'undefined') {
             btn2.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
         }
     }
-
-
-    /**
-     * Creates and sets two versions of a new Date instance.
-     * Version 1 is for the browser to display
-     * Version 2 is for the server to store
-     */
-    function collectSampleNow() {
-        var d = new Date(); // get full date/time
-        $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
-        $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d, false)); // parse for server info
-    }
-
-    function clearBeachFields() {
-        $('#__county').val("");
-        $('#__lake').val("");
-        $('#__beach').val("");
-        $('#__site').val("");
-    }
-
-
-    // /**
-    //  * Changes boolean flag, meant to be used for mass interactions
-    //  */
-    // function toggleSelect() {
-    //     if(selected == true) { selected = false; }
-    //     else { selected = true; }
-    // }
 }

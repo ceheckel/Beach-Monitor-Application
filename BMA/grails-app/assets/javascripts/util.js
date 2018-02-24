@@ -280,3 +280,24 @@ function updateSeq(input, list, stored) {
             $(stored).val(beaches[county][lake][beach][$('#__site').val()])
     }
 }
+
+/**
+ * Creates and sets two versions of a new Date instance.
+ * Version 1 is for the browser to display
+ * Version 2 is for the server to store
+ */
+function collectSampleNow() {
+    var d = new Date(); // get full date/time
+    $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
+    $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d, false)); // parse for server info
+}
+
+/**
+ * removes all data related to the beach selection on first page of form
+ */
+function clearBeachFields() {
+    $('#__county').val("");
+    $('#__lake').val("");
+    $('#__beach').val("");
+    $('#__site').val("");
+}
