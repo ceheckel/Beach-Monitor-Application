@@ -96,30 +96,7 @@ if (typeof jQuery !== 'undefined') {
 
     saveFavoriteEnabled();
 
-    var deleteTimer = 0;
-
-<<<<<<< HEAD
-
-
-
-    /**
-     * Creates and sets two versions of a new Date instance.
-     * Version 1 is for the browser to display
-     * Version 2 is for the server to store
-     */
-    function collectSampleNow() {
-        var d = new Date(); // get full date/time
-        $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
-        $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d, false)); // parse for server info
-    }
-
-    function clearBeachFields() {
-        $('#__county').val("");
-        $('#__lake').val("");
-        $('#__beach').val("");
-        $('#__site').val("");
-    }
-
+    var deleteTimer = 0;  // This needs to be here for some reason don't delete it
 
     // /**
     //  * Changes boolean flag, meant to be used for mass interactions
@@ -128,25 +105,4 @@ if (typeof jQuery !== 'undefined') {
     //     if(selected == true) { selected = false; }
     //     else { selected = true; }
     // }
-=======
-    /**
-     * Displays a delete countdown to prevent accidental deletions of surveys
-     */
-    function deleteCountdown() {
-        var btn = $('#btn-delete');
-        var btn2 = $('#del-surveys-btn');
-        deleteTimer--;
-        if (deleteTimer > 0) {
-            btn.html('Really? Click again to confirm(' + deleteTimer + ')');
-            btn2.html('Really? Click again to confirm(' + deleteTimer + ')');
-            setTimeout(deleteCountdown, 1000);
-        } else {
-            deleteTimer = 0;
-            btn.html('Delete');
-            btn2.html('Delete');
-            btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-            btn2.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-        }
-    }
->>>>>>> 1f26fe34a591e9910fdafb62cd4bee645fec6b1a
 }

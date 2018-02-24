@@ -35,8 +35,8 @@ function deleteCountdown() {
     var btn2 = $('#del-surveys-btn');
     deleteTimer--;
     if (deleteTimer > 0) {
-        btn.html('Really? Click again to confirm(' + deleteTimer + ')');
-        btn2.html('Really? Click again to confirm(' + deleteTimer + ')');
+        btn.html('Click again to confirm(' + deleteTimer + ')');
+        btn2.html('Click again to confirm(' + deleteTimer + ')');
         setTimeout(deleteCountdown, 1000);
     } else {
         deleteTimer = 0;
