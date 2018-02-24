@@ -98,25 +98,7 @@ if (typeof jQuery !== 'undefined') {
 
     var deleteTimer = 0;
 
-    /**
-     * Displays a delete countdown to prevent accidental deletions of surveys
-     */
-    function deleteCountdown() {
-        var btn = $('#btn-delete');
-        var btn2 = $('#del-surveys-btn');
-        deleteTimer--;
-        if (deleteTimer > 0) {
-            btn.html('Really? Click again to confirm(' + deleteTimer + ')');
-            btn2.html('Really? Click again to confirm(' + deleteTimer + ')');
-            setTimeout(deleteCountdown, 1000);
-        } else {
-            deleteTimer = 0;
-            btn.html('Delete');
-            btn2.html('Delete');
-            btn.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-            btn2.removeClass('mdl-color--red-A700').removeClass('mdl-color-text--white');
-        }
-    }
+
 
 
     /**
