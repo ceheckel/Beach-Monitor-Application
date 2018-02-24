@@ -137,18 +137,30 @@ function tryPropagate() {
     var lake = $('#__lake');
     var beach = $('#__beach');
     var site = $('#__site');
+
+    // used to prevent error on propagation of beach / site when no parent is selected
+    var onlyLake = null;
+    var onlyBeach = null;
+
+    // if only one lake exists for the selected county, auto-fill next text field
     if (Object.keys(beaches[county.val()]).length === 1) {
         fillLakes();
         lake.val(Object.keys(beaches[county.val()])[0]);
         lake.parent().addClass('is-dirty');
+        onlyLake = Object.keys(beaches[county.val()])[0];
     }
-    if (Object.keys(beaches[county.val()][lake.val()]).length === 1) {
+
+    // if only one beach exists for the selected lake, auto-fill next text field
+    if ((onlyLake != null) && Object.keys(beaches[county.val()][lake.val()]).length === 1) {
         fillBeaches();
         beach.val(Object.keys(beaches[county.val()][lake.val()])[0]);
         beach.parent().addClass('is-dirty');
         updateSeq('#__beach', '#beachList', '#BEACH_SEQ');
+        onlyBeach = Object.keys(beaches[county.val()][lake.val()])
     }
-    if (Object.keys(beaches[county.val()][lake.val()][beach.val()]).length === 2) {
+
+    // if only one site exists for the selected lake, auto-fill next text field
+    if ((onlyBeach != null) && Object.keys(beaches[county.val()][lake.val()][beach.val()]).length === 2) {
         fillSites();
         site.val(Object.keys(beaches[county.val()][lake.val()][beach.val()])[1]);
         site.parent().addClass('is-dirty');
