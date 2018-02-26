@@ -100,9 +100,26 @@ beaches_sites_get.run = function (callback, use_test_data) {
         $.ajax({
             type: "GET",
             crossDomain: true,
-            url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata",
-            success: function (data) {
+            ifModified: true, // This seems to be the only way to get semi-consistant results
+            //headers: {"If-Modified-Since": "Tue, 13 Feb 2018 14:05:19 GMT"},
+            url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata", // Change me to var!
+            // https://dzone.com/articles/caching-jquery-ajax-and-otherhttps://dzone.com/articles/caching-jquery-ajax-and-other
+            success: function (data, textStatus, jqXHR) {
+                console.log("==========================")
+                if (jqXHR) { // Make sure we even have XHR from JQ
+                    if (jqXHR.status === 200) { // IF MODIFIED SINCE
 
+                        console.log("Reqest got cache okay! 200")
+
+                    } else {
+                        console.log("Request reply is ", jqXHR.status.toString())
+                        //return; // Unclear if we need to continue from here
+                    }
+                }else{
+                    console.log("! jqXHR was sent as null/false !")
+                    //return; // Unclear if we need to continue from here
+                }
+                console.log("==========================")
                 //console.log(data);
                 at = 0;
                 //data = JSON.parse(data);
@@ -114,7 +131,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
                                     BEACH_SEQ: tbl.BEACH_SEQ,
                                     BEACH_NAME: tbl.BEACH_NAME,
                                     COUNTY: tbl.COUNTY,
-                                    WATERBODY_NAME: tbl.WATERBODY_NAME //"NOT SET"// How are we deriving this?
+                                    WATERBODY_NAME: tbl.WATERBODY_NAME
                                 };
                     curs =     {
                                     MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
