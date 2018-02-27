@@ -1,14 +1,13 @@
 /**
  * Created by cwbaldwi on 10/11/17.
- * Editted by ceheckel on 02/11/18.
+ * Edited by Heckel on 02/11/18.
  */
 
 window.survey_post = {};
 
-survey_post.TEST = false;
-survey_post.POST_URL = "";
-survey_post.LOCALHOST_SURVEYS_URL = "http://localhost:8081/bms/survey";
-survey_post.TOMCAT_SURVEYS_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/survey"; // TOMCAT URL IS CURRENTLY FOR TESTING SERVER
+// http://localhost:8081/bms/survey
+// https://hci-dev.cs.mtu.edu:8117/BMS2/survey <-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
+survey_post.URL_POST = "http://localhost:8081/bms/survey";
 
 /**
  * Uploads all surveys to the Wi Beach Server
@@ -22,10 +21,10 @@ survey_post.upload = function(surveys) {
     toUpload = "[";
     surveys.forEach(function(survey) {
         //ensure that water and air temp are null if they ="" upon upload
-        if(survey.AVG_WATER_TEMP == "")
-            survey.AVG_WATER_TEMP = null;
-        if(survey.AIR_TEMP == "")
-            survey.AIR_TEMP = null;
+        // if(survey.AVG_WATER_TEMP == "")
+        //     survey.AVG_WATER_TEMP = null;
+        // if(survey.AIR_TEMP == "")
+        //     survey.AIR_TEMP = null;
 
         //ensure only submitted surveys get uploaded
         if (survey.submitted) { // upload only submitted surveys
@@ -40,7 +39,7 @@ survey_post.upload = function(surveys) {
         type: 'POST',
         crossDomain: true,
         contentType: 'application/json; charset=utf-8',
-        url: survey_post.POST_URL,
+        url: survey_post.URL_POST,
         dataType: 'json',
         data: toUpload,
         success: function () { alert("success"); },

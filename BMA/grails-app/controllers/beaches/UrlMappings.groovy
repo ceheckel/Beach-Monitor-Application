@@ -10,9 +10,7 @@ class UrlMappings {
         }
 
         "/"(controller:"index")
-        "/idx2"(view:"/index2")
         "500"(view:'/error')
         "404"(view:'/notFound')
-        "/login/$action?"(controller: "login")
     }
 }
