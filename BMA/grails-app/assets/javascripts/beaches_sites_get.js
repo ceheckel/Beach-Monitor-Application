@@ -5,8 +5,7 @@ var TEST_SITES = 3;
 
 window.beaches_sites_get = {};
 
-beaches_sites_get.BEACHES_GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
-beaches_sites_get.SITES_GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
+beaches_sites_get.GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
 
 beaches_sites_get.test_beaches = [
     {
@@ -102,21 +101,21 @@ beaches_sites_get.run = function (callback, use_test_data) {
         $.ajax({
             type: "GET",
             crossDomain: true,
-            url: "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata",
+            url: beaches_sites_get.GET_URL,
             success: function (data) {
 
-                //console.log(data);
+                console.log(data);
                 at = 0;
                 //data = JSON.parse(data);
                 data.forEach(function(tbl){
-                    console.log(tbl);
-                    console.log("At iteration # " , at);
+                    //console.log(tbl);
+                    //console.log("At iteration # " , at);
 
                     curb =     {
                                     BEACH_SEQ: tbl.BEACH_SEQ,
                                     BEACH_NAME: tbl.BEACH_NAME,
                                     COUNTY: tbl.COUNTY,
-                                    WATERBODY_NAME: "NOT SET"// How are we deriving this?
+                                    WATERBODY_NAME: tbl.WATERBODY_NAME// How are we deriving this?
                                 };
                     curs =     {
                                     MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
@@ -132,7 +131,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
 
                 //beaches = data.beaches;
                 //sites = data.sites;
-                console.log("DONE READING IN NOW!");
+                //console.log("DONE READING IN NOW!");
                 console.log(beaches);
                 console.log(beaches.length);
                 console.log(sites);
