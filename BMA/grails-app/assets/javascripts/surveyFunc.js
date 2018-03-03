@@ -72,6 +72,7 @@ function loadSurvey(id) {
 
     // get survey from localforage, then run callback
     Surveys.getById(surveyId, null, function(survey) {
+        fillCounties();
         submitted = survey['submitted'];
         $('[name]').each(function () {
             $(this).prop('disabled', submitted);
@@ -97,14 +98,23 @@ function loadSurvey(id) {
             {
                 this.value = survey[nameToString];
                 this.parentElement.className += " is-dirty";
+                if (nameToString == "__county"){
+                    fillFromCounty();
+                }
+                else if (nameToString == "__lake"){
+                    fillFromLake();
+                }
+                else if (nameToString == "__beach"){
+                    fillFromBeach();
+                }
             }
         });
-        fillCounties();
-        fillLakes();
-        fillBeaches();
-        fillSites();
-        updateSeq('#__beach', '#beachList', '#BEACH_SEQ');
-        updateSeq('#__site', '#monitorList', '#MONITOR_SITE_SEQ');
+        // fillCounties();
+        // fillLakes();
+        // fillBeaches();
+        // fillSites();
+        updateSeq('#__beach', '#BEACH_SEQ');
+        updateSeq('#__site', '#MONITOR_SITE_SEQ');
         surveyDate = new Date(survey['date']);
         visitedPages = survey['vPages'];
         if(submitted)
