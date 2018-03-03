@@ -7,15 +7,18 @@
     <title>WI Beach Health</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
     <script>
+        /*
         $(function () {
             var callback = function (gotten_beaches) {
                 beaches = gotten_beaches;
             };
             window.beaches_sites_get.run(callback, false);
         });
+        */
     </script>
-
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
 
