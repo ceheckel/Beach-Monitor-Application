@@ -59,8 +59,8 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living Gulls *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, extraClasses:'recommended'),
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER_DESC', prompt: 'If other, describe')
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', prompt: 'If other, describe')
                 ]
         ]
 
@@ -75,7 +75,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horned Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1 ),
                         new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_FISH', prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_DEAD_FISH', prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe')
                 ]
@@ -172,7 +172,7 @@ class IndexController {
                         ], title: 'Wind direction description'),
 
                         // Weather
-                        new SelectQuestion(columnId: 'WEATHER_DES', options: [
+                        new SelectQuestion(columnId: 'WEATHER_DESC', options: [
                                 '',
                                 'Clear',
                                 'Mostly sunny',
@@ -190,7 +190,7 @@ class IndexController {
                                 '>72'
                         ], title: "Hours since last rain event"),
                         new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
-                        new SelectQuestion(columnId: 'RAINFALL_STD_DESC', options: [
+                        new SelectQuestion(columnId: 'RAINFALL_STN_DESC', options: [
                                 '',
                                 'Misting',
                                 'Light',
@@ -321,7 +321,7 @@ class IndexController {
                                 'Turbid',
                                 'Opaque'
                         ], title: "Turbidity *", onchange: "TurbidityOrNTUChange()", extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
+                        new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', errorm:"Must be a nonnegative integer or decimal", type:"numeric", pattern:"(0*[0-9]*(\\.[0-9]*)?)", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
                         new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01),
 
                         new TextQuestion(columnId: 'WATER_COMMENTS', prompt: 'Additional Comments')

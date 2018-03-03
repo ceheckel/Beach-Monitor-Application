@@ -83,30 +83,30 @@ function OtherCheckbox(otherField,descriptionField) {
  */
 function RainfallChange(){
     if(parseFloat($('#RAINFALL').val()) > 0){
-        if(!$('#RAINFALL_STD_DESC').is(':visible')) {
-            $('#RAINFALL_STD_DESC').parent().removeClass('is-dirty');
-            $('#RAINFALL_STD_DESC').val("");
+        if(!$('#RAINFALL_STN_DESC').is(':visible')) {
+            $('#RAINFALL_STN_DESC').parent().removeClass('is-dirty');
+            $('#RAINFALL_STN_DESC').val("");
         }
 
         // setup the html for the description field
-        if(!$('#RAINFALL_STD_DESC').parent().next().is("br"))
-            $('#RAINFALL_STD_DESC').parent().after("<br>");
-        $('#RAINFALL_STD_DESC').parent().show();
+        if(!$('#RAINFALL_STN_DESC').parent().next().is("br"))
+            $('#RAINFALL_STN_DESC').parent().after("<br>");
+        $('#RAINFALL_STN_DESC').parent().show();
 
 
         // make the description field 'required'
-        if($('#RAINFALL_STD_DESC').next().next().html().indexOf(" *") < 0)
-            $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html()+" *");
+        if($('#RAINFALL_STN_DESC').next().next().html().indexOf(" *") < 0)
+            $('#RAINFALL_STN_DESC').next().next().html($('#RAINFALL_STN_DESC').next().next().html()+" *");
     } else {
         // remove possible 'required' tags if the field becomes unselected
-        $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html().replace(" *",""));
-        $('#RAINFALL_STD_DESC').parent().addClass('is-dirty');
-        $('#RAINFALL_STD_DESC').val("Other");
+        $('#RAINFALL_STN_DESC').next().next().html($('#RAINFALL_STN_DESC').next().next().html().replace(" *",""));
+        $('#RAINFALL_STN_DESC').parent().addClass('is-dirty');
+        $('#RAINFALL_STN_DESC').val("Other");
 
         // remove setup for description field
-        if($('#RAINFALL_STD_DESC').parent().next().is("br"))
-            $('#RAINFALL_STD_DESC').parent().next().remove();
-        $('#RAINFALL_STD_DESC').parent().hide();
+        if($('#RAINFALL_STN_DESC').parent().next().is("br"))
+            $('#RAINFALL_STN_DESC').parent().next().remove();
+        $('#RAINFALL_STN_DESC').parent().hide();
     }
 }
 

@@ -101,6 +101,8 @@ function fillFromBeach(){
  * In other words, display only relevant lakes for
  * a county, only relevant beaches for a lake, and only
  * relevant sites for a beach
+ * 
+ * NOTE: Not required for select field implementation
  *
  * @see updateSeq
  */

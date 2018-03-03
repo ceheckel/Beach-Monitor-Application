@@ -329,7 +329,7 @@ function validatePage (curPage) {
             return false;
         }
 
-        otherLivingDescription = $("#NO_ANIMALS_OTHER_DESC").val().trim();
+        otherLivingDescription = $("#ANIMALS_OTHER_DESC").val().trim();
         if ((numOtherLiving !== "" && numOtherLiving !== "0") && otherLivingDescription === "") {
             myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, you must also provide a description of that wildlife.");
             return false;
@@ -387,7 +387,7 @@ function validatePage (curPage) {
             return false;
         }
 
-        numDeadFish = $("#NUM_FISH").val();
+        numDeadFish = $("#NUM_DEAD_FISH").val();
         if (isEmptyOrIsNonnegativeInteger(numDeadFish) === false) {
             myAlert("Number of dead Fish is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
             return false;
