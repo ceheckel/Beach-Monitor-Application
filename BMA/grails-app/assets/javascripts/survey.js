@@ -7,9 +7,8 @@
  * @constructor
  */
 Survey = function(id, data) {
-    this.data = data;
-
     this.key = id;
+    this.data = data;
 
     // Updates and saves the survey in localforage
     this.save = function(callback) {
@@ -21,7 +20,6 @@ Survey = function(id, data) {
     // Deletes the survey from localforage
     this.delete = function(callback) {
         localforage.removeItem(this.key, callback);
-
         Surveys.remove(this.key, null);
     };
 };

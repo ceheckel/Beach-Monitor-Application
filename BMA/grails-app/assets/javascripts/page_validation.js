@@ -136,7 +136,14 @@ function isEmptyOrIspH (candidate) {
 
 }
 
-function validatePage (curPage, checkPage1) {
+/**
+ * Checks fields based on what page number is supplied.
+ * Warns is invalid input is present
+ *
+ * @param curPage   int
+ * @returns {boolean}
+ */
+function validatePage (curPage) {
 
     var userId;
     var county;
@@ -221,7 +228,7 @@ function validatePage (curPage, checkPage1) {
 
 
     // Beach Selection
-    if (checkPage1 === true /*curPage === 0*/) {
+    if (curPage === 0) {
 
         //userId = $("#user_id").val();
         //if (/\w/.test(userId) === false) {
@@ -289,7 +296,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Animals
-    else if (curPage === 1) {
+    if (curPage === 1 || curPage === totalQuestionPages) {
 
         numLivingGulls = $("#NO_GULLS").val();
         if (isEmptyOrIsNonnegativeInteger(numLivingGulls) === false) {
@@ -315,7 +322,7 @@ function validatePage (curPage, checkPage1) {
             return false;
         }
 
-        otherLivingDescription = $("#NO_ANIMALS_OTHER_DESC").val().trim();
+        otherLivingDescription = $("#ANIMALS_OTHER_DESC").val().trim();
         if ((numOtherLiving !== "" && numOtherLiving !== "0") && otherLivingDescription === "") {
             myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, you must also provide a description of that wildlife.");
             return false;
@@ -323,7 +330,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Deceased Animals
-    else if (curPage === 2) {
+    if (curPage === 2 || curPage === totalQuestionPages) {
 
         numDeadLoons = $("#NUM_LOONS").val();
         if (isEmptyOrIsNonnegativeInteger(numDeadLoons) === false) {
@@ -373,7 +380,7 @@ function validatePage (curPage, checkPage1) {
             return false;
         }
 
-        numDeadFish = $("#NUM_FISH").val();
+        numDeadFish = $("#NUM_DEAD_FISH").val();
         if (isEmptyOrIsNonnegativeInteger(numDeadFish) === false) {
             myAlert("Number of dead Fish is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
             return false;
@@ -393,7 +400,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Debris in Water
-    else if (curPage === 3) {
+    if (curPage === 3 || curPage === totalQuestionPages) {
 
         waterMaterialDescription = $("#FLOAT_OTHER_DESC").val().trim();
         if ($("#FLOAT_OTHER").is(':checked') && waterMaterialDescription === "") {
@@ -403,7 +410,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Debris on Beach
-    else if (curPage === 4) {
+    if (curPage === 4 || curPage === totalQuestionPages) {
 
         beachMaterialDescription = $("#DEBRIS_OTHER_DESC").val().trim();
         if ($("#DEBRIS_OTHER").is(':checked') && beachMaterialDescription === "") {
@@ -413,7 +420,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Bathers
-    else if (curPage === 5) {
+    if (curPage === 5 || curPage === totalQuestionPages) {
 
         numPeopleInWater = $("#NO_IN_WATER").val();
         if (isEmptyOrIsNonnegativeInteger(numPeopleInWater) === false) {
@@ -478,7 +485,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Weather
-    else if (curPage === 6) {
+    if (curPage === 6 || curPage === totalQuestionPages) {
 
         airTemp = $("#AIR_TEMP").val();
         if (isEmptyOrIsInteger(airTemp) === false) {
@@ -518,7 +525,7 @@ function validatePage (curPage, checkPage1) {
         }
     }
     // Waves
-    else if (curPage === 7) {
+    if (curPage === 7 || curPage === totalQuestionPages) {
 
         waveHeight = $("#WAVE_HEIGHT").val();
         if (isEmptyOrIsNonnegativeInteger(waveHeight) === false) {
@@ -540,7 +547,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Water conditions
-    else if (curPage === 8) {
+    if (curPage === 8 || curPage === totalQuestionPages) {
 
         pH = $("#PH").val();
         if (isEmptyOrIspH(pH) === false) {
@@ -574,7 +581,7 @@ function validatePage (curPage, checkPage1) {
 
     }
     // Algae
-    else if (curPage === 9) {
+    if (curPage === 9 || curPage === totalQuestionPages) {
 
         algaeTypeDescription = $("#ALGAE_TYPE_OTHER_DESC").val().trim();
         if ($("#ALGAE_TYPE_OTHER").is(':checked') && algaeTypeDescription === "") {

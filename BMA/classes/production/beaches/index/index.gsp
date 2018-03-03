@@ -15,7 +15,13 @@
             window.beaches_sites_get.run(callback, false);
         });
     </script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
+
+        p{
+            color: #ffffff;
+        }
         /* Place the navbar at the bottom of the page, and make it stick */
         .bottom-nav {
             background-color: rgb(63,81,181);
@@ -26,7 +32,7 @@
             width: 100%;
         }
 
-        /* for highlighting required and recommended fields */
+
         .mdl-textfield__input.required {
             background-color: rgba(255,0,0,0.20);
         }
@@ -39,7 +45,82 @@
         .mdl-selectfield__select.recommended {
             background-color: rgba(0,255,0,0.20);
         }
+
         /* end of highlighting */
+
+        /* bottom nav-bar styling */
+        /*@media (max-width: 334px) {*/
+
+            /*.bottom-nav-button {*/
+                /*width: 50%;*/
+            /*}*/
+            /*.bottom-nav-flex {*/
+                /*display: none;*/
+            /*}*/
+        /*}*/
+        @media (min-width: 0px) and (max-width: 579px) {
+            .bottom-nav-icon {
+                display: block;
+            }
+            .bottom-nav-icon-item {
+                display: none;
+            }
+        }
+        @media (min-width: 580px) {
+            .bottom-nav-icon {
+                display: block;
+            }
+
+            .bottom-nav-icon-item {
+                display: none;
+            }
+        }
+        /* end bottom nav-bar styling */
+
+        /* Restyled page code */
+        /* for highlighting required and recommended fields */
+        .mdl-textfield{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield{
+            color: #ffffff;
+        }
+
+        .mdl-textfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-textfield__label:after{
+            background-color: #ffffff !important;
+        }
+
+        .mdl-selectfield--floating-label.is-focused .mdl-selectfield__label,.mdl-selectfield--floating-label.is-dirty .mdl-selectfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+            color: #ffffff;
+        }
+
+        .mdl-checkbox__label{
+            color: #ffffff;
+        }
+
+        .mdl-selectfield__label:after{
+            background-color: #ffffff !important;
+        }
+
+        #SAMPLE_DATE_TIME_DISPLAYED{
+            color: #ffffff;
+        }
+        body {
+            background-color: #a4b0c4;
+        }
     </style>
 </head>
 <body>
@@ -48,26 +129,30 @@
     <!-- Bottom Navbar for Home page -->
     <div class="bottom-nav">
         <!-- Upload Surveys Button -->
-        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="uploadSurveys()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
-            Upload
+        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="uploadSurveys()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
+            <div class="bottom-nav-icon"><i class="material-icons">file_upload</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">file_upload</i>&nbsp;Upload</div>
         </button>
 
         <!-- Download Surveys Button -->
-        <button id="dl-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="downloadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
-            Download
+        <button id="dl-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="downloadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            <div class="bottom-nav-icon"><i class="material-icons">file_download</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">file_download</i>&nbsp;Download</div>
         </button>
 
         <!-- Delete Surveys Button -->
-        <button id="del-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="deleteSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
-            Delete
+        <button id="del-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="deleteSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            <div class="bottom-nav-icon"><i class="material-icons">delete</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">delete</i>&nbsp;Delete</div>
         </button>
 
         <!-- Used as Spacing -->
-        <div style="flex:1"></div>
+        <div class="bottom-nav-flex" style="flex:1"></div>
 
         <!-- Create new Survey Button -->
-        <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect" onclick="newSurvey()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
-            New Survey
+        <button id="btn-new-survey" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="newSurvey()" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">
+            <div class="bottom-nav-icon"><i class="material-icons">create</i></div>
+            <div class="bottom-nav-icon-item"><i class="material-icons">create</i>&nbsp;New Survey</div>
         </button>
     </div>
 
@@ -207,7 +292,8 @@
                 <!-- For Checkbox Questions -->
                 <g:if test="${q instanceof CheckQuestion}">
                     <g:if test="${q.hasTitle}">
-                        <h6>${q.title}</h6>
+                        <!--Is this really needed?-->
+                        <!-- <h6>${q.title}</h6> -->
                     </g:if>
                     <g:if test="${q.radio}">
                         <g:if test="${q.inline}">
