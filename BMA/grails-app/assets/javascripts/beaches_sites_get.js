@@ -116,7 +116,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
                                     BEACH_SEQ: tbl.BEACH_SEQ,
                                     BEACH_NAME: tbl.BEACH_NAME,
                                     COUNTY: tbl.COUNTY,
-                                    WATERBODY_NAME: "NOT SET"// How are we deriving this?
+                                    WATERBODY_NAME: tbl.WATERBODY_NAME
                                 };
                     curs =     {
                                     MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
@@ -139,6 +139,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
                 // console.log(sites.length);
 
                 beaches_sites_get.parse(beaches, sites, callback);
+                fillCounties();
             },
             error: function () {
                 alert('Get beaches and sites failed (' + beaches_sites_get.SITES_GET_URL + ').');
