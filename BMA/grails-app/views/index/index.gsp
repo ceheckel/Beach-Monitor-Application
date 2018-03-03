@@ -1,20 +1,12 @@
 <%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
 <!doctype html>
-<!--<html manifest="appcache.manifest">-->
+
 <html>
 <head>
     <meta name="layout" content="main"/>
     <title>WI Beach Health</title>
 
-    %{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--}%
-    %{--<script>--}%
-        %{--$(function () {--}%
-            %{--var callback = function (gotten_beaches) {--}%
-                %{--beaches = gotten_beaches;--}%
-            %{--};--}%
-            %{--window.beaches_sites_get.run(callback, false);--}%
-        %{--});--}%
-    %{--</script>--}%
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
@@ -49,15 +41,6 @@
         /* end of highlighting */
 
         /* bottom nav-bar styling */
-        /*@media (max-width: 334px) {*/
-
-            /*.bottom-nav-button {*/
-                /*width: 50%;*/
-            /*}*/
-            /*.bottom-nav-flex {*/
-                /*display: none;*/
-            /*}*/
-        /*}*/
         @media (min-width: 0px) and (max-width: 579px) {
             .bottom-nav-icon {
                 display: block;
@@ -135,7 +118,6 @@
 <!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
 
-
     <!-- Unsubmitted Reports Section -->
     <ul class="mdl-list" id="unsubmitted-reports">
         <li class="mdl-list__item">
@@ -184,11 +166,6 @@
             <div class="bottom-nav-icon-item"><i class="material-icons">create</i>&nbsp;New Survey</div>
         </button>
     </div>
-
-
-    <!-- Survey post button-->
-    %{--<button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--raised"  onclick="window.survey_post.upload();" style="background-color: rgb(68,138,255); color: rgb(255,255,255);">Upload Past Reports</button>--}%
-
 </div>
 
 <!-- help page link -->
@@ -303,8 +280,6 @@
                 <!-- For Checkbox Questions -->
                 <g:if test="${q instanceof CheckQuestion}">
                     <g:if test="${q.hasTitle}">
-                        <!--Is this really needed?-->
-                        <!-- <h6>${q.title}</h6> -->
                     </g:if>
                     <g:if test="${q.radio}">
                         <g:if test="${q.inline}">
