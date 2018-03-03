@@ -303,19 +303,26 @@ function clearBeachFields() {
 }
 
 /**
- * Creates and sets two versions of a new Date instance.
- * Version 1 is for the browser to display
- * Version 2 is for the server to store
+ * collects all comment fields from the survey and puts the values into their
+ * respective domain sections
+ *
+ * @author Heckel (3/3/18)
  */
-function collectSampleNow() {
-    var d = new Date(); // get full date/time
-    $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
-    $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d, false)); // parse for server info
-}
+function concatComments() {
+    // get the value of the two comment sections
+    var weatherComm = $('#WEATHER_COMMENTS').val();
+    var wavesComm   = $('#WAVES_COMMENTS').val();
+    var waterComm   = $('#WATER_COMMENTS').val();
+    var bathersComm = $('#HUMAN_BATHERS_COMMENTS').val();
+    var debrisComm  = $('#DEBRIS_IN_WATER_COMMENTS').val();
+    var debrisComm2 = $('#DEBRIS_ON_BEACH_COMMENTS').val();
+    var algaeComm   = $('#ALGAE_COMMENTS').val();
+    var wildlifeComm= $('#WILDLIFE_COMMENTS').val();
+    var deadlifeComm= $('#DEAD_ANIMAL_COMMENTS').val();
 
-function clearBeachFields() {
-    $('#__county').val("");
-    $('#__lake').val("");
-    $('#__beach').val("");
-    $('#__site').val("");
+    // concatenate the sections into a proper domain
+    $('#PART_1_COMMENTS').val(weatherComm + "; " + wavesComm);
+    $('#PART_2_COMMENTS').val(waterComm);
+    $('#PART_3_COMMENTS').val(bathersComm);
+    $('#PART_4_COMMENTS').val(debrisComm + "; " + debrisComm2 + "; " + algaeComm + "; " + wildlifeComm + "; " + deadlifeComm);
 }
