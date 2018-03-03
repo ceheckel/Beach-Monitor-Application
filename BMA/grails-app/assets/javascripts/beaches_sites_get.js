@@ -127,7 +127,6 @@ beaches_sites_get.run = function (callback, use_test_data) {
                 data.forEach(function(tbl){
                     // console.log(tbl);
                     // console.log("At iteration # " , at);
-
                     curb =     {
                                     BEACH_SEQ: tbl.BEACH_SEQ,
                                     BEACH_NAME: tbl.BEACH_NAME,
@@ -148,11 +147,11 @@ beaches_sites_get.run = function (callback, use_test_data) {
 
                 //beaches = data.beaches;
                 //sites = data.sites;
-                // console.log("DONE READING IN NOW!");
-                // console.log(beaches);
-                // console.log(beaches.length);
-                // console.log(sites);
-                // console.log(sites.length);
+                //console.log("DONE READING IN NOW!");
+                console.log(beaches);
+                console.log(beaches.length);
+                console.log(sites);
+                console.log(sites.length);
 
                 beaches_sites_get.parse(beaches, sites, callback);
             },
