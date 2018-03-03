@@ -42,7 +42,7 @@ survey_post.upload = function(surveys) {
         url: survey_post.URL_POST,
         dataType: 'json',
         data: toUpload,
-        success: function () { alert("success"); },
+        success: function () { alert("success"); console.log(toUpload); },
         error: function (response) { alert("no success:\n" + response); }
     }));
 

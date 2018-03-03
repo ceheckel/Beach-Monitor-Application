@@ -182,7 +182,7 @@ function getAllFields() {
     });
     data['vPages'] = visitedPages;
     data['submitted'] = submitted;
-    OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC");
+    OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC");
     OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC");
     OtherChange("#NUM_OTHER","#NUM_OTHER_DESC");
     OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC");
@@ -220,7 +220,7 @@ function clearAllFields() {
             this.parentElement.className = this.parentElement.className.replace("is-checked", "");
         }
     });
-    OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC");
+    OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC");
     OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC");
     OtherChange("#NUM_OTHER","#NUM_OTHER_DESC");
     OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC");
