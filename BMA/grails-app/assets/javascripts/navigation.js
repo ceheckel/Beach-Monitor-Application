@@ -3,6 +3,7 @@
  *
  * @author Heckel (edited 02/17/2018)
  * @author Wagner (edited 02/17/2018)
+ * @author Kriz   (edited 03/03/2018)
  */
 
 /**
@@ -12,22 +13,22 @@
  */
 function toPage(page, toDelete) {
 
-    // if deleting survey, ignore validation?
-    if(toDelete === false) {
+    // If deleting survey, ignore validation?
+    if (toDelete === false) {
         if (validatePage(curPage) === false) {
             return;
         }
     }
 
-    // save survey
+    // Save quick
     saveSurvey();
 
-    // hide everything, then show only desired page
+    // Hide everything, then show only desired page
     $('div[data-page]').hide();
     var p = $('div[data-page=' + page + ']');
     p.show();
 
-    // setup page title
+    // Setup page title
     $('#page-title').html(
         p.data('page-title') +
         ((submitted && (p.data('page-title') !== 'WI Beaches')) ? ' <span style="font-size:1rem">(Read Only)</span>' : '') // if submitted, add '(Read Only)'
@@ -48,7 +49,7 @@ function toPage(page, toDelete) {
  * @see toPage
  */
 function btnPrev() {
-    toPage(curPage - 1,false);
+    toPage(curPage - 1, false);
 }
 
 /**
@@ -58,19 +59,20 @@ function btnPrev() {
  * @see toPage
  */
 function btnNext() {
-    // if current page is last page on form, go to review page
-    if (curPage == totalQuestionPages - 1) { toReview(); }
-    // if current page is review page, save any possible changes
-    else if (curPage == totalQuestionPages) {
+
+    if (curPage == totalQuestionPages - 1) {
+        // if current page is last page on form, go to review page
+        toReview();
+    } else if (curPage == totalQuestionPages) {
+        // if current page is review page, save any possible changes
         saveSurvey(totalQuestionPages);
-        if(validatePage(curPage) == true) {
+        if (validatePage(curPage) == true) {
             submit();
         }
-
+    } else {
+        // if current page is any other form page, move ahead
+        toPage(curPage + 1, false);
     }
-    // if current page is any other form page, move ahead
-    else
-        toPage(curPage + 1,false);
 }
 
 /**
@@ -80,19 +82,25 @@ function btnNext() {
 function toReview() {
     console.log("In review section");
     console.log(curPage);
-    if(visitedPages.indexOf(totalQuestionPages) < 0)
+    // Blank pages are always visited
+    if (visitedPages.indexOf(totalQuestionPages) < 0) {
         visitedPages.push(totalQuestionPages);
+    }
+
     saveSurvey(totalQuestionPages);
+    // Add pages to review menus
     $('div[data-page]').show();
     $('div[data-page=home]').hide();
     $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
     $('#page-title-drawer').html('Review');
+
     curPage = totalQuestionPages;
+
     $('#btn-next').html('Submit');
     $('#btn-prev').css('display', 'block');
     $('#btn-delete').css('display', 'block');
     $('.mdl-layout__content').scrollTop(0);
-    $('#surveySectionsDrawer a').each(function(i,e) {
+    $('#surveySectionsDrawer a').each(function (i, e) {
         $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
     });
     $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
@@ -104,24 +112,26 @@ function toReview() {
  *      toPage calls this after loading the new page and
  *      setting curPage [GLOBAL] to the new current page
  */
-function displayBtns(){
+function displayBtns() {
 
-    if (curPage > 0) { $('#btn-prev').css('display', 'block'); }    // if not on first page, display previous button
-    else { $('#btn-prev').css('display', 'none'); }                 // else, remove previous button
+    if (curPage > 0) {
+        $('#btn-prev').css('display', 'block');
+    } else {
+        // if not on first page, display previous button
+        $('#btn-prev').css('display', 'none');
+    }                 // else, remove previous button
 
     if (curPage == totalQuestionPages - 1) { // if on last page, make 'Review' button
         $('#btn-next').html('Review');
         $('#bottom-nav').css('display', 'flex');
-    }
-    else if (curPage >= 0) { // if on any survey page, show 'Next' and 'Delete'
+    } else if (curPage >= 0) { // if on any survey page, show 'Next' and 'Delete'
         $('#btn-next').html('Next');
         $('#btn-next').css('display', 'block');
         $('#btn-delete').html('Delete');
         $('#btn-delete').css('display', 'block');
 
         $('#bottom-nav').css('display', 'flex');    // dynamic spacer
-    }
-    else {    // if not on form pages, don't display navigation buttons
+    } else {    // if not on form pages, don't display navigation buttons
         $('#bottom-nav').css('display', 'none');
     }
 
@@ -138,8 +148,7 @@ function displayBtns(){
         $('#page-beach-drawer').css('display', 'none');
         visitedPages = []; // removable
         window.onbeforeunload = null;
-    }
-    else if(curPage == 'help') {
+    } else if (curPage == 'help') {
         // possible links on navbar
         document.getElementById("surveySectionsDrawer").style.display = 'none'; // not visible
         document.getElementById("homeSectionDrawer").style.display = 'block';   // visible
@@ -159,8 +168,7 @@ function displayBtns(){
 
         // update page title
         $('#page-title').html("Help Page");
-    }
-    else {
+    } else {
         // hide help page info if navigating away from help page
         $('#help-button').hide();
 
@@ -172,11 +180,13 @@ function displayBtns(){
         $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Unknown Beach');
     }
 
+    // Dynamically show Favorite button
     if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
     else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
     $('.mdl-layout__content').scrollTop(0);
 
-    $('#surveySectionsDrawer a').each(function(i,e) {
+    // Dynamically show current page
+    $('#surveySectionsDrawer a').each(function (i, e) {
         if (i === curPage) $(e).css('font-weight', 'bold').addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
         else $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
     });
