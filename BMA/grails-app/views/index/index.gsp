@@ -114,6 +114,7 @@
         }
     </style>
 </head>
+
 <body>
 <!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
@@ -169,7 +170,7 @@
 </div>
 
 <!-- help page link -->
-<div class="help-button" id="help-button" data-page-title="Help" style="display:none;">
+<div class="help-page" id="help-page" data-page-title="Help" style="display:none;">
     <!-- AUTHOR: Heckel -->
 
     <!-- Home Page Navigation -->
