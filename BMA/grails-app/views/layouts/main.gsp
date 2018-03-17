@@ -154,22 +154,5 @@
 
     <asset:javascript src="application.js"/>
 
-    <g:if env="development">
-        <script>
-            console.log("In DEV");
-            window.beaches_sites_get.BEACHES_GET_URL = "http://localhost:8081/bms/beaches";
-            window.beaches_sites_get.SITES_GET_URL = "http://localhost:8081/bms/sites";
-            window.survey_post.POST_URL = "http://localhost:8081/bms/survey";
-        </script>
-    </g:if>
-    <g:if env="production">
-        <script>
-            console.log("In PROD");
-            window.beaches_sites_get.BEACHES_GET_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/beaches";
-            window.beaches_sites_get.SITES_GET_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/sites";
-            window.survey_post.POST_URL = "https://hci-dev.cs.mtu.edu:8117/BMS2/survey";
-        </script>
-    </g:if>
-
 </body>
 </html>
