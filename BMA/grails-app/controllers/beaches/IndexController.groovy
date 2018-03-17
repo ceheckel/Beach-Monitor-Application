@@ -7,7 +7,7 @@ class IndexController {
                 questions: [
                         // User Info
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
-                        new TextQuestion(columnId: 'user_id', prompt: 'User ID *', extraClasses:'recommended'), // required by some documentation, not by others
+                        new TextQuestion(columnId: 'user_id', prompt: 'User ID *', extraClasses:'recommended'), // 'required' by some documentation, not by others
 
                         // Beach Info
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
@@ -26,6 +26,7 @@ class IndexController {
                                 new Tuple2('Composite sample', false)
                         ]),
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
+                        new ButtonElement(columnId: '__remFavorite', value: 'Remove from Favorites', onclick: 'remFavorite()', accent: true, disabled: false),
                         //@TODO decide on how to handle date, time and user
 
                         // Date/Time Info

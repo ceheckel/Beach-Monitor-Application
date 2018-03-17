@@ -116,7 +116,7 @@ function loadSurvey(id) {
         updateSeq('#__beach', '#BEACH_SEQ');
         updateSeq('#__site', '#MONITOR_SITE_SEQ');
         surveyDate = new Date(survey['date']);
-        visitedPages = survey['vPages'];
+        // visitedPages = survey['vPages'];
         if(submitted)
             window.onbeforeunload = null;
         else

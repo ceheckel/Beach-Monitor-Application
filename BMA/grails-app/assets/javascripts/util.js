@@ -127,10 +127,10 @@ function completePage(nextPage) {
         if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
             complete = false;
     }
-    if (!visitedPages)
-        visitedPages = [];
-    if (visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
-        complete = false;
+    // if (!visitedPages)
+    //     visitedPages = [];
+    // if (visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
+    //     complete = false;
 
     if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
         if (complete) {
@@ -180,7 +180,7 @@ function getAllFields() {
             data[this.name] = this.value;
         }
     });
-    data['vPages'] = visitedPages;
+    // data['vPages'] = visitedPages;
     data['submitted'] = submitted;
     OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC");
     OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC");
@@ -231,28 +231,6 @@ function clearAllFields() {
     RainfallChange(false);
     OdorChange();
     TurbidityOrNTUChange();
-}
-
-/**
- * Enables save favorite button if valid beach information is entered
- */
-function saveFavoriteEnabled() {
-    var unique = true;
-    if(favorites) {
-        favorites.forEach(function (f, i) {
-            if (f.county == $('#__county').val() && f.lake == $('#__lake').val() && f.beach == $('#__beach').val() && f.site == $('#__site').val()) {
-                unique = false;
-            }
-        });
-    }
-    $('#__addFavorite').prop('disabled',
-        !unique ||
-        $('#__county').val() == '' ||
-        $('#__lake').val() == '' ||
-        $('#__beach').val() == '' ||
-        $('#__site').val() == '' ||
-        submitted
-    )
 }
 
 /**
