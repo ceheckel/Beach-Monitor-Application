@@ -190,7 +190,7 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
+                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',], maxlength: 8),
                         new SelectQuestion(columnId: 'RAINFALL_STN_DESC', options: [
                                 '',
                                 'Misting',
@@ -337,6 +337,7 @@ class IndexController {
 abstract class Question {
     String columnId
     String extraClasses = ""
+    Integer maxlength = 50 // value changes based on question type (e.g. TestQuestion with 'type'="text" <= 50)
 }
 
 class TextQuestion extends Question {
