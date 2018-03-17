@@ -55,10 +55,10 @@ function saveSurvey() {
 
     // create new survey
     var survey = new Survey(data.id, data);
-    survey.save(function() { /* callback does nothing */ });
-
-    // Show toast
-    showSaveToast();
+    survey.save(function() {
+        // Show toast
+        showSaveToast();
+    });
 }
 
 /**

@@ -164,6 +164,8 @@ function completePage(nextPage) {
  */
 function getAllFields() {
     data = {};
+    data['PART_1_COMMENTS'] = ""; data['PART_2_COMMENTS'] = ""; data['PART_3_COMMENTS'] = ""; data['PART_4_COMMENTS'] = ""; // clear default 'undefined' value
+
     $('[name]').each(function () {
         if ($(this).attr('class') == "mdl-radio__button") {
             if (this.parentElement.className.includes('is-checked')) {
@@ -176,8 +178,19 @@ function getAllFields() {
             else
                 data[this.name] = false;
         }
-        else /*if (this.value)*/ {
-            data[this.name] = this.value;
+        else /*if data is from textfield*/ {
+            // compile comments sections
+            if((this.name == "WEATHER_COMMENTS") || (this.name == "WAVES_COMMENTS")) { // Waves and Weather comments
+                data['PART_1_COMMENTS'] += (this.value + "...");
+            } else if(this.name == "WATER_COMMENTS") { // Color and Odor of water comments
+                data['PART_2_COMMENTS'] += (this.value + "...");
+            } else if(this.name == "HUMAN_BATHERS_COMMENTS") { // Human Bathers comments
+                data['PART_3_COMMENTS'] += (this.value + "...");
+            } else if((this.name == "DEBRIS_COMMENTS") || (this.name == "ALGAE_COMMENTS") || (this.name == "WILDLIFE_COMMENTS")) { // Debris, algae, and wildlife comments
+                data['PART_4_COMMENTS'] += (this.value + "...");
+            } else /* copy data */{
+                data[this.name] = this.value;
+            }
         }
     });
     // data['vPages'] = visitedPages;
@@ -269,24 +282,6 @@ function collectSampleNow() {
 /**
  * removes all data related to the beach selection on first page of form
  */
-function clearBeachFields() {
-    $('#__county').val("");
-    $('#__lake').val("");
-    $('#__beach').val("");
-    $('#__site').val("");
-}
-
-/**
- * Creates and sets two versions of a new Date instance.
- * Version 1 is for the browser to display
- * Version 2 is for the server to store
- */
-function collectSampleNow() {
-    var d = new Date(); // get full date/time
-    $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
-    $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d, false)); // parse for server info
-}
-
 function clearBeachFields() {
     $('#__county').val("");
     $('#__lake').val("");
