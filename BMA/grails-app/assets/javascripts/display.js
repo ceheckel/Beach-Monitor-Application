@@ -16,8 +16,6 @@ function showSaveToast() {
     snackbarContainer.MaterialSnackbar.showSnackbar({message: 'Survey saved!', timeout: 750});
 }
 
-
-
 /**
  * Closes the drawer displaying the
  * various pages on the survey

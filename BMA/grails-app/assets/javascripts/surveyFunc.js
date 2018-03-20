@@ -532,6 +532,7 @@ function deleteSelected() {
  */
 function submit(){
     saveSurvey(totalQuestionPages);
+    concatComments();
     downloadCSV();
     submitted = true;
     toPage('home',false);

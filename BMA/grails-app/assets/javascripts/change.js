@@ -139,7 +139,6 @@ function OdorChange() {
     }
 }
 
-
 function TurbidityOrNTUChange(){
     if($("#CLARITY_DESC option:selected").index() > 0){
         if($('#CLARITY_DESC').next().next().html().indexOf(" *") < 0)
