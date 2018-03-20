@@ -68,24 +68,21 @@ if (typeof jQuery !== 'undefined') {
     });
 
     fillCounties();
-
-    document.getElementById('__county').onfocus = fillCounties;
-    document.getElementById('__lake').onfocus = fillLakes;
-    document.getElementById('__beach').onfocus = fillBeaches;
-    document.getElementById('__site').onfocus = fillSites;
-
     document.getElementById('__favorites').onchange = fillFavorite;
-    document.getElementById('__county').onchange = tryPropagate;
-    document.getElementById('__lake').onchange = tryPropagate;
+
+    // Cascade changes down to each lower field
+    document.getElementById('__county').onchange = fillFromCounty;
+    document.getElementById('__lake').onchange = fillFromLake;
+    document.getElementById('__beach').onchange = fillFromBeach;
     document.getElementById('__beach').onchange = function() {
-        tryPropagate();
-        updateSeq('#__beach', '#beachList', '#BEACH_SEQ');
+        //tryPropagate();
+        fillSites();
+        updateSeq('#__beach', '#BEACH_SEQ');
     };
     document.getElementById('__site').onchange = function() {
-        tryPropagate();
-        updateSeq('#__site', '#monitorList', '#MONITOR_SITE_SEQ');
+        //tryPropagate();
+        updateSeq('#__site', '#MONITOR_SITE_SEQ');
     };
-
     document.getElementById('__county').onkeyup = saveFavoriteEnabled;
     document.getElementById('__lake').onkeyup = saveFavoriteEnabled;
     document.getElementById('__beach').onkeyup = saveFavoriteEnabled;
