@@ -115,6 +115,14 @@
             background-color: #ffffff !important;
         }
 
+        .mdl-list__item{
+            background-color: #a4b0c4;
+        }
+
+        mdl-list__item--two-line{
+            background-color: #a4b0c4;
+        }
+
         #SAMPLE_DATE_TIME_DISPLAYED{
             color: #ffffff;
         }
@@ -126,8 +134,29 @@
 <body>
 <!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
+
+
+    <!-- Unsubmitted Reports Section -->
+    <ul class="mdl-list" id="unsubmitted-reports">
+        <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                <span class="mdl-typography--font-bold">Unsubmitted Reports</span>
+            </span>
+        </li>
+    </ul>
+
+    <!-- Submitted Reports Section -->
+    <ul class="mdl-list" id="submitted-reports">
+        <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+                <span class="mdl-typography--font-bold">Past Reports</span>
+            </span>
+        </li>
+    </ul>
+
     <!-- Bottom Navbar for Home page -->
     <div class="bottom-nav">
+
         <!-- Upload Surveys Button -->
         <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="uploadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
             <div class="bottom-nav-icon"><i class="material-icons">file_upload</i></div>
@@ -155,24 +184,6 @@
             <div class="bottom-nav-icon-item"><i class="material-icons">create</i>&nbsp;New Survey</div>
         </button>
     </div>
-
-    <!-- Unsubmitted Reports Section -->
-    <ul class="mdl-list" id="unsubmitted-reports">
-        <li class="mdl-list__item">
-            <span class="mdl-list__item-primary-content">
-                <span class="mdl-typography--font-bold">Unsubmitted Reports</span>
-            </span>
-        </li>
-    </ul>
-
-    <!-- Submitted Reports Section -->
-    <ul class="mdl-list" id="submitted-reports">
-        <li class="mdl-list__item">
-            <span class="mdl-list__item-primary-content">
-                <span class="mdl-typography--font-bold">Past Reports</span>
-            </span>
-        </li>
-    </ul>
 
 
     <!-- Survey post button-->
@@ -254,7 +265,7 @@
                 <!-- For Questions with Flexible Units -->
                 <g:if test="${q instanceof UnitQuestion}">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:218px;display:inline-block;">
-                        <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" style="display:inline-block;">
+                        <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" style="display:inline-block;" maxlength="${q.maxlength}">
                         <label class="mdl-textfield__label" for="${q.columnId}" style="display:inline-block;">${q.prompt}</label>
                         <span class = "mdl-textfield__error" style="display:inline-block;">${q.errorm}</span>
                     </div><div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="width:80px;display:inline-block;">
@@ -273,13 +284,13 @@
                     <!-- "number" case no longer affects any fields; possibly safe to remove -->
                     <g:if test="${q.type == "number"}">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}">
+                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                         </div>
                     </g:if>
                     <g:else>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}">
+                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                             <span class = "mdl-textfield__error">${q.errorm}</span>
                         </div>

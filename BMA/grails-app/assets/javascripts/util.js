@@ -127,10 +127,10 @@ function completePage(nextPage) {
         if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
             complete = false;
     }
-    if (!visitedPages)
-        visitedPages = [];
-    if (visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
-        complete = false;
+    // if (!visitedPages)
+    //     visitedPages = [];
+    // if (visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
+    //     complete = false;
 
     if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
         if (complete) {
@@ -164,6 +164,8 @@ function completePage(nextPage) {
  */
 function getAllFields() {
     data = {};
+    data['PART_1_COMMENTS'] = ""; data['PART_2_COMMENTS'] = ""; data['PART_3_COMMENTS'] = ""; data['PART_4_COMMENTS'] = ""; // clear default 'undefined' value
+
     $('[name]').each(function () {
         if ($(this).attr('class') == "mdl-radio__button") {
             if (this.parentElement.className.includes('is-checked')) {
@@ -176,13 +178,24 @@ function getAllFields() {
             else
                 data[this.name] = false;
         }
-        else /*if (this.value)*/ {
-            data[this.name] = this.value;
+        else /*if data is from textfield*/ {
+            // compile comments sections
+            if((this.name == "WEATHER_COMMENTS") || (this.name == "WAVES_COMMENTS")) { // Waves and Weather comments
+                data['PART_1_COMMENTS'] += (this.value + "...");
+            } else if(this.name == "WATER_COMMENTS") { // Color and Odor of water comments
+                data['PART_2_COMMENTS'] += (this.value + "...");
+            } else if(this.name == "HUMAN_BATHERS_COMMENTS") { // Human Bathers comments
+                data['PART_3_COMMENTS'] += (this.value + "...");
+            } else if((this.name == "DEBRIS_COMMENTS") || (this.name == "ALGAE_COMMENTS") || (this.name == "WILDLIFE_COMMENTS")) { // Debris, algae, and wildlife comments
+                data['PART_4_COMMENTS'] += (this.value + "...");
+            } else /* copy data */{
+                data[this.name] = this.value;
+            }
         }
     });
-    data['vPages'] = visitedPages;
+    // data['vPages'] = visitedPages;
     data['submitted'] = submitted;
-    OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC");
+    OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC");
     OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC");
     OtherChange("#NUM_OTHER","#NUM_OTHER_DESC");
     OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC");
@@ -220,7 +233,7 @@ function clearAllFields() {
             this.parentElement.className = this.parentElement.className.replace("is-checked", "");
         }
     });
-    OtherChange("#NO_ANIMALS_OTHER","#NO_ANIMALS_OTHER_DESC");
+    OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC");
     OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC");
     OtherChange("#NUM_OTHER","#NUM_OTHER_DESC");
     OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC");
@@ -234,43 +247,17 @@ function clearAllFields() {
 }
 
 /**
- * Enables save favorite button if valid beach information is entered
- */
-function saveFavoriteEnabled() {
-    var unique = true;
-    if(favorites) {
-        favorites.forEach(function (f, i) {
-            if (f.county == $('#__county').val() && f.lake == $('#__lake').val() && f.beach == $('#__beach').val() && f.site == $('#__site').val()) {
-                unique = false;
-            }
-        });
-    }
-    $('#__addFavorite').prop('disabled',
-        !unique ||
-        $('#__county').val() == '' ||
-        $('#__lake').val() == '' ||
-        $('#__beach').val() == '' ||
-        $('#__site').val() == '' ||
-        submitted
-    )
-}
-
-/**
  * Used to populate selectfield boxes with
  * the correct suggestions
  * @param input
- * @param list
  * @param stored
  */
-function updateSeq(input, list, stored) {
+function updateSeq(input, stored) {
     var val = $(input).val();
-    var opt = undefined;
 
-    $(list).find('> option').each(function () {
-        if ($(this).val() === val) opt = this;
-    });
+    console.log(val);
 
-    if (opt) {
+    if (val !== '') {
         var county = $('#__county').val();
         var lake = $('#__lake').val();
         var beach = $('#__beach').val();
@@ -295,24 +282,6 @@ function collectSampleNow() {
 /**
  * removes all data related to the beach selection on first page of form
  */
-function clearBeachFields() {
-    $('#__county').val("");
-    $('#__lake').val("");
-    $('#__beach').val("");
-    $('#__site').val("");
-}
-
-/**
- * Creates and sets two versions of a new Date instance.
- * Version 1 is for the browser to display
- * Version 2 is for the server to store
- */
-function collectSampleNow() {
-    var d = new Date(); // get full date/time
-    $('#SAMPLE_DATE_TIME_DISPLAYED').val(dateToLocalDate(d, true)); // parse for field display
-    $('#SAMPLE_DATE_TIME').val(dateToLocalDate(d, false)); // parse for server info
-}
-
 function clearBeachFields() {
     $('#__county').val("");
     $('#__lake').val("");

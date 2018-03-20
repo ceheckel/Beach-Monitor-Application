@@ -5,12 +5,12 @@
     <script>
         $(function () {
             $.post({
-                url: "http://localhost:8081/bms/survey",
+                url: "",
                 data: {name: "PostTestSurvey"},
                 success: function () {
 
                     $.get({
-                        url: "http://localhost:8081/bms/survey",
+                        url: "",
                         success: function (data) {
                             console.log("GET /survey : " + JSON.stringify(data));
                         }

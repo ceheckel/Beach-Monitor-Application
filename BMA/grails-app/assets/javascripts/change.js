@@ -60,12 +60,9 @@ function OtherCheckbox(otherField,descriptionField) {
         $(desc).parent().show();
 
         // make the description field 'required'
-        if($(desc).next().html().indexOf(" *") < 0)
-            $(desc).next().html($(desc).next().html()+" *");
         $(desc).addClass('required');
     } else {
         // remove possible 'required' tages if the field becomes unselected
-        $(desc).next().html($(desc).next().html().replace(" *",""));
         $(desc).removeClass('required');
         $(desc).parent().removeClass('is-dirty');
         $(desc).val("");
@@ -83,30 +80,25 @@ function OtherCheckbox(otherField,descriptionField) {
  */
 function RainfallChange(){
     if(parseFloat($('#RAINFALL').val()) > 0){
-        if(!$('#RAINFALL_STD_DESC').is(':visible')) {
-            $('#RAINFALL_STD_DESC').parent().removeClass('is-dirty');
-            $('#RAINFALL_STD_DESC').val("");
+        if(!$('#RAINFALL_STN_DESC').is(':visible')) {
+            $('#RAINFALL_STN_DESC').parent().removeClass('is-dirty');
+            $('#RAINFALL_STN_DESC').val("");
         }
 
         // setup the html for the description field
-        if(!$('#RAINFALL_STD_DESC').parent().next().is("br"))
-            $('#RAINFALL_STD_DESC').parent().after("<br>");
-        $('#RAINFALL_STD_DESC').parent().show();
-
-
-        // make the description field 'required'
-        if($('#RAINFALL_STD_DESC').next().next().html().indexOf(" *") < 0)
-            $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html()+" *");
+        if(!$('#RAINFALL_STN_DESC').parent().next().is("br"))
+            $('#RAINFALL_STN_DESC').parent().after("<br>");
+        $('#RAINFALL_STN_DESC').parent().show();
     } else {
         // remove possible 'required' tags if the field becomes unselected
-        $('#RAINFALL_STD_DESC').next().next().html($('#RAINFALL_STD_DESC').next().next().html().replace(" *",""));
-        $('#RAINFALL_STD_DESC').parent().addClass('is-dirty');
-        $('#RAINFALL_STD_DESC').val("Other");
+        $('#RAINFALL_STN_DESC').next().next().html($('#RAINFALL_STN_DESC').next().next().html().replace(" *",""));
+        $('#RAINFALL_STN_DESC').parent().addClass('is-dirty');
+        $('#RAINFALL_STN_DESC').val("Other");
 
         // remove setup for description field
-        if($('#RAINFALL_STD_DESC').parent().next().is("br"))
-            $('#RAINFALL_STD_DESC').parent().next().remove();
-        $('#RAINFALL_STD_DESC').parent().hide();
+        if($('#RAINFALL_STN_DESC').parent().next().is("br"))
+            $('#RAINFALL_STN_DESC').parent().next().remove();
+        $('#RAINFALL_STN_DESC').parent().hide();
     }
 }
 
@@ -120,18 +112,7 @@ function OdorChange() {
         if(!$('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
             $('#ODOR_OTHER_DESCRIPTION').parent().after("<br>");
         $("#ODOR_OTHER_DESCRIPTION").parent().show();
-
-        // make the description field 'required'
-        if($("#ODOR_OTHER_DESCRIPTION").next().html().indexOf(" *") < 0)
-            $("#ODOR_OTHER_DESCRIPTION").next().html($("#ODOR_OTHER_DESCRIPTION").next().html()+" *");
-        $("#ODOR_OTHER_DESCRIPTION").addClass('required');
     } else {
-        // remove possible 'required' tags if the field becomes unselected
-        $("#ODOR_OTHER_DESCRIPTION").next().html($("#ODOR_OTHER_DESCRIPTION").next().html().replace(" *",""));
-        $("#ODOR_OTHER_DESCRIPTION").removeClass('required');
-        $("#ODOR_OTHER_DESCRIPTION").parent().removeClass('is-dirty');
-        $("#ODOR_OTHER_DESCRIPTION").val("");
-
         // remove setup for description field
         if($('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
             $('#ODOR_OTHER_DESCRIPTION').parent().next().remove();
@@ -139,33 +120,30 @@ function OdorChange() {
     }
 }
 
-
+/**
+ * Setup and removal of the highlighting based on values
+ */
 function TurbidityOrNTUChange(){
-    if($("#CLARITY_DESC option:selected").index() > 0){
-        if($('#CLARITY_DESC').next().next().html().indexOf(" *") < 0)
-            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html() + " *");
-        $('#CLARITY_DESC').addClass('required');
-        if(($('#NTU').val() == "")){
-            $('#NTU').next().html($('#NTU').next().html().replace(" *", ""));
-            $('#NTU').removeClass('required');
+    // if turbidity or ntu is given
+    if($("#CLARITY_DESC").val() != "") {
+        // remove the recommended/required denotation for both fields
+        $("#CLARITY_DESC").next().next().html($("#CLARITY_DESC").next().next().html().replace(" *",""));
+        $("#NTU").next().html($("#NTU").next().html().replace(" *",""));
+        $("#NTU").removeClass('recommended');
+    } else if ($("#NTU").val() != "") {
+        // remove the recommended/required denotation for both fields
+        $("#CLARITY_DESC").next().next().html($("#CLARITY_DESC").next().next().html().replace(" *",""));
+        $("#CLARITY_DESC").removeClass('recommended');
+        $("#NTU").next().html($("#NTU").next().html().replace(" *",""));
+    } else {
+        // add the recommended/required denotation for both fields
+        if($("#CLARITY_DESC").next().next().html().indexOf(" *") < 0) {
+            $("#CLARITY_DESC").next().next().html($("#CLARITY_DESC").next().next().html()+" *");
+            $("#CLARITY_DESC").addClass('recommended');
         }
-    }
-    else if($('#NTU').val() == ""){
-        if($('#NTU').next().html().indexOf(" *") < 0)
-            $('#NTU').next().html($('#NTU').next().html() + " *");
-        $('#NTU').addClass('required');
-        if($('#CLARITY_DESC').next().next().html().indexOf(" *") < 0)
-            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html() + " *");
-        $('#CLARITY_DESC').addClass('required');
-    }
-
-    if($('#NTU').val() != "") {
-        if($('#NTU').next().html().indexOf(" *") < 0)
-            $('#NTU').next().html($('#NTU').next().html() + " *");
-        $('#NTU').addClass('required');
-        if($("#CLARITY_DESC option:selected").index() <= 0){
-            $('#CLARITY_DESC').next().next().html($('#CLARITY_DESC').next().next().html().replace(" *",""));
-            $('#CLARITY_DESC').removeClass('required');
+        if($("#NTU").next().html().indexOf(" *") < 0) {
+            $("#NTU").next().html($("#NTU").next().html() + " *");
+            $("#NTU").addClass('recommended');
         }
     }
 }

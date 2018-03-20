@@ -1,5 +1,7 @@
 // CS4791 Fall 2017
 // Jacob Striebel
+// Kriz (edited)
+// Wilson (edited)
 
 var TEST_SITES = 3;
 
@@ -101,6 +103,8 @@ beaches_sites_get.run = function (callback, use_test_data) {
         $.ajax({
             type: "GET",
             crossDomain: true,
+            // ifModified: true, // This seems to be the only way to get semi-consistant results
+            // headers: {"If-Modified-Since": "Tue, 13 Feb 2018 14:05:19 GMT"},
             url: beaches_sites_get.GET_URL,
             success: function (data) {
 
@@ -138,12 +142,12 @@ beaches_sites_get.run = function (callback, use_test_data) {
                 console.log(sites.length);
 
                 beaches_sites_get.parse(beaches, sites, callback);
+                fillCounties();
             },
             error: function () {
-                alert('Get beaches and sites failed (' + beaches_sites_get.SITES_GET_URL + ').');
+                alert('Get beaches and sites failed (' + beaches_sites_get.GET_URL + ').');
             }
         });
-        
     }
 };
 
