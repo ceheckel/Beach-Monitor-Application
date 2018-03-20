@@ -3,6 +3,8 @@
 // Kriz (edited)
 // Wilson (edited)
 
+var TEST_SITES = 3;
+
 window.beaches_sites_get = {};
 
 beaches_sites_get.GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
@@ -100,49 +102,35 @@ beaches_sites_get.run = function (callback, use_test_data) {
     else {
         $.ajax({
             type: "GET",
-            // crossDomain: true,
+            crossDomain: true,
             // ifModified: true, // This seems to be the only way to get semi-consistant results
-            //headers: {"If-Modified-Since": "Tue, 13 Feb 2018 14:05:19 GMT"},
-            url: beaches_sites_get.GET_URL, // Change me to var!
-            // https://dzone.com/articles/caching-jquery-ajax-and-otherhttps://dzone.com/articles/caching-jquery-ajax-and-other
-            success: function (data, textStatus, jqXHR) {
-                // console.log("==========================")
-                if (jqXHR) { // Make sure we even have XHR from JQ
-                    if (jqXHR.status === 200) { // IF MODIFIED SINCE
+            // headers: {"If-Modified-Since": "Tue, 13 Feb 2018 14:05:19 GMT"},
+            url: beaches_sites_get.GET_URL,
+            success: function (data) {
 
-                        // console.log("Reqest got cache okay! 200")
-
-                    } else {
-                        // console.log("Request reply is ", jqXHR.status.toString())
-                        //return; // Unclear if we need to continue from here
-                    }
-                }else{
-                    // console.log("! jqXHR was sent as null/false !")
-                    //return; // Unclear if we need to continue from here
-                }
-                // console.log("==========================")
-                //console.log(data);
+                console.log(data);
                 at = 0;
                 //data = JSON.parse(data);
                 data.forEach(function(tbl){
-                    // console.log(tbl);
-                    // console.log("At iteration # " , at);
+                    //console.log(tbl);
+                    //console.log("At iteration # " , at);
+
                     curb =     {
-                                    BEACH_SEQ: tbl.BEACH_SEQ,
-                                    BEACH_NAME: tbl.BEACH_NAME,
-                                    COUNTY: tbl.COUNTY,
-                                    WATERBODY_NAME: tbl.WATERBODY_NAME
-                                };
+                        BEACH_SEQ: tbl.BEACH_SEQ,
+                        BEACH_NAME: tbl.BEACH_NAME,
+                        COUNTY: tbl.COUNTY,
+                        WATERBODY_NAME: tbl.WATERBODY_NAME// How are we deriving this?
+                    };
                     curs =     {
-                                    MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
-                                    BEACH_SEQ: tbl.BEACH_SEQ,
-                                    STATION_NAME: tbl.STATION_NAME
-                                };
+                        MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
+                        BEACH_SEQ: tbl.BEACH_SEQ,
+                        STATION_NAME: tbl.STATION_NAME
+                    };
                     beaches.push(curb);
                     sites.push(curs);
 
                     at++;
-            });
+                });
 
 
                 //beaches = data.beaches;
