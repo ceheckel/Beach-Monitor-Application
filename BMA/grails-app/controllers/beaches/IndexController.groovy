@@ -11,17 +11,13 @@ class IndexController {
 
                         // Beach Info
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
-                        new SelectQuestion(columnId: '__county', options: [''], title:"County *", extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__county', prompt: 'County *', list: 'countyList', extraClasses: 'required'),
-                        new SelectQuestion(columnId: '__lake', options: [''], title:"Lake *", extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__lake', prompt: 'Lake *', list: 'lakeList', extraClasses: 'required'),
-                        new SelectQuestion(columnId: '__beach', options: [''], title:"Beach *", extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__beach', prompt: 'Beach *', list: 'beachList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__county', prompt: 'County *', list: 'countyList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__lake', prompt: 'Lake *', list: 'lakeList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__beach', prompt: 'Beach *', list: 'beachList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
-                        new SelectQuestion(columnId: '__site', options: [''], title:'Monitoring Site *', extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'MONITOR_SITE_SEQ', value: '-1'),
-                        new ButtonElement(columnId: '__unused', value: 'Update County', onclick: 'fillCounties()', accent: true),
+                        new ButtonElement(columnId: '__unused', value: 'Clear Beach Fields', onclick: 'clearBeachFields()', accent: true),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
@@ -49,7 +45,6 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people clamming', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe *'),
-
                         new TextQuestion(columnId: 'HUMAN_BATHERS_COMMENTS', prompt: 'Additional Bathers Comments')
                 ]
         ]
@@ -61,6 +56,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'WILDLIFE_COMMENTS', prompt: 'Additional Wildlife Comments')
                         new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', prompt: 'If other, describe *')
                 ]
         ]
@@ -78,6 +74,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_DEAD_FISH', prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'DEAD_ANIMAL_COMMENTS', prompt: 'Additional Wildlife Comments')
                         new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe *')
                 ]
         ]
@@ -106,6 +103,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
                                 new Tuple2('Other material', false),
                         ], onclick: 'OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'DEBRIS_IN_WATER_COMMENTS', prompt: 'Additional Floating Debris Comments')
                         new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'If other, describe *')
                 ]
         ]
@@ -151,7 +149,7 @@ class IndexController {
                                 '21-50%',
                                 '>50%'
                         ],title: "Amount of beach debris/litter"),
-
+                        new TextQuestion(columnId: 'DEBRIS_ON_BEACH_COMMENTS', prompt: 'Additional Debris on Beach Comments')
                         new TextQuestion(columnId: 'DEBRIS_COMMENTS', prompt: 'Additional Debris Comments')
                 ]
         ]
@@ -231,8 +229,7 @@ class IndexController {
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ], title: "Longshore current direction"),
-
-                        new TextQuestion(columnId: 'WAVES_COMMENTS', prompt: 'Additional Weather Comments')
+                        new TextQuestion(columnId: 'WAVES_COMMENTS', prompt: 'Additional Wave Comments')
                 ]
         ]
 

@@ -15,8 +15,9 @@
     -->
     <asset:stylesheet src="application.css"/>
 
-    <!-- Replaces material-icons.css -->
     <style>
+
+    /* Replaces material-icons.css */
     @font-face {
         font-family: 'Material Icons';
         font-style: normal;
@@ -53,10 +54,8 @@
         /* Support for IE. */
         font-feature-settings: 'liga';
     }
-    </style>
 
-    <!-- Replaces roboto.css -->
-    <style>
+    /* Replaces roboto.css */
     /* latin */
     @font-face {
         font-family: 'Roboto';
@@ -153,6 +152,5 @@
     </script>
 
     <asset:javascript src="application.js"/>
-
 </body>
 </html>

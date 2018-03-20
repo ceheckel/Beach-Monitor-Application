@@ -250,14 +250,18 @@ function clearAllFields() {
  * Used to populate selectfield boxes with
  * the correct suggestions
  * @param input
+ * @param list
  * @param stored
  */
-function updateSeq(input, stored) {
+function updateSeq(input, list, stored) {
     var val = $(input).val();
+    var opt = undefined;
 
-    console.log(val);
+    $(list).find('> option').each(function () {
+        if ($(this).val() === val) opt = this;
+    });
 
-    if (val !== '') {
+    if (opt) {
         var county = $('#__county').val();
         var lake = $('#__lake').val();
         var beach = $('#__beach').val();
@@ -287,4 +291,28 @@ function clearBeachFields() {
     $('#__lake').val("");
     $('#__beach').val("");
     $('#__site').val("");
+
+/**
+ * collects all comment fields from the survey and puts the values into their
+ * respective domain sections
+ *
+ * @author Heckel (3/3/18)
+ */
+function concatComments() {
+    // get the value of the two comment sections
+    var weatherComm = $('#WEATHER_COMMENTS').val();
+    var wavesComm   = $('#WAVES_COMMENTS').val();
+    var waterComm   = $('#WATER_COMMENTS').val();
+    var bathersComm = $('#HUMAN_BATHERS_COMMENTS').val();
+    var debrisComm  = $('#DEBRIS_IN_WATER_COMMENTS').val();
+    var debrisComm2 = $('#DEBRIS_ON_BEACH_COMMENTS').val();
+    var algaeComm   = $('#ALGAE_COMMENTS').val();
+    var wildlifeComm= $('#WILDLIFE_COMMENTS').val();
+    var deadlifeComm= $('#DEAD_ANIMAL_COMMENTS').val();
+
+    // concatenate the sections into a proper domain
+    $('#PART_1_COMMENTS').val(weatherComm + "; " + wavesComm);
+    $('#PART_2_COMMENTS').val(waterComm);
+    $('#PART_3_COMMENTS').val(bathersComm);
+    $('#PART_4_COMMENTS').val(debrisComm + "; " + debrisComm2 + "; " + algaeComm + "; " + wildlifeComm + "; " + deadlifeComm);
 }

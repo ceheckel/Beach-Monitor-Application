@@ -142,7 +142,6 @@ beaches_sites_get.run = function (callback, use_test_data) {
                 console.log(sites.length);
 
                 beaches_sites_get.parse(beaches, sites, callback);
-                fillCounties();
             },
             error: function () {
                 alert('Get beaches and sites failed (' + beaches_sites_get.GET_URL + ').');

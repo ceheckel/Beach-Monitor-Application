@@ -236,61 +236,54 @@ function validatePage (curPage) {
         //   return false;
         //}
 
-
-        if ($("#_county").val() === ''){
+        county = $("#__county").val();
+        countyOptions = $("#countyList")[0].options;
+        countyOptionsLen = countyOptions.length;
+        for (i=0; i < countyOptionsLen; i++) {
+            if (county === countyOptions[i].value) {
+                break;
+            }
+        }
+        if (i === countyOptionsLen) {
             myAlert("County is a required field and must be selected from the dropdown list.");
             return false;
         }
 
-
-        // county = $("#__county").val();
-        // countyOptions = $("#countyList")[0].options;
-        // countyOptionsLen = countyOptions.length;
-        // for (i=0; i < countyOptionsLen; i++) {
-        //     if (county === countyOptions[i].value) {
-        //         break;
-        //     }
-        // }
-        // if (i === countyOptionsLen) {
-        //     myAlert("County is a required field and must be selected from the dropdown list.");
-        //     return false;
-        // }
-
-        // lake = $("#__lake").val();
-        // lakeOptions = $("#lakeList")[0].options;
-        // lakeOptionsLen = lakeOptions.length;
-        // for (i=0; i < lakeOptionsLen; i++) {
-        //     if (lake === lakeOptions[i].value) {
-        //         break;
-        //     }
-        // }
-        if ($("#_lake").val() === '') {
+        lake = $("#__lake").val();
+        lakeOptions = $("#lakeList")[0].options;
+        lakeOptionsLen = lakeOptions.length;
+        for (i=0; i < lakeOptionsLen; i++) {
+            if (lake === lakeOptions[i].value) {
+                break;
+            }
+        }
+        if (i === lakeOptionsLen) {
             myAlert("Lake is a required field and must be selected from the dropdown list.");
             return false;
         }
 
-        // beach = $("#__beach").val();
-        // beachOptions = $("#beachList")[0].options;
-        // beachOptionsLen = beachOptions.length;
-        // for (i=0; i < beachOptionsLen; i++) {
-        //     if (beach === beachOptions[i].value) {
-        //         break;
-        //     }
-        // }
-        if ($("#_beach").val() === '') {
+        beach = $("#__beach").val();
+        beachOptions = $("#beachList")[0].options;
+        beachOptionsLen = beachOptions.length;
+        for (i=0; i < beachOptionsLen; i++) {
+            if (beach === beachOptions[i].value) {
+                break;
+            }
+        }
+        if (i === beachOptionsLen) {
             myAlert("Beach is a required field and must be selected from the dropdown list.");
             return false;
         }
 
-        // site = $("#__site").val();
-        // siteOptions = $("#monitorList")[0].options;
-        // siteOptionsLen = siteOptions.length;
-        // for (i=0; i < siteOptionsLen; i++) {
-        //     if (site === siteOptions[i].value) {
-        //         break;
-        //     }
-        // }
-        if ($("#_site").val() === '') {
+        site = $("#__site").val();
+        siteOptions = $("#monitorList")[0].options;
+        siteOptionsLen = siteOptions.length;
+        for (i=0; i < siteOptionsLen; i++) {
+            if (site === siteOptions[i].value) {
+                break;
+            }
+        }
+        if (i === siteOptionsLen) {
             myAlert("Monitoring Site is a required field and must be selected from the dropdown list.");
             return false;
         }
