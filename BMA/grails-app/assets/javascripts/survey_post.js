@@ -7,6 +7,7 @@ window.survey_post = {};
 
 // http://localhost:8081/bms/survey
 // https://hci-dev.cs.mtu.edu:8117/BMS2/survey <-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
+// https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData <-- WiDNR POST URL
 survey_post.URL_POST = "http://localhost:8081/bms/survey";
 
 /**

@@ -55,10 +55,10 @@ function saveSurvey() {
 
     // create new survey
     var survey = new Survey(data.id, data);
-    survey.save(function() { /* callback does nothing */ });
-
-    // Show toast
-    showSaveToast();
+    survey.save(function() {
+        // Show toast
+        showSaveToast();
+    });
 }
 
 /**
@@ -106,7 +106,7 @@ function loadSurvey(id) {
         updateSeq('#__beach', '#beachList', '#BEACH_SEQ');
         updateSeq('#__site', '#monitorList', '#MONITOR_SITE_SEQ');
         surveyDate = new Date(survey['date']);
-        visitedPages = survey['vPages'];
+        // visitedPages = survey['vPages'];
         if(submitted)
             window.onbeforeunload = null;
         else

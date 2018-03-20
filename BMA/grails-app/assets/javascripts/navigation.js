@@ -80,8 +80,8 @@ function btnNext() {
 function toReview() {
     console.log("In review section");
     console.log(curPage);
-    if(visitedPages.indexOf(totalQuestionPages) < 0)
-        visitedPages.push(totalQuestionPages);
+    // if(visitedPages.indexOf(totalQuestionPages) < 0)
+    //     visitedPages.push(totalQuestionPages);
     saveSurvey(totalQuestionPages);
     $('div[data-page]').show();
     $('div[data-page=home]').hide();
@@ -136,7 +136,7 @@ function displayBtns(){
         document.getElementById("helpSectionDrawer").style.display = 'block';   // show help section
         $('#page-questions').css('display', 'none');
         $('#page-beach-drawer').css('display', 'none');
-        visitedPages = []; // removable
+        // visitedPages = []; // removable
         window.onbeforeunload = null;
     }
     else if(curPage == 'help') {
