@@ -7,25 +7,22 @@ class IndexController {
                 questions: [
                         // User Info
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
-                        new TextQuestion(columnId: 'user_id', prompt: 'User ID *', extraClasses:'recommended'), // required by some documentation, not by others
+                        new TextQuestion(columnId: 'user_id', prompt: 'User ID *', extraClasses:'recommended'), // 'required' by some documentation, not by others
 
                         // Beach Info
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
-                        new SelectQuestion(columnId: '__county', options: [''], title:"County *", extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__county', prompt: 'County *', list: 'countyList', extraClasses: 'required'),
-                        new SelectQuestion(columnId: '__lake', options: [''], title:"Lake *", extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__lake', prompt: 'Lake *', list: 'lakeList', extraClasses: 'required'),
-                        new SelectQuestion(columnId: '__beach', options: [''], title:"Beach *", extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__beach', prompt: 'Beach *', list: 'beachList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__county', prompt: 'County *', list: 'countyList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__lake', prompt: 'Lake *', list: 'lakeList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__beach', prompt: 'Beach *', list: 'beachList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
-                        new SelectQuestion(columnId: '__site', options: [''], title:'Monitoring Site *', extraClasses: 'required'),
-                        //new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
+                        new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'MONITOR_SITE_SEQ', value: '-1'),
-                        new ButtonElement(columnId: '__unused', value: 'Update County', onclick: 'fillCounties()', accent: true),
+                        new ButtonElement(columnId: '__unused', value: 'Clear Beach Fields', onclick: 'clearBeachFields()', accent: true),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
+                        new ButtonElement(columnId: '__remFavorite', value: 'Remove from Favorites', onclick: 'remFavorite()', accent: true, disabled: false),
                         //@TODO decide on how to handle date, time and user
 
                         // Date/Time Info
@@ -47,7 +44,7 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people clamming', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe *'),
                         new TextQuestion(columnId: 'HUMAN_BATHERS_COMMENTS', prompt: 'Additional Bathers Comments')
                 ]
         ]
@@ -59,8 +56,8 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', prompt: 'If other, describe'),
                         new TextQuestion(columnId: 'WILDLIFE_COMMENTS', prompt: 'Additional Wildlife Comments')
+                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', prompt: 'If other, describe *')
                 ]
         ]
 
@@ -77,8 +74,8 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_DEAD_FISH', prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe'),
                         new TextQuestion(columnId: 'DEAD_ANIMAL_COMMENTS', prompt: 'Additional Wildlife Comments')
+                        new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe *')
                 ]
         ]
 
@@ -106,9 +103,8 @@ class IndexController {
                         new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
                                 new Tuple2('Other material', false),
                         ], onclick: 'OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'If other, describe'),
-
                         new TextQuestion(columnId: 'DEBRIS_IN_WATER_COMMENTS', prompt: 'Additional Floating Debris Comments')
+                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'If other, describe *')
                 ]
         ]
 
@@ -145,7 +141,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'DEBRIS_OTHER', prompts: [
                                 new Tuple2('Other', false),
                         ], onclick: 'OtherCheckbox("#DEBRIS_OTHER","#DEBRIS_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'If other, describe'),
+                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'If other, describe *'),
                         new SelectQuestion(columnId: 'DEBRIS_AMOUNT', options: [
                                 '',
                                 '0%',
@@ -153,8 +149,8 @@ class IndexController {
                                 '21-50%',
                                 '>50%'
                         ],title: "Amount of beach debris/litter"),
-
                         new TextQuestion(columnId: 'DEBRIS_ON_BEACH_COMMENTS', prompt: 'Additional Debris on Beach Comments')
+                        new TextQuestion(columnId: 'DEBRIS_COMMENTS', prompt: 'Additional Debris Comments')
                 ]
         ]
 
@@ -192,7 +188,7 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',]),
+                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',], maxlength: 8),
                         new SelectQuestion(columnId: 'RAINFALL_STN_DESC', options: [
                                 '',
                                 'Misting',
@@ -200,7 +196,7 @@ class IndexController {
                                 'Steady',
                                 'Heavy',
                                 'Other'
-                        ], title: "Rain intensity"),
+                        ], title: "Rain intensity *"),
 
                         new TextQuestion(columnId: 'WEATHER_COMMENTS', prompt: 'Additional Weather Comments')
                 ]
@@ -233,7 +229,6 @@ class IndexController {
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ], title: "Longshore current direction"),
-
                         new TextQuestion(columnId: 'WAVES_COMMENTS', prompt: 'Additional Wave Comments')
                 ]
         ]
@@ -270,7 +265,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'ALGAE_TYPE_OTHER', prompts: [
                                 new Tuple2('Other', false),
                         ], onclick: 'OtherCheckbox("#ALGAE_TYPE_OTHER","#ALGAE_TYPE_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'ALGAE_TYPE_OTHER_DESC', prompt: 'If other, describe'),
+                        new TextQuestion(columnId: 'ALGAE_TYPE_OTHER_DESC', prompt: 'If other, describe *'),
 
                         // Algae Color
                         new CheckQuestion(columnId: 'ALGAE_COLOR_LT_GREEN', prompts: [
@@ -291,7 +286,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'ALGAE_COLOR_OTHER', prompts: [
                                 new Tuple2('Other', false),
                         ], onclick: 'OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'ALGAE_COLOR_OTHER_DESC', prompt: 'If other, describe'),
+                        new TextQuestion(columnId: 'ALGAE_COLOR_OTHER_DESC', prompt: 'If other, describe *'),
 
                         new TextQuestion(columnId: 'ALGAE_COMMENTS', prompt: 'Additional Algae Comments')
                 ]
@@ -313,10 +308,8 @@ class IndexController {
                                 'Sulfur',
                                 'Other'
                         ],title: "Odor description", onchange: "OdorChange()"),
-                        new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe'),
-
+                        new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe *'),
                         new UnitQuestion(columnId: 'AVG_WATER_TEMP', columnId2: 'AVG_WATER_TEMP_UNITS', prompt: 'Water temperature *', errorm:"Must be an integer", type:"numeric", pattern:"(-?0*[1-9][0-9]*)|0*", step:0.01, title: "Units *", options: ['F', 'C',], extraClasses: 'recommended'),
-
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
                                 '',
                                 'Clear',
@@ -326,31 +319,10 @@ class IndexController {
                         ], title: "Turbidity *", onchange: "TurbidityOrNTUChange()", extraClasses:'recommended'),
                         new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', errorm:"Must be a nonnegative integer or decimal", type:"numeric", pattern:"(0*[0-9]*(\\.[0-9]*)?)", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
                         new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01),
-
                         new TextQuestion(columnId: 'WATER_COMMENTS', prompt: 'Additional Water Comments')
                 ]
         ]
 
-        /**
-         * Decomposed by E.Daley
-         * 02/11/2018
-         * All fields from this section can be found in one of the above fields
-         */
-        /*def comments = [
-                pageName: 'Comments',
-                questions: [
-                        new TextQuestion(columnId: 'PART_1_COMMENTS', prompt: 'Waves and weather'),
-                        new TextQuestion(columnId: 'PART_2_COMMENTS', prompt: 'Color and odor of water'),
-                        new TextQuestion(columnId: 'PART_3_COMMENTS', prompt: 'Human bathers'),
-                        new TextQuestion(columnId: 'PART_4_COMMENTS', prompt: 'Debris, algae, and wildlife'),
-                        //@TODO must assign these later
-                        new HiddenQuestion(columnId: 'DATE_ENTERED', value: 'FETCH DATE'),
-                        new HiddenQuestion(columnId: 'DATE_UPDATED', value: 'FETCH DATE AND TIME'),
-                        new HiddenQuestion(columnId: 'MISSING_REQUIRED_FLAG', value: 'FETCH VALUE')
-                ]
-        ]*/
-
-        // 'comments' page removed from list below
         [survey: [beachSelection, wildlifeBathers, deadWildlife, floaters, debris, bathers, weather, waves, water, algae]]
     }
 
@@ -362,6 +334,7 @@ class IndexController {
 abstract class Question {
     String columnId
     String extraClasses = ""
+    Integer maxlength = 50 // value changes based on question type (e.g. TestQuestion with 'type'="text" <= 50)
 }
 
 class TextQuestion extends Question {

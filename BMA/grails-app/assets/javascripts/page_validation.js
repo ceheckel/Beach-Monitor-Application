@@ -1,27 +1,29 @@
 /**
- *   Page Validation confirms values submitted are valid
- *   @author Striebel   (Nov 2017)
- *   @author Kriz       (edited 03/03/2018)
+ *   Michigan Tech CS4791
+ *   Nov 2017
+ *   Jacob Striebel
  */
-// TODO: NOTE FROM ZAC: Not all numeric fields are integers. Need to add checks for certain floating-point fields
-// (these fields can be identified in the schema domain docs)
 
+// TODO: NOTE FROM ZAC: Not all numeric fields are integers. Need to add checks for certain floating-point fields (these fields can be identified in the schema domain docs)
 
-/**
- * Simple alert function for validation
- * @param msg String to be displayed
- */
-function myAlert(msg) {
+//$(function () {
+//    var $btn = $("#btn-next");
+//     $btn.click(function () {
+//         if ($btn.html() === "Download") {
+//             validatePage(undefined, true);
+//         }
+//    });
+//});
+
+function myAlert (msg) {
+
     // The method of displaying this information to the user can be altered to be made prettier if we want.
+
     BootstrapDialog.alert("The following form validation error occurred:\n" + msg);
+
 }
 
-/**
- * Detects if arg is a blank string or positive int including 0
- * @param candidate
- * @returns {boolean}
- */
-function isEmptyOrIsNonnegativeInteger(candidate) {
+function isEmptyOrIsNonnegativeInteger (candidate) {
 
     if (candidate === "") {
         return true;
@@ -29,7 +31,7 @@ function isEmptyOrIsNonnegativeInteger(candidate) {
 
     var num = Math.floor(Number(candidate));
 
-    if (num >= 0 && num == parseInt(Number(candidate), 10)) {
+    if (num >= 0 && num == parseInt(Number(candidate), 10)){
         return true;
     }
 
@@ -41,12 +43,7 @@ function isEmptyOrIsNonnegativeInteger(candidate) {
 
 }
 
-/**
- * Detects if arg is a blank string or an int
- * @param candidate
- * @returns {boolean}
- */
-function isEmptyOrIsInteger(candidate) {
+function isEmptyOrIsInteger (candidate) {
 
     if (candidate === "") {
         return true;
@@ -54,7 +51,7 @@ function isEmptyOrIsInteger(candidate) {
 
     var num = Math.floor(Number(candidate));
 
-    if (num == parseInt(Number(candidate), 10)) {
+    if (num == parseInt(Number(candidate), 10)){
         return true;
     }
 
@@ -66,20 +63,15 @@ function isEmptyOrIsInteger(candidate) {
 
 }
 
-/**
- * Detects if arg is a blank string or positive degree int with no overwrapping
- * @param candidate
- * @returns {boolean}
- */
-function isEmptyOrIsIntegerDegree(candidate) {
+function isEmptyOrIsIntegerDegree (candidate) {
 
     if (candidate === "") {
         return true;
     }
 
-    var num = Math.floor(Number(candidate)); // Trunk the float
+    var num = Math.floor(Number(candidate));
 
-    if (num >= 0 && num <= 360 && num == parseInt(Number(candidate), 10)) {
+    if (num >= 0 && num <= 360 && num == parseInt(Number(candidate), 10)){
         return true;
     }
 
@@ -91,11 +83,6 @@ function isEmptyOrIsIntegerDegree(candidate) {
 
 }
 
-/**
- * You can guess what this does
- * @param val
- * @returns {boolean}
- */
 function isNumeric(val) {
 
     var len;
@@ -108,7 +95,6 @@ function isNumeric(val) {
     len = val.length;
     decimalPoint = false;
 
-    // Cycle through val to assert it is numeric
     for (i = 0; i < len; i++) {
 
         ch = val.charAt(i);
@@ -131,16 +117,11 @@ function isNumeric(val) {
         }
     }
 
-    return true;
+    return  true;
 
 }
 
-/**
- * Detects if arg is a blank string or positive int in valid PH range
- * @param candidate
- * @returns {boolean}
- */
-function isEmptyOrIspH(candidate) {
+function isEmptyOrIspH (candidate) {
 
     if (candidate === "") {
         return true;
@@ -162,9 +143,8 @@ function isEmptyOrIspH(candidate) {
  * @param curPage   int
  * @returns {boolean}
  */
-function validatePage(curPage) {
+function validatePage (curPage) {
 
-    // In page vars
     var userId;
     var county;
     var countyOptions;
@@ -226,14 +206,26 @@ function validatePage(curPage) {
     var NTU;
     var secchiTube;
 
-    // Comment vars
+
     // -------------------------------------------
+
     var deadBirdsDescription;
+
     var waterMaterialDescription;
+
     var beachMaterialDescription;
+
     var otherPeopleDescription;
+    
     var algaeTypeDescription;
+
     var algaeColorDescription;
+
+
+
+
+
+
 
     // Beach Selection
     if (curPage === 0) {
@@ -247,7 +239,7 @@ function validatePage(curPage) {
         county = $("#__county").val();
         countyOptions = $("#countyList")[0].options;
         countyOptionsLen = countyOptions.length;
-        for (i = 0; i < countyOptionsLen; i++) {
+        for (i=0; i < countyOptionsLen; i++) {
             if (county === countyOptions[i].value) {
                 break;
             }
@@ -260,7 +252,7 @@ function validatePage(curPage) {
         lake = $("#__lake").val();
         lakeOptions = $("#lakeList")[0].options;
         lakeOptionsLen = lakeOptions.length;
-        for (i = 0; i < lakeOptionsLen; i++) {
+        for (i=0; i < lakeOptionsLen; i++) {
             if (lake === lakeOptions[i].value) {
                 break;
             }
@@ -273,7 +265,7 @@ function validatePage(curPage) {
         beach = $("#__beach").val();
         beachOptions = $("#beachList")[0].options;
         beachOptionsLen = beachOptions.length;
-        for (i = 0; i < beachOptionsLen; i++) {
+        for (i=0; i < beachOptionsLen; i++) {
             if (beach === beachOptions[i].value) {
                 break;
             }
@@ -286,7 +278,7 @@ function validatePage(curPage) {
         site = $("#__site").val();
         siteOptions = $("#monitorList")[0].options;
         siteOptionsLen = siteOptions.length;
-        for (i = 0; i < siteOptionsLen; i++) {
+        for (i=0; i < siteOptionsLen; i++) {
             if (site === siteOptions[i].value) {
                 break;
             }
@@ -606,8 +598,34 @@ function validatePage(curPage) {
     }
     // Comments
     else if (curPage === 10) {
-        // TODO: Perhaps add some checks for things like unicode in ASCII area?
+
     }
 
     return true;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

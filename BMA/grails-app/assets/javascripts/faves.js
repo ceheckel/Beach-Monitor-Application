@@ -56,7 +56,7 @@ function addFavorite() {
 
     var f2 = document.getElementById('__favorites');
     f2.selectedIndex = f2.options.length - 1;
-    $('#__addFavorite').prop('disabled',true);
+    $('#__addFavorite').prop('disabled',true); // changes the disabled property to true
     saveFavorites();
 }
 
@@ -79,3 +79,43 @@ function fillFavorite() {
     s.val(favorites[f.val()].site).parent().addClass('is-dirty');
 }
 
+/**
+ * Removes the selected favorite from memory
+ */
+function remFavorite() {
+    if (favorites) {
+        console.log(favorites);
+        favorites.forEach(function() {
+            if (favorites.county == $('#__county')
+                && favorites.lake == $('#__lake')
+                && favorites.beach == $('#__beach')
+                && favorites.site == $('#__site')) {
+                favorites.pop();
+                console.log("popped");
+            }
+        });
+        console.log(favorites);
+    }
+}
+
+/**
+ * Enables save favorite button if valid beach information is entered
+ */
+function saveFavoriteEnabled() {
+    var unique = true;
+    if(favorites) {
+        favorites.forEach(function (f, i) {
+            if (f.county == $('#__county').val() && f.lake == $('#__lake').val() && f.beach == $('#__beach').val() && f.site == $('#__site').val()) {
+                unique = false;
+            }
+        });
+    }
+    $('#__addFavorite').prop('disabled',
+        !unique ||
+        $('#__county').val() == '' ||
+        $('#__lake').val() == '' ||
+        $('#__beach').val() == '' ||
+        $('#__site').val() == '' ||
+        submitted
+    )
+}

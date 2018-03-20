@@ -7,18 +7,7 @@
     <title>WI Beach Health</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  
-    <script>
-        /*
-        $(function () {
-            var callback = function (gotten_beaches) {
-                beaches = gotten_beaches;
-            };
-            window.beaches_sites_get.run(callback, false);
-        });
-        */
-    </script>
-    
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
 
@@ -254,7 +243,7 @@
                 <!-- For Questions with Flexible Units -->
                 <g:if test="${q instanceof UnitQuestion}">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:218px;display:inline-block;">
-                        <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" style="display:inline-block;">
+                        <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" style="display:inline-block;" maxlength="${q.maxlength}">
                         <label class="mdl-textfield__label" for="${q.columnId}" style="display:inline-block;">${q.prompt}</label>
                         <span class = "mdl-textfield__error" style="display:inline-block;">${q.errorm}</span>
                     </div><div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="width:80px;display:inline-block;">
@@ -273,13 +262,13 @@
                     <!-- "number" case no longer affects any fields; possibly safe to remove -->
                     <g:if test="${q.type == "number"}">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}">
+                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                         </div>
                     </g:if>
                     <g:else>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}">
+                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                             <span class = "mdl-textfield__error">${q.errorm}</span>
                         </div>
