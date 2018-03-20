@@ -259,14 +259,18 @@ function saveFavoriteEnabled() {
  * Used to populate selectfield boxes with
  * the correct suggestions
  * @param input
+ * @param list
  * @param stored
  */
-function updateSeq(input, stored) {
+function updateSeq(input, list, stored) {
     var val = $(input).val();
+    var opt = undefined;
 
-    console.log(val);
+    $(list).find('> option').each(function () {
+        if ($(this).val() === val) opt = this;
+    });
 
-    if (val !== '') {
+    if (opt) {
         var county = $('#__county').val();
         var lake = $('#__lake').val();
         var beach = $('#__beach').val();
