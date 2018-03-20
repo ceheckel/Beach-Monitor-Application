@@ -164,7 +164,6 @@ function completePage(nextPage) {
  */
 function getAllFields() {
     data = {};
-    data['PART_1_COMMENTS'] = ""; data['PART_2_COMMENTS'] = ""; data['PART_3_COMMENTS'] = ""; data['PART_4_COMMENTS'] = ""; // clear default 'undefined' value
 
     $('[name]').each(function () {
         if ($(this).attr('class') == "mdl-radio__button") {
@@ -179,18 +178,7 @@ function getAllFields() {
                 data[this.name] = false;
         }
         else /*if data is from textfield*/ {
-            // compile comments sections
-            if((this.name == "WEATHER_COMMENTS") || (this.name == "WAVES_COMMENTS")) { // Waves and Weather comments
-                data['PART_1_COMMENTS'] += (this.value + "...");
-            } else if(this.name == "WATER_COMMENTS") { // Color and Odor of water comments
-                data['PART_2_COMMENTS'] += (this.value + "...");
-            } else if(this.name == "HUMAN_BATHERS_COMMENTS") { // Human Bathers comments
-                data['PART_3_COMMENTS'] += (this.value + "...");
-            } else if((this.name == "DEBRIS_COMMENTS") || (this.name == "ALGAE_COMMENTS") || (this.name == "WILDLIFE_COMMENTS")) { // Debris, algae, and wildlife comments
-                data['PART_4_COMMENTS'] += (this.value + "...");
-            } else /* copy data */{
-                data[this.name] = this.value;
-            }
+            data[this.name] = this.value;
         }
     });
     // data['vPages'] = visitedPages;
@@ -291,6 +279,7 @@ function clearBeachFields() {
     $('#__lake').val("");
     $('#__beach').val("");
     $('#__site').val("");
+}
 
 /**
  * collects all comment fields from the survey and puts the values into their
