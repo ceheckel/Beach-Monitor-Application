@@ -305,3 +305,8 @@ function concatComments() {
     $('#PART_3_COMMENTS').val(bathersComm);
     $('#PART_4_COMMENTS').val(debrisComm + "; " + debrisComm2 + "; " + algaeComm + "; " + wildlifeComm + "; " + deadlifeComm);
 }
+
+function uploadModal(){
+    $('#upload-modal').modal();
+    console.log("hey there");
+}
