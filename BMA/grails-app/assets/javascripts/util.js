@@ -238,18 +238,12 @@ function clearAllFields() {
  * Used to populate selectfield boxes with
  * the correct suggestions
  * @param input
- * @param list
  * @param stored
  */
-function updateSeq(input, list, stored) {
+function updateSeq(input, stored) {
     var val = $(input).val();
-    var opt = undefined;
 
-    $(list).find('> option').each(function () {
-        if ($(this).val() === val) opt = this;
-    });
-
-    if (opt) {
+    if (val !== '') {
         var county = $('#__county').val();
         var lake = $('#__lake').val();
         var beach = $('#__beach').val();
