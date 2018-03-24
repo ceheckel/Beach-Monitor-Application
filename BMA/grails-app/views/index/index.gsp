@@ -396,7 +396,7 @@
             </div>
             <div class="modal-footer">
                 <button type="cancel" class="btn" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" onclick="uploadSelected()">Submit</button>
+                <button type="submit" class="btn btn-primary" onclick="uploadSelected()" data-dismiss="modal">Submit</button>
             </div>
         </div>
     </div>
