@@ -291,6 +291,7 @@ function clearBeachFields() {
     $('#__lake').val("");
     $('#__beach').val("");
     $('#__site').val("");
+}
 
 /**
  * collects all comment fields from the survey and puts the values into their
