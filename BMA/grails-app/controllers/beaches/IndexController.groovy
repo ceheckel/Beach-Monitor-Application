@@ -149,8 +149,7 @@ class IndexController {
                                 '21-50%',
                                 '>50%'
                         ],title: "Amount of beach debris/litter"),
-                        new TextQuestion(columnId: 'DEBRIS_ON_BEACH_COMMENTS', prompt: 'Additional Debris on Beach Comments'),
-                        new TextQuestion(columnId: 'DEBRIS_COMMENTS', prompt: 'Additional Debris Comments')
+                        new TextQuestion(columnId: 'DEBRIS_ON_BEACH_COMMENTS', prompt: 'Additional Debris on Beach Comments')
                 ]
         ]
 
