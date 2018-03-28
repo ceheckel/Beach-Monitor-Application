@@ -166,12 +166,20 @@ function getSurveys() {
         for (var i = 0; i < surveys.length; i++) {
             // create list item
             var li = document.createElement("li");
-            li.className = "mdl-list__item mdl-list__item--two-line";
+            li.className= "list-container";
+            //li.className = "mdl-list__item mdl-list__item--two-line";
 
+            var dataCont = document.createElement("div");
+            dataCont.className="mdl-list__item mdl-list__item--two-line survey-data list-item";
+            var massCont = document.createElement("div");
+            massCont.className="mdl-list__item mdl-list__item--two-line checkbox list-item";
+            var actionCont = document.createElement("div");
+            actionCont.className="mdl-list__item mdl-list__item--two-line actionIcon list-item";
 
             // create span for data, item name, item info, and action
             var dataSpan = document.createElement("span");
             dataSpan.className = "mdl-list__item-primary-content";
+            //dataSpan.className = "mdl-list_item--two-line";
             var nameSpan = document.createElement("span");
             var infoSpan = document.createElement("span");
             infoSpan.className = "mdl-list__item-sub-title";
@@ -180,7 +188,7 @@ function getSurveys() {
 
             // create checkbox for mass interactions
             var selectionSpan = document.createElement("label");
-            selectionSpan.className = "mdl-checkbox mdl-js-checkbox";
+            selectionSpan.className = "mdl-checkbox mdl-js-checkbox surveyList-checkbox";
             var checkbox = document.createElement("input");
             checkbox.className = "mdl-checkbox__input";
             checkbox.setAttribute("type", "checkbox");
@@ -192,8 +200,10 @@ function getSurveys() {
             action.id = surveys[i].id;
             action.className = "mdl-list__item-secondary-action";
 
+
+
             // when survey is selected, open first page of form
-            li.onclick = (function () {
+            dataCont.onclick = (function () {
                 var id = surveys[i].id;
                 return function () {
                     setTimeout(function () {
@@ -205,7 +215,7 @@ function getSurveys() {
                 }
             })();
 
-            $(li).hover(function () {
+            $(dataCont).hover(function () {
                 $(this).css("background-color", "#e4e4e4");
             }, function () {
                 $(this).css("background-color", "transparent");
@@ -214,6 +224,10 @@ function getSurveys() {
             var icon = document.createElement("i");
             icon.className = "material-icons";
 
+            massCont.appendChild(selectionSpan);
+
+            dataCont.appendChild(dataSpan);
+            dataCont.appendChild(actionSpan);
             nameSpan.appendChild(document.createTextNode((surveys[i].__beach ? surveys[i].__beach : 'Unknown Beach')));
             infoSpan.appendChild(document.createTextNode(getDateFormatted(new Date(surveys[i].date)) + " - Site: " + (surveys[i].__site ? surveys[i].__site : 'Unknown')));
             if (!surveys[i].submitted)
@@ -225,16 +239,21 @@ function getSurveys() {
             dataSpan.appendChild(infoSpan);
             action.appendChild(icon);
             actionSpan.appendChild(action);
+            actionCont.appendChild(actionSpan);
             //actionSpan.appendChild(selectionSpan);
-            li.appendChild(dataSpan);
-            li.appendChild(actionSpan);
+            li.appendChild(massCont);
+            li.appendChild(dataCont);
+            li.appendChild(actionCont);
+
+            //li.appendChild(actionSpan);
+            //li.appendChild(selectionSpan);
             if (!surveys[i].submitted) {
                 unsubmittedList.appendChild(li);
-                unsubmittedList.appendChild(selectionSpan);
+                //unsubmittedList.appendChild(selectionSpan);
             }
             else {
                 submittedList.appendChild(li);
-                submittedList.appendChild(selectionSpan);
+                //submittedList.appendChild(selectionSpan);
             }
         }
     });

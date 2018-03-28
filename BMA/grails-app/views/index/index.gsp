@@ -93,6 +93,9 @@
         .mdl-checkbox__label{
             color: #ffffff;
         }
+        .surveyList-checkbox{
+            width: 3em;
+        }
 
         .mdl-selectfield__label:after{
             background-color: #ffffff !important;
@@ -101,6 +104,38 @@
         .mdl-list__item{
             background-color: #a4b0c4;
         }
+
+        .mdl-list__item-primary-content{
+            height: 72px;
+            padding: 0%;
+            margin: 0%;
+            border-width: 0px;
+        }
+
+        .list-container{
+            height: 72px;
+            width: 100%;
+            display: table;
+        }
+
+        .list-item{
+            display: table-cell;
+        }
+
+        .checkbox{
+            width: 3em;
+            left: 0px;
+            margin: 0%;
+        }
+
+        .actionIcon{
+            width: 3em;
+            right: 0px;
+        }
+
+        .survey-data{
+        }
+
 
         mdl-list__item--two-line{
             background-color: #a4b0c4;
