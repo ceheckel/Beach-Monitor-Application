@@ -178,6 +178,9 @@ function getAllFields() {
                 data[this.name] = false;
         }
         else /*if data is from textfield*/ {
+
+            data[this.name] = this.value;
+
             // compile comments sections
             if((this.name == "WEATHER_COMMENTS") || (this.name == "WAVES_COMMENTS")) { // Waves and Weather comments
                 data['PART_1_COMMENTS'] = $('#WEATHER_COMMENTS').val() + "; " + $('#WAVES_COMMENTS').val();
@@ -301,6 +304,31 @@ function clearBeachFields() {
  *
  * @author Heckel (3/3/18)
  */
+
+function concatComments() {
+    // get the value of the two comment sections
+    var weatherComm = $('#WEATHER_COMMENTS').val();
+    var wavesComm   = $('#WAVES_COMMENTS').val();
+    var waterComm   = $('#WATER_COMMENTS').val();
+    var bathersComm = $('#HUMAN_BATHERS_COMMENTS').val();
+    var debrisComm  = $('#DEBRIS_IN_WATER_COMMENTS').val();
+    var debrisComm2 = $('#DEBRIS_ON_BEACH_COMMENTS').val();
+    var algaeComm   = $('#ALGAE_COMMENTS').val();
+    var wildlifeComm= $('#WILDLIFE_COMMENTS').val();
+    var deadlifeComm= $('#DEAD_ANIMAL_COMMENTS').val();
+
+    // concatenate the sections into a proper domain
+    $('#PART_1_COMMENTS').val(weatherComm + "; " + wavesComm);
+    $('#PART_2_COMMENTS').val(waterComm);
+    $('#PART_3_COMMENTS').val(bathersComm);
+    $('#PART_4_COMMENTS').val(debrisComm + "; " + debrisComm2 + "; " + algaeComm + "; " + wildlifeComm + "; " + deadlifeComm);
+}
+
+function uploadModal(){
+    $('#upload-modal').modal();
+    console.log("hey there");
+}
+
 // function concatComments() {
 //     // get the value of the two comment sections
 //     var weatherComm = $('#WEATHER_COMMENTS').val();
@@ -319,3 +347,4 @@ function clearBeachFields() {
 //     $('#PART_3_COMMENTS').val(bathersComm);
 //     $('#PART_4_COMMENTS').val(debrisComm + "; " + debrisComm2 + "; " + algaeComm + "; " + wildlifeComm + "; " + deadlifeComm);
 // }
+
