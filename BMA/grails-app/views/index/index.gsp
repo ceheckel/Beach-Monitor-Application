@@ -121,8 +121,8 @@
 <!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
 
-    <!-- Unsubmitted Reports Section -->
-    <ul class="mdl-list" id="unsubmitted-reports">
+    <!-- Local Reports Section -->
+    <ul class="mdl-list" id="local-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Unsubmitted Reports</span>
@@ -130,8 +130,8 @@
         </li>
     </ul>
 
-    <!-- Submitted Reports Section -->
-    <ul class="mdl-list" id="submitted-reports">
+    <!-- Uploaded Reports Section -->
+    <ul class="mdl-list" id="uploaded-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Past Reports</span>

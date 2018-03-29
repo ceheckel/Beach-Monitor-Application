@@ -42,9 +42,6 @@ function saveSurvey() {
     // if survey is invalid, or current page is the home page, do nothing
     if (typeof(surveyId) === 'undefined' || curPage == 'home') { return; }
 
-    // ensure that the required fields have values
-    //validatePage(curPage, true)
-
     // set last modified date
     $('#DATE_UPDATED').val(dateToLocalDate(new Date(), false));
 
@@ -119,17 +116,17 @@ function loadSurvey(id) {
 }
 
 /**
- *  Create html tags for the two sections, unsubmitted and submitted
+ *  Create html tags for the two sections, local and uploaded
  *  populate the appropriate hmtl lists with surveys
  */
 function getSurveys() {
     // create two lists for surveys
-    var unsubmittedList = document.getElementById("unsubmitted-reports");
-    var submittedList = document.getElementById("submitted-reports");
+    var localList = document.getElementById("local-reports");
+    var uploadedList = document.getElementById("uploaded-reports");
 
     // Remove all elements from unsubmitted reports list
-    while (unsubmittedList.firstChild)
-        unsubmittedList.removeChild(unsubmittedList.firstChild);
+    while (localList.firstChild)
+        localList.removeChild(localList.firstChild);
 
     // Create element tags for unsubmitted reports
     var header = document.createElement("li");
@@ -138,14 +135,14 @@ function getSurveys() {
     header.className = "mdl-list__item";
     span1.className = "mdl-list__item-primary-content";
     span2.className = "mdl-typography--font-bold";
-    span2.appendChild(document.createTextNode("Unsubmitted Reports"));
+    span2.appendChild(document.createTextNode("Local Reports"));
     header.appendChild(span1);
     span1.appendChild(span2);
-    unsubmittedList.appendChild(header);
+    localList.appendChild(header);
 
     // Remove all elements from submitted reports list
-    while (submittedList.firstChild)
-        submittedList.removeChild(submittedList.firstChild);
+    while (uploadedList.firstChild)
+        uploadedList.removeChild(uploadedList.firstChild);
 
     // Create element tags for submitted reports
     header = document.createElement("li");
@@ -154,10 +151,10 @@ function getSurveys() {
     header.className = "mdl-list__item";
     span1.className = "mdl-list__item-primary-content";
     span2.className = "mdl-typography--font-bold";
-    span2.appendChild(document.createTextNode("Past Reports"));
+    span2.appendChild(document.createTextNode("Uploaded Reports"));
     header.appendChild(span1);
     span1.appendChild(span2);
-    submittedList.appendChild(header);
+    uploadedList.appendChild(header);
 
     // Populate list
     Surveys.getAll(function(surveys) {
@@ -229,12 +226,12 @@ function getSurveys() {
             li.appendChild(dataSpan);
             li.appendChild(actionSpan);
             if (!surveys[i].submitted) {
-                unsubmittedList.appendChild(li);
-                unsubmittedList.appendChild(selectionSpan);
+                localList.appendChild(li);
+                localList.appendChild(selectionSpan);
             }
             else {
-                submittedList.appendChild(li);
-                submittedList.appendChild(selectionSpan);
+                uploadedList.appendChild(li);
+                uploadedList.appendChild(selectionSpan);
             }
         }
     });
@@ -256,14 +253,14 @@ function uploadSelected() {
         alert("No Surveys Selected");
         return;
     }
-
-    // check if any unsubmitted surveys are selected
-    for (var i = 0; i < selected.length; i++) {
-        if (selected[i].parentElement.parentElement.id == "unsubmitted-reports") {
-            alert("Unsubmitted reports cannot be uploaded to the server.");
-            return;
-        }
-    }
+    //
+    // // check if any uploaded surveys are selected
+    // for (var i = 0; i < selected.length; i++) {
+    //     if (selected[i].parentElement.parentElement.id == "uploaded-reports") {
+    //         alert("");
+    //         return;
+    //     }
+    // }
 
     // for each survey marked for upload ...
     for (var i = 0; i < selected.length; i++) {
@@ -517,13 +514,13 @@ function deleteSelected() {
 }
 
 /**
- * Sets the submission value of the survey to 'true'
+ * Completes the survey by compiling comments sections
  * returns to homepage
  */
 function submit(){
     saveSurvey(totalQuestionPages);
-    concatComments();
-    downloadCSV();
-    submitted = true;
+    // concatComments();
+    // downloadCSV();
+    // submitted = true;
     toPage('home',false);
 }
