@@ -51,7 +51,7 @@ function addFavorite() {
     });
     var f = $('#__favorites');
     console.log(f.children().length - 1);
-    f.append('<option value="' + (f.children().length - 1) + '">' + b + ' &raquo; ' + s + '</option>')
+    f.append('<option value="' + (f.children().length - 1) + '">' + b + ' &raquo; ' + s + '</option>');
     f.parent().addClass('is-dirty');
 
     var f2 = document.getElementById('__favorites');
@@ -74,8 +74,11 @@ function fillFavorite() {
         return;
 
     c.val(favorites[f.val()].county).parent().addClass('is-dirty');
+    fillFromCounty();
     l.val(favorites[f.val()].lake).parent().addClass('is-dirty');
+    fillFromLake();
     b.val(favorites[f.val()].beach).parent().addClass('is-dirty');
+    fillFromBeach();
     s.val(favorites[f.val()].site).parent().addClass('is-dirty');
 }
 
@@ -112,10 +115,10 @@ function saveFavoriteEnabled() {
     }
     $('#__addFavorite').prop('disabled',
         !unique ||
-        $('#__county').val() == '' ||
-        $('#__lake').val() == '' ||
-        $('#__beach').val() == '' ||
-        $('#__site').val() == '' ||
+        $('#__county').val() === '' ||
+        $('#__lake').val() === '' ||
+        $('#__beach').val() === '' ||
+        $('#__site').val() === '' ||
         submitted
     )
 }
