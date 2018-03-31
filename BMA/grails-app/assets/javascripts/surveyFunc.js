@@ -19,7 +19,6 @@ function newSurvey() {
     surveyId = guid();
     surveyDate = new Date();
     $('#DATE_ENTERED').val(dateToLocalDate(surveyDate, true));
-    submitted = false;
     selected = false;
 
     // Navigate to beach selection page
@@ -49,6 +48,7 @@ function saveSurvey() {
     var data = getAllFields();
     data.id = surveyId;
     data.date = surveyDate;
+    data['submitted'] = submitted;
 
     // create new survey
     var survey = new Survey(data.id, data);
@@ -527,9 +527,9 @@ function deleteSelected() {
  * returns to homepage
  */
 function submit(){
+    submitted = true;
     saveSurvey(totalQuestionPages);
     // concatComments();
     // downloadCSV();
-    // submitted = true;
     toPage('home',false);
 }

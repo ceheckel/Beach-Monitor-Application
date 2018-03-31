@@ -184,7 +184,6 @@ function getAllFields() {
             // compile comments sections
             if((this.name == "WEATHER_COMMENTS") || (this.name == "WAVES_COMMENTS")) { // Waves and Weather comments
                 data['PART_1_COMMENTS'] = $('#WEATHER_COMMENTS').val() + "; " + $('#WAVES_COMMENTS').val();
-                console.log(data['PART_1_COMMENTS']);
             } else if(this.name == "WATER_COMMENTS") { // Color and Odor of water comments
                 data['PART_2_COMMENTS'] = $('#WATER_COMMENTS').val();
             } else if(this.name == "HUMAN_BATHERS_COMMENTS") { // Human Bathers comments
@@ -320,7 +319,6 @@ function concatComments() {
 
 function uploadModal(){
     $('#upload-modal').modal();
-    console.log("hey there");
 }
 
 // function concatComments() {

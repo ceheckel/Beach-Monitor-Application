@@ -134,7 +134,7 @@
     <ul class="mdl-list" id="uploaded-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
-                <span class="mdl-typography--font-bold">Past Reports</span>
+                <span class="mdl-typography--font-bold">Uploaded Reports</span>
             </span>
         </li>
     </ul>
