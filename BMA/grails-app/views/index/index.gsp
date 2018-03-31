@@ -115,11 +115,14 @@
         .list-container{
             height: 72px;
             width: 100%;
+            margin-left: 0em;
             display: table;
         }
 
         .list-item{
             display: table-cell;
+            width: 100%;
+            margin-left: 0em;
         }
 
         .checkbox{
@@ -134,7 +137,80 @@
         }
 
         .survey-data{
+            right: 0px;
         }
+
+        /************************************************************************************************************/
+        .checkCont {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default checkbox */
+        .checkCont input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #a4b0c4;
+            border: solid #3f51b5;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .checkCont:hover input ~ .checkmark {
+            background-color: #a4b0c4;
+        }
+
+        .checkCont:hover{
+            background-color: #fff;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .checkCont input:checked ~ .checkmark {
+            background-color: #3f51b5;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .checkCont input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .checkCont .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid #a4b0c4;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        /**************************************************************************************************************/
 
 
         mdl-list__item--two-line{
