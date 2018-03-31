@@ -182,8 +182,6 @@ function displayBtns(){
         $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Unknown Beach');
     }
 
-    if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
-    else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
     $('.mdl-layout__content').scrollTop(0);
 
     $('#surveySectionsDrawer a').each(function(i,e) {
