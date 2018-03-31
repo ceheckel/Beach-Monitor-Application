@@ -228,7 +228,7 @@ function validatePage (curPage) {
 
 
     // Beach Selection
-    if (curPage === 0) {
+    if (curPage === 0 || curPage === totalQuestionPages) {
 
         //userId = $("#user_id").val();
         //if (/\w/.test(userId) === false) {
