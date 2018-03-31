@@ -53,7 +53,7 @@ survey_post.upload = function(surveys) {
         headers: {
             "Authorization": "Basic " + btoa(usrpw)
         },
-        success: function () {
+        success: function (response) {
             //alert("success");
             BootstrapDialog.alert("Report submitted successfully\n <details>" + response.responseText + "</details>");
             console.log(toUpload);
