@@ -10,7 +10,9 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-
+        #upload-modal {
+            margin-top: 40px;
+        }
         p{
             color: #ffffff;
         }
@@ -24,7 +26,10 @@
             width: 100%;
         }
 
+        .mdl-textfield { display: block; }
+        .mdl-selectfield { display: block; }
 
+        /* Beginning of highlighting */
         .mdl-textfield__input.required {
             background-color: rgba(255,0,0,0.20);
         }
@@ -37,7 +42,6 @@
         .mdl-selectfield__select.recommended {
             background-color: rgba(0,255,0,0.20);
         }
-
         /* end of highlighting */
 
         /* bottom nav-bar styling */
@@ -95,6 +99,14 @@
         }
         .surveyList-checkbox{
             width: 3em;
+        }
+
+        .button-question {
+            margin: 10px;
+        }
+
+        .checkbox-question {
+            margin: 10px;
         }
 
         .mdl-selectfield__label:after{
@@ -230,8 +242,8 @@
 <!-- Home page -->
 <div class="page-content" data-page="home" data-page-title="WI Beaches">
 
-    <!-- Unsubmitted Reports Section -->
-    <ul class="mdl-list" id="unsubmitted-reports">
+    <!-- Local Reports Section -->
+    <ul class="mdl-list" id="local-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-typography--font-bold">Unsubmitted Reports</span>
@@ -239,11 +251,11 @@
         </li>
     </ul>
 
-    <!-- Submitted Reports Section -->
-    <ul class="mdl-list" id="submitted-reports">
+    <!-- Uploaded Reports Section -->
+    <ul class="mdl-list" id="uploaded-reports">
         <li class="mdl-list__item">
             <span class="mdl-list__item-primary-content">
-                <span class="mdl-typography--font-bold">Past Reports</span>
+                <span class="mdl-typography--font-bold">Uploaded Reports</span>
             </span>
         </li>
     </ul>
@@ -252,7 +264,7 @@
     <div class="bottom-nav">
 
         <!-- Upload Surveys Button -->
-        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="uploadSelected()" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
+        <button id="post-surveys-btn" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" data-toggle="modal" data-target="#upload-modal" style="background-color: rgb(68,138,255); color: rgb(255,255,255); margin-right: 15px;">
             <div class="bottom-nav-icon"><i class="material-icons">file_upload</i></div>
             <div class="bottom-nav-icon-item"><i class="material-icons">file_upload</i>&nbsp;Upload</div>
         </button>
@@ -415,7 +427,7 @@
                     </g:if>
                     <g:else>
                         <g:each var="c" in="${q.prompts}">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${q.columnId}">
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect checkbox-question" for="${q.columnId}">
                                 <input type="checkbox" name="${q.columnId}" id="${q.columnId}" class="mdl-checkbox__input"${c.second ? ' checked' : ''} onclick="${q.onclick}">
                                 <span class="mdl-checkbox__label">${c.first}</span>
                             </label>
@@ -447,7 +459,7 @@
 
                 <!-- For Button Questions -->
                 <g:if test="${q instanceof ButtonElement}">
-                    <button class="mdl-button mdl-js-button mdl-button--raised ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}" ${q.disabled ? 'disabled=""' : ''}>${q.value}</button><br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised button-question ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}" ${q.disabled ? 'disabled=""' : ''}>${q.value}</button><br>
                 </g:if>
 
                 <!-- For Time Questions -->
@@ -463,7 +475,7 @@
                         <input type="datetime-local" name="${q.columnId}" id="${q.columnId}">
                     </g:else>
                 </g:if>
-                <g:elseif test ="${!(q instanceof HiddenQuestion)}"><br></g:elseif>
+                <g:elseif test ="${!(q instanceof HiddenQuestion)}"><!-- there used to be a br here for some dumb reason--></g:elseif>
             </g:each>
         </div>
     </g:each>
@@ -482,6 +494,33 @@
 <div id="toast-container" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
     <button class="mdl-snackbar__action" type="button"></button>
+</div>
+
+<!-- Upload Surveys Login Modal -->
+<div class="modal fade" id="upload-modal" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please enter username and password</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="username-field">Username</label>
+                        <input type="email" class="form-control" id="username-field" placeholder="Please enter username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-field">Password</label>
+                        <input type="password" class="form-control" id="password-field" placeholder="Please enter password">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="cancel" class="btn" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" onclick="uploadSelected()" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

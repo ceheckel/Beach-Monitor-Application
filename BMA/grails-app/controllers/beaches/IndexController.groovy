@@ -11,19 +11,18 @@ class IndexController {
 
                         // Beach Info
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
-                        new TextQuestion(columnId: '__county', prompt: 'County *', list: 'countyList', extraClasses: 'required'),
-                        new TextQuestion(columnId: '__lake', prompt: 'Lake *', list: 'lakeList', extraClasses: 'required'),
-                        new TextQuestion(columnId: '__beach', prompt: 'Beach *', list: 'beachList', extraClasses: 'required'),
+                        new SelectQuestion(columnId: '__county', options: [''], title:"County *", extraClasses: 'required'),
+                        new SelectQuestion(columnId: '__lake', options: [''], title:"Lake *", extraClasses: 'required'),
+                        new SelectQuestion(columnId: '__beach', options: [''], title:"Beach *", extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'BEACH_SEQ', value: '-1'),
-                        new TextQuestion(columnId: '__site', prompt: 'Monitoring Site *', list: 'monitorList', extraClasses: 'required'),
+                        new SelectQuestion(columnId: '__site', options: [''], title:'Monitoring Site *', extraClasses: 'required'),
                         new HiddenQuestion(columnId: 'MONITOR_SITE_SEQ', value: '-1'),
-                        new ButtonElement(columnId: '__unused', value: 'Clear Beach Fields', onclick: 'clearBeachFields()', accent: true),
+                        //new ButtonElement(columnId: '__unused', value: 'Clear Beach Fields', onclick: 'clearBeachFields()', accent: true),
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
                         new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
                         new ButtonElement(columnId: '__remFavorite', value: 'Remove from Favorites', onclick: 'remFavorite()', accent: true, disabled: false),
-                        //@TODO decide on how to handle date, time and user
 
                         // Date/Time Info
                         new ButtonElement(columnId: '__collectSampleNow', value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true),

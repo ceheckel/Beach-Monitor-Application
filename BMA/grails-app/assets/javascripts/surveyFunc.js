@@ -19,7 +19,6 @@ function newSurvey() {
     surveyId = guid();
     surveyDate = new Date();
     $('#DATE_ENTERED').val(dateToLocalDate(surveyDate, true));
-    submitted = false;
     selected = false;
 
     // Navigate to beach selection page
@@ -42,9 +41,6 @@ function saveSurvey() {
     // if survey is invalid, or current page is the home page, do nothing
     if (typeof(surveyId) === 'undefined' || curPage == 'home') { return; }
 
-    // ensure that the required fields have values
-    //validatePage(curPage, true)
-
     // set last modified date
     $('#DATE_UPDATED').val(dateToLocalDate(new Date(), false));
 
@@ -52,6 +48,7 @@ function saveSurvey() {
     var data = getAllFields();
     data.id = surveyId;
     data.date = surveyDate;
+    data['submitted'] = submitted;
 
     // create new survey
     var survey = new Survey(data.id, data);
@@ -72,6 +69,7 @@ function loadSurvey(id) {
 
     // get survey from localforage, then run callback
     Surveys.getById(surveyId, null, function(survey) {
+        fillCounties();
         submitted = survey['submitted'];
         $('[name]').each(function () {
             $(this).prop('disabled', submitted);
@@ -97,14 +95,22 @@ function loadSurvey(id) {
             {
                 this.value = survey[nameToString];
                 this.parentElement.className += " is-dirty";
+                // If the field being updated is one of the site selection fields, cascade the change downward so that
+                // those fields can be updated correctly. Otherwise, they will be blank.
+                if (nameToString == "__county"){
+                    fillFromCounty();
+                }
+                else if (nameToString == "__lake"){
+                    fillFromLake();
+                }
+                else if (nameToString == "__beach"){
+                    fillFromBeach();
+                }
             }
         });
-        fillCounties();
-        fillLakes();
-        fillBeaches();
-        fillSites();
-        updateSeq('#__beach', '#beachList', '#BEACH_SEQ');
-        updateSeq('#__site', '#monitorList', '#MONITOR_SITE_SEQ');
+
+        updateSeq('#__beach', '#BEACH_SEQ');
+        updateSeq('#__site', '#MONITOR_SITE_SEQ');
         surveyDate = new Date(survey['date']);
         // visitedPages = survey['vPages'];
         if(submitted)
@@ -119,17 +125,17 @@ function loadSurvey(id) {
 }
 
 /**
- *  Create html tags for the two sections, unsubmitted and submitted
+ *  Create html tags for the two sections, local and uploaded
  *  populate the appropriate hmtl lists with surveys
  */
 function getSurveys() {
     // create two lists for surveys
-    var unsubmittedList = document.getElementById("unsubmitted-reports");
-    var submittedList = document.getElementById("submitted-reports");
+    var localList = document.getElementById("local-reports");
+    var uploadedList = document.getElementById("uploaded-reports");
 
     // Remove all elements from unsubmitted reports list
-    while (unsubmittedList.firstChild)
-        unsubmittedList.removeChild(unsubmittedList.firstChild);
+    while (localList.firstChild)
+        localList.removeChild(localList.firstChild);
 
     // Create element tags for unsubmitted reports
     var header = document.createElement("li");
@@ -138,14 +144,14 @@ function getSurveys() {
     header.className = "mdl-list__item";
     span1.className = "mdl-list__item-primary-content";
     span2.className = "mdl-typography--font-bold";
-    span2.appendChild(document.createTextNode("Unsubmitted Reports"));
+    span2.appendChild(document.createTextNode("Local Reports"));
     header.appendChild(span1);
     span1.appendChild(span2);
-    unsubmittedList.appendChild(header);
+    localList.appendChild(header);
 
     // Remove all elements from submitted reports list
-    while (submittedList.firstChild)
-        submittedList.removeChild(submittedList.firstChild);
+    while (uploadedList.firstChild)
+        uploadedList.removeChild(uploadedList.firstChild);
 
     // Create element tags for submitted reports
     header = document.createElement("li");
@@ -154,10 +160,10 @@ function getSurveys() {
     header.className = "mdl-list__item";
     span1.className = "mdl-list__item-primary-content";
     span2.className = "mdl-typography--font-bold";
-    span2.appendChild(document.createTextNode("Past Reports"));
+    span2.appendChild(document.createTextNode("Uploaded Reports"));
     header.appendChild(span1);
     span1.appendChild(span2);
-    submittedList.appendChild(header);
+    uploadedList.appendChild(header);
 
     // Populate list
     Surveys.getAll(function(surveys) {
@@ -262,14 +268,14 @@ function uploadSelected() {
         alert("No Surveys Selected");
         return;
     }
-
-    // check if any unsubmitted surveys are selected
-    for (var i = 0; i < selected.length; i++) {
-        if (selected[i].parentElement.parentElement.id == "unsubmitted-reports") {
-            alert("Unsubmitted reports cannot be uploaded to the server.");
-            return;
-        }
-    }
+    //
+    // // check if any uploaded surveys are selected
+    // for (var i = 0; i < selected.length; i++) {
+    //     if (selected[i].parentElement.parentElement.id == "uploaded-reports") {
+    //         alert("");
+    //         return;
+    //     }
+    // }
 
     // for each survey marked for upload ...
     for (var i = 0; i < selected.length; i++) {
@@ -523,13 +529,13 @@ function deleteSelected() {
 }
 
 /**
- * Sets the submission value of the survey to 'true'
+ * Completes the survey by compiling comments sections
  * returns to homepage
  */
 function submit(){
-    saveSurvey(totalQuestionPages);
-    concatComments();
-    downloadCSV();
     submitted = true;
+    saveSurvey(totalQuestionPages);
+    // concatComments();
+    // downloadCSV();
     toPage('home',false);
 }
