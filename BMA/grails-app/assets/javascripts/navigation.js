@@ -11,7 +11,6 @@
  * @param toDelete Boolean stating whether or not to delete survey
  */
 function toPage(page, toDelete) {
-
     // if deleting survey, ignore validation?
     if(toDelete === false) {
         if (validatePage(curPage) === false) {
@@ -22,10 +21,25 @@ function toPage(page, toDelete) {
     // save survey
     saveSurvey();
 
+    // reset global var
+    if(page == 'home') { submitted = false; }
+
     // hide everything, then show only desired page
     $('div[data-page]').hide();
     var p = $('div[data-page=' + page + ']');
     p.show();
+
+    if(submitted == true){
+        //Turn off buttons
+        $("#__remFavorite").attr("disabled", true);
+        $("#__addFavorite").attr("disabled", true);
+        $("#__collectSampleNow").attr("disabled", true);
+    } else {
+        //Turn on buttons
+        $("#__remFavorite").attr("disabled", false);
+        $("#__addFavorite").attr("disabled", false);
+        $("#__collectSampleNow").attr("disabled", false);
+    }
 
     // setup page title
     $('#page-title').html(
@@ -78,17 +92,13 @@ function btnNext() {
  *  @see btnNext
  */
 function toReview() {
-    console.log("In review section");
-    console.log(curPage);
-    // if(visitedPages.indexOf(totalQuestionPages) < 0)
-    //     visitedPages.push(totalQuestionPages);
     saveSurvey(totalQuestionPages);
     $('div[data-page]').show();
     $('div[data-page=home]').hide();
     $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
     $('#page-title-drawer').html('Review');
     curPage = totalQuestionPages;
-    $('#btn-next').html('Submit');
+    $('#btn-next').html('Complete');
     $('#btn-prev').css('display', 'block');
     $('#btn-delete').css('display', 'block');
     $('.mdl-layout__content').scrollTop(0);
@@ -172,8 +182,6 @@ function displayBtns(){
         $('#page-beach-drawer').html($('#__beach').val().length > 0 ? $('#__beach').val() : 'Unknown Beach');
     }
 
-    if (curPage == '0') $('#__addFavorite').css('display', 'block').next().css('display', 'block');
-    else $('#__addFavorite').css('display', 'none').next().css('display', 'none');
     $('.mdl-layout__content').scrollTop(0);
 
     $('#surveySectionsDrawer a').each(function(i,e) {
