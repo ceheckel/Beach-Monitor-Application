@@ -172,34 +172,62 @@ function getSurveys() {
         for (var i = 0; i < surveys.length; i++) {
             // create list item
             var li = document.createElement("li");
+            li.className= "list-container";
             li.className = "mdl-list__item mdl-list__item--two-line";
 
+            //Create Divs to put in List item
+            var checkBoxCont = document.createElement("div");
+            checkBoxCont.className = "mdl-list__item mdl-list__item--two-line checkbox list-item";
+            li.appendChild(checkBoxCont);
 
-            // create span for data, item name, item info, and action
-            var dataSpan = document.createElement("span");
-            dataSpan.className = "mdl-list__item-primary-content";
-            var nameSpan = document.createElement("span");
-            var infoSpan = document.createElement("span");
-            infoSpan.className = "mdl-list__item-sub-title";
-            var actionSpan = document.createElement("span");
-            actionSpan.className = "mdl-list__item-secondary-content";
+            var dataCont = document.createElement("div");
+            dataCont.className = "mdl-list__item mdl-list__item--two-line survey-data list-item " +
+                "mdl-list__item-primary-content";
+            li.appendChild(dataCont);
 
-            // create checkbox for mass interactions
-            var selectionSpan = document.createElement("label");
-            selectionSpan.className = "mdl-checkbox mdl-js-checkbox";
-            var checkbox = document.createElement("input");
+            //Make Checkbox Portion
+            /*var checkbox = document.createElement("input");
             checkbox.className = "mdl-checkbox__input";
             checkbox.setAttribute("type", "checkbox");
-            selectionSpan.id = surveys[i].id;
-            selectionSpan.appendChild(checkbox);
+            checkbox.id = surveys[i].id;
+            checkBoxCont.appendChild(checkbox);
+            */
 
-            // create link to survey for edit/view
-            var action = document.createElement("a");
-            action.id = surveys[i].id;
-            action.className = "mdl-list__item-secondary-action";
+            var checkbox = document.createElement("label");
+            checkbox.className = "checkCont mdl-checkbox mdl-js-checkbox surveyList-checkbox";
+            checkbox.id = surveys[i].id;
 
-            // when survey is selected, open first page of form
-            li.onclick = (function () {
+            var input = document.createElement("input");
+            input.className = "mdl-checkbox__input";
+            input.setAttribute("type", "checkbox");
+            input.id = surveys[i].id;
+
+            var checkmark = document.createElement("span");
+            checkmark.className = "checkmark";
+
+            checkbox.appendChild(input);
+            checkbox.appendChild(checkmark);
+            checkBoxCont.appendChild(checkbox);
+
+            //Make Data Portion
+            var name = document.createElement("span");
+            name.appendChild(document.createTextNode((surveys[i].__beach ? surveys[i].__beach : 'Unknown Beach')));
+            dataCont.appendChild(name);
+
+            var info = document.createElement("span");
+            info.className = "mdl-list__item-sub-title";
+            info.appendChild(document.createTextNode(getDateFormatted(new Date(surveys[i].date)) + " - Site: " +
+                                                                    (surveys[i].__site ? surveys[i].__site : 'Unknown')));
+            dataCont.appendChild(info);
+
+            //Make Anchor/Link
+            var anchor = document.createElement("a");
+            anchor.id = surveys[i].id;
+            anchor.className = "mdl-list__item-secondary-action";
+            dataCont.appendChild(anchor);
+
+            //when survey is selected, open first page of form
+            dataCont.onclick = (function () {
                 var id = surveys[i].id;
                 return function () {
                     setTimeout(function () {
@@ -211,37 +239,15 @@ function getSurveys() {
                 }
             })();
 
-            $(li).hover(function () {
+            //Hover Effect
+            $(dataCont).hover(function () {
                 $(this).css("background-color", "#e4e4e4");
             }, function () {
                 $(this).css("background-color", "transparent");
             });
-            $(li).css('cursor', 'pointer');
-            var icon = document.createElement("i");
-            icon.className = "material-icons";
 
-            nameSpan.appendChild(document.createTextNode((surveys[i].__beach ? surveys[i].__beach : 'Unknown Beach')));
-            infoSpan.appendChild(document.createTextNode(getDateFormatted(new Date(surveys[i].date)) + " - Site: " + (surveys[i].__site ? surveys[i].__site : 'Unknown')));
-            if (!surveys[i].submitted)
-                icon.appendChild(document.createTextNode("edit"));
-            else
-                icon.appendChild(document.createTextNode("visibility"));
-
-            dataSpan.appendChild(nameSpan);
-            dataSpan.appendChild(infoSpan);
-            action.appendChild(icon);
-            actionSpan.appendChild(action);
-            //actionSpan.appendChild(selectionSpan);
-            li.appendChild(dataSpan);
-            li.appendChild(actionSpan);
-            if (!surveys[i].submitted) {
-                localList.appendChild(li);
-                localList.appendChild(selectionSpan);
-            }
-            else {
-                uploadedList.appendChild(li);
-                uploadedList.appendChild(selectionSpan);
-            }
+            //Ternary Op? Thanks Obama...
+            surveys[i].submitted ? submittedList.appendChild(li) : unsubmittedList.appendChild(li);
         }
     });
 }
