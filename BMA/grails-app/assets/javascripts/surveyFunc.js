@@ -247,7 +247,7 @@ function getSurveys() {
             });
 
             //Ternary Op? Thanks Obama...
-            surveys[i].submitted ? submittedList.appendChild(li) : unsubmittedList.appendChild(li);
+            surveys[i].submitted ? uploadedList.appendChild(li) : localList.appendChild(li);
         }
     });
 }
