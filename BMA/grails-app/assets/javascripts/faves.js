@@ -50,7 +50,6 @@ function addFavorite() {
         site: s
     });
     var f = $('#__favorites');
-    console.log(f.children().length - 1);
     f.append('<option value="' + (f.children().length - 1) + '">' + b + ' &raquo; ' + s + '</option>');
     f.parent().addClass('is-dirty');
 
@@ -84,20 +83,18 @@ function fillFavorite() {
 
 /**
  * Removes the selected favorite from memory
+ * WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP
  */
 function remFavorite() {
     if (favorites) {
-        console.log(favorites);
         favorites.forEach(function() {
             if (favorites.county == $('#__county')
                 && favorites.lake == $('#__lake')
                 && favorites.beach == $('#__beach')
                 && favorites.site == $('#__site')) {
                 favorites.pop();
-                console.log("popped");
             }
         });
-        console.log(favorites);
     }
 }
 

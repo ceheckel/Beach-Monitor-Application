@@ -1,15 +1,15 @@
 /**
  * Created by cwbaldwi on 10/11/17.
- * Edited by Heckel (most recent) on 03/20/18.
+ * Edited by Heckel
  */
 
 window.survey_post = {};
 
 // http://localhost:8081/bms/survey
-// https://hci-dev.cs.mtu.edu:8117/BMS2/survey <-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
+// https://hci-dev.cs.mtu.edu:8117/BMS2/survey //<-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
+// https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData //<-- WiDNR POST URL
 
-survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData" //<-- WiDNR POST URL
-// survey_post.URL_POST = "http://localhost:8081/bms/survey";
+survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData"; //<-- WiDNR POST URL
 
 /**
  * Uploads all surveys to the Wi Beach Server
@@ -45,7 +45,6 @@ survey_post.upload = function(surveys) {
             surveys.forEach(function(survey) { survey['submitted'] = true; });
         },
         error: function (response) {
-            console.log("err with post, response: ", response);
             if (response.status == 500) {
                 BootstrapDialog.alert("Problem with submit\nA survey with this location and date/time has already been submitted\n <details>" + response.responseText + "</details>");
             } else if (response.status == 400) {

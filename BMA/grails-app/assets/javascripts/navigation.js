@@ -146,7 +146,6 @@ function displayBtns(){
         document.getElementById("helpSectionDrawer").style.display = 'block';   // show help section
         $('#page-questions').css('display', 'none');
         $('#page-beach-drawer').css('display', 'none');
-        // visitedPages = []; // removable
         window.onbeforeunload = null;
     }
     else if(curPage == 'help') {

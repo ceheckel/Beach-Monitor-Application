@@ -27,7 +27,7 @@ beaches_sites_get.parse = function (beaches, sites, callback) {
         if (formatted_beaches[beaches[i].COUNTY][beaches[i].WATERBODY_NAME] === undefined) {
             formatted_beaches[beaches[i].COUNTY][beaches[i].WATERBODY_NAME] = {};
         }
-        // Push and index in the formated list
+        // Push and index in the formatted list
         this_beach = {};
         formatted_beaches[beaches[i].COUNTY][beaches[i].WATERBODY_NAME][beaches[i].BEACH_NAME] = this_beach;
         this_beach["_site"] = beaches[i].BEACH_SEQ;
@@ -55,19 +55,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
         $.ajax({
             type: "GET",
             url: beaches_sites_get.GET_URL,
-            success: function (data, textStatus, jqXHR) {
-
-                if (jqXHR) { // Make sure we even have XHR from JQ
-                    if (jqXHR.status === 200) {
-
-                         console.log("\nReqest got cache okay! 200\n")
-
-                    } else {
-                         console.log("\nRequest reply is ", jqXHR.status.toString(), "\n")
-                    }
-                }else{
-                    console.log("\n! jqXHR was sent as null/false !\n\n")
-                }
+            success: function (data) {
                 // Parse the data we were sent
                 at = 0;
                 data.forEach(function(tbl){
@@ -99,8 +87,8 @@ beaches_sites_get.run = function (callback, use_test_data) {
     }
 };
 
-// Incase we want to use just a test list
-// Keep this in the code just incase!
+// In case we want to use just a test list
+// Keep this in the code just in case!
 
 beaches_sites_get.test_beaches = [
     {
@@ -186,12 +174,13 @@ beaches_sites_get.run = function (callback, use_test_data) {
     var beaches = [];
     var sites = [];
 
+    // if the test data is desired
     if (use_test_data === true) {
         beaches = beaches_sites_get.test_beaches;
         sites = beaches_sites_get.test_sites;
         beaches_sites_get.parse(beaches, sites, callback);
     }
-    else {
+    else { // Get the real data
         $.ajax({
             type: "GET",
             crossDomain: true,
@@ -199,19 +188,15 @@ beaches_sites_get.run = function (callback, use_test_data) {
             // headers: {"If-Modified-Since": "Tue, 13 Feb 2018 14:05:19 GMT"},
             url: beaches_sites_get.GET_URL,
             success: function (data) {
-
-                console.log(data);
                 at = 0;
-                //data = JSON.parse(data);
-                data.forEach(function(tbl){
-                    //console.log(tbl);
-                    //console.log("At iteration # " , at);
 
+                // parse through the data and store it locally
+                data.forEach(function(tbl){
                     curb =     {
                         BEACH_SEQ: tbl.BEACH_SEQ,
                         BEACH_NAME: tbl.BEACH_NAME,
                         COUNTY: tbl.COUNTY,
-                        WATERBODY_NAME: tbl.WATERBODY_NAME// How are we deriving this?
+                        WATERBODY_NAME: tbl.WATERBODY_NAME
                     };
                     curs =     {
                         MONITOR_SITE_SEQ: tbl.MONITOR_SITE_SEQ,
@@ -224,20 +209,16 @@ beaches_sites_get.run = function (callback, use_test_data) {
                     at++;
                 });
 
-
-                //beaches = data.beaches;
-                //sites = data.sites;
-                //console.log("DONE READING IN NOW!");
-                console.log(beaches);
-                console.log(beaches.length);
-                console.log(sites);
-                console.log(sites.length);
-
                 beaches_sites_get.parse(beaches, sites, callback);
                 fillCounties();
             },
             error: function () {
-                alert('Get beaches and sites failed (' + beaches_sites_get.GET_URL + ').');
+                alert('Get beaches and sites failed (' + beaches_sites_get.GET_URL + ').\nUsing test data');
+
+                // fallback to test set on failure
+                beaches = beaches_sites_get.test_beaches;
+                sites = beaches_sites_get.test_sites;
+                beaches_sites_get.parse(beaches, sites, callback);
             }
         });
     }
