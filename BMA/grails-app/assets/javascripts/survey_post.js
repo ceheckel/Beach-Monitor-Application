@@ -22,25 +22,12 @@ survey_post.upload = function(surveys) {
     // Start construction of the survey clump
     toUpload = "[";
     surveys.forEach(function(survey) {
-
-        //ensure that water and air temp are null if they ="" upon upload
-        // if(survey.AVG_WATER_TEMP == "")
-        //     survey.AVG_WATER_TEMP = null;
-        // if(survey.AIR_TEMP == "")
-        //     survey.AIR_TEMP = null;
-
-        //ensure only submitted surveys get uploaded
-        console.log("survey: ", survey);
-        // if (survey.submitted) { // upload only submitted surveys
-            toUpload = toUpload + JSON.stringify(survey) + ","; // stringify survey
-        // }
+        toUpload = toUpload + JSON.stringify(survey) + ","; // stringify survey
     });
     toUpload = toUpload.substr(0,toUpload.length-1) + "]"; // removes the last comma
-    console.log(toUpload);
 
+    // get user name and password for encoding
     var usrpw = $("#username-field").val()+":"+$("#password-field").val();
-    // var userpwencoded =  btoa(usrpw);
-    // var buildURL = "https://" + userpwencoded + "@" + survey_post.URL_POST;
 
     // POST the clump
     promises.push($.ajax({
@@ -54,9 +41,8 @@ survey_post.upload = function(surveys) {
             "Authorization": "Basic " + btoa(usrpw)
         },
         success: function (response) {
-            //alert("success");
             BootstrapDialog.alert("Report submitted successfully\n <details>" + response.responseText + "</details>");
-            console.log(toUpload);
+            surveys.forEach(function(survey) { survey['submitted'] = true; });
         },
         error: function (response) {
             console.log("err with post, response: ", response);
