@@ -189,6 +189,10 @@
             background-color: #a4b0c4;
         }
 
+        option{
+            color: black;
+        }
+
         .checkCont:hover{
             background-color: #fff;
         }
