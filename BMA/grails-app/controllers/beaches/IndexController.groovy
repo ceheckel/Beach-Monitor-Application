@@ -162,7 +162,7 @@ class IndexController {
                         new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001),
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
-                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01),
+                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', maxlength: 3, prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01),
                         new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
                                 '', 'Calm', 'Variable',
                                 'N','NE','E','SE','S','SW','W','NW'
@@ -196,7 +196,7 @@ class IndexController {
                                 'Other'
                         ], title: "Rain intensity *"),
 
-                        new TextQuestion(columnId: 'WEATHER_COMMENTS', prompt: 'Additional Weather Comments')
+                        new TextQuestion(columnId: 'WEATHER_COMMENTS', maxlength: 195, prompt: 'Additional Weather Comments')
                 ]
         ]
 
@@ -227,7 +227,7 @@ class IndexController {
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ], title: "Longshore current direction"),
-                        new TextQuestion(columnId: 'WAVES_COMMENTS', prompt: 'Additional Wave Comments')
+                        new TextQuestion(columnId: 'WAVES_COMMENTS', maxlength: 195, prompt: 'Additional Wave Comments')
                 ]
         ]
 
@@ -263,7 +263,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'ALGAE_TYPE_OTHER', prompts: [
                                 new Tuple2('Other', false),
                         ], onclick: 'OtherCheckbox("#ALGAE_TYPE_OTHER","#ALGAE_TYPE_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'ALGAE_TYPE_OTHER_DESC', prompt: 'If other, describe *'),
+                        new TextQuestion(columnId: 'ALGAE_TYPE_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
 
                         // Algae Color
                         new CheckQuestion(columnId: 'ALGAE_COLOR_LT_GREEN', prompts: [
@@ -284,9 +284,9 @@ class IndexController {
                         new CheckQuestion(columnId: 'ALGAE_COLOR_OTHER', prompts: [
                                 new Tuple2('Other', false),
                         ], onclick: 'OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'ALGAE_COLOR_OTHER_DESC', prompt: 'If other, describe *'),
+                        new TextQuestion(columnId: 'ALGAE_COLOR_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
 
-                        new TextQuestion(columnId: 'ALGAE_COMMENTS', prompt: 'Additional Algae Comments')
+                        new TextQuestion(columnId: 'ALGAE_COMMENTS', maxlength: 195, prompt: 'Additional Algae Comments')
                 ]
         ]
 
@@ -297,7 +297,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'COLOR_CHANGE', prompts: [
                                 new Tuple2('Color has changed', false)
                         ], onclick: 'OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION")'),
-                        new TextQuestion(columnId: 'COLOR_DESCRIPTION', prompt: 'If yes, describe'),
+                        new TextQuestion(columnId: 'COLOR_DESCRIPTION', maxlength: 50, prompt: 'If yes, describe'),
                         new SelectQuestion(columnId: 'ODOR_DESCRIPTION', options: [
                                 '',
                                 'None',
@@ -306,7 +306,7 @@ class IndexController {
                                 'Sulfur',
                                 'Other'
                         ],title: "Odor description", onchange: "OdorChange()"),
-                        new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', prompt: 'If other, describe *'),
+                        new TextQuestion(columnId: 'ODOR_OTHER_DESCRIPTION', maxlength: 50, prompt: 'If other, describe *'),
                         new UnitQuestion(columnId: 'AVG_WATER_TEMP', columnId2: 'AVG_WATER_TEMP_UNITS', prompt: 'Water temperature *', errorm:"Must be an integer", type:"numeric", pattern:"(-?0*[1-9][0-9]*)|0*", step:0.01, title: "Units *", options: ['F', 'C',], extraClasses: 'recommended'),
                         new SelectQuestion(columnId: 'CLARITY_DESC', options: [
                                 '',
@@ -316,8 +316,8 @@ class IndexController {
                                 'Opaque'
                         ], title: "Turbidity *", onchange: "TurbidityOrNTUChange()", extraClasses:'recommended'),
                         new TextQuestion(columnId: 'NTU', prompt: 'or NTU *', errorm:"Must be a nonnegative integer or decimal", type:"numeric", pattern:"(0*[0-9]*(\\.[0-9]*)?)", step:0.01, onchange:"TurbidityOrNTUChange()", extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', prompt: 'Secchi tube', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01),
-                        new TextQuestion(columnId: 'WATER_COMMENTS', prompt: 'Additional Water Comments')
+                        new TextQuestion(columnId: 'SECCHI_TUBE_CM', maxlength: 8, prompt: 'Secchi tube', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.01),
+                        new TextQuestion(columnId: 'WATER_COMMENTS', maxlength: 195, prompt: 'Additional Water Comments')
                 ]
         ]
 
