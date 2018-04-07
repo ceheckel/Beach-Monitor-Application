@@ -2,25 +2,18 @@
  *   Michigan Tech CS4791
  *   Nov 2017
  *   Jacob Striebel
+ *   Zac Paris (Edited)
  */
 
 // TODO: NOTE FROM ZAC: Not all numeric fields are integers. Need to add checks for certain floating-point fields (these fields can be identified in the schema domain docs)
 
-//$(function () {
-//    var $btn = $("#btn-next");
-//     $btn.click(function () {
-//         if ($btn.html() === "Download") {
-//             validatePage(undefined, true);
-//         }
-//    });
-//});
-
+/**
+ * The method of displaying this information to the user can be altered to be made prettier if we want.
+ *
+ * @param msg   feedback message given by system.  Usually an error stacktrace
+ */
 function myAlert (msg) {
-
-    // The method of displaying this information to the user can be altered to be made prettier if we want.
-
     BootstrapDialog.alert("The following form validation error occurred:\n" + msg);
-
 }
 
 // Test if the pre-decimal part of the input number is too large for the database column
@@ -53,10 +46,6 @@ function isEmptyOrIsNonnegativeInteger (candidate, value) {
         }
     }
 
-    //if (num >= 0 && String(num) === candidate) {
-    //    return true;
-    //}
-
     return false;
 
 }
@@ -74,10 +63,6 @@ function isEmptyOrIsInteger (candidate) {
         return true;
     }
 
-    // if (String(num) === candidate) {
-    //     return true;
-    // }
-
     return false;
 
 }
@@ -93,10 +78,6 @@ function isEmptyOrIsIntegerDegree (candidate) {
     if (num >= 0 && num <= 360 && Number.isInteger(Number(candidate))){
         return true;
     }
-
-    // if (num >= 0 && num <= 360 && String(num) === candidate) {
-    //     return true;
-    // }
 
     return false;
 
@@ -237,89 +218,28 @@ function validatePage (curPage) {
     var NTU;
     var secchiTube;
 
-
     // -------------------------------------------
-
     var deadBirdsDescription;
-
     var waterMaterialDescription;
-
     var beachMaterialDescription;
-
     var otherPeopleDescription;
-    
     var algaeTypeDescription;
-
     var algaeColorDescription;
-
-
-
-
-
-
 
     // Beach Selection
     if (curPage === 0 || curPage === totalQuestionPages) {
-
-        //userId = $("#user_id").val();
-        //if (/\w/.test(userId) === false) {
-        //   myAlert("User ID is a required field and must be a single word made up of only alphanumeric and underscore characters.");
-        //   return false;
-        //}
-
         if ($('#__county').val() === ''){
             myAlert("County is a required field and must be selected from the dropdown list.");
             return false;
         }
-
-
-        // county = $("#__county").val();
-        // countyOptions = $("#countyList")[0].options;
-        // countyOptionsLen = countyOptions.length;
-        // for (i=0; i < countyOptionsLen; i++) {
-        //     if (county === countyOptions[i].value) {
-        //         break;
-        //     }
-        // }
-        // if (i === countyOptionsLen) {
-        //     myAlert("County is a required field and must be selected from the dropdown list.");
-        //     return false;
-        // }
-
-        // lake = $("#__lake").val();
-        // lakeOptions = $("#lakeList")[0].options;
-        // lakeOptionsLen = lakeOptions.length;
-        // for (i=0; i < lakeOptionsLen; i++) {
-        //     if (lake === lakeOptions[i].value) {
-        //         break;
-        //     }
-        // }
         if ($("#__lake").val() === '') {
             myAlert("Lake is a required field and must be selected from the dropdown list.");
             return false;
         }
-
-        // beach = $("#__beach").val();
-        // beachOptions = $("#beachList")[0].options;
-        // beachOptionsLen = beachOptions.length;
-        // for (i=0; i < beachOptionsLen; i++) {
-        //     if (beach === beachOptions[i].value) {
-        //         break;
-        //     }
-        // }
         if ($("#__beach").val() === '') {
             myAlert("Beach is a required field and must be selected from the dropdown list.");
             return false;
         }
-
-        // site = $("#__site").val();
-        // siteOptions = $("#monitorList")[0].options;
-        // siteOptionsLen = siteOptions.length;
-        // for (i=0; i < siteOptionsLen; i++) {
-        //     if (site === siteOptions[i].value) {
-        //         break;
-        //     }
-        // }
         if ($("#__site").val() === '') {
             myAlert("Monitoring Site is a required field and must be selected from the dropdown list.");
             return false;
@@ -330,8 +250,8 @@ function validatePage (curPage) {
             myAlert("Sample Date is a required field. Please use the current datetime by clicking \"COLLECT SAMPLE NOW\" or use the date picker to choose a custom datetime.");
             return false;
         }
-
     }
+
     // Animals
     if (curPage === 1 || curPage === totalQuestionPages) {
 
@@ -364,8 +284,8 @@ function validatePage (curPage) {
             myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, you must also provide a description of that wildlife.");
             return false;
         }
-
     }
+
     // Deceased Animals
     if (curPage === 2 || curPage === totalQuestionPages) {
 
@@ -434,8 +354,8 @@ function validatePage (curPage) {
             myAlert("Number of other dead birds is not a required field. However, if you do choose to provide it, you must also provide a description of them.");
             return false;
         }
-
     }
+
     // Debris in Water
     if (curPage === 3 || curPage === totalQuestionPages) {
 
@@ -444,8 +364,8 @@ function validatePage (curPage) {
             myAlert("Other material is not a required field. However, if you do choose to provide it, you must also provide a description of the material.");
             return false;
         }
-
     }
+
     // Debris on Beach
     if (curPage === 4 || curPage === totalQuestionPages) {
 
@@ -454,8 +374,8 @@ function validatePage (curPage) {
             myAlert("Other debris is not a required field. However, if you do choose to provide it, you must also provide a description of the debris.");
             return false;
         }
-
     }
+
     // Bathers
     if (curPage === 5 || curPage === totalQuestionPages) {
 
@@ -518,9 +438,8 @@ function validatePage (curPage) {
             myAlert("Number of other people is not a required field. However, if you do choose to provide it, you must also provide a description of them.");
             return false;
         }
-
-
     }
+
     // Weather
     if (curPage === 6 || curPage === totalQuestionPages) {
 
@@ -561,6 +480,7 @@ function validatePage (curPage) {
             return false;
         }
     }
+
     // Waves
     if (curPage === 7 || curPage === totalQuestionPages) {
 
@@ -581,8 +501,8 @@ function validatePage (curPage) {
             myAlert("Longshore current speed is not a required field. However, if you do choose to provide it, you must also provide units.");
             return false;
         }
-
     }
+
     // Water conditions
     if (curPage === 8 || curPage === totalQuestionPages) {
 
@@ -615,8 +535,8 @@ function validatePage (curPage) {
             myAlert("Secchi tube is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 or fewer digits are valid input.");
             return false;
         }
-
     }
+
     // Algae
     if (curPage === 9 || curPage === totalQuestionPages) {
 
@@ -633,13 +553,8 @@ function validatePage (curPage) {
         }
 
     }
-    // Comments
-    else if (curPage === 10) {
-
-    }
 
     return true;
-
 }
 
 
