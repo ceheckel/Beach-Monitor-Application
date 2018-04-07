@@ -23,7 +23,22 @@ function myAlert (msg) {
 
 }
 
-function isEmptyOrIsNonnegativeInteger (candidate) {
+// Test if the pre-decimal part of the input number is too large for the database column
+function isShorterThan(candidate, value){
+
+    var num = Math.ceil(Number(candidate));
+
+    console.log(num.toString());
+
+    if (value < num.toString().length){
+        return false;
+    }
+
+    return true;
+}
+
+// Value used for isLongerThan call
+function isEmptyOrIsNonnegativeInteger (candidate, value) {
 
     if (candidate === "") {
         return true;
@@ -31,8 +46,11 @@ function isEmptyOrIsNonnegativeInteger (candidate) {
 
     var num = Math.floor(Number(candidate));
 
-    if (num >= 0 && num == parseInt(Number(candidate), 10)){
-        return true;
+    // if (num >= 0 && num == parseInt(Number(candidate), 10)){
+    if (Number.isInteger(Number(candidate))){
+        if(isShorterThan(candidate, value)){
+            return true;
+        }
     }
 
     //if (num >= 0 && String(num) === candidate) {
@@ -51,7 +69,8 @@ function isEmptyOrIsInteger (candidate) {
 
     var num = Math.floor(Number(candidate));
 
-    if (num == parseInt(Number(candidate), 10)){
+    // if (num == parseInt(Number(candidate), 10)){
+    if(Number.isInteger(Number(candidate))){
         return true;
     }
 
@@ -71,7 +90,7 @@ function isEmptyOrIsIntegerDegree (candidate) {
 
     var num = Math.floor(Number(candidate));
 
-    if (num >= 0 && num <= 360 && num == parseInt(Number(candidate), 10)){
+    if (num >= 0 && num <= 360 && Number.isInteger(Number(candidate))){
         return true;
     }
 
@@ -83,7 +102,9 @@ function isEmptyOrIsIntegerDegree (candidate) {
 
 }
 
-function isNumeric(val) {
+// maxlen used for isShorterThan
+// neg: true if number can be negative
+function isNumeric(val, maxlen, neg) {
 
     var len;
     var decimalPoint;
@@ -104,6 +125,13 @@ function isNumeric(val) {
                 return false;
             }
             decimalPoint = true;
+            if (!isShorterThan(val, maxlen)){
+                return false;
+            }
+        } else if (ch === "-") {
+            if (neg == false || i != 0){
+                return false;
+            }
         }
         else {
             for (j = 0; j < 10; j++) {
@@ -115,6 +143,9 @@ function isNumeric(val) {
                 return false;
             }
         }
+    }
+    if(!decimalPoint && !isShorterThan(val, maxlen)){
+        return false;
     }
 
     return  true;
@@ -128,7 +159,7 @@ function isEmptyOrIspH (candidate) {
     }
 
     var num = parseFloat("" + candidate);
-    if (isNumeric(candidate) === true && num >= 0 && num <= 14) {
+    if (isNumeric(candidate, 2, false) === true && num >= 0 && num <= 14) {
         return true;
     }
 
@@ -305,26 +336,26 @@ function validatePage (curPage) {
     if (curPage === 1 || curPage === totalQuestionPages) {
 
         numLivingGulls = $("#NO_GULLS").val();
-        if (isEmptyOrIsNonnegativeInteger(numLivingGulls) === false) {
-            myAlert("Number of living Gulls is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numLivingGulls, 8) === false) {
+            myAlert("Number of living Gulls is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numLivingGeese = $("#NO_GEESE").val();
-        if (isEmptyOrIsNonnegativeInteger(numLivingGeese) === false) {
-            myAlert("Number of living Geese is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numLivingGeese, 8) === false) {
+            myAlert("Number of living Geese is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numLivingDogs = $("#NO_DOGS").val();
-        if (isEmptyOrIsNonnegativeInteger(numLivingDogs) === false) {
-            myAlert("Number of living Dogs is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numLivingDogs, 8) === false) {
+            myAlert("Number of living Dogs is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numOtherLiving = $("#NO_ANIMALS_OTHER").val();
-        if (isEmptyOrIsNonnegativeInteger(numOtherLiving) === false) {
-            myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numOtherLiving, 8) === false) {
+            myAlert("Number of other living wildlife is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
@@ -339,62 +370,62 @@ function validatePage (curPage) {
     if (curPage === 2 || curPage === totalQuestionPages) {
 
         numDeadLoons = $("#NUM_LOONS").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadLoons) === false) {
-            myAlert("Number of dead Loons is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadLoons, 8) === false) {
+            myAlert("Number of dead Loons is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadHerringGulls = $("#NUM_HERR_GULLS").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadHerringGulls) === false) {
-            myAlert("Number of dead Herring Gulls is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadHerringGulls, 8) === false) {
+            myAlert("Number of dead Herring Gulls is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadRingGulls = $("#NUM_RING_GULLS").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadRingGulls) === false) {
-            myAlert("Number of dead Ring Gulls is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadRingGulls, 8) === false) {
+            myAlert("Number of dead Ring Gulls is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadCormorants = $("#NUM_CORMORANTS").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadCormorants) === false) {
-            myAlert("Number of dead Cormorants is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadCormorants, 8) === false) {
+            myAlert("Number of dead Cormorants is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadLongTailDucks = $("#NUM_LONGTAIL_DUCKS").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadLongTailDucks) === false) {
-            myAlert("Number of dead Long-tail Ducks is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadLongTailDucks, 8) === false) {
+            myAlert("Number of dead Long-tail Ducks is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadScoter = $("#NUM_SCOTER").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadScoter) === false) {
-            myAlert("Number of dead Scoter is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadScoter, 8) === false) {
+            myAlert("Number of dead Scoter is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadHornedGrebe = $("#NUM_HORN_GREBE").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadHornedGrebe) === false) {
-            myAlert("Number of dead Horned Grebe is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadHornedGrebe, 8) === false) {
+            myAlert("Number of dead Horned Grebe is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadRedNeckedGrebe = $("#NUM_REDNECKED_GREBE").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadRedNeckedGrebe) === false) {
-            myAlert("Number of dead Red-necked Grebe is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadRedNeckedGrebe, 8) === false) {
+            myAlert("Number of dead Red-necked Grebe is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadFish = $("#NUM_DEAD_FISH").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadFish) === false) {
-            myAlert("Number of dead Fish is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadFish, 8) === false) {
+            myAlert("Number of dead Fish is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numDeadBirds = $("#NUM_OTHER").val();
-        if (isEmptyOrIsNonnegativeInteger(numDeadBirds) === false) {
-            myAlert("Number of other dead birds is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numDeadBirds, 8) === false) {
+            myAlert("Number of other dead birds is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
@@ -429,56 +460,56 @@ function validatePage (curPage) {
     if (curPage === 5 || curPage === totalQuestionPages) {
 
         numPeopleInWater = $("#NO_IN_WATER").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleInWater) === false) {
-            myAlert("Number of people in water is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleInWater, 8) === false) {
+            myAlert("Number of people in water is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleOutOfWater = $("#NUM_OUT_OF_WATER").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleOutOfWater) === false) {
-            myAlert("Number of people out of water is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleOutOfWater, 8) === false) {
+            myAlert("Number of people out of water is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleBoating = $("#NO_PEOPLE_BOATING").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleBoating) === false) {
-            myAlert("Number of people boating is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleBoating, 8) === false) {
+            myAlert("Number of people boating is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleFishing = $("#NO_PEOPLE_FISHING").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleFishing) === false) {
-            myAlert("Number of people fishing is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleFishing, 8) === false) {
+            myAlert("Number of people fishing is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleSurfing = $("#NO_PEOPLE_SURFING").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleSurfing) === false) {
-            myAlert("Number of people surfing is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleSurfing, 8) === false) {
+            myAlert("Number of people surfing is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleWindSurfing = $("#NO_PEOPLE_WINDSURFING").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleWindSurfing) === false) {
-            myAlert("Number of people wind surfing is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleWindSurfing, 8) === false) {
+            myAlert("Number of people wind surfing is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleDiving = $("#NUM_PEOPLE_DIVING").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleDiving) === false) {
-            myAlert("Number of people diving is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleDiving, 8) === false) {
+            myAlert("Number of people diving is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleClamming = $("#NO_PEOPLE_CLAMMING").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleClamming) === false) {
-            myAlert("Number of people clamming is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleClamming, 8) === false) {
+            myAlert("Number of people clamming is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
         numPeopleOther = $("#NO_PEOPLE_OTHER").val();
-        if (isEmptyOrIsNonnegativeInteger(numPeopleOther) === false) {
-            myAlert("Number of people doing other activities is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(numPeopleOther, 8) === false) {
+            myAlert("Number of people doing other activities is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 digits or fewer are valid input.");
             return false;
         }
 
@@ -494,8 +525,8 @@ function validatePage (curPage) {
     if (curPage === 6 || curPage === totalQuestionPages) {
 
         airTemp = $("#AIR_TEMP").val();
-        if (isEmptyOrIsInteger(airTemp) === false) {
-            myAlert("Air temperature is not a required field. However, if you do choose to provide it, only integers are valid input.");
+        if (isNumeric(airTemp, 4, true) === false) {
+            myAlert("Air temperature is not a required field. However, if you do choose to provide it, only values with 4 or fewer digits left of the decimal place are valid input.");
             return false;
         }
 
@@ -506,21 +537,21 @@ function validatePage (curPage) {
         }
 
         windSpeed = $("#WIND_SPEED").val();
-        if (isEmptyOrIsNonnegativeInteger(windSpeed) === false) {
-            myAlert("Wind speed is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isNumeric(windSpeed, 4, false) === false) {
+            myAlert("Wind speed is not a required field. However, if you do choose to provide it, only nonnegative values with 4 or fewer digits left of the decimal place are valid input.");
             return false;
         }
 
         // 0 to 360
         windDirectionDegrees = $("#WIND_DIR_DEGREES").val();
-        if (isEmptyOrIsIntegerDegree(windDirectionDegrees) === false) {
+        if (isEmptyOrIsIntegerDegree(windDirectionDegrees, 3) === false) {
             myAlert("Wind direction in degrees is not a required field. However, if you do choose to provide it, only integers in the inclusive range of 0 to 360 are valid input.");
             return false;
         }
 
         rainfallAmount = $("#RAINFALL").val();
-        if (isEmptyOrIsNonnegativeInteger(rainfallAmount) === false) {
-            myAlert("Rainfall amount is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isNumeric(rainfallAmount, 4, false) === false) {
+            myAlert("Rainfall amount is not a required field. However, if you do choose to provide it, only nonnegative values with 4 or fewer digits left of the decimal place are valid input.");
             return false;
         }
 
@@ -534,14 +565,14 @@ function validatePage (curPage) {
     if (curPage === 7 || curPage === totalQuestionPages) {
 
         waveHeight = $("#WAVE_HEIGHT").val();
-        if (isEmptyOrIsNonnegativeInteger(waveHeight) === false) {
-            myAlert("Wave height is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isNumeric(waveHeight, 4, false) === false) {
+            myAlert("Wave height is not a required field. However, if you do choose to provide it, only nonnegative values with 4 or fewer digits left of the decimal place are valid input.");
             return false;
         }
 
         currentSpeed = $("#CURRENT_SPEED").val();
-        if (isEmptyOrIsNonnegativeInteger(currentSpeed) === false) {
-            myAlert("Longshore current speed is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(currentSpeed, 8) === false) {
+            myAlert("Longshore current speed is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 or fewer digits are valid input.");
             return false;
         }
 
@@ -562,8 +593,8 @@ function validatePage (curPage) {
         }
 
         waterTemp = $("#AVG_WATER_TEMP").val();
-        if (isEmptyOrIsInteger(waterTemp) === false) {
-            myAlert("Water temperature is not a required field. However, if you do choose to provide it, only integers are valid input.");
+        if (isNumeric(waterTemp, 5, true) === false) {
+            myAlert("Water temperature is not a required field. However, if you do choose to provide it, only values with 5 or fewer digits left of the decimal place are valid input.");
             return false;
         }
 
@@ -574,14 +605,14 @@ function validatePage (curPage) {
         }
 
         NTU = $("#NTU").val();
-        if (isEmptyOrIsNonnegativeInteger(NTU) === false) {
-            myAlert("NTU is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isNumeric(NTU, 8, false) === false) {
+            myAlert("NTU is not a required field. However, if you do choose to provide it, only nonnegative values with 8 or fewer digits left of the decimal place are valid input.");
             return false;
         }
 
         secchiTube = $("#SECCHI_TUBE_CM").val();
-        if (isEmptyOrIsNonnegativeInteger(secchiTube) === false) {
-            myAlert("Secchi tube is not a required field. However, if you do choose to provide it, only nonnegative integers are valid input.");
+        if (isEmptyOrIsNonnegativeInteger(secchiTube, 8) === false) {
+            myAlert("Secchi tube is not a required field. However, if you do choose to provide it, only nonnegative integers with 8 or fewer digits are valid input.");
             return false;
         }
 
