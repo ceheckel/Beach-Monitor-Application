@@ -34,7 +34,7 @@ class IndexController {
         def bathers = [
                 pageName: "Bathers",
                 questions: [
-                        new TextQuestion(columnId: 'NO_IN_WATER', maxlength: 8, prompt: 'Number of people in water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_IN_WATER', maxlength: 8, prompt: 'Number of people in water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"([0-9]{1,8})", step:1),
                         new TextQuestion(columnId: 'NUM_OUT_OF_WATER', maxlength: 8, prompt: 'Number of people out of water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_BOATING', maxlength: 8, prompt: 'Number of people boating', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_PEOPLE_FISHING', maxlength: 8, prompt: 'Number of people fishing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
@@ -156,10 +156,10 @@ class IndexController {
                 pageName: "Weather",
                 questions: [
                         // Air
-                        new UnitQuestion(columnId: 'AIR_TEMP', columnId2: 'AIR_UNITS', prompt: 'Air temperature', errorm:"Must be an integer", type:"numeric", pattern:"(-?0*[1-9][0-9]*)|0*", step:0.0001, title: "Units", options: ['F', 'C',]),
+                        new UnitQuestion(columnId: 'AIR_TEMP', columnId2: 'AIR_UNITS', maxlength: 12, prompt: 'Air temperature', errorm:"Must be # with max of 4 digits left of decimal", type:"numeric", pattern: "(-?0*[0-9]{0,4}[.]{1}[0-9]*|-?0*[0-9]{0,4})"/*"(-?0*[1-9][0-9]*)|0*"*/, step:0.0001, title: "Units", options: ['F', 'C',]),
 
                         // Wind
-                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001),
+                        new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be positive # with max of 4 digits left of decimal", type:"numeric", pattern:"(0*[0-9]{0,4}[.]{1}[0-9]*|0*[0-9]{0,4})", step:0.0001),
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
                         new TextQuestion(columnId: 'WIND_DIR_DEGREES', maxlength: 3, prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01),
@@ -186,7 +186,7 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',], maxlength: 8),
+                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be positive # with max of 4 digits left of decimal", type:"numeric", pattern:"(0*[0-9]{0,4}[.]{1}[0-9]*|0*[0-9]{0,4})", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',], maxlength: 8),
                         new SelectQuestion(columnId: 'RAINFALL_STN_DESC', options: [
                                 '',
                                 'Misting',
