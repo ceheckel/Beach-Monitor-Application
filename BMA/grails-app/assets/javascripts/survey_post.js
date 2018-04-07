@@ -1,15 +1,15 @@
 /**
  * Created by cwbaldwi on 10/11/17.
- * Edited by Heckel (most recent) on 03/20/18.
+ * Edited by Heckel
  */
 
 window.survey_post = {};
 
 // http://localhost:8081/bms/survey
-// https://hci-dev.cs.mtu.edu:8117/BMS2/survey <-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
+// https://hci-dev.cs.mtu.edu:8117/BMS2/survey //<-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
+// https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData //<-- WiDNR POST URL
 
-survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData" //<-- WiDNR POST URL
-// survey_post.URL_POST = "http://localhost:8081/bms/survey";
+survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData"; //<-- WiDNR POST URL
 
 /**
  * Uploads all surveys to the Wi Beach Server
@@ -22,25 +22,12 @@ survey_post.upload = function(surveys) {
     // Start construction of the survey clump
     toUpload = "[";
     surveys.forEach(function(survey) {
-
-        //ensure that water and air temp are null if they ="" upon upload
-        // if(survey.AVG_WATER_TEMP == "")
-        //     survey.AVG_WATER_TEMP = null;
-        // if(survey.AIR_TEMP == "")
-        //     survey.AIR_TEMP = null;
-
-        //ensure only submitted surveys get uploaded
-        // console.log("survey: ", survey.submitted);
-        if (survey.submitted) { // upload only submitted surveys
-            toUpload = toUpload + JSON.stringify(survey) + ","; // stringify survey
-        }
+        toUpload = toUpload + JSON.stringify(survey) + ","; // stringify survey
     });
     toUpload = toUpload.substr(0,toUpload.length-1) + "]"; // removes the last comma
-    // console.log(toUpload);
 
-    var user = btoa($("#username-field").val());
-    var pw =  btoa($("#password-field").val());
-    console.log("user: ", user, " pw:", pw);
+    // get user name and password for encoding
+    var usrpw = $("#username-field").val()+":"+$("#password-field").val();
 
     // POST the clump
     promises.push($.ajax({
@@ -50,21 +37,22 @@ survey_post.upload = function(surveys) {
         url: survey_post.URL_POST,
         dataType: 'json',
         data: toUpload,
-        success: function () {
-            //alert("success");
-            BootstrapDialog.alert("Report submitted successfully");
-            console.log(toUpload);
+        headers: {
+            "Authorization": "Basic " + btoa(usrpw)
+        },
+        success: function (response) {
+            BootstrapDialog.alert("Report submitted successfully\n <details>" + response.responseText + "</details>");
+            surveys.forEach(function(survey) { survey['submitted'] = true; });
         },
         error: function (response) {
-            console.log("err with post, response: ", response);
             if (response.status == 500) {
-                BootstrapDialog.alert("Problem with submit\nA survey with this location and date/time has already been submitted");
+                BootstrapDialog.alert("Problem with submit\nA survey with this location and date/time has already been submitted\n <details>" + response.responseText + "</details>");
             } else if (response.status == 400) {
-                BootstrapDialog.alert("Problem with submit\nThere was an issue with the data in the request");
+                BootstrapDialog.alert("Problem with submit\nThere was an issue with the data in the request\n <details>" + response.responseText + "</details>");
             } else if (response.status == 401) {
-                BootstrapDialog.alert("Problem with submit\nThere was an issue with sign-in");
+                BootstrapDialog.alert("Problem with submit\nThere was an issue with sign-in\n <details>" + response.responseText + "</details>");
             } else {
-                BootstrapDialog.alert("Problem with submit:\n", response.status, " ", response.statusText);
+                BootstrapDialog.alert("Problem with submit\n <details>", response.status, " ", response.statusText + "</details>");
             }
         }
     }));
