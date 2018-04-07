@@ -34,47 +34,47 @@ class IndexController {
         def bathers = [
                 pageName: "Bathers",
                 questions: [
-                        new TextQuestion(columnId: 'NO_IN_WATER', prompt: 'Number of people in water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', prompt: 'Number of people out of water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', prompt: 'Number of people boating', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', prompt: 'Number of people fishing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', prompt: 'Number of people surfing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', prompt: 'Number of people wind surfing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', prompt: 'Number of people diving', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', prompt: 'Number of people clamming', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', prompt: 'Number of people doing other activities', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', prompt: 'If other, describe *'),
-                        new TextQuestion(columnId: 'HUMAN_BATHERS_COMMENTS', prompt: 'Additional Bathers Comments')
+                        new TextQuestion(columnId: 'NO_IN_WATER', maxlength: 8, prompt: 'Number of people in water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_OUT_OF_WATER', maxlength: 8, prompt: 'Number of people out of water', errorm:"Must be nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_BOATING', maxlength: 8, prompt: 'Number of people boating', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_FISHING', maxlength: 8, prompt: 'Number of people fishing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_SURFING', maxlength: 8, prompt: 'Number of people surfing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_WINDSURFING', maxlength: 8, prompt: 'Number of people wind surfing', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_PEOPLE_DIVING', maxlength: 8, prompt: 'Number of people diving', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_CLAMMING', maxlength: 8, prompt: 'Number of people clamming', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER', maxlength: 8, prompt: 'Number of people doing other activities', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_PEOPLE_OTHER","#NO_PEOPLE_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'NO_PEOPLE_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
+                        new TextQuestion(columnId: 'HUMAN_BATHERS_COMMENTS', maxlength: 195, prompt: 'Additional Bathers Comments')
                 ]
         ]
 
         def wildlifeBathers = [
                 pageName: 'Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NO_GULLS', prompt: 'Number of living Gulls *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, extraClasses:'recommended'),
-                        new TextQuestion(columnId: 'NO_GEESE', prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_DOGS', prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'WILDLIFE_COMMENTS', prompt: 'Additional Wildlife Comments'),
-                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', prompt: 'If other, describe *')
+                        new TextQuestion(columnId: 'NO_GULLS', maxlength: 8, prompt: 'Number of living Gulls *', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, extraClasses:'recommended'),
+                        new TextQuestion(columnId: 'NO_GEESE', maxlength: 8, prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_DOGS', maxlength: 8, prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NO_ANIMALS_OTHER', maxlength: 8, prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'WILDLIFE_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments'),
+                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
                 ]
         ]
 
         def deadWildlife = [
                 pageName :'Deceased Animals',
                 questions: [
-                        new TextQuestion(columnId: 'NUM_LOONS', prompt: 'Number of dead Loons', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_HERR_GULLS', prompt: 'Number of dead Herring Gulls', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_RING_GULLS', prompt: 'Number of dead Ring Gulls', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_CORMORANTS', prompt: 'Number of dead Cormorants', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', prompt: 'Number of dead Long-tail Ducks', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_SCOTER', prompt: 'Number of dead Scoter', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_HORN_GREBE', prompt: 'Number of dead Horned Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1 ),
-                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_DEAD_FISH', prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
-                        new TextQuestion(columnId: 'NUM_OTHER', prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'DEAD_ANIMAL_COMMENTS', prompt: 'Additional Wildlife Comments'),
-                        new TextQuestion(columnId: 'NUM_OTHER_DESC', prompt: 'If other, describe *')
+                        new TextQuestion(columnId: 'NUM_LOONS', maxlength: 8, prompt: 'Number of dead Loons', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_HERR_GULLS', maxlength: 8, prompt: 'Number of dead Herring Gulls', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_RING_GULLS', maxlength: 8, prompt: 'Number of dead Ring Gulls', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_CORMORANTS', maxlength: 8, prompt: 'Number of dead Cormorants', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_LONGTAIL_DUCKS', maxlength: 8, prompt: 'Number of dead Long-tail Ducks', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_SCOTER', maxlength: 8, prompt: 'Number of dead Scoter', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_HORN_GREBE', maxlength: 8, prompt: 'Number of dead Horned Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1 ),
+                        new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', maxlength: 8, prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_DEAD_FISH', maxlength: 8, prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
+                        new TextQuestion(columnId: 'NUM_OTHER', maxlength: 8, prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'DEAD_ANIMAL_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments'),
+                        new TextQuestion(columnId: 'NUM_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
                 ]
         ]
 
@@ -102,8 +102,8 @@ class IndexController {
                         new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
                                 new Tuple2('Other material', false),
                         ], onclick: 'OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'DEBRIS_IN_WATER_COMMENTS', prompt: 'Additional Floating Debris Comments'),
-                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', prompt: 'If other, describe *')
+                        new TextQuestion(columnId: 'DEBRIS_IN_WATER_COMMENTS', maxlength: 195, prompt: 'Additional Floating Debris Comments'),
+                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
                 ]
         ]
 
@@ -140,7 +140,7 @@ class IndexController {
                         new CheckQuestion(columnId: 'DEBRIS_OTHER', prompts: [
                                 new Tuple2('Other', false),
                         ], onclick: 'OtherCheckbox("#DEBRIS_OTHER","#DEBRIS_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', prompt: 'If other, describe *'),
+                        new TextQuestion(columnId: 'DEBRIS_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
                         new SelectQuestion(columnId: 'DEBRIS_AMOUNT', options: [
                                 '',
                                 '0%',
@@ -148,7 +148,7 @@ class IndexController {
                                 '21-50%',
                                 '>50%'
                         ],title: "Amount of beach debris/litter"),
-                        new TextQuestion(columnId: 'DEBRIS_ON_BEACH_COMMENTS', prompt: 'Additional Debris on Beach Comments')
+                        new TextQuestion(columnId: 'DEBRIS_ON_BEACH_COMMENTS', maxlength: 195, prompt: 'Additional Debris on Beach Comments')
                 ]
         ]
 
