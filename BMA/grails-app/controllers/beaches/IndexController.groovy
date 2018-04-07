@@ -162,11 +162,10 @@ class IndexController {
                         new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:0.0001),
                         //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
-                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01),
-                        new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
-                                '', 'Calm', 'Variable',
-                                'N','NE','E','SE','S','SW','W','NW'
-                        ], title: 'Wind direction description'),
+                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01, onchange: 'AlterWindDirDesc()'),
+                        new HiddenQuestion(columnId: 'WIND_DIR_DESC', value: 'Calm', keep: false ),
+                        // '', 'Calm', 'Variable','N','NE','E','SE','S','SW','W','NW'
+                        // title: 'Wind direction description'
 
                         // Weather
                         new SelectQuestion(columnId: 'WEATHER_DESC', options: [
