@@ -30,17 +30,17 @@ survey_post.upload = function(surveys) {
         //     survey.AIR_TEMP = null;
 
         //ensure only submitted surveys get uploaded
-        // console.log("survey: ", survey.submitted);
-        if (survey.submitted) { // upload only submitted surveys
+        console.log("survey: ", survey);
+        // if (survey.submitted) { // upload only submitted surveys
             toUpload = toUpload + JSON.stringify(survey) + ","; // stringify survey
-        }
+        // }
     });
     toUpload = toUpload.substr(0,toUpload.length-1) + "]"; // removes the last comma
-    // console.log(toUpload);
+    console.log(toUpload);
 
-    var user = btoa($("#username-field").val());
-    var pw =  btoa($("#password-field").val());
-    console.log("user: ", user, " pw:", pw);
+    var usrpw = $("#username-field").val()+":"+$("#password-field").val();
+    // var userpwencoded =  btoa(usrpw);
+    // var buildURL = "https://" + userpwencoded + "@" + survey_post.URL_POST;
 
     // POST the clump
     promises.push($.ajax({
@@ -50,21 +50,24 @@ survey_post.upload = function(surveys) {
         url: survey_post.URL_POST,
         dataType: 'json',
         data: toUpload,
-        success: function () {
+        headers: {
+            "Authorization": "Basic " + btoa(usrpw)
+        },
+        success: function (response) {
             //alert("success");
-            BootstrapDialog.alert("Report submitted successfully");
+            BootstrapDialog.alert("Report submitted successfully\n <details>" + response.responseText + "</details>");
             console.log(toUpload);
         },
         error: function (response) {
             console.log("err with post, response: ", response);
             if (response.status == 500) {
-                BootstrapDialog.alert("Problem with submit\nA survey with this location and date/time has already been submitted");
+                BootstrapDialog.alert("Problem with submit\nA survey with this location and date/time has already been submitted\n <details>" + response.responseText + "</details>");
             } else if (response.status == 400) {
-                BootstrapDialog.alert("Problem with submit\nThere was an issue with the data in the request");
+                BootstrapDialog.alert("Problem with submit\nThere was an issue with the data in the request\n <details>" + response.responseText + "</details>");
             } else if (response.status == 401) {
-                BootstrapDialog.alert("Problem with submit\nThere was an issue with sign-in");
+                BootstrapDialog.alert("Problem with submit\nThere was an issue with sign-in\n <details>" + response.responseText + "</details>");
             } else {
-                BootstrapDialog.alert("Problem with submit:\n", response.status, " ", response.statusText);
+                BootstrapDialog.alert("Problem with submit\n <details>", response.status, " ", response.statusText + "</details>");
             }
         }
     }));
