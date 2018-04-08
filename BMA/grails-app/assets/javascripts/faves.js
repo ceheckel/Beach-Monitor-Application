@@ -3,9 +3,6 @@
  */
 function loadFavorites() {
     localforage.getItem('favorites').then(function(v) {
-
-        console.log(v);
-
         window.favorites = v === null ? [] : v;
         if(typeof(window.favorites) === 'undefined')
             window.favorites = [];
@@ -21,7 +18,6 @@ function loadFavorites() {
  */
 function saveFavorites() {
     localforage.setItem('favorites', favorites).then(function(v) {
-        console.log(v);
     }).catch(function(e) {
         console.log(e);
     });
@@ -95,7 +91,6 @@ function remFavorite() {
     localforage.getItem('favorites').then(function(faves) {
         // if faves exists, manipulate it
         if(faves) {
-            console.log("favorites: " + faves);
             var c = $('#__county').val();
             var l = $('#__lake').val();
             var b = $('#__beach').val();
