@@ -189,6 +189,10 @@
             background-color: #a4b0c4;
         }
 
+        option{
+            color: black;
+        }
+
         .checkCont:hover{
             background-color: #fff;
         }
@@ -369,7 +373,8 @@
                         <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" style="display:inline-block;" maxlength="${q.maxlength}">
                         <label class="mdl-textfield__label" for="${q.columnId}" style="display:inline-block;">${q.prompt}</label>
                         <span class = "mdl-textfield__error" style="display:inline-block;">${q.errorm}</span>
-                    </div><div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="width:80px;display:inline-block;">
+                    </div>
+                    <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="width:80px;display:inline-block;">
                         <select name="${q.columnId2}" id="${q.columnId2}" class="mdl-selectfield__select ${q.extraClasses}" onchange="${q.onchange}" style="display:inline-block;">
                             <g:each var="o" in="${q.options}">
                                 <option value="${o}">${o}</option>
@@ -459,7 +464,8 @@
 
                 <!-- For Button Questions -->
                 <g:if test="${q instanceof ButtonElement}">
-                    <button class="mdl-button mdl-js-button mdl-button--raised button-question ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}" ${q.disabled ? 'disabled=""' : ''}>${q.value}</button><br>
+                    <button class="mdl-button mdl-js-button mdl-button--raised button-question ${q.accent ? 'mdl-button--accent' : ''}" id="${q.columnId}" onclick="${q.onclick}" ${q.disabled ? 'disabled=""' : ''}>${q.value}</button>
+                    <g:if test="${q.columnId == "__remFavorite"}"><br/><br/></g:if>
                 </g:if>
 
                 <!-- For Time Questions -->
@@ -475,7 +481,6 @@
                         <input type="datetime-local" name="${q.columnId}" id="${q.columnId}">
                     </g:else>
                 </g:if>
-                <g:elseif test ="${!(q instanceof HiddenQuestion)}"><!-- there used to be a br here for some dumb reason--></g:elseif>
             </g:each>
         </div>
     </g:each>

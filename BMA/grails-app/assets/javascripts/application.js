@@ -23,9 +23,9 @@
 //= require_tree .
 //= require_self
 
-var curPage = -1;   // Page tracker ('home', 'review', 'help', or form pages '1-10'
+var curPage = -1;   // Page tracker ('home', 'help', or form pages '1-10'
 var surveyDate; // holds the creation date of the survey
-var submitted = false; // determines if the survey has been downloaded
+var submitted = false; // determines if the survey has been uploaded
 var selected = false; // added for mass interactions
 
 var is_safari = (navigator.userAgent.indexOf('Safari') != -1) && (navigator.userAgent.indexOf('Chrome') == -1);
@@ -46,15 +46,6 @@ if (typeof jQuery !== 'undefined') {
         // go to home page
         toPage('home',false);
 
-
-        $('#btn-menu').click(function() {
-            console.log('menu button clicked');
-        });
-
-        $('#btn-past-reps').click(function() {
-            console.log('past reports');
-        });
-
         $('#btn-dialogSub').click(function() {
             var dialog = document.querySelector('#dialog');
             dialog.close();
@@ -69,20 +60,11 @@ if (typeof jQuery !== 'undefined') {
 
     fillCounties();
 
-    // document.getElementById('__county').onfocus = fillCounties;
-    // document.getElementById('__lake').onfocus = fillLakes;
-    // document.getElementById('__beach').onfocus = fillBeaches;
-    // document.getElementById('__site').onfocus = fillSites;
-    // document.getElementById('__county').onchange = tryPropagate;
-    // document.getElementById('__lake').onchange = tryPropagate;
-
     document.getElementById('__favorites').onchange = fillFavorite;
-
     // Cascade changes down to each lower field
     document.getElementById('__county').onchange = fillFromCounty;
     document.getElementById('__lake').onchange = fillFromLake;
     document.getElementById('__beach').onchange = fillFromBeach;
-
     document.getElementById('__beach').onchange = function() {
         //tryPropagate();
         fillSites();
@@ -93,24 +75,14 @@ if (typeof jQuery !== 'undefined') {
         updateSeq('#__site', '#MONITOR_SITE_SEQ');
         saveFavoriteEnabled();
     };
-
     document.getElementById('__county').onkeyup = saveFavoriteEnabled;
     document.getElementById('__lake').onkeyup = saveFavoriteEnabled;
     document.getElementById('__beach').onkeyup = saveFavoriteEnabled;
     document.getElementById('__site').onkeyup = saveFavoriteEnabled;
 
-    var favorites;
+    var favorites = [];
     loadFavorites();
-
     saveFavoriteEnabled();
 
     var deleteTimer = 0;  // This needs to be here for some reason don't delete it
-
-    // /**
-    //  * Changes boolean flag, meant to be used for mass interactions
-    //  */
-    // function toggleSelect() {
-    //     if(selected == true) { selected = false; }
-    //     else { selected = true; }
-    // }
 }
