@@ -320,4 +320,3 @@ function concatComments() {
 function uploadModal(){
     $('#upload-modal').modal();
 }
-

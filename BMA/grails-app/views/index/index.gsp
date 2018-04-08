@@ -13,6 +13,11 @@
         #upload-modal {
             margin-top: 40px;
         }
+
+        #help-modal {
+            margin-top: 40px;
+        }
+
         p{
             color: #ffffff;
         }
@@ -297,11 +302,11 @@
 </div>
 
 <!-- help page link -->
-<div class="help-page" id="help-page" data-page-title="Help" style="display:none;">
+<div class="help-page" id="help-page" data-page="help" style="display: none">
     <!-- AUTHOR: Heckel -->
 
     <!-- Home Page Navigation -->
-    <h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1>
+    <a name="HomePageNav"><h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1></a>
     <p style="padding:0px 0px 0px 10px;">The home page is broken down into five major sections:</p>
     <ol>
         <a name="UpNavBar" style="color:rgb(63,81,181);"><li> Upper Navigation Bar</li></a>
@@ -523,6 +528,37 @@
             <div class="modal-footer">
                 <button type="cancel" class="btn" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-primary" onclick="uploadSelected()" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Help Page Modal -->
+<div class="modal fade" id="help-modal" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Help Page</h5>
+            </div>
+
+            <div class="modal-body">
+                <h5>What would you like help with?</h5>
+                <a href="#" data-toggle="tooltip" data-container="body" title="first tooltip">Home Page</a><br/><br/>
+                <a>Beach Selection</a><br/><br/>
+                <a>Living Animals</a><br/><br/>
+                <a>Deceased Animals</a><br/><br/>
+                <a>Debris in Water</a><br/><br/>
+                <a>Debris on Beach</a><br/><br/>
+                <a>Bathers</a><br/><br/>
+                <a>Weather</a><br/><br/>
+                <a>Waves</a><br/><br/>
+                <a>Water Conditions</a><br/><br/>
+                <a>Algae</a><br/><br/>
+                <a>Review</a><br/><br/>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

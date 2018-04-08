@@ -62,7 +62,13 @@ function toPage(page, toDelete) {
  * @see toPage
  */
 function btnPrev() {
-    toPage(curPage - 1,false);
+    // if button is pressed from the help page, return to last visited page
+    if(document.getElementById("btn-prev").innerHTML == "Return") {
+        $('#btn-prev').html('Previous');
+        toPage(curPage, false);
+    } else { // else, go back one page
+        toPage(curPage - 1, false);
+    }
 }
 
 /**
@@ -106,6 +112,22 @@ function toReview() {
         $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
     });
     $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
+}
+
+/**
+ *
+ */
+function toHelp() {
+    // hide everything, then show only help info
+    $('div[data-page]').hide();
+    var p = $('div[data-page=help]');
+    p.show();
+
+    // Change bottom navbar buttons
+    $('#btn-prev').css('display', 'block');
+    $('#btn-prev').html('Return');
+    $('#btn-delete').css('display', 'none');
+    $('#btn-next').css('display', 'none');
 }
 
 /**
