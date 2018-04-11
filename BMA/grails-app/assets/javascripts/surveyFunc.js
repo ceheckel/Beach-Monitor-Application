@@ -194,7 +194,7 @@ function getSurveys() {
             */
 
             var checkbox = document.createElement("label");
-            checkbox.className = "checkCont mdl-checkbox mdl-js-checkbox surveyList-checkbox";
+            checkbox.className = "checkCont surveyList-checkbox";//"checkCont mdl-checkbox mdl-js-checkbox surveyList-checkbox"; Safe to delete?
             checkbox.id = surveys[i].id;
 
             var input = document.createElement("input");
