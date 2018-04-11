@@ -9,8 +9,12 @@ class IndexController {
                         new TextQuestion(columnId: 'user_name', prompt: 'Your Name'),
                         new TextQuestion(columnId: 'user_id', prompt: 'User ID *', extraClasses:'recommended'), // 'required' by some documentation, not by others
 
-                        // Beach Info
+                        // Favorites Info
                         new SelectQuestion(columnId: '__favorites', options: [], title:"Favorites"),
+                        new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
+                        new ButtonElement(columnId: '__remFavorite', value: 'Remove Favorite', onclick: 'remFavorite()', accent: true, disabled: false),
+
+                        // Beach Info
                         new SelectQuestion(columnId: '__county', options: [''], title:"County *", extraClasses: 'required'),
                         new SelectQuestion(columnId: '__lake', options: [''], title:"Lake *", extraClasses: 'required'),
                         new SelectQuestion(columnId: '__beach', options: [''], title:"Beach *", extraClasses: 'required'),
@@ -21,8 +25,6 @@ class IndexController {
                         new CheckQuestion(columnId: 'ECOLI_SAMPLE_TYPE', prompts: [
                                 new Tuple2('Composite sample', false)
                         ]),
-                        new ButtonElement(columnId: '__addFavorite', value: 'Add to Favorites', onclick: 'addFavorite()', accent: true, disabled: true),
-                        new ButtonElement(columnId: '__remFavorite', value: 'Remove from Favorites', onclick: 'remFavorite()', accent: true, disabled: false),
 
                         // Date/Time Info
                         new ButtonElement(columnId: '__collectSampleNow', value: 'Collect Sample Now', onclick: 'collectSampleNow()', accent: true),
