@@ -129,7 +129,7 @@ function toHelp() {
 
     // Change bottom navbar buttons
     $('#btn-prev').css('display', 'block');
-    if(curPage == 'home') {
+    if(curPage != 'home') {
         $('#btn-prev').html('Return');
     }
     $('#btn-delete').css('display', 'none');

@@ -52,7 +52,7 @@ survey_post.upload = function(surveys) {
 
             for(i = 0; i < surveys.length; i += 1) {
                 surveys[i].submitted = true;
-                localforage.setItem(surveys[i].id,surveys[i],toPage('home',false));
+                localforage.setItem(survetoys[i].id,surveys[i],toPage('home',false));
             }
         },
         error: function (response) {
