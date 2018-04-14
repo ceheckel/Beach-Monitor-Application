@@ -270,6 +270,8 @@ class IndexController {
                         new TextQuestion(columnId: 'ALGAE_TYPE_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
 
                         // Algae Color
+                        new LineQuestion(),
+
                         new CheckQuestion(columnId: 'ALGAE_COLOR_LT_GREEN', prompts: [
                                 new Tuple2('Light Green ', false),
                         ], hasTitle:true,title:"Algae color:"),
@@ -339,6 +341,8 @@ abstract class Question {
     Integer maxlength = 50 // value changes based on question type (e.g. TestQuestion with 'type'="text" <= 50)
 }
 
+class LineQuestion extends Question{}
+
 class TextQuestion extends Question {
     String prompt
     String type = "text"
@@ -348,6 +352,7 @@ class TextQuestion extends Question {
     String onchange = ""
     String oninput = ""
     String errorm = "Invalid input" // Message written under field when input is invalid
+    boolean characterCount = false;
 }
 
 class CheckQuestion extends Question {
