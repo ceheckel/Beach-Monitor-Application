@@ -18,7 +18,6 @@ function loadFavorites() {
  */
 function saveFavorites() {
     localforage.setItem('favorites', favorites).then(function(v) {
-        console.log(v);
     }).catch(function(e) {
         console.log(e);
     });
@@ -38,25 +37,28 @@ function applyFavorites() {
     }
 }
 
+/**
+ * Adds selected beach to the list of favorites in localforage
+ */
 function addFavorite() {
     var c = $('#__county').val();
     var l = $('#__lake').val();
     var b = $('#__beach').val();
     var s = $('#__site').val();
+
     favorites.push({
         county: c,
         lake: l,
         beach: b,
         site: s
     });
-    var f = $('#__favorites');
-    f.append('<option value="' + (f.children().length - 1) + '">' + b + ' &raquo; ' + s + '</option>');
-    f.parent().addClass('is-dirty');
+
+    saveFavorites();
+    applyFavorites();
 
     var f2 = document.getElementById('__favorites');
     f2.selectedIndex = f2.options.length - 1;
     $('#__addFavorite').prop('disabled',true); // changes the disabled property to true
-    saveFavorites();
 }
 
 /**
@@ -82,20 +84,33 @@ function fillFavorite() {
 }
 
 /**
- * Removes the selected favorite from memory
- * WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP
+ * Removes the selected favorite from localforage
  */
 function remFavorite() {
-    if (favorites) {
-        favorites.forEach(function() {
-            if (favorites.county == $('#__county')
-                && favorites.lake == $('#__lake')
-                && favorites.beach == $('#__beach')
-                && favorites.site == $('#__site')) {
-                favorites.pop();
-            }
-        });
-    }
+    // get favorites from localforage
+    localforage.getItem('favorites').then(function(faves) {
+        // if faves exists, manipulate it
+        if(faves) {
+            var c = $('#__county').val();
+            var l = $('#__lake').val();
+            var b = $('#__beach').val();
+            var s = $('#__site').val();
+
+            // for each index of the favorites list ...
+            faves.forEach(function(f) {
+                // if it matches the currently selected location, remove it
+                if(f.county == c && f.lake == l && f.beach == b && f.site == s) {
+                    faves.splice(faves.indexOf(f),1);
+                }
+            });
+
+            // update the global and save the new list
+            favorites = faves;
+            saveFavorites();
+            applyFavorites();
+            $('#__addFavorite').prop('disabled',false); // changes the disabled property to true
+        }
+    });
 }
 
 /**

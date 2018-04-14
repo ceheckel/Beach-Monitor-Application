@@ -80,9 +80,8 @@ if (typeof jQuery !== 'undefined') {
     document.getElementById('__beach').onkeyup = saveFavoriteEnabled;
     document.getElementById('__site').onkeyup = saveFavoriteEnabled;
 
-    var favorites;
+    var favorites = [];
     loadFavorites();
-
     saveFavoriteEnabled();
 
     var deleteTimer = 0;  // This needs to be here for some reason don't delete it
