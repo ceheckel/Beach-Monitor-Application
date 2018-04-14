@@ -22,7 +22,10 @@ function toPage(page, toDelete) {
     saveSurvey();
 
     // reset global var
-    if(page == 'home') { submitted = false; }
+    if(page == 'home') {
+        submitted = false;
+        getSurveys();
+    }
 
     // hide everything, then show only desired page
     $('div[data-page]').hide();
@@ -101,6 +104,7 @@ function toReview() {
     saveSurvey(totalQuestionPages);
     $('div[data-page]').show();
     $('div[data-page=home]').hide();
+    $('div[data-page=help]').hide();
     $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
     $('#page-title-drawer').html('Review');
     curPage = totalQuestionPages;
@@ -163,7 +167,7 @@ function displayBtns(){
     if (curPage == 'home') {
         $('#help-button').hide(); // '#help-button' is bad name
 
-        getSurveys(); // retrieves the surveys to populate home screen
+        //getSurveys(); // retrieves the surveys to populate home screen
 
         document.getElementById("surveySectionsDrawer").style.display = 'none'; // hide survey sections
         document.getElementById("homeSectionDrawer").style.display = 'block';   // show home section
