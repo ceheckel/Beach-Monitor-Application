@@ -13,6 +13,7 @@
         #upload-modal {
             margin-top: 40px;
         }
+
         p{
             color: #ffffff;
         }
@@ -297,24 +298,26 @@
 </div>
 
 <!-- help page link -->
-<div class="help-page" id="help-page" data-page-title="Help" style="display:none;">
+<div class="help-page" id="help-page" data-page="help" style="display: none">
     <!-- AUTHOR: Heckel -->
 
     <!-- Home Page Navigation -->
-    <h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1>
-    <p style="padding:0px 0px 0px 10px;">The home page is broken down into five major sections:</p>
-    <ol>
-        <a name="UpNavBar" style="color:rgb(63,81,181);"><li> Upper Navigation Bar</li></a>
-        <p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length horizontal bars.  This button can be clicked on to open a drawer that displays two additional options: the "Home Page" (which is currently displayed) and the "<a href="#Survey Creation">New Survey</a>" option which will initiate the creation of a new survey. When viewing the open drawer from a page that is not the help page, an option corresponding to the help page will also be displayed.</p>
-        <a name="UnRep" style="color:rgb(63,81,181);"><li>Un-submitted Reports</li></a>
-        <p>This section contains all surveys that have not yet been downloaded.  These surveys may be incomplete or ready to download.  Surveys in this section are editable by clicking on the name of an existing survey.</p>
-        <a name="PastRep" style="color:rgb(63,81,181);"><li>Past Reports</li></a>
-        <p>Surveys within this section have been previously downloaded.  This may include both incomplete and completed surveys.  Surveys within this section are not editable, but may be opened and viewed in the same manner as unsubmitted surveys.  You can determine if the currently viewed survey is editable by referring to the navigation bar at the top of the screen.  On the right side of the page name within this bar, there will be "(read-only)".  If this is not visible, the survey is unsubmitted and you may still edit it.</p>
-        <a name="LowNavBar" style="color:rgb(63,81,181);"><li>Lower Navigation Bar</li></a>
-        <p>Across the bottom of the home page, you should see another navigation bar, this bar contains a button on the right, "New Survey", and a button on the left "Upload Past Reports". The right-hand button is an alternate way to start a new survey. The "Upload Past Reports" button allows the user to post their surveys to the database. Every Survey within the "Past Reports" section will be posted.</p>
-        <li style="color:rgb(63,81,181);">Deleting Surveys</li>
-        <p>To delete a survey, open the survey for editing or viewing.  At the bottom of the page, in the center, there will be a 'Delete' button, upon the first press, you will be prompted to confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the button that reads, "Deleting Survey... ".  On this pop-up, there is an undo option, but will vanish quickly.  When the pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
-    </ol>
+    <div class="help-home-page">
+        <a name="HomePageNav"><h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1></a>
+        <p style="padding:0px 0px 0px 10px;">The home page is broken down into five major sections:</p>
+        <ol>
+            <a name="UpNavBar" style="color:rgb(63,81,181);"><li> Upper Navigation Bar</li></a>
+            <p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length horizontal bars.  This button can be clicked on to open a drawer that displays two additional options: the "Home Page" (which is currently displayed) and the "<a href="#Survey Creation">New Survey</a>" option which will initiate the creation of a new survey. When viewing the open drawer from a page that is not the help page, an option corresponding to the help page will also be displayed.</p>
+            <a name="UnRep" style="color:rgb(63,81,181);"><li>Un-submitted Reports</li></a>
+            <p>This section contains all surveys that have not yet been downloaded.  These surveys may be incomplete or ready to download.  Surveys in this section are editable by clicking on the name of an existing survey.</p>
+            <a name="PastRep" style="color:rgb(63,81,181);"><li>Past Reports</li></a>
+            <p>Surveys within this section have been previously downloaded.  This may include both incomplete and completed surveys.  Surveys within this section are not editable, but may be opened and viewed in the same manner as unsubmitted surveys.  You can determine if the currently viewed survey is editable by referring to the navigation bar at the top of the screen.  On the right side of the page name within this bar, there will be "(read-only)".  If this is not visible, the survey is unsubmitted and you may still edit it.</p>
+            <a name="LowNavBar" style="color:rgb(63,81,181);"><li>Lower Navigation Bar</li></a>
+            <p>Across the bottom of the home page, you should see another navigation bar, this bar contains a button on the right, "New Survey", and a button on the left "Upload Past Reports". The right-hand button is an alternate way to start a new survey. The "Upload Past Reports" button allows the user to post their surveys to the database. Every Survey within the "Past Reports" section will be posted.</p>
+            <li style="color:rgb(63,81,181);">Deleting Surveys</li>
+            <p>To delete a survey, open the survey for editing or viewing.  At the bottom of the page, in the center, there will be a 'Delete' button, upon the first press, you will be prompted to confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the button that reads, "Deleting Survey... ".  On this pop-up, there is an undo option, but will vanish quickly.  When the pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
+        </ol>
+    </div>
 
     <!-- Upon new survey creation -->
     <a name="Survey Creation" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Creation</h1></a>
@@ -324,11 +327,15 @@
         <li style="color:rgb(63,81,181);">Menu and Navigation</li>
         <p>Please note that the navigation bar's drawer now has new features.  After a new survey has been initiated, the menu will now contain not only the home page, but also links to each page of the survey.  Each page will be described below.  Please note that two buttons can now be found after the last field on each page (except for the first page 'Beach Selection' and the last page 'Review').  These are page buttons for easy transitions between the next portion of the survey and the previous.</p>
         <!-- Section II -->
-        <li style="color:rgb(63,81,181);">Beach Selection</li>
-        <p>After creating a new survey, you will be brought to the first page of the survey creation, "Beach Selection".  On this page, you will first be prompted to input your name and user id. <b>Although these are not required and may be omitted, it is recommended that a user id be provided if applicable. </b> Next the user will be able to input the county name from a drop-down menu, lake name based on the county you selected, beach name based on the lake selected, and monitoring site.  <b>The beach name and monitoring site are required fields.</b>  If the county has only one option, the other fields will be automatically filled in.  After specifying a site, you can denote it as a "Composite sample", and/or mark the site as a favorite.  Once you have a site marked as favorite, you can select it in future surveys from the 'Favorites' drop-down menu (first field on Beach Selection page) and the data will be auto-filled.  The last field on this page allows you to input a time of collection (either automatically or manually).  An example time is provided for format if a manual input is made.  Information can be adjusted after insertion by selecting a portion of the date/time and typing new data, or using the provided up/down arrows on the right side of the field.  Also on the right side of the field is a drop-down button that displays a calendar.  The calendar can be used to fill in the required information.  <b>The time-of-survey is required for completion.</b><br/>Please note that from this point on, there are no <b><i>required</i></b> field, but some fields are still recommended and will be denoted with an astrisk * and highlighted for easy visibility.</p>
+        <div class="help-beach-selection">
+            <li style="color:rgb(63,81,181);">Beach Selection</li>
+            <p>After creating a new survey, you will be brought to the first page of the survey creation, "Beach Selection".  On this page, you will first be prompted to input your name and user id. <b>Although these are not required and may be omitted, it is recommended that a user id be provided if applicable. </b> Next the user will be able to input the county name from a drop-down menu, lake name based on the county you selected, beach name based on the lake selected, and monitoring site.  <b>The beach name and monitoring site are required fields.</b>  If the county has only one option, the other fields will be automatically filled in.  After specifying a site, you can denote it as a "Composite sample", and/or mark the site as a favorite.  Once you have a site marked as favorite, you can select it in future surveys from the 'Favorites' drop-down menu (first field on Beach Selection page) and the data will be auto-filled.  The last field on this page allows you to input a time of collection (either automatically or manually).  An example time is provided for format if a manual input is made.  Information can be adjusted after insertion by selecting a portion of the date/time and typing new data, or using the provided up/down arrows on the right side of the field.  Also on the right side of the field is a drop-down button that displays a calendar.  The calendar can be used to fill in the required information.  <b>The time-of-survey is required for completion.</b><br/>Please note that from this point on, there are no <b><i>required</i></b> field, but some fields are still recommended and will be denoted with an astrisk * and highlighted for easy visibility.</p>
+        </div>
         <!-- Section III -->
-        <li style="color:rgb(63,81,181);">Animals</li>
-        <p>This page refers to the number of <i>living</i> animals on the beach at the time of the survey.  Fields are specified for seagulls, geese, dogs, and other wildlife. For dead animals, see next heading (Section IV).<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
+        <div class="help-living-animals">
+            <li style="color:rgb(63,81,181);">Animals</li>
+            <p>This page refers to the number of <i>living</i> animals on the beach at the time of the survey.  Fields are specified for seagulls, geese, dogs, and other wildlife. For dead animals, see next heading (Section IV).<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
+        </div>
         <!-- Section IV -->
         <li style="color:rgb(63,81,181);">Deceased Animals</li>
         <p>This page refers to the number of <i>dead</i> animals on the beach or within the vicinity, specific fields are provided for Loons, Herring Gulls, Ring Gulls, Cormorants, Longtail Ducks, Scoters, Horned Grebes, Rednecked Grebes, Fish, and other birds.<br/>If additional comments are desired for this section, see the "<a href="#Comments">Comments</a>" section (Section XII) below.</p>
