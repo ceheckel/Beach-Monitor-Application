@@ -213,12 +213,14 @@ beaches_sites_get.run = function (callback, use_test_data) {
                 fillCounties();
             },
             error: function () {
-                alert('Get beaches and sites failed (' + beaches_sites_get.GET_URL + ').\nUsing test data');
+                alert('Get beaches and sites failed (' + beaches_sites_get.GET_URL + ').\nNow using only pre-existing data');
 
-                // fallback to test set on failure
-                beaches = beaches_sites_get.test_beaches;
-                sites = beaches_sites_get.test_sites;
-                beaches_sites_get.parse(beaches, sites, callback);
+                // fallback to test set on failure and if data was never retrieved
+                if(beaches_sites_get == null) {
+                    beaches = beaches_sites_get.test_beaches;
+                    sites = beaches_sites_get.test_sites;
+                    beaches_sites_get.parse(beaches, sites, callback);
+                }
             }
         });
     }
