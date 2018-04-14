@@ -22,12 +22,16 @@ survey_post.upload = function(surveys) {
     // Start construction of the survey clump
     toUpload = "[";
     surveys.forEach(function(survey) {
-        toUpload = toUpload + JSON.stringify(survey) + ","; // stringify survey
+        var str = JSON.stringify(survey);
+        str = str.replace(/["]{2}/g, "null");
+        toUpload = toUpload + str + ","; // stringify survey
     });
     toUpload = toUpload.substr(0,toUpload.length-1) + "]"; // removes the last comma
 
     // get user name and password for encoding
     var usrpw = $("#username-field").val()+":"+$("#password-field").val();
+
+    console.log("toUpload", toUpload);
 
     // POST the clump
     promises.push($.ajax({
@@ -45,14 +49,28 @@ survey_post.upload = function(surveys) {
             surveys.forEach(function(survey) { survey['submitted'] = true; });
         },
         error: function (response) {
+            var array = JSON.parse(response.responseText);
+            var builtResponse = "";
+            array.forEach(function(validationErr) {
+               console.log("validationErr:",validationErr.validationErrors.validationErrors);
+                builtResponse = builtResponse + "Issue with survey idNo " + validationErr.idNo + "\n";
+                validationErr.validationErrors.validationErrors.forEach(function(msg) {
+                    console.log("msg:",msg.message);
+                   builtResponse = builtResponse + "\t" + msg.message + "\n";
+                });
+            });
+            if (builtResponse == "") {
+                builtResponse =  response.responseText;
+            }
+
             if (response.status == 500) {
-                BootstrapDialog.alert("Problem with submit\nA survey with this location and date/time has already been submitted\n <details>" + response.responseText + "</details>");
+                BootstrapDialog.alert("Problem with submit\nA survey with this location and date/time has already been submitted\n <details>" + builtResponse + "</details>");
             } else if (response.status == 400) {
-                BootstrapDialog.alert("Problem with submit\nThere was an issue with the data in the request\n <details>" + response.responseText + "</details>");
+                BootstrapDialog.alert("Problem with submit\nThere was an issue with the data in the request\n <details>" + builtResponse + "</details>");
             } else if (response.status == 401) {
-                BootstrapDialog.alert("Problem with submit\nThere was an issue with sign-in\n <details>" + response.responseText + "</details>");
+                BootstrapDialog.alert("Problem with submit\nThere was an issue with sign-in\n <details>" + builtResponse + "</details>");
             } else {
-                BootstrapDialog.alert("Problem with submit\n <details>", response.status, " ", response.statusText + "</details>");
+                BootstrapDialog.alert("Problem with submit\n <details>", + builtResponse + "</details>");
             }
         }
     }));
