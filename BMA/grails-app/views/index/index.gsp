@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
+<%@ page import="beaches.LineQuestion; beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
 <!doctype html>
 
 <html>
@@ -374,6 +374,11 @@
     <g:each status="i" var="p" in="${survey}">
         <div data-page-title="${p.pageName}" data-page="${i}" class="page">
             <g:each var="q" in="${p.questions}">
+                <g:if test="${q instanceof LineQuestion}">
+                    <br>
+                    <hr>
+                </g:if>
+
                 <!-- For Questions with Flexible Units -->
                 <g:if test="${q instanceof UnitQuestion}">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:218px;display:inline-block;">
@@ -401,6 +406,7 @@
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                         </div>
                     </g:if>
+
                     <g:else>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
