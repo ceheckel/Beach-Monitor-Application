@@ -101,6 +101,7 @@ function toReview() {
     saveSurvey(totalQuestionPages);
     $('div[data-page]').show();
     $('div[data-page=home]').hide();
+    $('div[data-page=help]').hide();
     $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
     $('#page-title-drawer').html('Review');
     curPage = totalQuestionPages;

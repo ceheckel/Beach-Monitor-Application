@@ -444,7 +444,7 @@
                                 <span class="mdl-checkbox__label">${c.first}</span>
                             </label>
                             <g:if test="${!q.inline}">
-                                <br>
+
                             </g:if>
                         </g:each>
                     </g:else>

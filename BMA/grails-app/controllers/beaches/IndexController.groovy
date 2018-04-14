@@ -57,8 +57,8 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_GEESE', maxlength: 8, prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_DOGS', maxlength: 8, prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', maxlength: 8, prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'WILDLIFE_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments'),
-                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
+                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
+                        new TextQuestion(columnId: 'WILDLIFE_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments')
                 ]
         ]
 
@@ -75,8 +75,9 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', maxlength: 8, prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_DEAD_FISH', maxlength: 8, prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_OTHER', maxlength: 8, prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'NUM_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
                         new TextQuestion(columnId: 'DEAD_ANIMAL_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments'),
-                        new TextQuestion(columnId: 'NUM_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
+
                 ]
         ]
 
@@ -104,8 +105,9 @@ class IndexController {
                         new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
                                 new Tuple2('Other material', false),
                         ], onclick: 'OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
                         new TextQuestion(columnId: 'DEBRIS_IN_WATER_COMMENTS', maxlength: 195, prompt: 'Additional Floating Debris Comments'),
-                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
+
                 ]
         ]
 
