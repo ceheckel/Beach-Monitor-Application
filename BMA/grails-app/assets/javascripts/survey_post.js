@@ -49,7 +49,11 @@ survey_post.upload = function(surveys) {
         },
         success: function (response) {
             BootstrapDialog.alert("Report submitted successfully\n <details>" + response.responseText + "</details>");
-            surveys.forEach(function(survey) { if (survey != null) {survey['submitted'] = true; } });
+
+            for(i = 0; i < surveys.length; i += 1) {
+                surveys[i].submitted = true;
+                localforage.setItem(surveys[i].id,surveys[i],toPage('home',false));
+            }
         },
         error: function (response) {
             var array = JSON.parse(response.responseText);
