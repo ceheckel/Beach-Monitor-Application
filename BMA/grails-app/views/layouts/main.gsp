@@ -92,7 +92,7 @@
             <span class="mdl-layout-title" id="page-title" style="white-space: pre">WI Beaches</span>
 
             <!-- Help Button on Upper Navbar -->
-            <button id="btn-help" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" data-toggle="modal" data-target="#help-modal" style="background-color: rgb(68,138,255); color: rgb(255,255,255); position: absolute; right: 15px; top: 15px;" data-upgraded=",MaterialButton,MaterialRipple">
+            <button id="btn-help" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="toHelp();" style="background-color: rgb(68,138,255); color: rgb(255,255,255); position: absolute; right: 15px; top: 15px;" data-upgraded=",MaterialButton,MaterialRipple">
                 <div class="help-icon"><i class="material-icons">help</i></div>
                 <div class="help-icon-item"><i class="material-icons">help</i>&nbsp;Help</div>
                 <span class="mdl-button__ripple-container">

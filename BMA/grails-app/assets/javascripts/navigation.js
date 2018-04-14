@@ -52,7 +52,7 @@ function toPage(page, toDelete) {
 
     // Display buttons on the page based upon current page
     displayBtns();
-
+    saveFavoriteEnabled();
 }
 
 /**
