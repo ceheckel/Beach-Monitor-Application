@@ -215,7 +215,7 @@ function validatePage (curPage) {
         }
 
         date = $("#SAMPLE_DATE_TIME").val();
-        if (date === "") {
+        if (date === "-1") {
             myAlert("Sample Date is a required field. Please use the current datetime by clicking \"COLLECT SAMPLE NOW\" or use the date picker to choose a custom datetime.");
             return false;
         }
