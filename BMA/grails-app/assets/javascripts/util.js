@@ -114,48 +114,48 @@ function checkDirtyNumber(e) {
  * Determines if the page is completed or not and marks it as such
  * @param nextPage Next page to jump to
  */
-// function completePage(nextPage) {
-//     completedSurvey = true;
-//     var complete = true;
-//
-//     // ensure that the required fields have values
-//     if (curPage == 0) {
-//         if ($(this).attr("id") == '__beach' && $(this).val() == "")
-//             complete = false;
-//         if ($(this).attr("id") == '__site' && $(this).val() == "")
-//             complete = false;
-//         if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
-//             complete = false;
-//     }
-//     // if (!visitedPages)
-//     //     visitedPages = [];
-//     // if (visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
-//     //     complete = false;
-//
-//     if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
-//         if (complete) {
-//             /*
-//              * inclusion of the next line provides check marks next to page names on drawer.
-//              * With new set of requirements (beach id, site id, and time), most pages are 'complete' by default.
-//              * Removed by Heckel
-//              */
-//             // document.getElementById('Complete_' + page).style.display = 'inline';
-//             incompletePages.delete(page);
-//         }
-//         else {
-//             document.getElementById('Complete_' + page).style.display = 'none';
-//             completedSurvey = false;
-//             incompletePages.add(page);
-//         }
-//     }
-//
-//     if (nextPage == 'home') {
-//         for (var i = 0; i < totalQuestionPages; i++) {
-//             document.getElementById('Complete_' + i).style.display = 'none';
-//         }
-//         getSurveys();
-//     }
-// }
+function completePage(nextPage) {
+    completedSurvey = true;
+    var complete = true;
+
+    // ensure that the required fields have values
+    if (curPage == 0) {
+        if ($(this).attr("id") == '__beach' && $(this).val() == "")
+            complete = false;
+        if ($(this).attr("id") == '__site' && $(this).val() == "")
+            complete = false;
+        if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
+            complete = false;
+    }
+    // if (!visitedPages)
+    //     visitedPages = [];
+    // if (visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
+    //     complete = false;
+
+    if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
+        if (complete) {
+            /*
+             * inclusion of the next line provides check marks next to page names on drawer.
+             * With new set of requirements (beach id, site id, and time), most pages are 'complete' by default.
+             * Removed by Heckel
+             */
+            // document.getElementById('Complete_' + page).style.display = 'inline';
+            incompletePages.delete(page);
+        }
+        else {
+            document.getElementById('Complete_' + page).style.display = 'none';
+            completedSurvey = false;
+            incompletePages.add(page);
+        }
+    }
+
+    if (nextPage == 'home') {
+        for (var i = 0; i < totalQuestionPages; i++) {
+            document.getElementById('Complete_' + i).style.display = 'none';
+        }
+        getSurveys();
+    }
+}
 
 /**
  * Gets all of the fields in the current survey and returns them as a map
