@@ -21,10 +21,13 @@ survey_post.upload = function(surveys) {
 
     // Start construction of the survey clump
     toUpload = "[";
+    console.log("surveys:",surveys);
     surveys.forEach(function(survey) {
-        var str = JSON.stringify(survey);
-        str = str.replace(/["]{2}/g, "null");
-        toUpload = toUpload + str + ","; // stringify survey
+        if (survey != null) {
+            var str = JSON.stringify(survey);
+            str = str.replace(/["]{2}/g, "null");
+            toUpload = toUpload + str + ","; // stringify survey
+        }
     });
     toUpload = toUpload.substr(0,toUpload.length-1) + "]"; // removes the last comma
 
@@ -46,7 +49,7 @@ survey_post.upload = function(surveys) {
         },
         success: function (response) {
             BootstrapDialog.alert("Report submitted successfully\n <details>" + response.responseText + "</details>");
-            surveys.forEach(function(survey) { survey['submitted'] = true; });
+            surveys.forEach(function(survey) { if (survey != null) {survey['submitted'] = true; } });
         },
         error: function (response) {
             var array = JSON.parse(response.responseText);
