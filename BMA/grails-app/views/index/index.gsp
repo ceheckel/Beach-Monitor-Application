@@ -412,7 +412,7 @@
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
-                            <output name="${q.columnId2}" for="${q.columnId}"> </output>
+                            <output name="${q.columnId2}" for="${q.columnId}">${q.initValue}</output>
                         </div>
                     </g:if>
                     <g:else>
