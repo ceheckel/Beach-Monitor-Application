@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
+<%@ page import="beaches.CheckQuestion; beaches.CorrelatedTextQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
 <!doctype html>
 
 <html>
@@ -404,7 +404,29 @@
                         <datalist id="${q.list}"></datalist>
                     </g:if>
                 </g:if>
-
+                
+                <!-- For Correlated Text Questions -->
+                <g:if test="${q instanceof CorrelatedTextQuestion}">
+                    <!-- "number" case no longer affects any fields; possibly safe to remove -->
+                    <g:if test="${q.type == "number"}">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
+                            <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
+                            <output name="${q.columnId2}" for="${q.columnId}"> </output>
+                        </div>
+                    </g:if>
+                    <g:else>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
+                            <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
+                            <span class = "mdl-textfield__error">${q.errorm}</span>
+                        </div>
+                    </g:else>
+                    <g:if test="${q.list != ''}">
+                        <datalist id="${q.list}"></datalist>
+                    </g:if>
+                </g:if>
+                
                 <!-- For Checkbox Questions -->
                 <g:if test="${q instanceof CheckQuestion}">
                     <g:if test="${q.hasTitle}">
