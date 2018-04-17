@@ -108,6 +108,7 @@ function RainfallChange(){
  */
 function AlterWindDirDesc() {
     var cur = $("#WIND_DIR_DEGREES").val();
+
     // '', 'Calm', 'Variable','N','NE','E','SE','S','SW','W','NW'
     // "(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*"
     var v = 45/2.0;
@@ -158,8 +159,9 @@ function AlterWindDirDesc() {
     }
 
     // Conform degrees to cardinal directions
-    $("#WIND_DIR_DESC").val(res);
-    //$("#WIND_DIR_DESC").value = res;
+    //$("#WIND_DIR_DESC").val(res);
+    $("#WIND_DIR_OUTPUT").val(res); // Update label
+
 } // WIND_DIR_DEGREES
 
 /**
