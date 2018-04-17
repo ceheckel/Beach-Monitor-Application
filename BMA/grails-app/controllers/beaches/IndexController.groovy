@@ -344,6 +344,10 @@ class TextQuestion extends Question {
     String errorm = "Invalid input" // Message written under field when input is invalid
 }
 
+class CorrelatedTextQuestion extends TextQuestion {
+    String columnId2
+}
+
 class CheckQuestion extends Question {
     List<Tuple2<String, Boolean>> prompts
     boolean radio = false
