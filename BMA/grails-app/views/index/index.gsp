@@ -10,235 +10,235 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-        #upload-modal {
-            margin-top: 40px;
-        }
-        p{
-            color: #ffffff;
-        }
-        /* Place the navbar at the bottom of the page, and make it stick */
-        .bottom-nav {
-            background-color: rgb(63,81,181);
-            overflow: visible;
-            position: fixed;
-            z-index: 1; /* prevents checkQuestions from being visible through bottom Navbar */
-            bottom: 0;
-            width: 100%;
-        }
+    #upload-modal {
+        margin-top: 40px;
+    }
+    p{
+        color: #ffffff;
+    }
+    /* Place the navbar at the bottom of the page, and make it stick */
+    .bottom-nav {
+        background-color: rgb(63,81,181);
+        overflow: visible;
+        position: fixed;
+        z-index: 1; /* prevents checkQuestions from being visible through bottom Navbar */
+        bottom: 0;
+        width: 100%;
+    }
 
-        .mdl-textfield { display: block; }
-        .mdl-selectfield { display: block; }
+    .mdl-textfield { display: block; }
+    .mdl-selectfield { display: block; }
 
-        /* Beginning of highlighting */
-        .mdl-textfield__input.required {
-            background-color: rgba(255,0,0,0.20);
-        }
-        .mdl-textfield__input.recommended {
-            background-color: rgba(0,255,0,0.20);
-        }
-        .mdl-selectfield__select.required {
-            background-color: rgba(255,0,0,0.20);
-        }
-        .mdl-selectfield__select.recommended {
-            background-color: rgba(0,255,0,0.20);
-        }
-        /* end of highlighting */
+    /* Beginning of highlighting */
+    .mdl-textfield__input.required {
+        background-color: rgba(255,0,0,0.20);
+    }
+    .mdl-textfield__input.recommended {
+        background-color: rgba(0,255,0,0.20);
+    }
+    .mdl-selectfield__select.required {
+        background-color: rgba(255,0,0,0.20);
+    }
+    .mdl-selectfield__select.recommended {
+        background-color: rgba(0,255,0,0.20);
+    }
+    /* end of highlighting */
 
-        /* bottom nav-bar styling */
-        @media (min-width: 0px) and (max-width: 579px) {
-            .bottom-nav-icon {
-                display: block;
-            }
-            .bottom-nav-icon-item {
-                display: none;
-            }
-        }
-        @media (min-width: 580px) {
-            .bottom-nav-icon {
-                display: block;
-            }
-
-            .bottom-nav-icon-item {
-                display: none;
-            }
-        }
-        /* end bottom nav-bar styling */
-
-        /* Restyled page code */
-        /* for highlighting required and recommended fields */
-        .mdl-textfield{
-            color: #ffffff;
-        }
-
-        .mdl-selectfield{
-            color: #ffffff;
-        }
-
-        .mdl-textfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-selectfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-textfield__label:after{
-            background-color: #ffffff !important;
-        }
-
-        .mdl-selectfield--floating-label.is-focused .mdl-selectfield__label,.mdl-selectfield--floating-label.is-dirty .mdl-selectfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
-            color: #ffffff;
-        }
-
-        .mdl-checkbox__label{
-            color: #ffffff;
-        }
-        .surveyList-checkbox{
-            width: 3em;
-        }
-
-        .button-question {
-            margin: 10px;
-        }
-
-        .checkbox-question {
-            margin: 10px;
-        }
-
-        .mdl-selectfield__label:after{
-            background-color: #ffffff !important;
-        }
-
-        .mdl-list__item{
-            background-color: #a4b0c4;
-        }
-
-        .mdl-list__item-primary-content{
-            height: 72px;
-            padding: 0%;
-            margin: 0%;
-            border-width: 0px;
-        }
-
-        .list-container{
-            height: 72px;
-            width: 100%;
-            margin-left: 0em;
-            display: table;
-        }
-
-        .list-item{
-            display: table-cell;
-            width: 100%;
-            margin-left: 0em;
-        }
-
-        .checkbox{
-            width: 3em;
-            left: 0px;
-            margin: 0%;
-        }
-
-        .actionIcon{
-            width: 3em;
-            right: 0px;
-        }
-
-        .survey-data{
-            right: 0px;
-        }
-
-        /************************************************************************************************************/
-        .checkCont {
+    /* bottom nav-bar styling */
+    @media (min-width: 0px) and (max-width: 579px) {
+        .bottom-nav-icon {
             display: block;
-            position: relative;
-            padding-left: 35px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            font-size: 22px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
-
-        /* Hide the browser's default checkbox */
-        .checkCont input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        /* Create a custom checkbox */
-        .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 25px;
-            width: 25px;
-            background-color: #a4b0c4;
-            border: solid #3f51b5;
-        }
-
-        /* On mouse-over, add a grey background color */
-        .checkCont:hover input ~ .checkmark {
-            background-color: #a4b0c4;
-        }
-
-        option{
-            color: black;
-        }
-
-        .checkCont:hover{
-            background-color: #fff;
-        }
-
-        /* When the checkbox is checked, add a blue background */
-        .checkCont input:checked ~ .checkmark {
-            background-color: #3f51b5;
-        }
-
-        /* Create the checkmark/indicator (hidden when not checked) */
-        .checkmark:after {
-            content: "";
-            position: absolute;
+        .bottom-nav-icon-item {
             display: none;
         }
-
-        /* Show the checkmark when checked */
-        .checkCont input:checked ~ .checkmark:after {
+    }
+    @media (min-width: 580px) {
+        .bottom-nav-icon {
             display: block;
         }
 
-        /* Style the checkmark/indicator */
-        .checkCont .checkmark:after {
-            left: 7px;
-            top: 3px;
-            width: 5px;
-            height: 10px;
-            border: solid #a4b0c4;
-            border-width: 0 3px 3px 0;
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            transform: rotate(45deg);
+        .bottom-nav-icon-item {
+            display: none;
         }
-        /**************************************************************************************************************/
+    }
+    /* end bottom nav-bar styling */
+
+    /* Restyled page code */
+    /* for highlighting required and recommended fields */
+    .mdl-textfield{
+        color: #ffffff;
+    }
+
+    .mdl-selectfield{
+        color: #ffffff;
+    }
+
+    .mdl-textfield__label{
+        color: #ffffff;
+    }
+
+    .mdl-selectfield__label{
+        color: #ffffff;
+    }
+
+    .mdl-textfield__label:after{
+        background-color: #ffffff !important;
+    }
+
+    .mdl-selectfield--floating-label.is-focused .mdl-selectfield__label,.mdl-selectfield--floating-label.is-dirty .mdl-selectfield__label{
+        color: #ffffff;
+    }
+
+    .mdl-textfield--floating-label.is-focused .mdl-textfield__label,.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+        color: #ffffff;
+    }
+
+    .mdl-checkbox__label{
+        color: #ffffff;
+    }
+    .surveyList-checkbox{
+        width: 3em;
+    }
+
+    .button-question {
+        margin: 10px;
+    }
+
+    .checkbox-question {
+        margin: 10px;
+    }
+
+    .mdl-selectfield__label:after{
+        background-color: #ffffff !important;
+    }
+
+    .mdl-list__item{
+        background-color: #a4b0c4;
+    }
+
+    .mdl-list__item-primary-content{
+        height: 72px;
+        padding: 0%;
+        margin: 0%;
+        border-width: 0px;
+    }
+
+    .list-container{
+        height: 72px;
+        width: 100%;
+        margin-left: 0em;
+        display: table;
+    }
+
+    .list-item{
+        display: table-cell;
+        width: 100%;
+        margin-left: 0em;
+    }
+
+    .checkbox{
+        width: 3em;
+        left: 0px;
+        margin: 0%;
+    }
+
+    .actionIcon{
+        width: 3em;
+        right: 0px;
+    }
+
+    .survey-data{
+        right: 0px;
+    }
+
+    /************************************************************************************************************/
+    .checkCont {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .checkCont input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #a4b0c4;
+        border: solid #3f51b5;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .checkCont:hover input ~ .checkmark {
+        background-color: #a4b0c4;
+    }
+
+    option{
+        color: black;
+    }
+
+    .checkCont:hover{
+        background-color: #fff;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .checkCont input:checked ~ .checkmark {
+        background-color: #3f51b5;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .checkCont input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .checkCont .checkmark:after {
+        left: 7px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: solid #a4b0c4;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    /**************************************************************************************************************/
 
 
-        mdl-list__item--two-line{
-            background-color: #a4b0c4;
-        }
+    mdl-list__item--two-line{
+        background-color: #a4b0c4;
+    }
 
-        #SAMPLE_DATE_TIME_DISPLAYED{
-            color: #ffffff;
-        }
-        body {
-            background-color: #a4b0c4;
-        }
+    #SAMPLE_DATE_TIME_DISPLAYED{
+        color: #ffffff;
+    }
+    body {
+        background-color: #a4b0c4;
+    }
     </style>
 </head>
 
@@ -374,14 +374,14 @@
                         <label class="mdl-textfield__label" for="${q.columnId}" style="display:inline-block;">${q.prompt}</label>
                         <span class = "mdl-textfield__error" style="display:inline-block;">${q.errorm}</span>
                     </div><div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label" style="width:80px;display:inline-block;">
-                        <select name="${q.columnId2}" id="${q.columnId2}" class="mdl-selectfield__select ${q.extraClasses}" onchange="${q.onchange}" style="display:inline-block;">
-                            <g:each var="o" in="${q.options}">
-                                <option value="${o}">${o}</option>
-                            </g:each>
-                        </select>
-                        <div class="mdl-selectfield__icon"><i class="material-icons" style="display:inline-block;">arrow_drop_down</i></div>
-                        <label class="mdl-selectfield__label" for="${q.columnId}" style="display:inline-block;">${q.title}</label>
-                    </div>
+                    <select name="${q.columnId2}" id="${q.columnId2}" class="mdl-selectfield__select ${q.extraClasses}" onchange="${q.onchange}" style="display:inline-block;">
+                        <g:each var="o" in="${q.options}">
+                            <option value="${o}">${o}</option>
+                        </g:each>
+                    </select>
+                    <div class="mdl-selectfield__icon"><i class="material-icons" style="display:inline-block;">arrow_drop_down</i></div>
+                    <label class="mdl-selectfield__label" for="${q.columnId}" style="display:inline-block;">${q.title}</label>
+                </div>
                 </g:if>
 
                 <!-- For Text Questions -->
@@ -404,7 +404,7 @@
                         <datalist id="${q.list}"></datalist>
                     </g:if>
                 </g:if>
-                
+
                 <!-- For Correlated Text Questions -->
                 <g:if test="${q instanceof CorrelatedTextQuestion}">
                     <!-- "number" case no longer affects any fields; possibly safe to remove -->
@@ -412,7 +412,8 @@
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
-                            <output name="${q.columnId2}" for="${q.columnId}">${q.initValue}</output>
+                            <br>
+                            <output class="'mdl-textfield__label" id="${q.columnId2}"  for="${q.columnId}">${q.initValue}</output>
                         </div>
                     </g:if>
                     <g:else>
@@ -420,13 +421,19 @@
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                             <span class = "mdl-textfield__error">${q.errorm}</span>
+                            <br>
+                            <output class="'mdl-textfield__label" id="${q.columnId2}"  for="${q.columnId}">${q.initValue}</output>
+
                         </div>
                     </g:else>
                     <g:if test="${q.list != ''}">
                         <datalist id="${q.list}"></datalist>
+                        <br>
+                        <output class="'mdl-textfield__label" id="${q.columnId2}"  for="${q.columnId}">${q.initValue}</output>
+
                     </g:if>
                 </g:if>
-                
+
                 <!-- For Checkbox Questions -->
                 <g:if test="${q instanceof CheckQuestion}">
                     <g:if test="${q.hasTitle}">
@@ -474,7 +481,7 @@
                             </g:each>
                         </select>
                         <div class="mdl-selectfield__icon"><i class="material-icons">arrow_drop_down</i></div>
-                            <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
+                        <label class="mdl-selectfield__label" for="${q.columnId}">${q.title}</label>
                     </div>
                 </g:if>
 
@@ -506,7 +513,7 @@
         </div>
     </g:each>
 
-    <!-- Bottom Navbar -->
+<!-- Bottom Navbar -->
     <div class="bottom-nav" id="bottom-nav">
         <button class="mdl-button mdl-js-button mdl-button--raised" id="btn-prev" onclick="btnPrev()" style="color:white; background-color:rgba(68,138,255,1); display:none">Previous</button>
         <div style="flex-grow: 1"></div>
