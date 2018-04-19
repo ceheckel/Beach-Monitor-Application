@@ -164,13 +164,8 @@ class IndexController {
 
                         // Wind
                         new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be positive # with max of 4 digits left of decimal", type:"numeric", pattern:"(0*[0-9]{0,4}[.]{1}[0-9]*|0*[0-9]{0,4})", step:0.0001),
-                        //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
-                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', maxlength: 3, prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01),
-                        new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
-                                '', 'Calm', 'Variable',
-                                'N','NE','E','SE','S','SW','W','NW'
-                        ], title: 'Wind direction description'),
+                        new CorrelatedTextQuestion(columnId: 'WIND_DIR_DEGREES', columnId2: 'WIND_DIR_OUTPUT', targetColumnId: 'WIND_DIR_DESC', initValue: 'Calm', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01, onchange: 'AlterWindDirDesc()', oninput: 'AlterWindDirDesc()'),
 
                         // Weather
                         new SelectQuestion(columnId: 'WEATHER_DESC', options: [
@@ -276,7 +271,7 @@ class IndexController {
                                 new Tuple2('Light Green ', false),
                         ], hasTitle:true,title:"Algae color:"),
                         new CheckQuestion(columnId: 'ALGAE_COLOR_BRGHT_GREEN', prompts: [ // Bright is intentionally spelled like this
-                                new Tuple2('Bright Green', false),
+                                                                                          new Tuple2('Bright Green', false),
                         ]),
                         new CheckQuestion(columnId: 'ALGAE_COLOR_DRK_GREEN', prompts: [
                                 new Tuple2('Dark Green', false),
@@ -353,6 +348,22 @@ class TextQuestion extends Question {
     String oninput = ""
     String errorm = "Invalid input" // Message written under field when input is invalid
     boolean characterCount = false;
+}
+
+class CorrelatedTextQuestion extends Question {
+    String columnId2
+    //String targetColumnId
+    String initValue = "~"
+
+    String prompt
+    String type = "text"
+    String pattern = ".*"
+    String step
+    String list = ""
+    String onchange = ""
+    String oninput = ""
+    String errorm = "Invalid input" // Message written under field when input is invalid
+
 }
 
 class CheckQuestion extends Question {
