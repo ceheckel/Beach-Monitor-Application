@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 04/19/2017 v0.0.04 <-- Increment this with new builds to make browser pull latest file changes
+# 04/19/2017 v0.0.05 <-- Increment this with new builds to make browser pull latest file changes
 
 # **************************** IMPORTANT!! *****************************************
 # In order for the manifest to work on the deployment or production server,
@@ -20,6 +20,16 @@ CACHE:
 /beaches/assets/mdl-selectfield.min.js?compile=false
 /beaches/assets/survey.js?compile=false
 /beaches/assets/beaches.js?compile=false
+/beaches/assets/beaches_sites_get.js?compile=false
+/beaches/assets/change.js?compile=false
+/beaches/assets/display.js?compile=false
+/beaches/assets/faves.js?compile=false
+/beaches/assets/fill.js?compile=false
+/beaches/assets/navigation.js?compile=false
+/beaches/assets/page_validation.js?compile=false
+/beaches/assets/survey_post.js?compile=false
+/beaches/assets/surveyFunc.js?compile=false
+/beaches/assets/util.js?compile=false
 
 /beaches/assets/dialog-polyfill.js?compile=false
 /beaches/assets/jquery.min.js?compile=false
@@ -41,9 +51,16 @@ CACHE:
 /beaches/assets/MaterialIcons-Regular.woff
 /beaches/assets/MaterialIcons-Regular.woff2
 #Roboto Font
-/beaches/assets/Roboto-Regular.ttf
-/beaches/assets/Roboto-Medium.ttf
-/beaches/assets/Roboto-Bold.ttf
+/beaches/assets/Roboto-Regular.ttf?compile=false
+/beaches/assets/Roboto-Medium.ttf?compile=false
+/beaches/assets/Roboto-Bold.ttf?compile=false
+
+/beaches/assets/bootstrap.min.js?compile=false
+/beaches/assets/bootstrap-dialog.js?compile=false
+/beaches/assets/bootstrap.min.css?compile=false
+/beaches/assets/bootstrap-dialog.css?compile=false
+/beaches/assets/errors.css?compile=false
+
 
 # Resources that require the user to be online.
 NETWORK:
