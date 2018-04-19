@@ -1,5 +1,5 @@
 <!doctype html>
-<!--<html lang="en" class="no-js" manifest="static/appcache.manifest">-->
+<html lang="en" class="no-js" manifest="static/appcache.manifest">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -90,6 +90,15 @@
         <div class="mdl-layout__header-row">
             <!-- Title -->
             <span class="mdl-layout-title" id="page-title" style="white-space: pre">WI Beaches</span>
+
+            <!-- Help Button on Upper Navbar -->
+            <button id="btn-help" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect bottom-nav-button" onclick="toHelp();" style="background-color: rgb(68,138,255); color: rgb(255,255,255); position: absolute; right: 15px; top: 15px;" data-upgraded=",MaterialButton,MaterialRipple">
+                <div class="help-icon"><i class="material-icons">help</i></div>
+                <div class="help-icon-item"><i class="material-icons">help</i>&nbsp;Help</div>
+                <span class="mdl-button__ripple-container">
+                    <span class="mdl-ripple"></span>
+                </span>
+            </button>
         </div>
 
     </header>
@@ -97,30 +106,33 @@
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title" id="page-title-drawer">Home</span>
         <span class="mdl-layout-title" id="page-beach-drawer" style="font-size: small; font-weight: lighter; line-height: 1.2">Unknown Beach</span>
-        <!-- Navigation Bar -->
+        <!-- sidebar -->
         <nav class="mdl-navigation">
-            <!-- Home Page (in navbar) -->
+            <!-- Home Page (in sidebar) -->
             <a class="mdl-navigation__link" href="javascript:toPage('home',false);closeDrawer();">Home <span class="mdl-color-text--grey">(saves survey)</span></a>
-            <!-- each page in new survey creation (in navbar) -->
+
+            <!-- each page in new survey creation (in sidebar) -->
             <div id="surveySectionsDrawer" style="display: none">
                 <g:set var="pageNum" value="${0}"/>
                 <g:each status="i" var="p" in="${survey}">
                     <a class="mdl-navigation__link" href="javascript:toPage(${pageNum});closeDrawer();">
                         ${p.pageName}
-                        <i class="tiny material-icons" id="Complete_${pageNum}" style="display: none">done</i>
                     </a>
                     <g:set var="pageNum" value="${pageNum+1}"/>
                 </g:each>
-                <!-- Review Page (in navbar) -->
+
+                <!-- Review Page (in sidebar) -->
                 <a class="mdl-navigation__link" href="javascript:toReview();closeDrawer();">Review</a>
             </div>
-            <!-- New Survey (in navbar) -->
+
+            <!-- New Survey (in sidebar) -->
             <div id="homeSectionDrawer">
                 <a class="mdl-navigation__link" href="javascript:newSurvey();closeDrawer();">New Survey</a>
             </div>
-            <!-- Help Button (in navbar) -->
+
+            <!-- Help Button (in sidebar) -->
             <div id="helpSectionDrawer">
-                <a class="mdl-navigation__link" href="javascript:toPage('help',false);closeDrawer();">Help?</a>
+                <a class="mdl-navigation__link" href="javascript:toHelp();closeDrawer();">Need Help?</a>
             </div>
         </nav>
     </div>

@@ -185,16 +185,8 @@ function getSurveys() {
                 "mdl-list__item-primary-content";
             li.appendChild(dataCont);
 
-            //Make Checkbox Portion
-            /*var checkbox = document.createElement("input");
-            checkbox.className = "mdl-checkbox__input";
-            checkbox.setAttribute("type", "checkbox");
-            checkbox.id = surveys[i].id;
-            checkBoxCont.appendChild(checkbox);
-            */
-
             var checkbox = document.createElement("label");
-            checkbox.className = "checkCont mdl-checkbox mdl-js-checkbox surveyList-checkbox";
+            checkbox.className = "checkCont surveyList-checkbox";//"checkCont mdl-checkbox mdl-js-checkbox surveyList-checkbox"; Safe to delete?
             checkbox.id = surveys[i].id;
 
             var input = document.createElement("input");
@@ -268,14 +260,6 @@ function uploadSelected() {
         alert("No Surveys Selected");
         return;
     }
-    //
-    // // check if any uploaded surveys are selected
-    // for (var i = 0; i < selected.length; i++) {
-    //     if (selected[i].parentElement.parentElement.id == "uploaded-reports") {
-    //         alert("");
-    //         return;
-    //     }
-    // }
 
     // for each survey marked for upload ...
     for (var i = 0; i < selected.length; i++) {
@@ -534,6 +518,6 @@ function deleteSelected() {
  */
 function submit(){
     saveSurvey(totalQuestionPages);
-    concatComments();
+    // concatComments();
     toPage('home',false);
 }

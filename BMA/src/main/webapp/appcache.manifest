@@ -12,7 +12,7 @@ CACHE MANIFEST
 
 # Explicitly cached 'master entries'.
 CACHE:
-/index.html
+/beaches/index.html
 /beaches/assets/application.js?compile=false
 /beaches/assets/faves.js?compile=false
 /beaches/assets/localforage.js?compile=false

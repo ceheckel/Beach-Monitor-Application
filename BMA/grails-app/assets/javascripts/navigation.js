@@ -22,7 +22,10 @@ function toPage(page, toDelete) {
     saveSurvey();
 
     // reset global var
-    if(page == 'home') { submitted = false; }
+    if(page == 'home') {
+        submitted = false;
+        getSurveys();
+    }
 
     // hide everything, then show only desired page
     $('div[data-page]').hide();
@@ -52,7 +55,7 @@ function toPage(page, toDelete) {
 
     // Display buttons on the page based upon current page
     displayBtns();
-
+    saveFavoriteEnabled();
 }
 
 /**
@@ -62,7 +65,13 @@ function toPage(page, toDelete) {
  * @see toPage
  */
 function btnPrev() {
-    toPage(curPage - 1,false);
+    // if button is pressed from the help page, return to last visited page
+    if(document.getElementById("btn-prev").innerHTML == "Return") {
+        $('#btn-prev').html('Previous');
+        toPage(curPage, false);
+    } else { // else, go back one page
+        toPage(curPage - 1, false);
+    }
 }
 
 /**
@@ -95,6 +104,7 @@ function toReview() {
     saveSurvey(totalQuestionPages);
     $('div[data-page]').show();
     $('div[data-page=home]').hide();
+    $('div[data-page=help]').hide();
     $('#page-title').html('Review' + (submitted ? ' <span style="font-size:1rem">(Read Only)</span>' : ''));
     $('#page-title-drawer').html('Review');
     curPage = totalQuestionPages;
@@ -106,6 +116,24 @@ function toReview() {
         $(e).css('font-weight', 'inherit').removeClass('mdl-color--accent').removeClass('mdl-color-text--accent-contrast');
     });
     $('#surveySectionsDrawer a').last().addClass('mdl-color--accent').addClass('mdl-color-text--accent-contrast');
+}
+
+/**
+ *
+ */
+function toHelp() {
+    // hide everything, then show only help info
+    $('div[data-page]').hide();
+    var p = $('div[data-page=help]');
+    p.show();
+
+    // Change bottom navbar buttons
+    $('#btn-prev').css('display', 'block');
+    if(curPage != 'home') {
+        $('#btn-prev').html('Return');
+    }
+    $('#btn-delete').css('display', 'none');
+    $('#btn-next').css('display', 'none');
 }
 
 /**
@@ -139,7 +167,7 @@ function displayBtns(){
     if (curPage == 'home') {
         $('#help-button').hide(); // '#help-button' is bad name
 
-        getSurveys(); // retrieves the surveys to populate home screen
+        //getSurveys(); // retrieves the surveys to populate home screen
 
         document.getElementById("surveySectionsDrawer").style.display = 'none'; // hide survey sections
         document.getElementById("homeSectionDrawer").style.display = 'block';   // show home section
