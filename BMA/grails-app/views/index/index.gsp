@@ -1,4 +1,4 @@
-<%@ page import="beaches.CheckQuestion; beaches.CorrelatedTextQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
+<%@ page import="beaches.LineQuestion; beaches.CheckQuestion; beaches.CorrelatedTextQuestion; beaches.TextQuestion; beaches.SelectQuestion; beaches.HiddenQuestion; beaches.ButtonElement; beaches.TimeQuestion; beaches.UnitQuestion" %>
 <!doctype html>
 
 <html>
