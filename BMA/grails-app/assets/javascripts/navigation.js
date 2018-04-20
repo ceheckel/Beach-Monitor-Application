@@ -8,11 +8,11 @@
 /**
  * Go to a specified page
  * @param page Page to jump to
- * @param toDelete Boolean stating whether or not to delete survey
+ * @param needsValidation Boolean stating whether or not to delete survey
  */
-function toPage(page, toDelete) {
+function toPage(page, needsValidation) {
     // if deleting survey, ignore validation?
-    if(toDelete === false) {
+    if(needsValidation === false) {
         if (validatePage(curPage) === false) {
             return;
         }
@@ -68,7 +68,7 @@ function btnPrev() {
     // if button is pressed from the help page, return to last visited page
     if(document.getElementById("btn-prev").innerHTML == "Return") {
         $('#btn-prev').html('Previous');
-        toPage(curPage, false);
+        toPage(curPage, true);
     } else { // else, go back one page
         toPage(curPage - 1, false);
     }
