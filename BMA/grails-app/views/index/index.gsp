@@ -303,60 +303,179 @@
 	<p style="padding:0px 0px 0px 10px;">The home page is broken down into four major sections:</p>
 	<ol>
 		<a name="UpNavBar" style="color:rgb(63,81,181);"><li> Upper Navigation Bar</li></a>
-		<p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length<br/>horizontal bars.  This button can be clicked on to open a sidebar navigation menu that displays three additional<br/>options: the "Home Page" (which is currently displayed), the "<a href="#Survey Creation">New Survey</a>" (which will initiate the creation of <br/>a new survey), and the "Need Help?" option (which brings you to the help page).</p><a name="LocalRep" style="color:rgb(63,81,181);"><li>Local Reports</li></a>
-        <p>This section contains all surveys that have not yet been uploaded.  These surveys may be incomplete, ready to <br/>download, or previously downloaded.  Surveys in this section are editable by clicking on the name of an existing <br/>survey.</p>
+		<p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length
+            horizontal bars.  You can click this button to open a sidebar navigation menu that displays three additional
+            options: the "Home Page" (which is currently displayed), the "<a href="#Survey Creation">New Survey</a>" (which will initiate the creation of
+            a new survey), and the "Need Help?" option (which brings you to the help page).</p>
+
+        <a name="LocalRep" style="color:rgb(63,81,181);"><li>Local Reports</li></a>
+        <p>This section contains all surveys that have not yet been uploaded.  These surveys may be incomplete, ready to
+            download, or previously downloaded.  Surveys in this section are editable by clicking on the name of an existing survey.</p>
+
 		<a name="UploadedRep" style="color:rgb(63,81,181);"><li>Uploaded Reports</li></a>
-		<p>Surveys within this section have been previously uploaded.  Surveys within this section are not editable, but may<br/>be opened and viewed in the same manner as 'local surveys'.  You can determine if the currently viewed survey is <br/>editable by referring to the navigation bar at the top of the screen.  On the right side of the page name within <br/>this bar, there will be "(read-only)".  If this is not visible, the survey has not been uploaded and you may still <br/>edit it.</p>
+		<p>Surveys within this section have been previously uploaded.  Surveys within this section are not editable, but may
+            be opened and viewed in the same manner as 'local surveys'.  You can determine if the currently viewed survey is
+            editable by referring to the navigation bar at the top of the screen.  On the right side of the page name within
+            this bar, there will be "(read-only)".  If this is not visible, the survey has not been uploaded and you may still edit it.</p>
+
 		<a name="LowNavBar" style="color:rgb(63,81,181);"><li>Lower Navigation Bar</li></a>
-		<p>Across the bottom of the home page, you should see another navigation bar, this bar contains a button on the <br/>right, "New Survey", and several buttons on the left: "Upload Report(s)", "Download Survey(s)", and <br/>"Delete Survey(s)". The right-hand button is an alternate way to start a new survey. The "Upload Report(s)" <br/>button allows the user to post their surveys to the database.</p>
-		<p>The three buttons on the left of the bar are known as "Mass Interaction" buttons.  In order to use these buttons,<br/>you must first select one or more surveys from the list above by clicking the box to the left of the survey name.</p>
+		<p>Across the bottom of the home page, you should see another navigation bar, this bar contains a button on the
+            right, "New Survey", and several buttons on the left: "Upload Report(s)", "Download Survey(s)", and
+            "Delete Survey(s)". The right-hand button is an alternate way to start a new survey. The "Upload Report(s)"
+            button allows the user to post their surveys to the database.</p>
+		<p>The three buttons on the left of the bar are known as "Mass Interaction" buttons.  In order to use these buttons,
+            you must first select one or more surveys from the list above by clicking the box to the left of the survey name.</p>
 	</ol>
 
     <!-- Upon new survey creation -->
     <a name="Survey Creation" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Creation</h1></a>
-    <p style="padding:0px 0px 0px 10px;">For "<i>how to create a new survey</i>" refer to above sections, '<a href="#LowNavBar">Lower Navigation Bar</a>' or '<a href="#UpNavBar">Upper Navigation Bar</a>'.<br/>Note that the survey is saved before each page opens.</p>
+    <p style="padding:0px 0px 0px 10px;">For "<i>how to create a new survey</i>" refer to above sections,
+        '<a href="#LowNavBar">Lower Navigation Bar</a>' or '<a href="#UpNavBar">Upper Navigation Bar</a>'.
+        Note that the survey is saved before each page opens.</p>
 	
     <ol type="I">
         <!-- Section I -->
         <li style="color:rgb(63,81,181);">Menu and Navigation</li>
-        <p>Please note that the navigation bar's drawer now has new features.  After a new survey has been initiated, the<br/>menu will now contain not only the home page, but also links to each page of the survey.  Each page will be<br/>described below.  Please note that two to three buttons can now be found on the bottom navigation bar <br/>(depending on which page you are currently viewing) in place of the mass interaction buttons.  These are page<br/>buttons for easy transitions between the next portion of the survey and the previous.  The third button, located in<br/>the center of the bottom navigation bar is for deleting the current survey.  For more information on deleting see<br/><a href="#Survey Deletion">Survey Deletion</a> below.</p>
+        <p>Please note that the navigation bar's drawer now has new features.  After a new survey has been initiated, the
+            menu will now contain not only the home page, but also links to each page of the survey.  Each page will be
+            described below.  Please note that two to three buttons can now be found on the bottom navigation bar
+            (depending on which page you are currently viewing) in place of the mass interaction buttons.  These are page
+            buttons for easy transitions between the next portion of the survey and the previous.  The third button, located in
+            the center of the bottom navigation bar is for deleting the current survey.  For more information on deleting see
+            <a href="#Survey Deletion">Survey Deletion</a> below.</p>
+
         <!-- Section II -->
 		<li style="color:rgb(63,81,181);">Beach Selection</li>
-		<p>After creating a new survey, you will be brought to the first page of the survey creation, "Beach Selection".<br/>On this page, you will first be prompted to input your name and user id. <b>Although these are not required and<br/>may be omitted, it is recommended that a user id be provided if applicable.</b> Next the user will be able to <br/>input the county name from a drop-down menu, lake name based on the county you selected, beach name based <br/>on the lake selected, and monitoring site.  <b>The beach name and monitoring site are required fields.</b><br/>After specifying a site, you can denote it as a "Composite sample", and/or mark the site as a favorite.  <br/>Once you have a site marked as favorite, you can select it in future surveys from the 'Favorites' drop-down menu <br/>(first field on Beach Selection page) and the data will be auto-filled.  The last field on this page allows you to<br/>input a time of collection (either automatically or manually).  An example time is provided for format if a manual<br/>input is made.  Information can be adjusted after insertion by selecting a portion of the date/time and typing new<br/>data, or using the provided up/down arrows on the right side of the field.  <b>The time-of-survey is required for<br/>completion.</b>  Please note that from this point on, there are no <b><i>required</i></b> field, but some fields are still<br/>recommended and will be denoted with an asterisk * and highlighted for easy visibility.</p>
+		<p>After creating a new survey, you will be brought to the first page of the survey, "Beach Selection".
+            On this page, you will first be prompted to input your name and user id. <b>Although these are not required and
+            may be omitted, it is recommended that a user id be provided if applicable.</b> Note, input fields that are colored green
+            are recommended fields; you do not have to fill them out. While red input fields are required. You must fill
+            them out before you can go on to the next page. Next you input the county from a drop-down menu,
+            the lake based on the county you selected, the beach based on the lake selected, and finally the monitoring site.
+            <b>The county, lake, beach and monitoring site are required fields;
+            you will not be able to go to the next page without selecting them.</b>
+            After specifying a site, you can denote it as a "Composite sample", and/or mark the site as a favorite.
+            If you mark a site as favorite, you can select it in future surveys from the 'Favorites' drop-down menu
+            (first field on Beach Selection page) and the county, lake, beach and site will be auto-filled.
+            The last field on this page allows you to input the time of the sample collection (either automatically or manually).
+            Different browsers handle manually date input differently and have different formating for the date,
+            but for all browsers you can click the "collect sample now" button to enter the current time.
+            You can then edit the date field to the correct time and date if you need to.
+            We recommend this method for manually entering the date and time.
+            <b>The sample date time is required for
+            completion.</b>  Please note that from this point on, there are no <b><i>required</i></b> field, but some fields are still
+            recommended and will be denoted with an asterisk * and highlighted in green for easy visibility.</p>
+
         <!-- Section III -->
 		<li style="color:rgb(63,81,181);">Animals</li>
-		<p>This page refers to the number of <i>living</i> animals on the beach at the time of the survey.  Fields are specified for<br/>seagulls, geese, dogs, and other wildlife, as well as a field for additional comments.  For dead animals, see next <br/>heading (Section IV).</p>
+		<p>This page refers to the number of <i>living</i> animals on the beach at the time of the survey.  Fields are specified for
+            seagulls, geese, dogs, and other wildlife, as well as a field for additional comments.  For dead animals, see next
+            heading (Section IV).</p>
+
         <!-- Section IV -->
         <li style="color:rgb(63,81,181);">Deceased Animals</li>
-        <p>This page refers to the number of <i>dead</i> animals on the beach or within the vicinity, specific fields are provided<br/>for Loons, Herring Gulls, Ring Gulls, Cormorants, Long-tail Ducks, Scoters, Horned Grebes, Rednecked <br/>Grebes, Fish, and other birds, as well as a field for additional comments.</p>
+        <p>This page refers to the number of <i>dead</i> animals on the beach or within the vicinity, specific fields are provided
+            for Loons, Herring Gulls, Ring Gulls, Cormorants, Long-tail Ducks, Scoters, Horned Grebes, Rednecked
+            Grebes, Fish, and other birds, as well as a field for additional comments.</p>
+
         <!-- Section V -->
         <a name="DinW" style="color:rgb(63,81,181);"><li>Debris in Water</li></a>
-        <p>The debris page contains a list of possible foreign objects that can be <b>found in the water</b>, <i>not on the beach</i>.<br/>To mark an objects' presence, simply click the box(es) to the left of each debris type.  If the 'other' box is<br/>checked, a field will appear that will allow you to input the type of debris found.  If 'other' is selected, <b>the<br/>description is required.</b><br/>Please note that any number of boxes may be checked.<br/></p>
+        <p>The debris page contains a list of possible foreign objects that can be <b>found in the water</b>, <i>not on the beach</i>.
+            To mark an objects' presence, simply click the box(es) to the left of each debris type.  If the 'other' box is
+            checked, a field will appear that will allow you to input the type of debris found.  If 'other' is selected, <b>the
+            description is required.</b>
+            Please note that any number of boxes may be checked.</p>
+
         <!-- Section VI -->
         <li style="color:rgb(63,81,181);">Debris on Beach</li>
-        <p>This page refers to the possible debris <b>found on the beach</b>, <i>not in the water.</i>  See <a href="#DinW">previous section</a> (Section V)<br/>for functionality.  Also on this page is a field that allows you to input a rough percentage of beach covered in<br/>debris. The drop-down menu has options for "0%", "1-20%", "21-50%", and ">50%".<br/></p>
+        <p>This page refers to the possible debris <b>found on the beach</b>, <i>not in the water.</i>  See <a href="#DinW">previous section</a> (Section V)
+            for functionality.  Also on this page is a field that allows you to input a rough percentage of beach covered in
+            debris. The drop-down menu has options for "0%", "1-20%", "21-50%", and ">50%".</p>
+
         <!-- Section VII -->
         <li style="color:rgb(63,81,181);">Bathers</li>
-        <p>The bathers page provides input fields for people in water, out of the water, boating, fishing, surfing, diving,<br/>clamming, and other activities, as well as a field for additional comments.</p>
+        <p>The bathers page provides input fields for people in water, out of the water, boating, fishing, surfing, diving,
+            clamming, and other activities, as well as a field for additional comments.</p>
+
         <!-- Section VIII -->
         <li style="color:rgb(63,81,181);">Weather</li>
-        <p>On this page, fields are provided for air temperature (<sup>o</sup>F or <sup>o</sup>C), Wind speed (MPH), wind direction (degrees),<br/>wind direction description (cardinal directions: N, NE, E, SE, etc.) weather conditions (sunny, cloudy, etc.),<br/>hours since last rain, and rainfall amount (rainfall can be measured in either inches, or centimeters).<br/>Drop-down menus are provided for both unit selections, 'wind direction description', 'weather conditions', and<br/>'hours since last rain event'.  'Weather condition' is a recommended field.</p>
+        <p>On this page, fields are provided for air temperature (<sup>o</sup>F or <sup>o</sup>C), Wind speed (MPH), wind direction (degrees),
+            wind direction description (cardinal directions: N, NE, E, SE, etc.) weather conditions (sunny, cloudy, etc.),
+            hours since last rain, and rainfall amount (rainfall can be measured in either inches, or centimeters).
+            Drop-down menus are provided for both unit selections, 'wind direction description', 'weather conditions', and
+            'hours since last rain event'.  'Weather condition' is a recommended field.</p>
+
         <!-- Section IX -->
         <li style="color:rgb(63,81,181);">Waves</li>
-        <p>On this page, Wave height can be described, and includes a check-box to represent an estimated measurement.<br/>'Wave direction' (cardinal directions: N, NE, E, SE, etc.), and 'wave conditions' have drop-down menus, as well<br/>as 'long-shore current direction' (also measured with cardinal directions).  Included on this page is a field for<br/>Long-shore current speed (measured in ft/sec or cm/sec), as well as a field for additional comments.<br/>Wave height is a recommended field.<br/></p>
+        <p>On this page, Wave height can be described, and includes a check-box to represent an estimated measurement.
+            'Wave direction' (cardinal directions: N, NE, E, SE, etc.), and 'wave conditions' have drop-down menus, as well
+            as 'long-shore current direction' (also measured with cardinal directions).  Included on this page is a field for
+            Long-shore current speed (measured in ft/sec or cm/sec), as well as a field for additional comments.
+            Wave height is a recommended field.</p>
+
         <!-- Section X -->
         <li style="color:rgb(63,81,181);">Water Conditions</li>
-        <p>This page is used to input information about the pH levels of the water and provides a check-box to indicate the<br/>color has changed.  Odor can be described, and a drop-down menu is provided for this field.  'Water temperature'<br/>can be input in terms of '<sup>o</sup>F' or '<sup>o</sup>C'.  The Haziness of water can be defined as one of the drop-down options from<br/>the 'Turbidity' field.  Alternatively, Nephelometric Turbidity Units, or NTUs, can be supplied in the proceeding<br/>field.  Common measurements are 5, 50, or 500 NTUs.  The final fields provided are for secchi tube readings and<br/>additional comments.<br/>Recommended fields include 'Water Temperature' and either 'Turbidity' or 'NTU'.<br/></p>
+        <p>This page is used to input information about the pH levels of the water and provides a check-box to indicate the
+            color has changed.  Odor can be described, and a drop-down menu is provided for this field.  'Water temperature'
+            can be input in terms of '<sup>o</sup>F' or '<sup>o</sup>C'.  The Haziness of water can be defined as one of the drop-down options from
+            the 'Turbidity' field.  Alternatively, Nephelometric Turbidity Units, or NTUs, can be supplied in the proceeding
+            field.  Common measurements are 5, 50, or 500 NTUs.  The final fields provided are for secchi tube readings and
+            additional comments.
+            Recommended fields include 'Water Temperature' and either 'Turbidity' or 'NTU'.</p>
+
         <!-- Section XI -->
         <li style="color:rgb(63,81,181);">Algae</li>
-        <p>On this page, there are two fields for percentage of algae present (on beach, and near shore).  Both of these fields<br/>are recommended and have drop-down menus with values for 0%, 1-20%, 21-50% and >50%.  Also found on <br/>this page are check-boxes for type of algae, and color of algae, as well as a field for additional comments.<br/>Note that both sets of check-boxes have an 'other' option that, when selected, display an description field.  <b>If the<br/>'other' box is checked, the description is required for completion.</b><br/></p>		<!-- Section XII -->
+        <p>On this page, there are two fields for percentage of algae present (on beach, and near shore).  Both of these fields
+            are recommended and have drop-down menus with values for 0%, 1-20%, 21-50% and >50%.  Also found on
+            this page are check-boxes for type of algae, and color of algae, as well as a field for additional comments.
+            Note that both sets of check-boxes have an 'other' option that, when selected, display an description field.  <b>If the
+            'other' box is checked, the description is required for completion.</b></p>
+
+        <!-- Section XII -->
         <li style="color:rgb(63,81,181);">Review</li>
-        <p>When creating a new survey, this page allows you to review and adjust any of the previously mentioned data<br/> fields.  If the user has not filled out all of the required information fields, then clicking the "complete" button will<br/>prompt the user with a warning.  After the Survey is completed, it will remain in the "<a href="#LocalRep">Local Reports</a>" section of<br/>the home page.  See Sections II and III for more on local reports or uploaded reports.</p>
+        <p>When creating a new survey, this page allows you to review and adjust any of the previously mentioned data
+            fields.  If you make any edits on this review page, you must click the "complete" button for the results to be saved.
+            Also clicking the "complete" button will prompt you with any warnings if there are any errors in the survey.
+            After the Survey is completed, it will remain in the "<a href="#LocalRep">Local Reports</a>" section of
+            the home page.  See Sections II and III for more on local reports or uploaded reports.</p>
     </ol>
 	
 	<!-- Survey Deletion -->
 	<a name="Survey Deletion" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Deletion</h1></a>
-	<p style="padding:0px 0px 0px 10px;">At the bottom of the page, in the center, there will be a 'Delete' button, upon the first press, you will be prompted to<br/>confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the<br/>first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the<br/>button that reads, "Deleting Survey... ".  On this pop-up, there is an undo option, but will vanish quickly.  When the<br/>pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
+	<p style="padding:0px 0px 0px 10px;">At the bottom of the page, in the center, there is a 'Delete' button; upon the first press, you will be prompted to
+        confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the
+        first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the
+        button that reads, "Deleting Survey... ".  On this pop-up, there is an undo option, but will vanish quickly.  When the
+        pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
+
+    <!-- Survey Upload and Download -->
+    <a name="Survey Upload and Download" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Upload and Download</h1></a>
+    <p style="padding:0px 0px 0px 10px;">
+        On the home page, you can select multiple surveys to upload or download. You select the surveys by
+        clicking the checkboxes to the left of the surveys and then clicking the up or down arrows at the bottom
+        of the page. Clicking the up arrow will upload the survey to Wisconsin Beach Health Server, and you will
+        be prompted to login. Clicking the down arrow will download a CSV of the surveys to your device.
+        A CSV is file format that any spreadsheet application can open, e.g. Excel. Each browser handles downloads differently.
+    </p>
+
+    <!-- Offline Use -->
+    <a name="Offline Use" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Offline Use</h1></a>
+    <p style="padding:0px 0px 0px 10px;">
+        You can use this app offline, meaning in the field without an internet connection. You must first visit this
+        site online with the device and browser that you will take to the field, so that the browser can cache the
+        app/website on to the device. The browser caches the app in a few seconds. Bookmark this website/app,
+        so that you can point your browser to website/app easily. In the field, open your browser and navigate to
+        the app by using the bookmark or manually entering the URL.
+    </p>
+
+    <!-- Browser Compatibility  -->
+    <a name="Browser Compatibility " style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Browser Compatibility</h1></a>
+    <p style="padding:0px 0px 0px 10px;">
+        The app has been tested using Chrome and Safari, and we recommend using them. Some testing has been done on Firefox.
+        The app does not work on IE 11 and no testing has been made Edge. 
+        Note that the app behaves differently on different browsers, especially during date input and downloading.
+    </p>
+
 </div>
 
 <!-- Questions -->
