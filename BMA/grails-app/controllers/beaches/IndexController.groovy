@@ -57,8 +57,8 @@ class IndexController {
                         new TextQuestion(columnId: 'NO_GEESE', maxlength: 8, prompt: 'Number of living Geese', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_DOGS', maxlength: 8, prompt: 'Number of living Dogs', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NO_ANIMALS_OTHER', maxlength: 8, prompt: 'Number of other living wildlife', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NO_ANIMALS_OTHER","#ANIMALS_OTHER_DESC")'),
-                        new TextQuestion(columnId: 'WILDLIFE_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments'),
-                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
+                        new TextQuestion(columnId: 'ANIMALS_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
+                        new TextQuestion(columnId: 'WILDLIFE_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments')
                 ]
         ]
 
@@ -75,8 +75,9 @@ class IndexController {
                         new TextQuestion(columnId: 'NUM_REDNECKED_GREBE', maxlength: 8, prompt: 'Number of dead Red-necked Grebe', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_DEAD_FISH', maxlength: 8, prompt: 'Number of dead Fish', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1),
                         new TextQuestion(columnId: 'NUM_OTHER', maxlength: 8, prompt: 'Number of other dead birds', errorm:"Must be a nonnegative integer", type:"numeric", pattern:"(0*[1-9][0-9]*)|0*", step:1, oninput:'OtherChange("#NUM_OTHER","#NUM_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'NUM_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
                         new TextQuestion(columnId: 'DEAD_ANIMAL_COMMENTS', maxlength: 195, prompt: 'Additional Wildlife Comments'),
-                        new TextQuestion(columnId: 'NUM_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
+
                 ]
         ]
 
@@ -104,8 +105,9 @@ class IndexController {
                         new CheckQuestion(columnId: 'FLOAT_OTHER', prompts: [
                                 new Tuple2('Other material', false),
                         ], onclick: 'OtherCheckbox("#FLOAT_OTHER","#FLOAT_OTHER_DESC")'),
+                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *'),
                         new TextQuestion(columnId: 'DEBRIS_IN_WATER_COMMENTS', maxlength: 195, prompt: 'Additional Floating Debris Comments'),
-                        new TextQuestion(columnId: 'FLOAT_OTHER_DESC', maxlength: 50, prompt: 'If other, describe *')
+
                 ]
         ]
 
@@ -162,13 +164,8 @@ class IndexController {
 
                         // Wind
                         new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be positive # with max of 4 digits left of decimal", type:"numeric", pattern:"(0*[0-9]{0,4}[.]{1}[0-9]*|0*[0-9]{0,4})", step:0.0001),
-                        //@TODO find value of wind speed units
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
-                        new TextQuestion(columnId: 'WIND_DIR_DEGREES', maxlength: 3, prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01),
-                        new SelectQuestion(columnId: 'WIND_DIR_DESC', options: [
-                                '', 'Calm', 'Variable',
-                                'N','NE','E','SE','S','SW','W','NW'
-                        ], title: 'Wind direction description'),
+                        new CorrelatedTextQuestion(columnId: 'WIND_DIR_DEGREES', columnId2: 'WIND_DIR_OUTPUT', initValue: 'Calm', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01, onchange: 'AlterWindDirDesc()', oninput: 'AlterWindDirDesc()'),
 
                         // Weather
                         new SelectQuestion(columnId: 'WEATHER_DESC', options: [
@@ -274,7 +271,7 @@ class IndexController {
                                 new Tuple2('Light Green ', false),
                         ], hasTitle:true,title:"Algae color:"),
                         new CheckQuestion(columnId: 'ALGAE_COLOR_BRGHT_GREEN', prompts: [ // Bright is intentionally spelled like this
-                                new Tuple2('Bright Green', false),
+                                                                                          new Tuple2('Bright Green', false),
                         ]),
                         new CheckQuestion(columnId: 'ALGAE_COLOR_DRK_GREEN', prompts: [
                                 new Tuple2('Dark Green', false),
@@ -351,6 +348,22 @@ class TextQuestion extends Question {
     String oninput = ""
     String errorm = "Invalid input" // Message written under field when input is invalid
     boolean characterCount = false;
+}
+
+class CorrelatedTextQuestion extends Question {
+    String columnId2
+    //String targetColumnId
+    String initValue = "~"
+
+    String prompt
+    String type = "text"
+    String pattern = ".*"
+    String step
+    String list = ""
+    String onchange = ""
+    String oninput = ""
+    String errorm = "Invalid input" // Message written under field when input is invalid
+
 }
 
 class CheckQuestion extends Question {

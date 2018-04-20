@@ -18,9 +18,9 @@ function OtherChange(numberField, descriptionField){
     // check to see if other field has a value
     if(parseInt($(num).val()) > 0) {
         // setup the html for the description field
-        if(!$(desc).parent().next().is("br")) {
-            $(desc).parent().after("<br>");
-        }
+        // if(!$(desc).parent().next().is("br")) {
+        //     $(desc).parent().after("<br>");
+        // }
         $(desc).parent().show();
 
         // make the description field 'required'
@@ -55,8 +55,8 @@ function OtherCheckbox(otherField,descriptionField) {
     // check if other field is selected
     if($(other).get()[0].checked){
         // setup the html for the description field
-        if(!$(desc).parent().next().is("br"))
-            $(desc).parent().after("<br>");
+        // if(!$(desc).parent().next().is("br"))
+        //     $(desc).parent().after("<br>");
         $(desc).parent().show();
 
         // make the description field 'required'
@@ -68,8 +68,8 @@ function OtherCheckbox(otherField,descriptionField) {
         $(desc).val("");
 
         // remove setup for description field
-        if($(desc).parent().next().is("br"))
-            $(desc).parent().next().remove();
+        // if($(desc).parent().next().is("br"))
+        //     $(desc).parent().next().remove();
         $(desc).parent().hide();
     }
 }
@@ -86,8 +86,8 @@ function RainfallChange(){
         }
 
         // setup the html for the description field
-        if(!$('#RAINFALL_STN_DESC').parent().next().is("br"))
-            $('#RAINFALL_STN_DESC').parent().after("<br>");
+        // if(!$('#RAINFALL_STN_DESC').parent().next().is("br"))
+        //     $('#RAINFALL_STN_DESC').parent().after("<br>");
         $('#RAINFALL_STN_DESC').parent().show();
     } else {
         // remove possible 'required' tags if the field becomes unselected
@@ -96,11 +96,73 @@ function RainfallChange(){
         $('#RAINFALL_STN_DESC').val("Other");
 
         // remove setup for description field
-        if($('#RAINFALL_STN_DESC').parent().next().is("br"))
-            $('#RAINFALL_STN_DESC').parent().next().remove();
+        // if($('#RAINFALL_STN_DESC').parent().next().is("br"))
+        //     $('#RAINFALL_STN_DESC').parent().next().remove();
         $('#RAINFALL_STN_DESC').parent().hide();
     }
 }
+
+/**
+ * Set the value of Wind Disc based
+ * on the wind degrees input
+ */
+function AlterWindDirDesc() {
+    var cur = $("#WIND_DIR_DEGREES").val();
+
+    // '', 'Calm', 'Variable','N','NE','E','SE','S','SW','W','NW'
+    // "(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*"
+    var v = 45/2.0;
+
+    var N   = cur >= 360-v   ||   cur < v;
+    var NE  = cur >= v       &&   cur < 45+v;
+    var E   = cur >= 45+v    &&   cur < 90+v;
+    var SE  = cur >= 90+v    &&   cur < 180-v;
+
+    var S   = cur >= 180-v   &&   cur < 180+v;
+    var SW  = cur >= 180+v   &&   cur < 270-v;
+    var W   = cur >= 270-v   &&   cur < 270+v;
+    var NW  = cur >= 270+v   &&   cur < 360-v;
+
+    var res;    // RESULTS
+
+    // Alter WIND_DIR_DESC
+    if ( cur == null || cur == '') {
+        // There is nothing
+        res = 'Calm' // '' and 'Variable' shouldn't be sent
+    } else if (N) {
+        res = 'N';
+
+    } else if (NE) {
+        res = 'NE';
+
+    } else if (E) {
+        res = 'E';
+
+    } else if (SE) {
+        res = 'SE';
+
+    } else if (S) {
+        res = 'S';
+
+    } else if (SW) {
+        res = 'SW';
+
+    } else if (W) {
+        res = 'W';
+
+    } else if (NW) {
+        res = 'NW';
+
+    } else {
+        // This shouldnt happen!!!!
+        res = 'Variable';
+    }
+
+    // Conform degrees to cardinal directions
+    //$("#WIND_DIR_DESC").val(res);
+    $("#WIND_DIR_OUTPUT").val(res); // Update label
+
+} // WIND_DIR_DEGREES
 
 /**
  * Setup and removal of the description field for
@@ -109,13 +171,13 @@ function RainfallChange(){
 function OdorChange() {
     if($("#ODOR_DESCRIPTION").val() == 'Other'){
         // setup the html for the description field
-        if(!$('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
-            $('#ODOR_OTHER_DESCRIPTION').parent().after("<br>");
+        // if(!$('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
+        //     $('#ODOR_OTHER_DESCRIPTION').parent().after("<br>");
         $("#ODOR_OTHER_DESCRIPTION").parent().show();
     } else {
         // remove setup for description field
-        if($('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
-            $('#ODOR_OTHER_DESCRIPTION').parent().next().remove();
+        // if($('#ODOR_OTHER_DESCRIPTION').parent().next().is("br"))
+        //     $('#ODOR_OTHER_DESCRIPTION').parent().next().remove();
         $("#ODOR_OTHER_DESCRIPTION").parent().hide();
     }
 }

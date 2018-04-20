@@ -127,19 +127,9 @@ function completePage(nextPage) {
         if ($(this).attr("id") == 'SAMPLE_DATE_TIME' && $(this).val() == "")
             complete = false;
     }
-    // if (!visitedPages)
-    //     visitedPages = [];
-    // if (visitedPages.indexOf(page) < 0 && visitedPages.indexOf(totalQuestionPages) < 0)
-    //     complete = false;
 
     if (nextPage != 'home' && page >= 0 && page < totalQuestionPages) {
         if (complete) {
-            /*
-             * inclusion of the next line provides check marks next to page names on drawer.
-             * With new set of requirements (beach id, site id, and time), most pages are 'complete' by default.
-             * Removed by Heckel
-             */
-            // document.getElementById('Complete_' + page).style.display = 'inline';
             incompletePages.delete(page);
         }
         else {

@@ -1,49 +1,73 @@
 CACHE MANIFEST
 
-# 04/19/2017 v0.0.04 <-- Increment this with new builds to make browser pull latest file changes
+# 04/19/2017 v0.0.06 <-- Increment this with new builds to make browser pull latest file changes
 
-# **************************** IMPORTANT!! *****************************************
-# In order for the manifest to work on the deployment or production server,
-# you must add the prefix '/beaches' before all files listed here. The easiest
-# way to do this is with Ctrl+R, which you can use to find and replace 'assets'
-# with 'beaches/assets'. If you do this method, do not forget to add the '/beaches'
-# to the index.html references, since it is not listed under assets.
-# **********************************************************************************
-
-# Explicitly cached 'master entries'.
 CACHE:
-/index.html
+#.js files
+/beaches/index.html
 /beaches/assets/application.js?compile=false
+/beaches/assets/beaches.js?compile=false
+/beaches/assets/beaches_sites_get.js?compile=false
+/beaches/assets/bootstrap-dialog.js?compile=false
+/beaches/assets/bootstrap.min.js?compile=false
+/beaches/assets/change.js?compile=false
+/beaches/assets/dialog-polyfill.js?compile=false
+/beaches/assets/display.js?compile=false
 /beaches/assets/faves.js?compile=false
+/beaches/assets/fill.js?compile=false
+/beaches/assets/jquery-ui.min.js?compile=false
+/beaches/assets/jquery.min.js?compile=false
 /beaches/assets/localforage.js?compile=false
 /beaches/assets/material.min.js?compile=false
 /beaches/assets/mdl-selectfield.min.js?compile=false
+/beaches/assets/navigation.js?compile=false
+/beaches/assets/page_validation.js?compile=false
 /beaches/assets/survey.js?compile=false
 /beaches/assets/beaches.js?compile=false
+/beaches/assets/beaches_sites_get.js?compile=false
+/beaches/assets/change.js?compile=false
+/beaches/assets/display.js?compile=false
+/beaches/assets/faves.js?compile=false
+/beaches/assets/fill.js?compile=false
+/beaches/assets/navigation.js?compile=false
+/beaches/assets/page_validation.js?compile=false
+/beaches/assets/survey_post.js?compile=false
+/beaches/assets/surveyFunc.js?compile=false
+/beaches/assets/util.js?compile=false
 
 /beaches/assets/dialog-polyfill.js?compile=false
 /beaches/assets/jquery.min.js?compile=false
 /beaches/assets/jquery-ui.min.js?compile=false
 
+#.css files
 /beaches/assets/application.css?compile=false
+/beaches/assets/bootstrap-dialog.css?compile=false
+/beaches/assets/bootstrap.min.css?compile=false
+/beaches/assets/dialog-polyfill.css?compile=false
 /beaches/assets/errors.css?compile=false
+/beaches/assets/jquery-ui.css?compile=false
+/beaches/assets/material-icons.css?compile=false
 /beaches/assets/material.min.css?compile=false
 /beaches/assets/mdl-selectfield.min.css?compile=false
 /beaches/assets/mobile.css?compile=false
-/beaches/assets/jquery-ui.css?compile=false
-
-/beaches/assets/dialog-polyfill.css?compile=false
 /beaches/assets/roboto.css?compile=false
+
 #Material-Icons
-/beaches/assets/material-icons.css?compile=false
 /beaches/assets/MaterialIcons-Regular.eot
 /beaches/assets/MaterialIcons-Regular.ttf
 /beaches/assets/MaterialIcons-Regular.woff
 /beaches/assets/MaterialIcons-Regular.woff2
 #Roboto Font
-/beaches/assets/Roboto-Regular.ttf
-/beaches/assets/Roboto-Medium.ttf
-/beaches/assets/Roboto-Bold.ttf
+/beaches/assets/Roboto-Regular.ttf?compile=false
+/beaches/assets/Roboto-Medium.ttf?compile=false
+/beaches/assets/Roboto-Bold.ttf?compile=false
+
+/beaches/assets/bootstrap.min.js?compile=false
+/beaches/assets/bootstrap-dialog.js?compile=false
+/beaches/assets/bootstrap.min.css?compile=false
+/beaches/assets/bootstrap-dialog.css?compile=false
+/beaches/assets/errors.css?compile=false
+
 
 # Resources that require the user to be online.
 NETWORK:
