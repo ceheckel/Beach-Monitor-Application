@@ -9,7 +9,8 @@ window.survey_post = {};
 // https://hci-dev.cs.mtu.edu:8117/BMS2/survey //<-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
 // https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData //<-- WiDNR POST URL
 
-survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData"; //<-- WiDNR POST URL
+// survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData"; //<-- WiDNR For Test POST URL
+survey_post.URL_POST = "https://www.wibeaches.us/wibeaches-services/"; // <- WIDNR for production Post uRL
 
 /**
  * Uploads all surveys to the Wi Beach Server
