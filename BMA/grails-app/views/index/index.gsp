@@ -455,7 +455,7 @@
         clicking the checkboxes to the left of the surveys and then clicking the up or down arrows at the bottom
         of the page. Clicking the up arrow will upload the survey to Wisconsin Beach Health Server, and you will
         be prompted to login. Clicking the down arrow will download a CSV of the surveys to your device.
-        A CSV is file format that any spreadsheet application can open, e.g. Excel. Each browser handles downloads differently.
+        A CSV is a file format that any spreadsheet application can open, e.g. Excel. Each browser handles downloads differently.
     </p>
 
     <!-- Offline Use -->
@@ -472,7 +472,7 @@
     <a name="Browser Compatibility " style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Browser Compatibility</h1></a>
     <p style="padding:0px 0px 0px 10px;">
         The app has been tested using Chrome and Safari, and we recommend using them. Some testing has been done on Firefox.
-        The app does not work on IE 11 and no testing has been made Edge. 
+        The app does not work on IE 11 and no testing has been made on Edge.
         Note that the app behaves differently on different browsers, especially during date input and downloading.
     </p>
 
