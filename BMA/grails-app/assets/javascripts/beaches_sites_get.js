@@ -95,6 +95,7 @@ beaches_sites_get.run = function (callback, use_test_data) {
                     localforage.getItem('sites').then( function(value){
                         sites = value;
                         beaches_sites_get.parse(beaches, sites, callback);
+                        fillCounties();
                     });
                 });
             }
