@@ -10,7 +10,7 @@ window.survey_post = {};
 // https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData //<-- WiDNR POST Test URL
 // https://www.wibeaches.us/wibeaches-services/sanitaryData // <- WiDNR POST Production URL
 
-survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData"; // <- WiDNR POST Production URL
+survey_post.URL_POST = "https://www.wibeaches.us/wibeaches-services/sanitaryData";
 
 /**
  * Uploads all surveys to the Wi Beach Server

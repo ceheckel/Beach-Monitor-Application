@@ -299,26 +299,26 @@
 
 <!-- help page link -->
 <div class="help-page" id="help-page" data-page="help" style="display: none">
-    <a name="HomePageNav"><h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1></a>
+    <a id="HomePageNav"><h1 style="color:rgb(63,81,181);padding:0px 0px 0px 10px;">Home Page</h1></a>
 	<p style="padding:0px 0px 0px 10px;">The home page is broken down into four major sections:</p>
 	<ol>
-		<a name="UpNavBar" style="color:rgb(63,81,181);"><li> Upper Navigation Bar</li></a>
+		<a id="UpNavBar" style="color:rgb(63,81,181);"><li> Upper Navigation Bar</li></a>
 		<p>On the top left-hand side of the home page, there is a 'hamburger' button, displayed as three equal length
             horizontal bars.  You can click this button to open a sidebar navigation menu that displays three additional
             options: the "Home Page" (which is currently displayed), the "<a href="#Survey Creation">New Survey</a>" (which will initiate the creation of
             a new survey), and the "Need Help?" option (which brings you to the help page).</p>
 
-        <a name="LocalRep" style="color:rgb(63,81,181);"><li>Local Reports</li></a>
+        <a id="LocalRep" style="color:rgb(63,81,181);"><li>Local Reports</li></a>
         <p>This section contains all surveys that have not yet been uploaded.  These surveys may be incomplete, ready to
             download, or previously downloaded.  Surveys in this section are editable by clicking on the name of an existing survey.</p>
 
-		<a name="UploadedRep" style="color:rgb(63,81,181);"><li>Uploaded Reports</li></a>
+		<a id="UploadedRep" style="color:rgb(63,81,181);"><li>Uploaded Reports</li></a>
 		<p>Surveys within this section have been previously uploaded.  Surveys within this section are not editable, but may
             be opened and viewed in the same manner as 'local surveys'.  You can determine if the currently viewed survey is
             editable by referring to the navigation bar at the top of the screen.  On the right side of the page name within
             this bar, there will be "(read-only)".  If this is not visible, the survey has not been uploaded and you may still edit it.</p>
 
-		<a name="LowNavBar" style="color:rgb(63,81,181);"><li>Lower Navigation Bar</li></a>
+		<a id="LowNavBar" style="color:rgb(63,81,181);"><li>Lower Navigation Bar</li></a>
 		<p>Across the bottom of the home page, you should see another navigation bar, this bar contains a button on the
             right, "New Survey", and several buttons on the left: "Upload Report(s)", "Download Survey(s)", and
             "Delete Survey(s)". The right-hand button is an alternate way to start a new survey. The "Upload Report(s)"
@@ -328,7 +328,7 @@
 	</ol>
 
     <!-- Upon new survey creation -->
-    <a name="Survey Creation" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Creation</h1></a>
+    <a id="Survey Creation" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Creation</h1></a>
     <p style="padding:0px 0px 0px 10px;">For "<i>how to create a new survey</i>" refer to above sections,
         '<a href="#LowNavBar">Lower Navigation Bar</a>' or '<a href="#UpNavBar">Upper Navigation Bar</a>'.
         Note that the survey is saved before each page opens.</p>
@@ -379,7 +379,7 @@
             Grebes, Fish, and other birds, as well as a field for additional comments.</p>
 
         <!-- Section V -->
-        <a name="DinW" style="color:rgb(63,81,181);"><li>Debris in Water</li></a>
+        <a id="DinW" style="color:rgb(63,81,181);"><li>Debris in Water</li></a>
         <p>The debris page contains a list of possible foreign objects that can be <b>found in the water</b>, <i>not on the beach</i>.
             To mark an objects' presence, simply click the box(es) to the left of each debris type.  If the 'other' box is
             checked, a field will appear that will allow you to input the type of debris found.  If 'other' is selected, <b>the
@@ -441,7 +441,7 @@
     </ol>
 	
 	<!-- Survey Deletion -->
-	<a name="Survey Deletion" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Deletion</h1></a>
+	<a id="Survey Deletion" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Deletion</h1></a>
 	<p style="padding:0px 0px 0px 10px;">At the bottom of the page, in the center, there is a 'Delete' button; upon the first press, you will be prompted to
         confirm the deletion.  Press the button again to confirm.  If confirmation is not received within five seconds of the
         first press, the survey will not be removed.  If confirmation <b>is</b> received in the allocated time, a pop-up with cover the
@@ -449,7 +449,7 @@
         pop-up vanishes, the application will return to the home page and the survey will be removed.</p>
 
     <!-- Survey Upload and Download -->
-    <a name="Survey Upload and Download" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Upload and Download</h1></a>
+    <a id="Survey Upload and Download" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Survey Upload and Download</h1></a>
     <p style="padding:0px 0px 0px 10px;">
         On the home page, you can select multiple surveys to upload or download. You select the surveys by
         clicking the checkboxes to the left of the surveys and then clicking the up or down arrows at the bottom
@@ -459,7 +459,7 @@
     </p>
 
     <!-- Offline Use -->
-    <a name="Offline Use" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Offline Use</h1></a>
+    <a id="Offline Use" style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Offline Use</h1></a>
     <p style="padding:0px 0px 0px 10px;">
         You can use this app offline, meaning in the field without an internet connection. You must first visit this
         site online with the device and browser that you will take to the field, so that the browser can cache the
@@ -469,7 +469,7 @@
     </p>
 
     <!-- Browser Compatibility  -->
-    <a name="Browser Compatibility " style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Browser Compatibility</h1></a>
+    <a id="Browser Compatibility " style="color:rgb(63,81,181);"><h1 style="padding:0px 0px 0px 10px;">Browser Compatibility</h1></a>
     <p style="padding:0px 0px 0px 10px;">
         The app has been tested using Chrome and Safari, and we recommend using them. Some testing has been done on Firefox.
         The app does not work on IE 11 and no testing has been made on Edge.
