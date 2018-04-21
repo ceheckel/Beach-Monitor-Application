@@ -7,10 +7,10 @@ window.survey_post = {};
 
 // http://localhost:8081/bms/survey
 // https://hci-dev.cs.mtu.edu:8117/BMS2/survey //<-- TOMCAT URL IS CURRENTLY FOR TESTING SERVER
-// https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData //<-- WiDNR POST URL
+// https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData //<-- WiDNR POST Test URL
+// https://www.wibeaches.us/wibeaches-services/sanitaryData // <- WiDNR POST Production URL
 
-// survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData"; //<-- WiDNR For Test POST URL
-survey_post.URL_POST = "https://www.wibeaches.us/wibeaches-services/"; // <- WIDNR for production Post uRL
+survey_post.URL_POST = "https://wibeaches-test.er.usgs.gov/wibeaches-services/sanitaryData"; // <- WiDNR POST Production URL
 
 /**
  * Uploads all surveys to the Wi Beach Server
@@ -22,7 +22,6 @@ survey_post.upload = function(surveys) {
 
     // Start construction of the survey clump
     toUpload = "[";
-    console.log("surveys:",surveys);
     surveys.forEach(function(survey) {
         if (survey != null) {
             var str = JSON.stringify(survey);
@@ -52,8 +51,10 @@ survey_post.upload = function(surveys) {
             BootstrapDialog.alert("Report submitted successfully\n <details>" + response.responseText + "</details>");
 
             for(i = 0; i < surveys.length; i += 1) {
-                surveys[i].submitted = true;
-                localforage.setItem(surveys[i].id,surveys[i],toPage('home',false));
+                if(surveys[i] != null) {
+                    surveys[i].submitted = true;
+                    localforage.setItem(surveys[i].id, surveys[i], toPage('home', false));
+                }
             }
         },
         error: function (response) {

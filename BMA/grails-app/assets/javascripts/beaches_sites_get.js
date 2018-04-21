@@ -10,7 +10,8 @@
 
 window.beaches_sites_get = {};
 
-beaches_sites_get.GET_URL = "https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata";
+// https://wibeaches-test.er.usgs.gov/wibeaches-services/beachesrawdata  <-- WiDNR Beaches Test URL
+beaches_sites_get.GET_URL = "https://www.wibeaches.us/wibeaches-services/beachesrawdata";
 
 beaches_sites_get.parse = function (beaches, sites, callback) {
     var formatted_beaches = {};

@@ -183,7 +183,7 @@ function getAllFields() {
                 data['PART_4_COMMENTS'] =
                     $('#DEBRIS_IN_WATER_COMMENTS').val() + "; " + $('#DEBRIS_ON_BEACH_COMMENTS').val() + "; " +
                     $('#ALGAE_COMMENTS').val() + "; " + $('#WILDLIFE_COMMENTS').val() + "; " + $('#DEAD_ANIMAL_COMMENTS').val();
-            } else /* copy data */{
+            } else/* copy data */{
                 data[this.name] = this.value;
             }
         }
@@ -197,9 +197,11 @@ function getAllFields() {
     OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION");
     OtherCheckbox("#ALGAE_TYPE_OTHER","#ALGAE_TYPE_OTHER_DESC");
     OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC");
-    RainfallChange(false);
+    RainfallChange();
     OdorChange();
     TurbidityOrNTUChange();
+
+    console.log(data);
     return data;
 }
 
@@ -235,7 +237,8 @@ function clearAllFields() {
     OtherCheckbox("#COLOR_CHANGE","#COLOR_DESCRIPTION");
     OtherCheckbox("#ALGAE_TYPE_OTHER","#ALGAE_TYPE_OTHER_DESC");
     OtherCheckbox("#ALGAE_COLOR_OTHER","#ALGAE_COLOR_OTHER_DESC");
-    RainfallChange(false);
+    RainfallChange();
+    AlterWindDirDesc();
     OdorChange();
     TurbidityOrNTUChange();
 }

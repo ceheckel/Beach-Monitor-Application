@@ -21,8 +21,6 @@ function isShorterThan(candidate, value){
 
     var num = Math.ceil(Number(candidate));
 
-    console.log(num.toString());
-
     if (value < num.toString().length){
         return false;
     }

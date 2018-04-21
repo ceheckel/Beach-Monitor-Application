@@ -530,13 +530,12 @@
 
                 <!-- For Correlated Text Questions -->
                 <g:if test="${q instanceof CorrelatedTextQuestion}">
-                    <!-- "number" case no longer affects any fields; possibly safe to remove -->
                     <g:if test="${q.type == "number"}">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input list="${q.list}" class="mdl-textfield__input ${q.extraClasses}" type="${q.type}" pattern="${q.pattern}" step="${q.step}" name="${q.columnId}" id="${q.columnId}" onblur="checkDirtyNumber()" onchange="${q.onchange}" oninput="${q.oninput}" maxlength="${q.maxlength}">
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                             <br>
-                            <output class="'mdl-textfield__label" id="${q.columnId2}"  for="${q.columnId}">${q.initValue}</output>
+                            <output class="'mdl-textfield__label" id="${q.columnId2}" for="${q.columnId}">${q.initValue}</output>
                         </div>
                     </g:if>
                     <g:else>
@@ -545,14 +544,14 @@
                             <label class="mdl-textfield__label" for="${q.columnId}">${q.prompt}</label>
                             <span class = "mdl-textfield__error">${q.errorm}</span>
                             <br>
-                            <output class="'mdl-textfield__label" id="${q.columnId2}"  for="${q.columnId}">${q.initValue}</output>
+                            <output class="'mdl-textfield__label" id="${q.columnId2}" name="${q.columnId2}" for="${q.columnId}">${q.initValue}</output>
 
                         </div>
                     </g:else>
                     <g:if test="${q.list != ''}">
                         <datalist id="${q.list}"></datalist>
                         <br>
-                        <output class="'mdl-textfield__label" id="${q.columnId2}"  for="${q.columnId}">${q.initValue}</output>
+                        <output class="'mdl-textfield__label" id="${q.columnId2}" for="${q.columnId}">${q.initValue}</output>
 
                     </g:if>
                 </g:if>

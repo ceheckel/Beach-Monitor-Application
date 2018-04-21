@@ -165,7 +165,7 @@ class IndexController {
                         // Wind
                         new TextQuestion(columnId: 'WIND_SPEED', prompt: 'Wind speed (MPH)', errorm:"Must be positive # with max of 4 digits left of decimal", type:"numeric", pattern:"(0*[0-9]{0,4}[.]{1}[0-9]*|0*[0-9]{0,4})", step:0.0001),
                         new HiddenQuestion(columnId: 'WIND_SPEED_UNITS', value: 'MPH', keep: true),
-                        new CorrelatedTextQuestion(columnId: 'WIND_DIR_DEGREES', columnId2: 'WIND_DIR_OUTPUT', initValue: 'Calm', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01, onchange: 'AlterWindDirDesc()', oninput: 'AlterWindDirDesc()'),
+                        new CorrelatedTextQuestion(columnId: 'WIND_DIR_DEGREES', columnId2: 'WIND_DIR_DESC', initValue: 'Calm', prompt: 'Wind direction in degrees', errorm:"Must be an integer between 0 and 360 (inclusive)", type:"numeric", pattern: "(0*360)|(0*3[0-5][0-9])|(0*[1-2][0-9][0-9])|(0*[1-9][0-9])|(0*[1-9])|0*", step:0.01, onchange: 'AlterWindDirDesc()', oninput: 'AlterWindDirDesc()'),
 
                         // Weather
                         new SelectQuestion(columnId: 'WEATHER_DESC', options: [
@@ -185,8 +185,8 @@ class IndexController {
                                 '<72',
                                 '>72'
                         ], title: "Hours since last rain event"),
-                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be positive # with max of 4 digits left of decimal", type:"numeric", pattern:"(0*[0-9]{0,4}[.]{1}[0-9]*|0*[0-9]{0,4})", step:0.0001, oninput: "RainfallChange(true)", title: "Units", options: ['IN', 'CM',], maxlength: 12),
-                        new SelectQuestion(columnId: 'RAINFALL_STN_DESC', options: [
+                        new UnitQuestion(columnId: 'RAINFALL', columnId2: 'RAINFALL_UNITS', prompt: 'Rainfall amount', errorm:"Must be positive # with max of 4 digits left of decimal", type:"numeric", pattern:"(0*[0-9]{0,4}[.]{1}[0-9]*|0*[0-9]{0,4})", step:0.0001, oninput: "RainfallChange()", title: "Units", options: ['IN', 'CM',], maxlength: 12),
+                        new SelectQuestion(columnId: 'RAIN_INTENSITY', options: [
                                 '',
                                 'Misting',
                                 'Light',
