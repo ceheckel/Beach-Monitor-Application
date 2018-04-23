@@ -213,7 +213,7 @@ class IndexController {
                                 '',
                                 'N','NE','E','SE','S','SW','W','NW'
                         ],title: "Wave direction"),
-                        new SelectQuestion(columnId: 'WAVE_CONDITIONS', options: [
+                        new SelectQuestion(columnId: 'WAVE_INTENSITY', options: [
                                 '',
                                 'Calm',
                                 'Normal',
